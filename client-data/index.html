@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Glu | Online collaborative whiteboard</title>
+    <!-- <link rel="icon" type="image/png" href="favicon.ico" /> -->
+    <link rel="stylesheet" href="index.css" />
+    <meta
+      name="description"
+      content="A free online whiteboard for realtime collaboration. Draw, write text and sketch new ideas together on whitebophir"
+    />
+    <meta
+      name="keywords"
+      content="whiteboard,collaborative,online,draw,paint,shared,realtime,wbo,whitebophir"
+    />
+    <!-- <link rel="icon" type="image/x-icon" sizes="16x16 32x32 64x64" href="favicon.ico">
+	<link rel="icon" type="image/svg+xml" sizes="256x256" href="favicon.svg">
+	<link rel="apple-touch-icon" href="favicon.svg">
+	<link rel="mask-icon" href="favicon.svg" color="black"> -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon_sptzcl.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/apple-touch-icon_ls1yzj.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-32x32_bshltf.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-16x16_w5wobw.png"
+    />
+    <link
+      rel="manifest"
+      href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest"
+    />
+  </head>
+
+  <body>
+    <div id="zmmtg-root"></div>
+    <div id="aria-notify-area"></div>
+
+    <div class="iprepLanding">
+      <img src="./assets/iPrepLogo.png" class="logo" />
+      <p class="iprepLanding--header" id="iprepLanding--header">
+        Welcome to iPrep Play
+      </p>
+      <p class="iprepLanding--body" id="iprepLanding--body">
+        To get started, either select an existing board or create a new one.
+      </p>
+      <select class="newBoard--Select">
+        <option value="" disabled selected id="newBoard--Select">
+          Select an existing board
+        </option>
+        <option value=""></option>
+      </select>
+      <p class="iprepLanding--body">Or</p>
+      <button class="newBoard--btn" id="modalBtn">Start new board</button>
+      <div class="iprepLanding--footer">
+        <span onClick="changeLanguage('en')" id="languageSelect">
+          English
+        </span>
+        <span onClick="changeLanguage('hi')" id="languageSelect">
+          Hindi
+        </span>
+      </div>
+    </div>
+
+        <!-- MODAL FOR THE BOARD NAME INPUT -->
+    
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+            <span class="close">&times;</span>
+                <p class="iprepModal--header">Start your Whiteboard</p>
+                <p class="iprepModal--subheader">Enter a name to your board and press start</p>
+                <form action="./board.html" method="GET">
+                    <input
+                      type="text"
+                      id="board"
+                      name="board"
+                      class="modalInput"
+                      placeholder="Name the board..."
+                    />
+
+                    <button type="submit" class="modalSubmitBtn">Start</button>
+                 
+                  </form>
+            </div>
+        
+        </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        // Get the button that opens the modal
+        var btn = document.getElementById("modalBtn");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on the button, open the modal
+        btn.onclick = () => {
+        modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = () => {
+        modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        // window.onclick = (event) => {
+        //     console.log("JOD ",event)
+        // if (event.target == modal) {
+        //     console.log("JOD")
+        //     modal.style.display = "none";
+        // }
+        // }
+
+        // Function for loclization
+      function changeLanguage(selectedLanguage) {
+
+        switch (selectedLanguage) {
+          case "hi":
+            document.getElementById("iprepLanding--header").innerHTML = `Iprep Play में आपका स्वागत है`;
+            document.getElementById("iprepLanding--body").innerHTML = `शुरू करने के लिए किसी मौजूदा बोर्ड `;
+            document.getElementById("newBoard--Select").innerHTML = `किसी मौजूदा बोर्ड का चयन करें`;		
+            document.getElementById("iprepLanding-option").innerHTML = `या`;	
+			document.getElementById("iprepLanding-btn").innerHTML = `शुरू करें`;						  
+            break;
+          default:
+            // English is the default language
+            document.getElementById("iprepLanding--header").innerHTML = `Welcome to iPrep Play`;
+            document.getElementById("iprepLanding--body").innerHTML = `To get started, either select an existing board or create a new one.`;
+			document.getElementById("newBoard--Select").innerHTML = `Select an existing board`;
+			document.getElementById("iprepLanding-option").innerHTML = `Or`;
+			document.getElementById("iprepLanding-btn").innerHTML = `Start new board`;	
+            break;
+        }
+      }
+    </script>
+
+
+  
+
+    <!-- <footer>
+	<a href="https://github.com/rdbeach/wb" class="smallink">Source code on github</a>
+</footer> -->
+  </body>
+</html>
