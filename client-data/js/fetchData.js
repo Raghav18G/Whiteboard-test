@@ -2,6 +2,14 @@ console.log("JODD");
 
 var Tools = {};
 
+function SetData() {
+  var select = document.getElementById("newBoard--Select");
+  var myform = document.getElementById("existingBoardForm");
+  var board_name = select.options[select.selectedIndex].value;
+  myform.action = "board.html?board=" + board_name;
+  myform.submit();
+}
+
 (Tools.socket = null),
   (Tools.connect = function () {
     var self = this;
@@ -31,7 +39,13 @@ var Tools = {};
     });
 
     this.socket.on("boardName", function (data) {
-      console.log("JODDDDDDDDDDDDD BOARD NAME", data);
+      var dropdown = document.getElementsByClassName("newBoard--Select");
+      data.boardNames.map((name) => {
+        dropdown[0].innerHTML =
+          dropdown[0].innerHTML + `<option  value=${name}>${name}</option>`;
+      });
+
+      console.log("DROPDOWN", dropdown[0].innerHTML);
     });
   });
 

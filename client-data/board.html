@@ -76,6 +76,48 @@
 			if (event.scale !== 1) { event.preventDefault(); }
 		}, { passive: false });
 	</script>
+
+	<!-- Draggable Toolbar  -->
+	<!-- <div id="draggableToolbar">
+			<div id="draggableToolbarheader"><img src="./assets/DRAG.jpg"  class="dragLogo"/></div> -->
+		    <!-- Tools -->
+			<!-- Color Picker -->
+			<!-- <span class="tool-icon">
+				<div class="color-pick">
+					<input type="color" value="#ff00ff" id="chooseColor" />
+				</div>
+			</span> -->
+			<!-- Tool Size Indicator -->
+			<!-- <div class="tool size_selector_container">
+				<span class="tool-icon">
+					<svg viewBox="-60 -70 120 120">
+						<circle id="sizeIndicator" cx=0 cy=0 r=10 /></svg>
+				</span>
+				<label class="tool-name slider verticalAlign" for="chooseSize">
+					<input type="range" id="chooseSize" value="3" min="1" max="50" step="1" class="rangeChooser" />
+				</label>
+			</div> -->
+			<!-- Opacity Picker -->
+			<!-- <div class="tool opacityPicker">
+				<span class="tool-icon">
+					<svg viewBox="0 0 8 8">
+						<pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+							<rect x=0 y=0 width=2 height=2 fill=black />
+							<rect x=2 y=2 width=2 height=2 fill=black />
+							<rect x=2 y=0 width=2 height=2 fill=#eee />
+							<rect x=0 y=2 width=2 height=2 fill=#eee />
+						</pattern>
+						<circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
+					</svg>
+				</span>
+				<label class="tool-name slider opacitySelector hideOpacity" for="chooseOpacity">
+					<input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
+						style="-webkit-appearance: slider-vertical" class="rangeChooser" />
+				</label>
+			</div>
+	 -->
+		
+	</div>
 	<div id="loadingMessage">Loading</div>
 	<div id="overlay"></div>
 	<div id="top_left_tools" class="top__tools">
@@ -210,7 +252,8 @@
 
 		</div>
 	</div>
-	<div id="menu" class="menu">
+	
+	<div id="menu" class="menu" >
 		<div id="menuItems">
 			<ul id="tools" class="tools">
 				<li class="tool"><span class="tool-icon"></span></li>
@@ -222,6 +265,28 @@
 						</div>
 					</span>
 					<!-- <label class="tool-name" for="chooseColor">Color</label> -->
+					<ul id="tools" class="tools">
+						<li class="tool"><span class="tool-icon"></span></li>
+						
+						
+						<li class="tool opacityPicker">
+							<span class="tool-icon">
+								<svg viewBox="0 0 8 8">
+									<pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+										<rect x=0 y=0 width=2 height=2 fill=black />
+										<rect x=2 y=2 width=2 height=2 fill=black />
+										<rect x=2 y=0 width=2 height=2 fill=#eee />
+										<rect x=0 y=2 width=2 height=2 fill=#eee />
+									</pattern>
+									<circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
+								</svg>
+							</span>
+							<label class="tool-name slider opacitySelector hideOpacity" for="chooseOpacity">
+								<input type="range" id="chooseOpacity" value="1" min="0.2" max="1" step="0.1"
+									style="-webkit-appearance: slider-vertical" class="rangeChooser" />
+							</label>
+						</li>
+					</ul>
 				</li>
 				<li class="tool size_selector_container">
 					<span class="tool-icon">
@@ -300,6 +365,7 @@
 				</li>
 			</ul> -->
 		</div>
+		
 	</div>
 	<div id="template" style="display:none;"></div>
 
@@ -307,12 +373,20 @@
 	<script src="js/path-data-polyfill.js"></script>
 	<script src="js/minitpl.js"></script>
 	<script src="js/board.js"></script>
+	<script src="js/draggableToolbar.js"></script>
 	
 	<script src="tools/pencil/pencil.js"></script>
 	<script src="tools/line/line.js"></script>
 	<script src="tools/rect/rect.js"></script>
 	<script src="tools/text/text.js"></script>
 	<script src="tools/eraser/eraser.js"></script>
+
+	<!-- Recorder -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js" integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w==" crossorigin="anonymous"></script>
+	<script src="https://www.webrtc-experiment.com/EBML.js"></script>     
+	<!-- <script src="./js/screenRecorder/recorder.js"></script> -->
+
+
 
 	<!-- BEGIN TRANSFORM TOOL -->
 	<!-- Transform dep: 2D -->

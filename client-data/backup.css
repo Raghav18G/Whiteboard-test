@@ -139,138 +139,10 @@ svg {
   margin: 0;
 }
 
-
-.tools {
-  list-style-type: none;
-  padding: 0;
-  overflow: hidden;
+.tools{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0;
 }
-
-@keyframes minimize {
-  to {
-    max-width: 100%;
-  }
-}
-
-.tool {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Opera and Firefox */
-  pointer-events: auto;
-  white-space: nowrap;
-  list-style-position: inside;
-  /* border:1px solid #eeeeee; */
-  text-decoration: none;
-  cursor: pointer;
-  /* background: #FFF; */
-  /* margin-right: 5px; */
-  /* line-height: 5px; */
-  /* height: 40px; */
-  line-height: 37px;
-  /* border-radius: 3px; */
-  max-width: 40px;
-  transition-duration: 0.2s;
-  overflow: hidden;
-  float: left;
-  width: max-content;
-  /* box-shadow: 0 0 3px #7FB2CC; */
-  /*box-shadow: inset 0 0 3px #8FA2BC;*/
-}
-
-.tool:focus-within,
-#settings .tool:hover {
-  max-width: 100%;
-}
-
-.tool-popout {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Opera and Firefox */
-  pointer-events: auto;
-  white-space: nowrap;
-  list-style-position: inside;
-  border: 1px solid #eeeeee;
-  text-decoration: none;
-  cursor: pointer;
-  background: #fff;
-  margin-top: 10px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 3px;
-  max-width: 40px;
-  transition-duration: 0.2s;
-  overflow: hidden;
-  width: max-content;
-  box-shadow: 0 0 3px #7fb2cc;
-  /*box-shadow: inset 0 0 3px #8FA2BC;*/
-}
-
- .tool-popout:focus-within,
- #settings .tool-popout:hover {
-  max-width: 100%;
-}
-
-.tool:hover,
-.tool--popout:hover {
-  color: black;
-  /*
-	animation-name: minimize;
-	animation-duration: 1.2s;
-	animation-iteration-count: 2;
-	animation-timing-function: cubic-bezier(.08,.82,.17,1);
-	animation-direction: alternate;
-	*/
-}
-
-.tool-extra {
-  margin: 0px 3px 0px 5px;
-  width: 39px;
-  display: inline-block;
-}
-
-.oneTouch:active {
-  border-radius: 3px;
-  background-color: #eeeeff;
-}
-
-.tool:active {
-  box-shadow: inset 0 0 1px #ddeeff;
-  background-color: #eeeeff;
-  /*box-shadow: inset 0 0 3px #7FB2CC, 0 0 5px #0064d9;*/
-}
-
-.tool.curTool,
- .tool-extra.curTool {
-  /* box-shadow: 0 0 5px #0064d9; */
-  /*background: linear-gradient(#96E1FF, #36A2FF);*/
-}
-
- .tool-icon {
-  display: inline-block;
-  text-align: center;
-  font-size: 24px;
-  width: 30px;
-  margin-left: 5px;
-  margin-right: 26px;
-  height: 30px;
-  max-height: 24px;
-  height: 100%;
-  margin: 0px 26px auto 4px;
-  font-family: mono;
-}
-
-
 .menu .tools {
   list-style-type: none;
   padding: 0;
@@ -279,6 +151,11 @@ svg {
   margin-bottom: 0;
 }
 
+@keyframes minimize {
+  to {
+    max-width: 100%;
+  }
+}
 
 .menu .tool {
   -webkit-touch-callout: none; /* iOS Safari */

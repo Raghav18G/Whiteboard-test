@@ -1,7 +1,7 @@
 var iolib = require("socket.io"),
   BoardData = require("./boardData.js").BoardData,
   config = require("./configuration.js");
-
+const fs = require("fs");
 // Map from name to *promises* of BoardData
 var boards = {};
 var io;
@@ -39,6 +39,8 @@ function getConnectedSockets() {
 }
 
 function socketConnection(socket) {
+  console.log("Socket");
+
   function joinBoard(name) {
     // Default to the public board
     if (!name) name = "anonymous";
@@ -60,6 +62,23 @@ function socketConnection(socket) {
       return board;
     });
   }
+
+  (function readingBoardDataDirectory() {
+    var boardNames = [];
+    const testFolder = "./server-data";
+    console.log("Reading Board directory");
+    fs.readdir(testFolder, (err, files) => {
+      files.forEach((file) => {
+        let name = file.split("-")[1];
+        if (name) {
+          let currName = name.split(".")[0];
+          boardNames.push(currName);
+        }
+      });
+      console.log("Board Names", boardNames);
+      socket.emit("boardName", { boardNames });
+    });
+  })();
 
   socket.on(
     "getboard",
@@ -154,13 +173,6 @@ function socketConnection(socket) {
       }
     });
   });
-
-  function sendBoardName() {
-    console.log("Sending board names");
-    socket.emit("boardName", { name: "HELLO" });
-  }
-
-  sendBoardName();
 }
 
 function handleMsg(board, message, socket) {
