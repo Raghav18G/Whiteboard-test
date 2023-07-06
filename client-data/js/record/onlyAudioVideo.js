@@ -9,7 +9,7 @@ const audioVideo = async () => {
   changeVideoIfVideoOn();
   /* get video element */
   var video = document.querySelector(".video__recorder__screen");
-  $(".video__recorder__screen_container").draggable().resizable()
+  $(".video__recorder__screen_container").draggable().resizable();
   $(".video__recorder__screen").draggable();
   if ("srcObject" in video) {
     video.srcObject = audioStream;

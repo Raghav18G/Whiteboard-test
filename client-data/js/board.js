@@ -36,6 +36,7 @@ var isTouchDevice = "ontouchstart" in document.documentElement;
 
 Tools.board = document.getElementById("board");
 Tools.svg = document.getElementById("canvas");
+console.log("CANAVS", Tools.svg);
 Tools.group = Tools.svg.getElementById("layer-1");
 
 Tools.compass = document.getElementById("compass");
@@ -368,10 +369,12 @@ Tools.HTML = {
 
     if (oneTouch) {
       callback = function (evt) {
+        console.log("TOOL ONCLICK");
         Tools.onClick(toolName, evt);
       };
     } else {
       callback = function () {
+        console.log("TOOL Change");
         Tools.change(toolName);
       };
     }
@@ -399,7 +402,10 @@ Tools.HTML = {
           menu.content +
           `</div>
 					</div>`;
+
         document.getElementById("template").innerHTML = container;
+        console.log("TEMPLATE", document.getElementById("template"));
+
         Tools.menus[toolName].menu = document.getElementById(
           "popover-" + toolName
         );
@@ -482,11 +488,12 @@ Tools.HTML = {
         elem.getElementsByClassName("tool-icon")[0].textContent = toolIcon;
       }
       elem.title =
-        Tools.i18n.t(Tools.list[toolName].title || toolName) +
-        (Tools.list[toolName].toggle ? "  Click to toggle" : "");
+        Tools?.i18n?.t(Tools?.list[toolName]?.title || toolName) +
+        (Tools?.list[toolName]?.toggle ? "  Click to toggle" : "");
     });
   },
   changeTool: function (oldToolName, newToolName) {
+    console.log("OLD TOOL", oldToolName, "NEW TOOL", newToolName);
     var oldTool = document.getElementById("toolID-" + oldToolName);
     var newTool = document.getElementById("toolID-" + newToolName);
     if (oldTool) oldTool.classList.remove("curTool");
@@ -526,6 +533,7 @@ wb_comp.add = function (newComp) {
 Tools.list = {}; // An array of all known tools. {"toolName" : {toolObject}}
 
 Tools.add = function (newTool) {
+  console.log("TOOLs aDD CALLED", newTool.name);
   if (newTool.name in Tools.list) {
     console.log(
       "Tools.add: The tool '" +
@@ -572,6 +580,7 @@ Tools.add = function (newTool) {
 };
 
 Tools.onClick = function (toolName, evt) {
+  console.log("TOOLNAME", toolName);
   if (!(toolName in Tools.list)) {
     throw new Error("Trying to select a tool that has never been added!");
   }
@@ -585,6 +594,16 @@ Tools.onClick = function (toolName, evt) {
 };
 
 Tools.change = function (toolName) {
+  console.log("Tool Change in Function", toolName);
+
+  if (toolName == "Rectangle") {
+    if (document.getElementById("shapesArrow")) {
+      document.getElementById("shapesArrow").style.display = "block";
+      document.getElementById("shapesArrow").style.width = "10px";
+      document.getElementById("shapesArrow").childNodes[0].style.width = "10px";
+    }
+  }
+
   if (!(toolName in Tools.list)) {
     throw new Error("Trying to select a tool that has never been added!");
   }
@@ -594,6 +613,7 @@ Tools.change = function (toolName) {
   //Update the GUI
   var curToolName = Tools.curTool ? Tools.curTool.name : "";
   try {
+    console.log("TOOL In TRY  BLOCK");
     Tools.HTML.changeTool(curToolName, toolName);
   } catch (e) {
     console.error("Unable to update the GUI with the new tool. " + e);
@@ -607,6 +627,7 @@ Tools.change = function (toolName) {
     if (newtool === Tools.curTool) {
       if (newtool.toggle) {
         var elem = document.getElementById("toolID-" + newtool.name);
+        console.log("TOOL Toogling New Tool");
         newtool.toggle(elem);
       }
       return;
