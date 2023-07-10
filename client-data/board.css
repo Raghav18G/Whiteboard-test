@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap");
+
+
 html,
 body,
 svg {
@@ -12,6 +16,142 @@ svg {
 
 /* Draggable Div Styles */
 
+.stickyNotesModal{
+  position: relative;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 10%;
+  top: 10%;
+  width: 80%; /* Full width */
+  height: 80%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+
+.stickyNotesModal-content {
+  background-color: #fefefe;
+  padding: 2px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 100%; 
+  height: 100%;
+}
+
+
+
+.stickyNotesModal-content  ul,li {
+    list-style: none;
+}
+
+.stickyNotesModal-content ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.stickyNotesModal-content  ul li a {
+    text-decoration: none;
+    color: #000;
+    background: #ffc;
+    display: block;
+    height: 10em;
+    width: 10em;
+    padding: 1em;
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+    transition: transform 0.15s linear;
+}
+.stickyNotesModal-content  ul li {
+    margin: 1em;
+}
+.stickyNotesModal-content ul li:nth-child(odd) a {
+    transform: rotate(-4deg);
+    position: relative;
+    top: 5px;
+}
+.stickyNotesModal-content ul li:nth-child(even) a {
+    transform: rotate(4deg);
+    position: relative;
+    top: 5px;
+}
+.stickyNotesModal-content ul li:nth-child(3n) a {
+    transform: rotate(-3deg);
+    position: relative;
+    top: -5px;
+}
+.stickyNotesModal-content ul li:nth-child(5n) a {
+    transform: rotate(5deg);
+    position: relative;
+    top: -10px;
+}
+.stickyNotesModal-content ul li a:hover,
+ul li a:focus {
+    box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+    transform: scale(1.25);
+    position: relative;
+    z-index: 5;
+}
+.stickyNotesModal-content ul li:nth-child(even) a {
+    position: relative;
+    top: 5px;
+    background: #cfc;
+}
+.stickyNotesModal-content ul li:nth-child(3n) a {
+    position: relative;
+    top: -5px;
+    background: #ccf;
+}
+
+.iframeMoadal{
+  position: relative;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 10%;
+    top: 10%;
+    width: 80%; /* Full width */
+    height: 80%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  
+}
+
+.iframemodal-content {
+  background-color: #fefefe;
+  padding: 2px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 100%; 
+  height: 100%;
+}
+iframe{
+  position: absolute;
+  top:5%;
+  width: 100%;
+  height: 95%;
+
+  
+}
+
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right !important;
+    font-size: 28px;
+    font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    }
+
+    
+
 #draggableToolbar {
   position: relative;
   z-index: 1000;
@@ -19,12 +159,14 @@ svg {
   border: 1px solid #d3d3d3;
   text-align: center;
   display: flex;
-  width: 50%;
+  width: 60%;
   align-items: center;
-  top:580px;
+  top:280px;
   left:165px;
 
 }
+
+
 .dragIconContainer{
 background-color: #fff;
 border-radius: 40%;
@@ -41,13 +183,14 @@ border-radius: 40%;
   width:40px;
 }
 
+
 .stopRecordingBtn{
-  width:60px;
-  
+  width:40px;
 }
 
+
 .startRecordingBtn{
-  width:60px;
+  width:40px;
 }
 
 #canvas {
@@ -696,8 +839,8 @@ footer div:nth-child(2) .footer-button__button-label {
 #wc-container-right {
   height: 89% !important;
 }
-body {
-  overflow: auto;
+#body-new {
+  overflow:unset !important;
 }
 body::-webkit-scrollbar {
   width: 10px;
@@ -833,10 +976,10 @@ div#msr-pod-up {
     right: 25px;
     bottom: 105px;
   }
-  /* #board #canvas {
+  #board #canvas {
     width: 100%;
     height: 100%;
-  } */
+  }
 }
 
 @media screen and (min-width: 620px) and (max-width: 845px) {

@@ -24,7 +24,7 @@
  * @licend
  */
 
-(function hand() {
+ (function hand() {
   //Code isolation
   var selectorStates = {
     pointing: 0,
@@ -184,17 +184,17 @@
     return shape;
   }
 
-  function showSelectionButtons() {
-    var scale = getScale();
-    var selectionBBox = selectionRect.transformedBBox();
-    for (var i = 0; i < selectionButtons.length; i++) {
-      selectionButtons[i].drawCallback(
-        selectionButtons[i],
-        selectionBBox,
-        scale
-      );
-    }
-  }
+  // function showSelectionButtons() {
+  //   var scale = getScale();
+  //   var selectionBBox = selectionRect.transformedBBox();
+  //   for (var i = 0; i < selectionButtons.length; i++) {
+  //     selectionButtons[i].drawCallback(
+  //       selectionButtons[i],
+  //       selectionBBox,
+  //       scale
+  //     );
+  //   }
+  // }
 
   function hideSelectionButtons() {
     for (var i = 0; i < selectionButtons.length; i++) {
@@ -207,31 +207,33 @@
     selectionRect.style.display = "none";
   }
 
-  function startMovingElements(x, y, evt) {
-    evt.preventDefault();
-    selectorState = selectorStates.transform;
-    currentTransform = moveSelection;
-    selected = { x: x, y: y };
-    // Some of the selected elements could have been deleted
-    selected_els = selected_els.filter(function (el) {
-      return Tools.svg.getElementById(el.id) !== null;
-    });
-    transform_elements = selected_els.map(function (el) {
-      var tmatrix = get_transform_matrix(el);
-      return {
-        a: tmatrix.a,
-        b: tmatrix.b,
-        c: tmatrix.c,
-        d: tmatrix.d,
-        e: tmatrix.e,
-        f: tmatrix.f,
-      };
-    });
-    var tmatrix = get_transform_matrix(selectionRect);
-    selectionRectTransform = { x: tmatrix.e, y: tmatrix.f };
-  }
+  // function startMovingElements(x, y, evt) {
+  //   console.log("start moving");
+  //   evt.preventDefault();
+  //   selectorState = selectorStates.transform;
+  //   currentTransform = moveSelection;
+  //   selected = { x: x, y: y };
+  //   // Some of the selected elements could have been deleted
+  //   selected_els = selected_els.filter(function (el) {
+  //     return Tools.svg.getElementById(el.id) !== null;
+  //   });
+  //   transform_elements = selected_els.map(function (el) {
+  //     var tmatrix = get_transform_matrix(el);
+  //     return {
+  //       a: tmatrix.a,
+  //       b: tmatrix.b,
+  //       c: tmatrix.c,
+  //       d: tmatrix.d,
+  //       e: tmatrix.e,
+  //       f: tmatrix.f,
+  //     };
+  //   });
+  //   var tmatrix = get_transform_matrix(selectionRect);
+  //   selectionRectTransform = { x: tmatrix.e, y: tmatrix.f };
+  // }
 
   function startScalingTransform(x, y, evt) {
+    console.log("scaling start");
     evt.preventDefault();
     hideSelectionButtons();
     selectorState = selectorStates.transform;
@@ -263,6 +265,8 @@
     currentTransform = scaleSelection;
   }
 
+  
+
   function startSelector(x, y, evt) {
     evt.preventDefault();
     selected = { x: x, y: y };
@@ -292,6 +296,7 @@
   }
 
   function moveSelection(x, y) {
+    console.log("move selection ")
     var dx = x - selected.x;
     var dy = y - selected.y;
     var msgs = selected_els.map(function (el, i) {
@@ -454,6 +459,7 @@
   }
 
   function clickSelector(x, y, evt) {
+    console.log("click selector")
     selectionRect = selectionRect || createSelectorRect();
     for (var i = 0; i < selectionButtons.length; i++) {
       if (selectionButtons[i].contains(evt.target)) {
@@ -506,15 +512,18 @@
     }
   }
   function moveHand(x, y, evt, isTouchEvent) {
+console.log("")
     if (selected && !isTouchEvent) {
       //Let the browser handle touch to scroll
       window.scrollTo(selected.x - evt.clientX, selected.y - evt.clientY);
+
+      console.log("window scroll");
     }
   }
 
   function press(x, y, evt, isTouchEvent) {
-    if (!handTool.secondary.active) startHand(x, y, evt, isTouchEvent);
-    else clickSelector(x, y, evt, isTouchEvent);
+     if (!handTool.secondary.active) startHand(x, y, evt, isTouchEvent);
+     clickSelector(x, y, evt, isTouchEvent);
   }
 
   function move(x, y, evt, isTouchEvent) {
@@ -523,6 +532,7 @@
   }
 
   function release(x, y, evt, isTouchEvent) {
+
     move(x, y, evt, isTouchEvent);
     if (handTool.secondary.active) releaseSelector(x, y, evt, isTouchEvent);
     selected = null;
@@ -553,6 +563,15 @@
     window.removeEventListener("keydown", duplicateShortcut);
   }
 
+	var gridSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M0,0V17H17V0ZM12,1V4H9V1ZM8,9v3H5V9ZM5,8V5H8V8ZM9,9h3v3H9ZM9,8V5h3V8ZM8,1V4H5V1ZM1,1H4V4H1ZM1,5H4V8H1ZM1,9H4v3H1Zm0,7V13H4v3Zm4,0V13H8v3Zm4,0V13h3v3Zm7,0H13V13h3Zm0-4H13V9h3Zm0-4H13V5h3Zm0-4H13V1h3Z"/></g></g></svg>';
+
+
+  var handSvg = `<svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+	  <path d="M18.66 19.24a3.53 3.53 0 10-5.57 4.25l11.54 15.1 2.69 3.39-7.9-10.33a3.53 3.53 0 10-5.56 4.24l7.9 10.34 6.26 7.9c5.47 6.27 14.52 5.93 20.79.46a19.62 19.62 0 006.51-12.31c.39-4.23.81-15.3.81-15.3-.18-2.6-3.13-4.52-3.51-3.18l-4.9 9.76-3.36-4.23 3.36 4.23-3.36-4.23-13.47-17.2a3.53 3.53 0 10-5.56 4.24l4.25 5.57L36 30.42 22.58 12.74a3.53 3.53 0 10-5.56 4.25L31.69 36"/>
+	  <path stroke-miterlimit="10" d="M11.67 42.87c0 2.57 1.75 4.64 3.9 4.64M7.06 42.44c0 5.6 3.81 10.12 8.52 10.12M45.26 21.24c0-2.57-1.75-4.65-3.9-4.65M49.87 21.67c0-5.6-3.8-10.12-8.51-10.12"/>
+  </g>
+</svg>`;
   var handTool = {
     //The new tool
     name: "Hand",
@@ -565,12 +584,12 @@
     onquit: onquit,
     secondary: {
       name: "Selector",
-      icon: "tools/hand/selector.svg",
+      icon: gridSVG,
       active: false,
       switch: switchTool,
     },
     draw: draw,
-    icon: "tools/hand/hand.svg",
+    iconHTML: handSvg,
     mouseCursor: "move",
     showMarker: true,
   };

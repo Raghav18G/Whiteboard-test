@@ -34,12 +34,14 @@ var wb_comp = {};
 var svgWidth, svgHeight;
 var isTouchDevice = "ontouchstart" in document.documentElement;
 
+
 Tools.board = document.getElementById("board");
 Tools.svg = document.getElementById("canvas");
 console.log("CANAVS", Tools.svg);
 Tools.group = Tools.svg.getElementById("layer-1");
-
 Tools.compass = document.getElementById("compass");
+
+
 
 //Initialization
 Tools.curTool = null;
@@ -959,6 +961,7 @@ Tools.toolHooks = [
     }
   },
 ];
+
 
 var shortcutsInit = false;
 Tools.applyShortcuts = function (shortcuts, toolName) {

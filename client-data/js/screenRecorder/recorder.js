@@ -1,7 +1,6 @@
 if (!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
   var error = "Your browser does NOT support the getDisplayMedia API.";
   document.querySelector("h1").innerHTML = error;
-
   document.querySelector("video").style.display = "none";
   document.getElementById("btn-start-recording").style.display = "none";
   document.getElementById("btn-stop-recording").style.display = "none";
@@ -39,6 +38,9 @@ function invokeGetDisplayMedia(success, error) {
 function captureScreen(callback) {
   invokeGetDisplayMedia(
     function (screen) {
+      document.getElementById("btn-start-recording").style.display = "none";
+      document.getElementById("btn-stop-recording").style.display = "block";
+
       addStreamStopListener(screen, function () {
         document.getElementById("btn-stop-recording").click();
       });
@@ -59,6 +61,8 @@ function stopRecordingCallback() {
     recorder.destroy();
     recorder = null;
     document.getElementById("btn-start-recording").disabled = false;
+    document.getElementById("btn-start-recording").style.display = "block";
+    document.getElementById("btn-stop-recording").style.display = "none";
     invokeSaveAsDialog(seekableBlob, "seekable-recordrtc.webm");
   });
 }

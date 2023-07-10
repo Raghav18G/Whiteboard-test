@@ -18,9 +18,6 @@ if (config.HTTPS) {
   };
 }
 
-
-
-
 var app = config.HTTPS
   ? require("https").createServer(https, handler)
   : require("http").createServer(handler);
