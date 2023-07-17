@@ -1,4 +1,3 @@
-console.log("MAIN DRAGGABLE HUN");
 
 console.log("MAIN", $("image"));
 $("image").draggable({

@@ -1,5 +1,3 @@
-let recorder, stream;
-
 const audioVideo = async () => {
   let audioStream = await navigator.mediaDevices.getUserMedia({
     audio: true,

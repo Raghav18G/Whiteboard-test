@@ -29,6 +29,106 @@
   var downloadSvg =
     '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512"><g><g> <path d="M 470 319 C 461 319 461 328 461 339 V 471 H 50 V 339 C 50 329 50 319 41 319 C 32 319 32 329 32 339 V 481 C 32 491 37 491 47 491 H 464 C 474 491 479 491 479 481 V 339 C 479 327 479 319 470 319 Z"/> <path d="M 247 317 C 255 321 257 321 265 317 L 380 214 C 384 210 383 203 381 200 C 378 198 370 196 366 200 L 266 295 V 19 C 266 13 260 9 256 9 C 252 9 246 13 246 19 V 295 L 146 200 C 142 196 135 197 132 199 C 130 202 128 210 132 214 L 247 317 Z"/></g></g></svg>';
 
+  function downloadOption() {
+    console.log("DOWNLOADING");
+    document.getElementById("downloadModal").style.display = "block";
+    document
+      .getElementById("downloadModalClose")
+      .addEventListener("click", () => {
+        document.getElementById("downloadModal").style.display = "none";
+      });
+    document
+      .getElementById("downloadAsSVG")
+      .addEventListener("click", downloadSVGFile);
+    document
+      .getElementById("downloadAsPDF")
+      .addEventListener("click", downloadAsPDF);
+    document
+      .getElementById("downloadAsPNG")
+      .addEventListener("click", downloadAsPNG);
+    document
+      .getElementById("downloadAsJPG")
+      .addEventListener("click", downloadAsJPG);
+  }
+
+  //   Downloading As PDF
+  function downloadAsPDF() {
+    document.getElementById("downloadModal").style.display = "none";
+    document
+      .getElementById("downloadAsPDF")
+      .removeEventListener("click", () => {
+        console.log("Removed Event Listener");
+      });
+
+    let canvas = document.getElementById("canvas");
+
+    const { jsPDF } = window.jspdf;
+    html2canvas(canvas, {
+      x: window.scrollX,
+      y: window.scrollY,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }).then(function (res) {
+      const doc = new jsPDF();
+      var imgData = res.toDataURL("image/jpeg", 1.0);
+
+      doc.addImage(imgData, "JPEG", 10, 30, 180, 160);
+      doc.save("download.pdf");
+    });
+  }
+
+  //   Downloading As PNG
+  function downloadAsPNG() {
+    let canvas = document.getElementById("canvas");
+    html2canvas(canvas, {
+      x: window.scrollX,
+      y: window.scrollY,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }).then(function (res) {
+      var canvasURL = res.toDataURL("image/png");
+      /* Change MIME type to trick the browser to downlaod the file instead of displaying it */
+      canvasURL = canvasURL.replace(
+        /^data:image\/[^;]*/,
+        "data:application/octet-stream"
+      );
+
+      /* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
+      canvasURL = canvasURL.replace(
+        /^data:application\/octet-stream/,
+        `data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20`
+      );
+      let filename = `${Tools.boardName}.png`;
+      downloadwithSpecificExtension(canvasURL, filename);
+    });
+  }
+
+  //   Downloading As JPEG
+  function downloadAsJPG() {
+    let canvas = document.getElementById("canvas");
+    html2canvas(canvas, {
+      x: window.scrollX,
+      y: window.scrollY,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }).then(function (res) {
+      var canvasURL = res.toDataURL("image/jpg");
+      /* Change MIME type to trick the browser to downlaod the file instead of displaying it */
+      canvasURL = canvasURL.replace(
+        /^data:image\/[^;]*/,
+        "data:application/octet-stream"
+      );
+
+      /* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
+      canvasURL = canvasURL.replace(
+        /^data:application\/octet-stream/,
+        `data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20`
+      );
+      let filename = `${Tools.boardName}.jpg`;
+      downloadwithSpecificExtension(canvasURL, filename);
+    });
+  }
+
   function downloadSVGFile() {
     var canvasCopy = Tools.svg.cloneNode(true);
     console.log("CANVAS COPY", canvasCopy);
@@ -61,6 +161,11 @@
       canvasCopy.outerHTML || new XMLSerializer().serializeToString(canvasCopy);
 
     var blob = new Blob([outerHTML], { type: "image/svg+xml;charset=utf-8" });
+    document
+      .getElementById("downloadAsSVG")
+      .removeEventListener("click", () => {
+        console.log("Removed Event Listener");
+      });
     downloadContent(blob, Tools.boardName + ".svg");
   }
 
@@ -77,18 +182,30 @@
       document.body.appendChild(element);
       element.click();
       document.body.removeChild(element);
+      document.getElementById("downloadModal").style.display = "none";
       window.URL.revokeObjectURL(url);
     }
+  }
+
+  function downloadwithSpecificExtension(URL, filename) {
+    var element = document.createElement("a");
+    element.setAttribute("href", URL);
+    element.setAttribute("download", filename);
+    element.style.display = "none";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+    document.getElementById("downloadModal").style.display = "none";
   }
 
   Tools.add({
     //The new tool
     name: "Download",
-    shortcut: "d",
+    shortcut: { actions: [{ key: "ctrl-D", action: downloadOption }] },
     listeners: {},
     iconHTML: downloadSvg,
     oneTouch: true,
-    onstart: downloadSVGFile,
+    onstart: downloadOption,
     mouseCursor: "crosshair",
   });
 })(); //End of code isolation

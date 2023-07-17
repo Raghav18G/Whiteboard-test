@@ -7,12 +7,12 @@ span.onclick = () => {
 };
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = (event) => {
-  if (event.target == modal) {
-    console.log("JOD");
-    modal.style.display = "none";
-  }
-};
+// window.onclick = (event) => {
+//   if (event.target == modal) {
+//     console.log("JOD");
+//     modal.style.display = "none";
+//   }
+// };
 
 (function SearchStart() {
   //Code isolation
@@ -29,20 +29,20 @@ window.onclick = (event) => {
     let frame = document.getElementById("browserIframe");
     frame.style.display = "block";
     frame.src = "https://www.google.com/search?igu=1&ei=&q=YOUR+WORD";
-    // draw(msg);
-    // Tools.send(msg, "Undo");
+    draw(msg);
+    Tools.send(msg, "Undo");
   }
 
   function draw(data) {
-    // var elem;
-    // switch (data.type) {
-    //   //TODO: add the ability to erase only some points in a line
-    //   case "undo":
-    //     break;
-    //   default:
-    //     console.error("Clear: 'clear' instruction with unknown type. ", data);
-    //     break;
-    // }
+    var elem;
+    switch (data.type) {
+      //TODO: add the ability to erase only some points in a line
+      case "undo":
+        break;
+      default:
+        console.error("Clear: 'clear' instruction with unknown type. ", data);
+        break;
+    }
   }
 
   Tools.add({

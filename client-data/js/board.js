@@ -34,14 +34,11 @@ var wb_comp = {};
 var svgWidth, svgHeight;
 var isTouchDevice = "ontouchstart" in document.documentElement;
 
-
 Tools.board = document.getElementById("board");
 Tools.svg = document.getElementById("canvas");
 console.log("CANAVS", Tools.svg);
 Tools.group = Tools.svg.getElementById("layer-1");
 Tools.compass = document.getElementById("compass");
-
-
 
 //Initialization
 Tools.curTool = null;
@@ -390,22 +387,57 @@ Tools.HTML = {
       if (oneTouch) elem.classList.add("oneTouch");
       if (menu) {
         Tools.menus[toolName] = {};
+        // var container =
+        //   `<div class="popover menu fade show bs-popover-right"
+        // 	id="popover-` +
+        //   toolName +
+        //   `"
+        // 	x-placement="right"
+        // 	style="position: fixed; display:none; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 0px, 0px);">` +
+        //   (menu.title
+        //     ? `<h3 class="popover-header">` + menu.title + `</h3>`
+        //     : ``) +
+        //   `<div class="popover-body">` +
+        //   menu.content +
+        //   `</div>
+        // 	</div>`;
+
         var container =
           `<div class="popover menu fade show bs-popover-right" 
-					id="popover-` +
+              id="popover-` +
           toolName +
           `" 
-					x-placement="right" 
-					style="position: fixed; display:none; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 0px, 0px);">` +
+              x-placement="right" 
+              style="position: fixed; display:none; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 0px, 0px);">` +
           (menu.title
             ? `<h3 class="popover-header">` + menu.title + `</h3>`
             : ``) +
           `<div class="popover-body">` +
-          menu.content +
+          `<div id="popover-body-2d">` +
+          menu.content2d +
+          `</div>` +
+          `<div id="popover-body-3d">` +
+          menu.content3d +
+          `</div>` +
           `</div>
-					</div>`;
+              <div class="popover-footer-tabs">
+               <div class="popover-footer-tab" id="popover-2d-tab">2D</div>
+               <div class="popover-footer-tab" id="popover-3d-tab">3D</div>
+              </div>
+              </div>`;
 
         document.getElementById("template").innerHTML = container;
+        document
+          .querySelector("#popover-3d-tab")
+          .addEventListener("click", (e) => {
+            e.preventDefault();
+            // document.querySelector("#popover-3d-tab").style.display = "block";
+            document.querySelector("#popover-body-3d").style.display = "block";
+            console.log(
+              "JoDD",
+              document.querySelector("#popover-body-3d").style.display
+            );
+          });
         console.log("TEMPLATE", document.getElementById("template"));
 
         Tools.menus[toolName].menu = document.getElementById(
@@ -844,10 +876,10 @@ function resizeCanvas(m) {
     y = m.y | 0;
   var MAX_BOARD_SIZE = 65536; // Maximum value for any x or y on the board
   if (x > Tools.svg.width.baseVal.value - 2000) {
-    //Tools.svg.width.baseVal.value = Math.min(x + 2000, MAX_BOARD_SIZE);
+    Tools.svg.width.baseVal.value = Math.min(x + 2000, MAX_BOARD_SIZE);
   }
   if (y > Tools.svg.height.baseVal.value - 2000) {
-    //Tools.svg.height.baseVal.value = Math.min(y + 2000, MAX_BOARD_SIZE);
+    Tools.svg.height.baseVal.value = Math.min(y + 2000, MAX_BOARD_SIZE);
   }
 }
 
@@ -961,7 +993,6 @@ Tools.toolHooks = [
     }
   },
 ];
-
 
 var shortcutsInit = false;
 Tools.applyShortcuts = function (shortcuts, toolName) {

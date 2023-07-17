@@ -33,7 +33,7 @@
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M11.91,7A6.64,6.64,0,0,0,12,6a6,6,0,1,0-6,6,6.64,6.64,0,0,0,1-.09V17H17V7ZM6,11a5,5,0,1,1,5-5,5.47,5.47,0,0,1-.1,1H7v3.9A5.47,5.47,0,0,1,6,11Zm4.58-3A5.07,5.07,0,0,1,8,10.58V8ZM16,16H8V11.65A6,6,0,0,0,11.65,8H16Z"/></g></g></svg>';
   var ellipse2 =
     '" d="M435.204,126.967C387.398,94.1,324.11,76,257,76c-67.206,0-130.824,18.084-179.138,50.922C27.652,161.048,0,206.889,0,256c0,49.111,27.652,94.952,77.862,129.078C126.176,417.916,189.794,436,257,436c67.11,0,130.398-18.1,178.204-50.967C484.727,350.986,512,305.161,512,256S484.727,161.014,435.204,126.967z M418.208,360.312C375.354,389.774,318.103,406,257,406 c-61.254,0-118.884-16.242-162.273-45.733C52.986,331.898,30,294.868,30,256s22.986-75.898,64.727-104.267C138.116,122.242,195.746,106,257,106c61.103,0,118.354,16.226,161.208,45.688C459.345,179.97,482,217.015,482,256S459.345,332.03,418.208,360.312z"/></g></svg>';
-
+var cubeImg= ""
   var icons = {
     Rectangle: {
       icon: "▭",
@@ -80,26 +80,31 @@
       isHTML: false,
       isSVG: false,
     },
-    // Cube: {
-    //   icon: "=",
-    //   isHTML: false,
-    //   isSVG: false,
-    // },
-    // Cone: {
-    //   icon: "*",
-    //   isHTML: false,
-    //   isSVG: false,
-    // },
-    // Cylinder: {
-    //   icon: "&",
-    //   isHTML: false,
-    //   isSVG: false,
-    // },
-    // Sphere: {
-    //   icon: "@",
-    //   isHTML: false,
-    //   isSVG: false,
-    // },
+    Cube: {
+      icon: "",
+      isHTML: false,
+      isSVG: false,
+    },
+    Cone: {
+      icon: "◁",
+      isHTML: false,
+      isSVG: false,
+    },
+    Cylinder: {
+      icon: "⭘",
+      isHTML: false,
+      isSVG: false,
+    },
+    Sphere: {
+      icon: "⭘",
+      isHTML: false,
+      isSVG: false,
+    },
+    Pyramid: {
+      icon: "◁",
+      isHTML: false,
+      isSVG: false,
+    },
     Ellipse: {
       icon:
         `<span><img style = 'margin-top:-7px;' draggable="false" src='data:image/svg+xml;utf8,` +
@@ -124,12 +129,13 @@
     },
   };
 
+
   var curshape = "Rectangle",
     end = false,
     curId = "",
     lastX = 0,
     lastY = 0,
-    dashed = false,
+    // dashed = false,
     lastTime = performance.now(); //The time at which the last point was drawn
 
   function start(x, y, evt) {
@@ -144,7 +150,7 @@
       color: Tools.getColor(),
       size: Tools.getSize(),
       opacity: Tools.getOpacity(),
-      dashed: dashed ? true : false,
+      // dashed: dashed ? true : false,
       x: x,
       y: y,
       x2: x,
@@ -198,6 +204,7 @@
   }
 
   function draw(data) {
+    console.log("data", data);
     Tools.drawingEvent = true;
     switch (data.type) {
       case "rect":
@@ -219,7 +226,6 @@
             }
           }
         }
-
         if (data.shape == "Circle") {
           updateCircle(shape, data);
         } else if (data.shape == "Triangle") {
@@ -237,13 +243,15 @@
         } else if (data.shape == "Hexagon") {
           updateHexagon(shape, data);
         } else if (data.shape == "Cube") {
-          updateCube(shape, data);
+          update3D(data);
         } else if (data.shape == "Cone") {
-          updateCone(shape, data);
+          update3D(data);
         } else if (data.shape == "Cylinder") {
-          updateCylinder(shape, data);
+          update3D(data);
         } else if (data.shape == "Sphere") {
-          updateSphere(shape, data);
+          update3D(data);
+        } else if (data.shape == "Pyramid") {
+          update3D(data);
         } else if (data.shape == "Ellipse") {
           updateEllipse(shape, data);
         } else {
@@ -288,21 +296,24 @@
     } else if (data.shape == "Hexagon") {
       if (!shape) shape = Tools.createSVGElement("polygon");
       updateHexagon(shape, data);
-    } else if (data.shape == "Cube") {
-      if (!shape) shape = Tools.createSVGElement("polygon");
-      updateCube(shape, data);
-    } else if (data.shape == "Cone") {
-      if (!shape) shape = Tools.createSVGElement("polygon");
-      updateCone(shape, data);
-    } else if (data.shape == "Cylinder") {
-      if (!shape) shape = Tools.createSVGElement("polygon");
-      updateCylinder(shape, data);
-    } else if (data.shape == "Sphere") {
-      if (!shape) shape = Tools.createSVGElement("polygon");
-      updateSphere(shape, data);
     } else if (data.shape == "Ellipse") {
       if (!shape) shape = Tools.createSVGElement("ellipse");
       updateEllipse(shape, data);
+    } else if (data.shape == "Cube") {
+      if (!shape) shape = Tools.createSVGElement("cube");
+      update3D(data);
+    } else if (data.shape == "Cone") {
+      if (!shape) shape = Tools.createSVGElement("cone");
+      update3D(data);
+    } else if (data.shape == "Cylinder") {
+      if (!shape) shape = Tools.createSVGElement("cylinder");
+      update3D(data);
+    } else if (data.shape == "Sphere") {
+      if (!shape) shape = Tools.createSVGElement("sphere");
+      update3D(data);
+    } else if (data.shape == "Pyramid") {
+      if (!shape) shape = Tools.createSVGElement("pyramid");
+      update3D(data);
     } else {
       if (!shape) shape = Tools.createSVGElement("rect");
       updateRect(shape, data);
@@ -312,9 +323,9 @@
     if (Tools.useLayers) shape.setAttribute("class", "layer-" + Tools.layer);
     shape.setAttribute("stroke", data.color || "black");
     shape.setAttribute("stroke-width", data.size || 10);
-    if (data.dashed == true) {
-      shape.setAttribute("stroke-dasharray", "10 10" || "10 10");
-    }
+    // if (data.dashed == true) {
+    //   shape.setAttribute("stroke-dasharray", "10 10" || "10 10");
+    // }
     shape.setAttribute(
       "opacity",
       Math.max(0.1, Math.min(1, data.opacity)) || 1
@@ -384,7 +395,7 @@
     }
 
     shape.setAttribute("points", points);
-    shape.setAttribute("fill", "white");
+    shape.setAttribute("fill", "none");
     if (data.data) {
       shape.setAttribute("data-lock", data.data);
     }
@@ -411,7 +422,7 @@
     var points = `${x1},${y1} ${x2},${y2} ${x3},${y3}`;
 
     shape.setAttribute("points", points);
-    shape.setAttribute("fill", "white");
+    shape.setAttribute("fill", "none");
     if (data.data) {
       shape.setAttribute("data-lock", data.data);
     }
@@ -461,115 +472,6 @@
       shape.setAttribute("transform", data.transform);
     }
   }
-  // function updateParallelogram(shape, data) {
-  //   // Extract the required properties from the data object
-  //   console.log("Shape---Parallelogram", shape);
-  //   var x1 = data.x;
-  //   var y1 = data.y;
-  //   var x2 = data.x2;
-  //   var y2 = data.y2;
-
-  //   // Calculate the coordinates of the parallelogram vertices
-  //   var width = Math.abs(x2 - x1);
-  //   var height = Math.abs(y2 - y1);
-
-  //   var x3 = x1 + width;
-  //   var y3 = y1;
-  //   var x4 = x2 + width;
-  //   var y4 = y2;
-
-  //   var points =
-  //     x1 +
-  //     "," +
-  //     y1 +
-  //     " " +
-  //     x2 +
-  //     "," +
-  //     y2 +
-  //     " " +
-  //     x3 +
-  //     "," +
-  //     y3 +
-  //     " " +
-  //     x4 +
-  //     "," +
-  //     y4;
-
-  //   // Update the attributes of the polygon shape
-  //   shape.setAttribute("points", points);
-  //   shape.setAttribute("fill", "none");
-  //   if (data.data) {
-  //     shape.setAttribute("data-lock", data.data);
-  //   }
-  //   if (data.transform) {
-  //     shape.setAttribute("transform", data.transform);
-  //   }
-  // }
-
-  // function updateParallelogram(shape, data) {
-  //   //undefined cordinates
-
-  //   var x1 = data.x;
-  //   console.log("x1", x1);
-
-  //   var y1 = data.y;
-  //   console.log(" y1 ", y1);
-
-  //   var x2 = data.x2;
-  //   console.log(" x2 ", x2);
-
-  //   var y2 = data.y2;
-  //   console.log("y2", y2);
-
-  //   var width = Math.abs(x2 - x1);
-
-  //   var height = Math.abs(y2 - y1);
-  //   console.log("height", height);
-
-  //   // Calculate the coordinates of the parallelogram vertices
-
-  //   var x3 = x1;
-  //   console.log("x3", x3);
-
-  //   var y3 = y1 + height;
-  //   console.log("y3", y3);
-
-  //   var x4 = x2;
-
-  //   var y4 = y2 - height;
-
-  //   var points =
-  //     x1 +
-  //     "," +
-  //     y1 +
-  //     " " +
-  //     x2 +
-  //     "," +
-  //     y2 +
-  //     " " +
-  //     x3 +
-  //     "," +
-  //     y3 +
-  //     " " +
-  //     x4 +
-  //     "," +
-  //     y4;
-  //   console.log("ponits", points);
-
-  //   // Update the attributes of the polygon shape
-
-  //   shape.setAttribute("points", points);
-
-  //   shape.setAttribute("fill", "none");
-
-  //   if (data.data) {
-  //     shape.setAttribute("data-lock", data.data);
-  //   }
-
-  //   if (data.transform) {
-  //     shape.setAttribute("transform", data.transform);
-  //   }
-  // }
 
   function updateRombus(shape, data) {
     // Extract the required properties from the data object
@@ -588,7 +490,7 @@
 
     // Update the attributes of the polygon shape
     shape.setAttribute("points", points.join(" "));
-    shape.setAttribute("fill", "white");
+    shape.setAttribute("fill", "none");
     if (data.data) {
       shape.setAttribute("data-lock", data.data);
     }
@@ -614,7 +516,7 @@
     },${y2} ${x1 + (width - topWidth) / 2},${y2}`;
 
     shape.setAttribute("points", points);
-    shape.setAttribute("fill", "white");
+    shape.setAttribute("fill", "none");
     if (data.data) {
       shape.setAttribute("data-lock", data.data);
     }
@@ -640,7 +542,7 @@
 
     // Update the attributes of the polygon shape
     shape.setAttribute("points", points.join(" "));
-    shape.setAttribute("fill", "white");
+    shape.setAttribute("fill", "none");
     if (data.data) {
       shape.setAttribute("data-lock", data.data);
     }
@@ -648,6 +550,7 @@
       shape.setAttribute("transform", data.transform);
     }
   }
+  
 
   function updateHexagon(shape, data) {
     // Extract the required properties from the data object
@@ -666,7 +569,7 @@
 
     // Update the attributes of the polygon shape
     shape.setAttribute("points", points.join(" "));
-    shape.setAttribute("fill", "white");
+    shape.setAttribute("fill", "none");
     if (data.data) {
       shape.setAttribute("data-lock", data.data);
     }
@@ -693,231 +596,62 @@
     if (data.transform) shape.setAttribute("transform", data.transform);
   }
 
-  //  functions for 3D shapes
-  function updateCone(shape, data) {
-    var x1 = Math.min(data.x2, data.x);
-    var y1 = Math.max(data.y2, data.y);
-    var x2 = Math.max(data.x2, data.x);
-    var y2 = Math.min(data.y2, data.y);
+  function update3D(data) {
+    var imgCount = 1;
+    var image = new Image();
 
-    var width = Math.abs(x2 - x1);
-    var height = Math.abs(y2 - y1);
-    var radius = width / 2;
-    var heightCone = Math.min(width, height);
-
-    var centerX = (x1 + x2) / 2;
-    var centerY = (y1 + y2) / 2;
-
-    // Define the base center and top vertex coordinates
-    var baseCenterX = centerX;
-    var baseCenterY = centerY + heightCone;
-    var topVertexX = centerX;
-    var topVertexY = centerY;
-
-    // Define the number of segments for the cone base
-    var numSegments = 30;
-
-    // Calculate the points for the cone base circle
-    var basePoints = [];
-    var angleIncrement = (2 * Math.PI) / numSegments;
-    for (var i = 0; i < numSegments; i++) {
-      var angle = i * angleIncrement;
-      var pointX = baseCenterX + radius * Math.cos(angle);
-      var pointY = baseCenterY + radius * Math.sin(angle);
-      basePoints.push(pointX + "," + pointY);
+    // Set image source based on the shape
+    if (data.shape === "Cone") {
+      image.src =
+        "https://clipart-library.com/newhp/41112278-ba4c-46dc-9dfc-8d56be33405f_medium_thumb.jpg";
+    } else if (data.shape === "Cube") {
+      image.src =
+        "https://images.nagwa.com/figures/explainers/158156163529/6.svg";
+    } else if (data.shape === "Cylinder") {
+      image.src =
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTU-HBIWG7uchwerjQb3vmiLlPx5XHKpO09iJSK6f2E8FEpqxL9dRxYj5Ybx85O4S57Ug&usqp=CAU";
+    } else if (data.shape === "Sphere") {
+      image.src = "https://clipart-library.com/img/852313.gif";
+    } else if (data.shape === "Pyramid") {
+      image.src =
+        "https://www.sciencekids.co.nz/images/experiments/squarepyramid230.jpg";
     }
 
-    // Create the polygons for the cone
-    var polygons = [];
-    for (var j = 0; j < numSegments; j++) {
-      var basePoint1 = basePoints[j];
-      var basePoint2 = basePoints[(j + 1) % numSegments];
-      var trianglePoints = [
-        basePoint1,
-        basePoint2,
-        topVertexX + "," + topVertexY,
-      ];
-      polygons.push(trianglePoints.join(" "));
-    }
+    image.onload = function () {
+      var uid = Tools.generateUID("doc");
 
-    // Update the attributes of the shape
-    shape.setAttribute("points", polygons.join(" "));
-    shape.setAttribute("fill", "white");
-    if (data.data) {
-      shape.setAttribute("data-lock", data.data);
-    }
-    if (data.transform) {
-      shape.setAttribute("transform", data.transform);
-    }
+      var msg = {
+        id: uid,
+        type: "doc",
+        src: image.src,
+        w: this.width || 300,
+        h: this.height || 300,
+        x:
+          (100 + document.documentElement.scrollLeft) / Tools.scale +
+          10 * imgCount,
+        y:
+          (100 + document.documentElement.scrollTop) / Tools.scale +
+          10 * imgCount,
+      };
+
+      drawImage(msg);
+    };
   }
 
-  // function updateCylinder(shape, data) {
-  //   var x1 = Math.min(data.x2, data.x);
-  //   var y1 = Math.max(data.y2, data.y);
-  //   var x2 = Math.max(data.x2, data.x);
-  //   var y2 = Math.min(data.y2, data.y);
-
-  //   var width = Math.abs(x2 - x1);
-  //   var height = Math.abs(y2 - y1);
-  //   var radius = width / 2;
-  //   var heightCylinder = Math.min(width, height);
-
-  //   var centerX = (x1 + x2) / 2;
-  //   var centerY = (y1 + y2) / 2;
-
-  //   // Define the number of segments for the cylinder base
-  //   var numSegments = 30;
-
-  //   // Calculate the points for the top and bottom circles
-  //   var basePoints = [];
-  //   var topPoints = [];
-  //   var angleIncrement = (2 * Math.PI) / numSegments;
-  //   for (var i = 0; i < numSegments; i++) {
-  //     var angle = i * angleIncrement;
-  //     var basePointX = centerX + radius * Math.cos(angle);
-  //     var basePointY = centerY + heightCylinder / 2;
-  //     var topPointX = centerX + radius * Math.cos(angle);
-  //     var topPointY = centerY - heightCylinder / 2;
-  //     basePoints.push(basePointX + "," + basePointY);
-  //     topPoints.push(topPointX + "," + topPointY);
-  //   }
-
-  //   // Create the polygons for the cylinder sides
-  //   var polygons = [];
-  //   for (var j = 0; j < numSegments; j++) {
-  //     var basePoint1 = basePoints[j];
-  //     var basePoint2 = basePoints[(j + 1) % numSegments];
-  //     var topPoint1 = topPoints[j];
-  //     var topPoint2 = topPoints[(j + 1) % numSegments];
-  //     var quadPoints = [basePoint1, basePoint2, topPoint2, topPoint1];
-  //     polygons.push(quadPoints.join(" "));
-  //   }
-
-  //   // Update the attributes of the shape
-  //   shape.setAttribute("points", polygons.join(" "));
-  //   shape.setAttribute("fill", "white");
-  //   if (data.data) {
-  //     shape.setAttribute("data-lock", data.data);
-  //   }
-  //   if (data.transform) {
-  //     shape.setAttribute("transform", data.transform);
-  //   }
-  // }
-
-
-  function updateCylinder(shape, data) {
-    var x1 = Math.min(data.x2, data.x);
-    var y1 = Math.max(data.y2, data.y);
-    var x2 = Math.max(data.x2, data.x);
-    var y2 = Math.min(data.y2, data.y);
-    
-    var width = Math.abs(x2 - x1);
-    var height = Math.abs(y2 - y1);
-    var size = Math.min(width, height);
-    
-    var centerX = (x1 + x2) / 2;
-    var centerY = (y1 + y2) / 2;
-    
-    // Calculate the corner points of the cylinder base
-    var baseXMin = centerX - size / 2;
-    var baseXMax = centerX + size / 2;
-    var baseYMin = centerY - size / 2;
-    var baseYMax = centerY + size / 2;
-    
-    // Calculate the points for the cylinder base circle
-    var basePoints = [];
-    var numSegments = 50; // Number of segments for the base circle
-    var angleIncrement = (2 * Math.PI) / numSegments;
-    
-    for (var i = 0; i < numSegments; i++) {
-      var angle = i * angleIncrement;
-      var pointX = centerX + (size / 2) * Math.cos(angle);
-      var pointY = centerY + (size / 2) * Math.sin(angle);
-      basePoints.push(pointX + "," + pointY);
-    }
-    
-    // Create the polygons for the cylinder sides
-    var polygons = [];
-    
-    for (var j = 0; j < numSegments; j++) {
-      var basePoint1 = basePoints[j];
-      var basePoint2 = basePoints[(j + 1) % numSegments];
-      var topVertex1 = basePoint1.split(",").map(parseFloat);
-      var topVertex2 = basePoint2.split(",").map(parseFloat);
-      
-      topVertex1[1] -= height;
-      topVertex2[1] -= height;
-      
-      var sidePoints = [
-        basePoint1,
-        basePoint2,
-        topVertex2.join(","),
-        topVertex1.join(",")
-      ];
-      
-      polygons.push(sidePoints.join(" "));
-    }
-    
-    // Update the attributes of the shape
-    shape.setAttribute("points", polygons.join(" "));
-    shape.setAttribute("fill", "white");
-    if (data.data) {
-      shape.setAttribute("data-lock", data.data);
-    }
-    if (data.transform) {
-      shape.setAttribute("transform", data.transform);
-    }
+  function drawImage(msg) {
+    var aspect = msg.w / msg.h;
+    var img = Tools.createSVGElement("image");
+    img.id = msg.id;
+    img.setAttribute("class", "layer-" + Tools.layer);
+    img.setAttributeNS(xlinkNS, "href", msg.src);
+    img.x.baseVal.value = msg["x"];
+    img.y.baseVal.value = msg["y"];
+    img.setAttribute("width", 400 * aspect);
+    img.setAttribute("height", 400);
+    if (msg.transform) img.setAttribute("transform", msg.transform);
+    Tools.group.appendChild(img);
   }
 
-  
-  
-  
-  function updateCube(shape, data) {
-    var x1 = Math.min(data.x2, data.x);
-    var y1 = Math.max(data.y2, data.y);
-    var x2 = Math.max(data.x2, data.x);
-    var y2 = Math.min(data.y2, data.y);
-  
-    var width = Math.abs(x2 - x1);
-    var height = Math.abs(y2 - y1);
-    var size = Math.min(width, height);
-  
-    var centerX = (x1 + x2) / 2;
-    var centerY = (y1 + y2) / 2;
-  
-    // Calculate the corner points of the cube
-    var xMin = centerX - size / 2;
-    var xMax = centerX + size / 2;
-    var yMin = centerY - size / 2;
-    var yMax = centerY + size / 2;
-  
-    var points = [
-      // Front face
-      xMin + "," + yMin,
-      xMax + "," + yMin,
-      xMax + "," + yMax,
-      xMin + "," + yMax,
-  
-      // Back face
-      xMin + "," + yMin + "," + (yMin - size),
-      xMax + "," + yMin + "," + (yMin - size),
-      xMax + "," + yMax + "," + (yMin - size),
-      xMin + "," + yMax + "," + (yMin - size)
-    ];
-  
-    // Update the attributes of the shape
-    shape.setAttribute("points", points.join(" "));
-    shape.setAttribute("fill", "white");
-    if (data.data) {
-      shape.setAttribute("data-lock", data.data);
-    }
-    if (data.transform) {
-      shape.setAttribute("transform", data.transform);
-    }
-  }
-  
-  
-  
   function toggle(elem) {
     console.log("toggle", elem);
     if (Tools.menus["Rectangle"].menuOpen()) {
@@ -938,8 +672,8 @@
     for (var i = 0; i < btns.length; i++) {
       btns[i].addEventListener("click", menuButtonClicked);
     }
-    var elem = document.getElementById("rect-dashed");
-    elem.addEventListener("click", dashedClicked);
+    // var elem = document.getElementById("rect-dashed");
+    // elem.addEventListener("click", dashedClicked);
     updateMenu("Rectangle");
     menuInitialized = true;
   }
@@ -951,7 +685,6 @@
 
     console.log("curshape", curshape);
     updateMenu(menuShape);
-    console.log("updateMenu", updateMenu);
     changeButtonIcon();
   };
 
@@ -991,16 +724,16 @@
     btn.style.borderRadius = "8px";
   };
 
-  function dashedClicked() {
-    var elem = document.getElementById("rect-dashed");
-    if (dashed) {
-      dashed = false;
-      elem.setAttribute("class", "far fa-square");
-    } else {
-      elem.setAttribute("class", "far fa-check-square");
-      dashed = true;
-    }
-  }
+  // function dashedClicked() {
+  //   var elem = document.getElementById("rect-dashed");
+  //   if (dashed) {
+  //     dashed = false;
+  //     elem.setAttribute("class", "far fa-square");
+  //   } else {
+  //     elem.setAttribute("class", "far fa-check-square");
+  //     dashed = true;
+  //   }
+  // }
 
   function menuListener(elem, onButton, onMenu, e) {
     if (!onMenu && !onButton) {
@@ -1033,52 +766,185 @@
         `<div class="tool-extra submenu-rect" id="submenu-rect-Rectangle">
 							<span title = "rectangle" class="tool-icon">▭</span>
 						</div>
+
 						<div class="tool-extra submenu-rect" id="submenu-rect-Circle">
 							<span title = "circle" class="tool-icon">◯</span>
 						</div>
+            
 						<div class="tool-extra submenu-rect" id="submenu-rect-Triangle">
 							<span title = "triangle" class="tool-icon">◺</span>
 						</div>
+
 						<div class="tool-extra submenu-rect" id="submenu-rect-EquiTriangle">
 							<span title = "equiTriangle" class="tool-icon">△</span>
 						</div>
+
 						<div class="tool-extra submenu-rect" id="submenu-rect-Parallelogram">
 							<span title = "parallelogram" class="tool-icon">▱</span>
 						</div>
+            
 						<div class="tool-extra submenu-rect" id="submenu-rect-Trapezoid">
 							<span title = "trapezoid" class="tool-icon">⏢</span>
 						</div>
+
             <div class="tool-extra submenu-rect" id="submenu-rect-Rombus">
 							<span title = "rombus" class="tool-icon">◇</span>
 						</div>
+
 						<div class="tool-extra submenu-rect" id="submenu-rect-Pentagon">
 							<span title = "pentagon" class="tool-icon">⬠</span>
 						</div>
+            
 						<div class="tool-extra submenu-rect" id="submenu-rect-Hexagon">
 							<span title = "hexagon" class="tool-icon">⬡</span>
 						</div>
-            <div class="tool-extra submenu-rect" id="submenu-rect-Cube">
-              <span title = "cube" class="tool-icon">=</span>
-             </div>
-            <div class="tool-extra submenu-rect" id="submenu-rect-Cone">
-              <span title = "cone" class="tool-icon">*</span>
-            </div>
-            <div class="tool-extra submenu-rect" id="submenu-rect-Cylinder">
-              <span title = "cylinder" class="tool-icon">&</span>
-            </div>
-            <div class="tool-extra submenu-rect" id="submenu-rect-Sphere">
-							<span title = "sphere" class="tool-icon">@</span>
-						</div>
 
-           
-						<div class="tool-extra submenu-rect" id="submenu-rect-Ellipse">
+            <div class="tool-extra submenu-rect" id="submenu-rect-Ellipse">
 							<span title = "ellipse" class="tool-icon">` +
         icons["Ellipse"].icon +
         `</span>
 						</div>
-						<div style="width:143px;display:block" class="tool-extra"  id="submenu-rect-dashed">
-							<div style="margin-top:5px;padding:5px;font-size:.8rem;color: gray"><i style="font-size:.8rem;margin-left:5px" id="rect-dashed" class="far fa-square"></i> &nbsp;dashed</div>
-						</div>`,
+
+            <div class="tool-extra submenu-rect" id="submenu-rect-Cube">
+              <span title = "cube" class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+              <g>
+                <g>
+                  <path d="M511.531,8.384c-0.128-0.576-0.128-1.195-0.363-1.749c-1.088-2.645-3.179-4.736-5.824-5.824    c-0.555-0.235-1.152-0.213-1.749-0.363C502.869,0.299,502.144,0,501.333,0H160c-0.619,0-1.173,0.256-1.771,0.363    c-0.768,0.128-1.557,0.149-2.283,0.448c-1.323,0.555-2.496,1.323-3.499,2.325L3.115,152.469c-0.085,0.085-0.107,0.213-0.213,0.299    c-0.853,0.917-1.6,1.963-2.091,3.136C0.277,157.248,0,158.635,0,160.043v341.291C0,507.221,4.779,512,10.667,512H352    c1.387,0,2.773-0.277,4.075-0.832c1.195-0.491,2.219-1.237,3.157-2.091c0.085-0.085,0.213-0.107,0.299-0.192l149.333-149.333    c0.981-0.981,1.771-2.176,2.304-3.477c0.299-0.747,0.341-1.515,0.469-2.304c0.107-0.597,0.363-1.152,0.363-1.771V10.667    C512,9.856,511.701,9.131,511.531,8.384z M341.333,490.667h-320v-320h320V490.667z M347.584,149.333H36.416l128-128h311.168    L347.584,149.333z M490.667,347.584l-128,128V164.416l128-128V347.584z"/>
+                </g>
+              </g>
+              </svg></span>
+             </div>
+
+          <div class="tool-extra submenu-rect" id="submenu-rect-Cone">
+            <span title = "cone" class="tool-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve">             
+              <g>
+                <path d="M426.624,469.269c0-0.043-0.021-0.064-0.021-0.107c0-0.597-0.235-1.131-0.32-1.707c-0.107-0.576-0.043-1.152-0.235-1.707    l-0.192-0.555c-0.043-0.128-0.085-0.235-0.128-0.363l-0.448-1.301c-0.256-0.683-0.363-1.387-0.704-2.048L266.069,7.061    c-0.085-0.235-0.256-0.384-0.341-0.597c-0.256-0.64-0.661-1.173-1.045-1.749c-0.384-0.576-0.747-1.173-1.237-1.664    c-0.448-0.448-1.003-0.789-1.536-1.152c-0.619-0.427-1.195-0.832-1.877-1.109c-0.192-0.085-0.341-0.256-0.555-0.32    c-0.469-0.171-0.96-0.107-1.451-0.192C257.365,0.149,256.747,0,256.064,0c-0.832,0-1.621,0.149-2.411,0.341    c-0.384,0.085-0.768,0.021-1.152,0.171c-0.171,0.064-0.277,0.192-0.448,0.256c-0.789,0.32-1.472,0.789-2.176,1.28    c-0.448,0.32-0.917,0.597-1.301,0.981c-0.533,0.533-0.939,1.152-1.344,1.813c-0.363,0.533-0.725,1.045-0.96,1.621    c-0.085,0.213-0.277,0.363-0.341,0.597L87.339,461.504c-0.341,0.64-0.448,1.323-0.683,1.984l-0.789,2.24    c-0.235,0.661-0.171,1.323-0.277,2.005c-0.064,0.512-0.299,0.96-0.299,1.515c0,0.107,0.064,0.213,0.064,0.32    c0.021,0.661,0.213,1.28,0.363,1.92c0.171,0.896,0.341,1.771,0.725,2.603c11.669,36.629,152.768,37.824,169.515,37.824    c16.768,0,158.101-1.195,169.557-37.909c0.064-0.128,0.107-0.277,0.171-0.427c0.192-0.427,0.213-0.896,0.363-1.344    c0.256-0.896,0.512-1.771,0.555-2.709c0-0.043,0.021-0.085,0.021-0.128C426.603,469.333,426.624,469.312,426.624,469.269z     M255.957,42.944l139.435,399.701c-45.739-15.381-126.976-16.064-139.413-16.064c-12.437,0-93.696,0.683-139.435,16.064    L255.957,42.944z M255.957,490.56c-91.285,0.021-141.269-14.272-148.437-20.715c8.384-8,58.176-21.952,148.437-21.952    c91.285,0,141.269,14.272,148.437,20.715C396.011,476.608,346.219,490.56,255.957,490.56z"/>
+              </g>
+            </svg>
+            </span>
+          </div>
+
+          <div class="tool-extra submenu-rect" id="submenu-rect-Cylinder">
+            <span title = "cylinder" class="tool-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+              <g>
+                <g>
+                  <path d="M425.621,38.187C414.763,1.216,272.789,0,256,0S97.237,1.216,86.379,38.187c-0.64,1.387-1.045,2.859-1.045,4.48v426.667    c0,1.707,0.469,3.328,1.152,4.843C98.155,510.805,239.275,512,256,512c16.789,0,158.763-1.216,169.621-38.187    c0.64-1.387,1.045-2.859,1.045-4.48V42.667C426.667,41.045,426.261,39.573,425.621,38.187z M256,21.333    c87.723,0,137.685,13.248,148.075,21.333C393.685,50.752,343.723,64,256,64S118.315,50.752,107.925,42.667    C118.315,34.581,168.277,21.333,256,21.333z M256,490.667c-91.285,0-141.269-14.272-148.437-20.715    C115.947,461.952,165.739,448,256,448c91.285,0,141.269,14.272,148.437,20.715C396.053,476.715,346.24,490.667,256,490.667z     M405.333,446.571C362.688,427.456,269.397,426.667,256,426.667s-106.688,0.789-149.333,19.904V65.429    C149.312,84.544,242.603,85.333,256,85.333s106.688-0.789,149.333-19.904V446.571z"/>
+                </g>
+              </g>
+            </svg>
+            </span>
+          </div>
+
+          <div class="tool-extra submenu-rect" id="submenu-rect-Sphere">
+            <span title = "sphere" class="tool-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+              <g>
+	              <g>
+		              <path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M319.125,215.147    c111.381,6.357,171.541,28.523,171.541,40.853s-60.16,34.496-171.541,40.853C319.701,282.197,320,268.288,320,256    S319.701,229.803,319.125,215.147z M488.704,227.093c-36.011-19.883-107.755-29.504-170.624-33.173    c-3.669-62.848-13.291-134.592-33.173-170.624C391.189,36.437,475.563,120.811,488.704,227.093z M298.667,256    c0,14.656-0.341,28.48-0.832,41.835c-13.355,0.491-27.179,0.832-41.835,0.832s-28.48-0.341-41.835-0.832    c-0.491-13.355-0.832-27.179-0.832-41.835s0.341-28.48,0.832-41.835c13.355-0.491,27.179-0.832,41.835-0.832    s28.48,0.341,41.835,0.832C298.325,227.52,298.667,241.344,298.667,256z M256,21.333c12.331,0,34.496,60.16,40.853,171.541    C282.197,192.299,268.288,192,256,192s-26.197,0.299-40.853,0.875C221.504,81.493,243.669,21.333,256,21.333z M227.093,23.296    c-19.883,36.032-29.504,107.776-33.173,170.624c-62.848,3.669-134.592,13.291-170.624,33.173    C36.437,120.811,120.811,36.437,227.093,23.296z M192.875,215.147C192.299,229.803,192,243.712,192,256s0.299,26.197,0.875,40.853    C81.493,290.496,21.333,268.331,21.333,256S81.493,221.504,192.875,215.147z M23.296,284.907    c36.011,19.883,107.755,29.504,170.624,33.173c3.669,62.848,13.291,134.592,33.173,170.624    C120.811,475.563,36.437,391.189,23.296,284.907z M256,490.667c-12.331,0-34.496-60.16-40.853-171.541    C229.803,319.701,243.712,320,256,320s26.197-0.299,40.853-0.875C290.496,430.507,268.331,490.667,256,490.667z M284.907,488.704    c19.883-36.011,29.504-107.755,33.173-170.624c62.848-3.669,134.592-13.291,170.624-33.173    C475.563,391.189,391.189,475.563,284.907,488.704z"/>
+	              </g>
+              </g>
+            </svg>
+            </span>
+          </div>
+
+          <div class="tool-extra submenu-rect" id="submenu-rect-Pyramid">
+           <span title = "pyramid" class="tool-icon">◁</span>
+          </div>`,
+      listener: menuListener,
+    },
+    menu: {
+      title: "Shapes",
+      content2d:
+        `<div class="tool-extra submenu-rect" id="submenu-rect-Rectangle">
+							<span title = "rectangle" class="tool-icon">▭</span>
+						</div>
+
+						<div class="tool-extra submenu-rect" id="submenu-rect-Circle">
+							<span title = "circle" class="tool-icon">◯</span>
+						</div>
+            
+						<div class="tool-extra submenu-rect" id="submenu-rect-Triangle">
+							<span title = "triangle" class="tool-icon">◺</span>
+						</div>
+
+						<div class="tool-extra submenu-rect" id="submenu-rect-EquiTriangle">
+							<span title = "equiTriangle" class="tool-icon">△</span>
+						</div>
+
+						<div class="tool-extra submenu-rect" id="submenu-rect-Parallelogram">
+							<span title = "parallelogram" class="tool-icon">▱</span>
+						</div>
+            
+						<div class="tool-extra submenu-rect" id="submenu-rect-Trapezoid">
+							<span title = "trapezoid" class="tool-icon">⏢</span>
+						</div>
+
+            <div class="tool-extra submenu-rect" id="submenu-rect-Rombus">
+							<span title = "rombus" class="tool-icon">◇</span>
+						</div>
+
+						<div class="tool-extra submenu-rect" id="submenu-rect-Pentagon">
+							<span title = "pentagon" class="tool-icon">⬠</span>
+						</div>
+            
+						<div class="tool-extra submenu-rect" id="submenu-rect-Hexagon">
+							<span title = "hexagon" class="tool-icon">⬡</span>
+						</div>
+
+            <div class="tool-extra submenu-rect" id="submenu-rect-Ellipse">
+							<span title = "ellipse" class="tool-icon">` +
+        icons["Ellipse"].icon +
+        `</span>
+						</div>
+            `,
+            content3d:`  <div class="tool-extra submenu-rect" id="submenu-rect-Cube">
+            <span title = "cube" class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+            <g>
+              <g>
+                <path d="M511.531,8.384c-0.128-0.576-0.128-1.195-0.363-1.749c-1.088-2.645-3.179-4.736-5.824-5.824    c-0.555-0.235-1.152-0.213-1.749-0.363C502.869,0.299,502.144,0,501.333,0H160c-0.619,0-1.173,0.256-1.771,0.363    c-0.768,0.128-1.557,0.149-2.283,0.448c-1.323,0.555-2.496,1.323-3.499,2.325L3.115,152.469c-0.085,0.085-0.107,0.213-0.213,0.299    c-0.853,0.917-1.6,1.963-2.091,3.136C0.277,157.248,0,158.635,0,160.043v341.291C0,507.221,4.779,512,10.667,512H352    c1.387,0,2.773-0.277,4.075-0.832c1.195-0.491,2.219-1.237,3.157-2.091c0.085-0.085,0.213-0.107,0.299-0.192l149.333-149.333    c0.981-0.981,1.771-2.176,2.304-3.477c0.299-0.747,0.341-1.515,0.469-2.304c0.107-0.597,0.363-1.152,0.363-1.771V10.667    C512,9.856,511.701,9.131,511.531,8.384z M341.333,490.667h-320v-320h320V490.667z M347.584,149.333H36.416l128-128h311.168    L347.584,149.333z M490.667,347.584l-128,128V164.416l128-128V347.584z"/>
+              </g>
+            </g>
+            </svg></span>
+           </div>
+
+          <div class="tool-extra submenu-rect" id="submenu-rect-Cone">
+            <span title = "cone" class="tool-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve">             
+              <g>
+                <path d="M426.624,469.269c0-0.043-0.021-0.064-0.021-0.107c0-0.597-0.235-1.131-0.32-1.707c-0.107-0.576-0.043-1.152-0.235-1.707    l-0.192-0.555c-0.043-0.128-0.085-0.235-0.128-0.363l-0.448-1.301c-0.256-0.683-0.363-1.387-0.704-2.048L266.069,7.061    c-0.085-0.235-0.256-0.384-0.341-0.597c-0.256-0.64-0.661-1.173-1.045-1.749c-0.384-0.576-0.747-1.173-1.237-1.664    c-0.448-0.448-1.003-0.789-1.536-1.152c-0.619-0.427-1.195-0.832-1.877-1.109c-0.192-0.085-0.341-0.256-0.555-0.32    c-0.469-0.171-0.96-0.107-1.451-0.192C257.365,0.149,256.747,0,256.064,0c-0.832,0-1.621,0.149-2.411,0.341    c-0.384,0.085-0.768,0.021-1.152,0.171c-0.171,0.064-0.277,0.192-0.448,0.256c-0.789,0.32-1.472,0.789-2.176,1.28    c-0.448,0.32-0.917,0.597-1.301,0.981c-0.533,0.533-0.939,1.152-1.344,1.813c-0.363,0.533-0.725,1.045-0.96,1.621    c-0.085,0.213-0.277,0.363-0.341,0.597L87.339,461.504c-0.341,0.64-0.448,1.323-0.683,1.984l-0.789,2.24    c-0.235,0.661-0.171,1.323-0.277,2.005c-0.064,0.512-0.299,0.96-0.299,1.515c0,0.107,0.064,0.213,0.064,0.32    c0.021,0.661,0.213,1.28,0.363,1.92c0.171,0.896,0.341,1.771,0.725,2.603c11.669,36.629,152.768,37.824,169.515,37.824    c16.768,0,158.101-1.195,169.557-37.909c0.064-0.128,0.107-0.277,0.171-0.427c0.192-0.427,0.213-0.896,0.363-1.344    c0.256-0.896,0.512-1.771,0.555-2.709c0-0.043,0.021-0.085,0.021-0.128C426.603,469.333,426.624,469.312,426.624,469.269z     M255.957,42.944l139.435,399.701c-45.739-15.381-126.976-16.064-139.413-16.064c-12.437,0-93.696,0.683-139.435,16.064    L255.957,42.944z M255.957,490.56c-91.285,0.021-141.269-14.272-148.437-20.715c8.384-8,58.176-21.952,148.437-21.952    c91.285,0,141.269,14.272,148.437,20.715C396.011,476.608,346.219,490.56,255.957,490.56z"/>
+              </g>
+            </svg>
+            </span>
+          </div>
+
+          <div class="tool-extra submenu-rect" id="submenu-rect-Cylinder">
+            <span title = "cylinder" class="tool-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+              <g>
+                <g>
+                  <path d="M425.621,38.187C414.763,1.216,272.789,0,256,0S97.237,1.216,86.379,38.187c-0.64,1.387-1.045,2.859-1.045,4.48v426.667    c0,1.707,0.469,3.328,1.152,4.843C98.155,510.805,239.275,512,256,512c16.789,0,158.763-1.216,169.621-38.187    c0.64-1.387,1.045-2.859,1.045-4.48V42.667C426.667,41.045,426.261,39.573,425.621,38.187z M256,21.333    c87.723,0,137.685,13.248,148.075,21.333C393.685,50.752,343.723,64,256,64S118.315,50.752,107.925,42.667    C118.315,34.581,168.277,21.333,256,21.333z M256,490.667c-91.285,0-141.269-14.272-148.437-20.715    C115.947,461.952,165.739,448,256,448c91.285,0,141.269,14.272,148.437,20.715C396.053,476.715,346.24,490.667,256,490.667z     M405.333,446.571C362.688,427.456,269.397,426.667,256,426.667s-106.688,0.789-149.333,19.904V65.429    C149.312,84.544,242.603,85.333,256,85.333s106.688-0.789,149.333-19.904V446.571z"/>
+                </g>
+              </g>
+            </svg>
+            </span>
+          </div>
+
+          <div class="tool-extra submenu-rect" id="submenu-rect-Sphere">
+            <span title = "sphere" class="tool-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+              <g>
+	              <g>
+		              <path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M319.125,215.147    c111.381,6.357,171.541,28.523,171.541,40.853s-60.16,34.496-171.541,40.853C319.701,282.197,320,268.288,320,256    S319.701,229.803,319.125,215.147z M488.704,227.093c-36.011-19.883-107.755-29.504-170.624-33.173    c-3.669-62.848-13.291-134.592-33.173-170.624C391.189,36.437,475.563,120.811,488.704,227.093z M298.667,256    c0,14.656-0.341,28.48-0.832,41.835c-13.355,0.491-27.179,0.832-41.835,0.832s-28.48-0.341-41.835-0.832    c-0.491-13.355-0.832-27.179-0.832-41.835s0.341-28.48,0.832-41.835c13.355-0.491,27.179-0.832,41.835-0.832    s28.48,0.341,41.835,0.832C298.325,227.52,298.667,241.344,298.667,256z M256,21.333c12.331,0,34.496,60.16,40.853,171.541    C282.197,192.299,268.288,192,256,192s-26.197,0.299-40.853,0.875C221.504,81.493,243.669,21.333,256,21.333z M227.093,23.296    c-19.883,36.032-29.504,107.776-33.173,170.624c-62.848,3.669-134.592,13.291-170.624,33.173    C36.437,120.811,120.811,36.437,227.093,23.296z M192.875,215.147C192.299,229.803,192,243.712,192,256s0.299,26.197,0.875,40.853    C81.493,290.496,21.333,268.331,21.333,256S81.493,221.504,192.875,215.147z M23.296,284.907    c36.011,19.883,107.755,29.504,170.624,33.173c3.669,62.848,13.291,134.592,33.173,170.624    C120.811,475.563,36.437,391.189,23.296,284.907z M256,490.667c-12.331,0-34.496-60.16-40.853-171.541    C229.803,319.701,243.712,320,256,320s26.197-0.299,40.853-0.875C290.496,430.507,268.331,490.667,256,490.667z M284.907,488.704    c19.883-36.011,29.504-107.755,33.173-170.624c62.848-3.669,134.592-13.291,170.624-33.173    C475.563,391.189,391.189,475.563,284.907,488.704z"/>
+	              </g>
+              </g>
+            </svg>
+            </span>
+          </div>
+          <div class="tool-extra submenu-rect" id="submenu-rect-Pyramid">
+           <span title = "pyramid" class="tool-icon">◁</span>
+          </div>`,
       listener: menuListener,
     },
     mouseCursor: "crosshair",

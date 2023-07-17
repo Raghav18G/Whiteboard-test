@@ -102,7 +102,7 @@ const checkForRecordStart = () => {
   } else {
     $("body").on("click", ".close__meeting", () => {
       if (!token && !meetingId) {
-        window.location.href = "https://glu-stage.antino.io/tutor/";
+        window.location.href = "/";
       }
     });
   }

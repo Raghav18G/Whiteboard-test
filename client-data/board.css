@@ -137,19 +137,21 @@ iframe{
 
   /* The Close Button */
   .close {
-    color: #aaa;
+    color: #111;
     float: right !important;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 30px;
+    font-weight: 800;
+    margin-right: 1rem;
     }
     
     .close:hover,
     .close:focus {
-    color: black;
     text-decoration: none;
     cursor: pointer;
     }
-
+#closeModalBtn{
+position :relative;
+}
     
 
 #draggableToolbar {
@@ -158,6 +160,8 @@ iframe{
   background-color: #f1f1f1;
   border: 1px solid #d3d3d3;
   text-align: center;
+  padding:5px;
+  border-radius: 20px;
   display: flex;
   width: 60%;
   align-items: center;
@@ -244,6 +248,7 @@ border-radius: 40%;
   padding: 0;
   overflow: hidden;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 0;
 }
@@ -628,6 +633,7 @@ button.close.window-button {
 .color-pick {
   width: 30px;
   height: 30px;
+  margin: 8px;
   overflow: hidden;
   border-radius: 100%;
 }
@@ -1021,5 +1027,295 @@ div#msr-pod-up {
 }
 
 .hideExtenders{
+  display: none;
+}
+
+#videoPlayer{
+  display: none;
+}
+
+
+
+.downloadModal{
+  position: relative;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 40%;
+    top: 35%;
+    padding: 20px;
+    width: 20%; /* Full width */
+    height: auto; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    border-radius: 20px;
+    font-family: "Inter";
+}
+
+.downloadModal-content {
+  background-color: rgba(245, 245, 245, 1);
+  padding: 2px;
+  border-radius: 20px;
+  width: 100%; 
+  height: 100%;
+}
+
+.downloadItems{
+padding: 10px;
+}
+
+
+#videoModalClose img{
+ z-index: 20;
+ cursor: pointer;
+ width:25px;
+}
+
+.videoModal{
+  position: fixed; /* Stay in place */
+  display: none;
+  z-index: 1; /* Sit on top */
+  left: 6%;
+  top: 5%;
+  width: 80%; /* Full width */
+  height: 80%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  font-family: "Inter";
+  background-color: #f5f5f5;
+  border-radius: 20px;
+}
+
+.videoModalheader{
+  cursor:move;
+  font-family: "Inter";
+  font-size: small;
+  font-weight: 700;
+  background-color: #000;
+  color: #ffff;
+  text-align: center;
+
+}
+
+.videoModal-content {
+  position: relative;
+  width: 100%; 
+  height: 100%;
+  padding: 2px;
+}
+
+#videoIframe{
+  position: absolute;
+  display: none;
+  width: 95%;
+  height: 80%;
+  z-index: 2;
+  margin: 1rem;
+}
+
+
+.dragVideoModal{
+  position: fixed; /* Stay in place */
+  display: none;
+  z-index: 1; /* Sit on top */
+  left: 6%;
+  top: 5%;
+  width: 80%; /* Full width */
+  height: 80%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  font-family: "Inter";
+  background-color: #f5f5f5;
+  border-radius: 20px;
+}
+
+.dragVideoModalheader{
+  cursor:move;
+  font-family: "Inter";
+  font-size: small;
+  font-weight: 700;
+  background-color: #000;
+  color: #ffff;
+  text-align: center;
+
+
+}
+
+#dragVideoModalClose img{
+  z-index: 20;
+  cursor: pointer;
+  width:25px;
+ }
+
+.dragVideoModal-content {
+  position: relative;
+  background-color: #f5f5f5;
+  padding: 2px;
+  border-radius: 20px;
+  width: 100%; 
+  height: 100%;
+}
+
+
+#videoPlayer{
+  position: absolute;
+  width: 95%;
+  height: 90%;
+  margin: 1rem;
+
+}
+
+/* Drawer Styles */
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background-color: #f5f5f5;
+  transition: right 0.3s ease-in-out;
+  z-index: 9999;
+}
+
+.drawer.open {
+  right: 0;
+}
+
+.content {
+  padding: 20px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+
+/* Tabs Styling */
+.tab-header {
+  margin-top: 2rem;
+}
+
+.tab {
+  flex-grow: 1;
+  padding: 10px;
+  margin: 5px;
+  width:6rem;
+  background-color: #f0f0f0;
+  border: none;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+ .tab:focus{
+  color: blue !important;
+  background-color:#0077FF0D !important;
+  border: 1px solid blue !important;
+}
+
+.tab-panel {
+  display: none;
+  position: absolute;
+  overflow: auto;
+  margin-top: 1rem;
+  height: 58%;
+  max-height: 58%;
+}
+
+
+/* Gallery Styles */
+
+
+.grid {
+  display: grid;
+  grid-auto-flow: row; /* it's the default value (can be omitted) */
+  grid-gap: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+.horizontal {
+  grid-auto-flow: column;
+}
+.grid img:first-child {
+  grid-area: span 3 / span 3;
+}
+
+.tab-panel img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+
+/* Document Modal Styles */
+.documentModal{
+  position: fixed; /* Stay in place */
+  display: none;
+  z-index: 1; /* Sit on top */
+  left: 35%;
+  top: 30%;
+  width: 25%; /* Full width */
+  height: 30%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  font-family: "Inter";
+  background-color: #f5f5f5;
+  border-radius: 20px;
+
+}
+
+
+.documentModal-content {
+  position: relative;
+  background-color: #f5f5f5;
+  padding: 2px;
+  border-radius: 20px;
+  width: 100%; 
+  height: 100%;
+}
+
+#documentModalModalClose img{
+  z-index: 20;
+  cursor: pointer;
+  width:30px;
+}
+
+.documentModalOptions{
+  display: flex;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: large;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 10px;
+  justify-content: space-evenly;
+  vertical-align: middle;
+}
+
+#SelectFromDevice{
+  margin-top: 30px;
+}
+
+
+/* Shapes Modal Footer Tabs */
+
+.popover-footer-tabs{
+ display: flex;
+  width: 100%;
+  background-color: #f7f7f7;
+  color: #000;
+  font-weight: 700;
+}
+
+.popover-footer-tab{
+  margin: 5px;
+  cursor: pointer;
+  font-size: large;
+}
+
+#popover-body-3d{
   display: none;
 }
