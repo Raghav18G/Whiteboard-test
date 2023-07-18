@@ -57,9 +57,9 @@
                 (100 + document.documentElement.scrollTop) / Tools.scale +
                 10 * imgCount,
             };
-            // draw(msgLibrary);
-            // Tools.send(msgLibrary, "Document");
-            // imgCount++;
+            draw(msgLibrary);
+            Tools.send(msgLibrary, "Document");
+            imgCount++;
           };
 
           // Read the file as a Data URL
@@ -88,7 +88,7 @@
     fileInput.accept = "image/*";
     fileInput.click();
     fileInput.addEventListener("change", function () {
-      console.log("CHANGE CALLLED");
+
       var reader = new FileReader();
       reader.readAsDataURL(fileInput.files[0]);
       reader.onload = function (e) {

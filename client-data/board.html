@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <title>Iprep | Online collaborative whiteboard</title>
     <link rel="stylesheet" href="Fonts/stylesheet.css">
+    <link rel="stylesheet" href="tools/table/table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
     <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
     <link rel="stylesheet" href="tools/mathematical-tools/mathematicaltools.css">
     <link rel="stylesheet" href="tools/PDF/pdf.css">
@@ -13,22 +16,26 @@
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/react-select.css" />
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+
+    <link rel="stylesheet" type="text/css" href="board.css" />
+    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <script src="js/jquery.fullscreen.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
         integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg=="
         crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="board.css" />
-    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/0166a4ad2b.js" crossorigin="anonymous"></script>
     <script src="socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
         integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w=="
         crossorigin="anonymous"></script>
     <script src="https://www.webrtc-experiment.com/EBML.js"></script> <!-- ../libs/DBML.js -->
+
+
+
     <meta name="description" content="A free and opensource online collaborative drawing tool." />
     <meta name="keywords" content="Collaborative whiteboard,online,draw,paint,shared,realtime" />
     <link rel="shortcut icon"
@@ -155,17 +162,17 @@
             <div id="closePDFBtn"> <span class="close">&times;</span></div>
             <div id="addPDFPages">
             </div>
-            <p  >
+            <p>
                 <button class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
                 <button class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
 
             </p>
             <div style="align-self:end;">
-                <button class="pdfBtn"  onclick="handleDrawPDF()">Import PDF</button>
+                <button class="pdfBtn" onclick="handleDrawPDF()">Import PDF</button>
             </div>
         </div>
     </div>
-	
+
     <!--Document Moadal -->
     <div class="documentModal" id="documentModal">
         <div class="documentModal-content">
@@ -173,22 +180,22 @@
             <div>
                 <div class="documentModalOptions">
                     <img src="assets/AddImageFromLocal.svg" />
-                    <p  id="SelectFromDevice">Add Image from Device </p>
+                    <p id="SelectFromDevice">Add Image from Device </p>
 
                 </div>
-               
-                <hr/>
+
+                <hr />
                 <div class="documentModalOptions">
                     <img src="assets/AddImageFromLibrary.svg" />
-                    <p  id="SelectFromLibrary">Add Image From Library</p>
+                    <p id="SelectFromLibrary">Add Image From Library</p>
                 </div>
-           
+
             </div>
         </div>
     </div>
 
     <!-- Drawer Image Library -->
-   
+
     <div id="drawer" class="drawer ">
         <div class="content">
             <span id="closeButton" class="close">&times;</span>
@@ -212,30 +219,30 @@
                         <img id="libraryImage" src="assets/Image Library/Education/Education 2.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 3.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 4.jpeg" />
-                       
-                      </div>
-                      
-                      <div class="grid horizontal">
+
+                    </div>
+
+                    <div class="grid horizontal">
                         <img id="libraryImage" src="assets/Image Library/Education/Education 5.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 6.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 7.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 8.jpeg" />
-                      </div>
+                    </div>
 
-                      <div class="grid">
+                    <div class="grid">
                         <img id="libraryImage" src="assets/Image Library/Education/Education 9.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 10.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 11.png" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 13.jpeg" />
-                       
-                      </div>
-                      
-                      <div class="grid horizontal">
+
+                    </div>
+
+                    <div class="grid horizontal">
                         <img id="libraryImage" src="assets/Image Library/Education/Education 14.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 15.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 16.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Education/Education 20.jpeg" />
-                      </div>
+                    </div>
                 </div>
                 <div id="category2" class="tab-panel">
                     <div class="grid">
@@ -243,29 +250,29 @@
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 2.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 3.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 4.jpeg" />
-                      
-                      </div>
-                      
-                      <div class="grid horizontal">
+
+                    </div>
+
+                    <div class="grid horizontal">
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 5.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 6.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 7.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 8.png" />
-                      </div>
+                    </div>
 
-                      <div class="grid">
-                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 9.jpeg" >/
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Sports/Sports 9.jpeg">/
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 10.avif" />
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 11.webp" />
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 12.jpeg" />
-                      
-                      </div>
-                      
-                      <div class="grid horizontal">
+
+                    </div>
+
+                    <div class="grid horizontal">
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 13.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Sports/Sports 14.webp" />
-                      </div>
-                    
+                    </div>
+
                 </div>
                 <div id="category3" class="tab-panel">
                     <div class="grid">
@@ -273,141 +280,141 @@
                         <img id="libraryImage" src="assets/Image Library/Music/Music 2.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 3.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 4.jpeg" />
-                      
-                      
-                      </div>
-                      
-                      <div class="grid horizontal">
+
+
+                    </div>
+
+                    <div class="grid horizontal">
                         <img id="libraryImage" src="assets/Image Library/Music/Music 5.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 6.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 7.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 8.jpeg" />
-                      </div>
-                 
-                      <div class="grid horizontal">
+                    </div>
+
+                    <div class="grid horizontal">
                         <img id="libraryImage" src="assets/Image Library/Music/Music 9.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 10.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 11.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 12.webp" />
-                      </div>
+                    </div>
 
-                      <div class="grid">
+                    <div class="grid">
                         <img id="libraryImage" src="assets/Image Library/Music/Music 13.webp" />
                         <img id="libraryImage" src="assets/Image Library/Music/Music 14.jpeg" />
-              
-                      </div>
+
+                    </div>
                 </div>
-                <div id="category4" class="tab-panel">     
-                      <div class="grid">
+                <div id="category4" class="tab-panel">
+                    <div class="grid">
                         <img id="libraryImage" src="assets/Image Library/Arts/Arts 1.jpeg" alt="Image 1">
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 2.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Arts/Arts 3.jpeg" />
                         <img id="libraryImage" src="assets/Image Library/Arts/Arts 4.jpeg" />
-                      </div>
-                      
-                      <div class="grid horizontal">
+                    </div>
+
+                    <div class="grid horizontal">
                         <img id="libraryImage" src="assets/Image Library/Arts/Arts 5.jpeg" />
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 6.jpeg" />
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 7.jpeg" />
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 8.jpeg" />
-                      </div>
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 8.jpeg" />
+                    </div>
 
-                      <img id="libraryImage"  src="assets/Image Library/Arts/Arts 9.jpeg"/>
+                    <img id="libraryImage" src="assets/Image Library/Arts/Arts 9.jpeg" />
 
-                      <div class="grid">
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 10.jpeg" alt="Image 1">
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 11.jpeg" />
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 11.jpeg" />
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 12.jpeg" />
-                      </div>
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 10.jpeg" alt="Image 1">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 12.jpeg" />
+                    </div>
 
-                      <div class="grid horizontal">
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 13.jpeg" />
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 14.png" />
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 15.jpeg" />
-                        <img id="libraryImage"  src="assets/Image Library/Arts/Arts 16.jpeg" />
-                      </div>
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 13.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 14.png" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 15.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Arts/Arts 16.jpeg" />
+                    </div>
 
                 </div>
                 <div id="category5" class="tab-panel">
-                
+
                     <div class="grid">
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 1.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 2.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 3.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 4.jpeg"/>
-                       
-                      </div>
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 4.jpeg" />
 
-                      <div class="grid horizontal">
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 5.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 6.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 7.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 8.jpeg"/>
-                      </div>
+                    </div>
 
-                      <div class="grid">
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 9.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 10.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 11.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 12.jpeg"/>
-                       
-                      </div>
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 8.jpeg" />
+                    </div>
 
-                      <div class="grid horizontal">
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 13.avif"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 14.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 15.png"/>
-                        <img id="libraryImage"  src="assets/Image Library/Science/Science 16.png"/>
-                      </div>
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 12.jpeg" />
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 13.avif" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 14.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 15.png" />
+                        <img id="libraryImage" src="assets/Image Library/Science/Science 16.png" />
+                    </div>
                 </div>
                 <div id="category6" class="tab-panel">
-                   
+
                     <div class="grid">
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 1.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 2.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 3.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 4.jpeg"/>
-                        
-                       
-                      </div>
-
-                      <div class="grid horizontal">
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 5.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 6.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 7.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 8.jpeg"/>
-                      </div>
-
-                      <div class="grid">
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 9.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 10.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 11.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 12.webp"/>
-                        
-                       
-                      </div>
-
-                      <div class="grid horizontal">
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 13.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 14.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 15.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 16.jpeg"/>
-                      </div>
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 1.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 2.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 3.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 4.jpeg" />
 
 
-                      <div class="grid">
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 17.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 18.jpeg"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 19.avif"/>
-                        <img id="libraryImage"  src="assets/Image Library/Maths/Maths 13.jpeg"/>
-                        
-                       
-                      </div>
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 5.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 6.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 7.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 8.jpeg" />
+                    </div>
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 9.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 10.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 11.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 12.webp" />
+
+
+                    </div>
+
+                    <div class="grid horizontal">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 13.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 14.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 15.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 16.jpeg" />
+                    </div>
+
+
+                    <div class="grid">
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 17.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 18.jpeg" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 19.avif" />
+                        <img id="libraryImage" src="assets/Image Library/Maths/Maths 13.jpeg" />
+
+
+                    </div>
                 </div>
-               
+
             </div>
-         
+
         </div>
     </div>
 
@@ -677,10 +684,6 @@
         </div>
     </div>
 
-    <div id="menu" class="menu">
-
-
-    </div>
     <div id="template" style="display:none;"></div>
 
     <!-- backgorund-color-tool -->
@@ -726,12 +729,25 @@
         <div class="mathematicalTool-content">
             <div id="closeToolModalBtn"> <span class="close">&times;</span></div>
             <div class="tabs">
-                <div id="tab1--mathematiclTool" class="tab-content show">             
+                <div id="tab1--mathematiclTool" class="tab-content show">
                 </div>
             </div>
-            <div> 
-         </div>
+            <div>
+            </div>
         </div>
+    </div>
+
+
+    <!-- Table Actions -->
+    <div id="table-actions" class="color-modal">
+        <p class="action" id="add-row">Add row</p>
+        <hr />
+        <p class="action" id="delete-column">Delete column</p>
+        <hr />
+        <p class="action" id="add-column">Add column</p>
+        <hr />
+        <p class="action" id="delete-row">Delete row</p>
+        </p>
     </div>
 
     <!-- HTML 2 Canvas CDN -->
@@ -752,12 +768,12 @@
     <script src="tools/mathematical-tools/mathematicalTools.js"></script>
 
     <!-- Screenshot Tool -->
-    <!-- <script src="tools/screenshotTool/screenshotTool.js"></script> -->
+    <script src="tools/screenshotTool/screenshotTool.js"></script>
 
 
 
-	<!-- Sticky Notes -->
-	<!-- <script src="tools/stickyNotes/stickyNotes.js"></script> -->
+    <!-- Sticky Notes -->
+    <!-- <script src="tools/stickyNotes/stickyNotes.js"></script> -->
     <!-- Recorder -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
         integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w=="
@@ -847,7 +863,7 @@
     <script src="https://source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script>
     <script src="https://source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
     <script src="https://source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script>
-    <script src="https://source.zoom.us/1.8.0/lib/vendor/jquery.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/jquery.min.js"></script> -->
     <script src="https://source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script>
     <!-- import ZoomMtg -->
     <script src="https://source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
@@ -856,20 +872,16 @@
     <script src="https://www.webrtc-experiment.com/common.js"></script>
     <script type="module" src="js/record/record.js"></script>
     <script type="module" src="js/customJs/zoomOverride.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/record/onlyAudioVideo.js"></script>
 
- 
+
     <!-- pdf.js -->
     <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 
- 
 
-    <script src=
-	"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-	   </script>
-	   <script src=
-   "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
-	   </script>
-    <script src="js/record/onlyAudioVideo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script>
     <script src="js/draggableContainers.js"></script>
     <script src="tools/background-manangement/background.js"></script>
 
@@ -877,6 +889,8 @@
     <script src="js/pasteEvents.js"></script>
 
     <script src="js/dragEvents.js"></script>
+    <script src="tools/table/table.js"></script>
+
     <Script></Script>
 </body>
 

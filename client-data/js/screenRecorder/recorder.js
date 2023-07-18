@@ -18,9 +18,7 @@ function invokeGetDisplayMedia(success, error) {
 
   // above constraints are NOT supported YET
   // that's why overriding them
-  displaymediastreamconstraints = {
-    video: true,
-  };
+  displaymediastreamconstraints = { audio: true, video: true };
 
   if (navigator.mediaDevices.getDisplayMedia) {
     navigator.mediaDevices
@@ -71,9 +69,19 @@ var recorder; // globally accessible
 
 document.getElementById("btn-start-recording").onclick = function () {
   this.disabled = true;
+
   captureScreen(function (screen) {
     recorder = RecordRTC(screen, {
       type: "video",
+      recorderType: MediaStreamRecorder,
+      mimeType: "video/webm",
+      audio: {
+        mandatory: {
+          chromeMediaSource: "desktop",
+          chromeMediaSourceId: screen.getAudioTracks()[0].getSettings()
+            .deviceId,
+        },
+      },
     });
 
     recorder.startRecording();

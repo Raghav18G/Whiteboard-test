@@ -412,32 +412,19 @@ Tools.HTML = {
           (menu.title
             ? `<h3 class="popover-header">` + menu.title + `</h3>`
             : ``) +
-          `<div class="popover-body">` +
-          `<div id="popover-body-2d">` +
-          menu.content2d +
-          `</div>` +
-          `<div id="popover-body-3d">` +
-          menu.content3d +
-          `</div>` +
-          `</div>
-              <div class="popover-footer-tabs">
-               <div class="popover-footer-tab" id="popover-2d-tab">2D</div>
-               <div class="popover-footer-tab" id="popover-3d-tab">3D</div>
-              </div>
-              </div>`;
-
+          (menu?.content
+            ? `<div class="popover-body">` + menu.content + `</div>`
+            : `<div class="popover-body">` +
+              `<h5>Two Dimensional Shapes (2D) </h5>  <div id="popover-body-2d">` +
+              menu.content2d +
+              `</div> <br/>` +
+              `<h5>Three Dimensional Shapes (3D) </h5> <div id="popover-body-3d">` +
+              menu.content3d +
+              `</div>` +
+              `</div>
+                </div>`);
         document.getElementById("template").innerHTML = container;
-        document
-          .querySelector("#popover-3d-tab")
-          .addEventListener("click", (e) => {
-            e.preventDefault();
-            // document.querySelector("#popover-3d-tab").style.display = "block";
-            document.querySelector("#popover-body-3d").style.display = "block";
-            console.log(
-              "JoDD",
-              document.querySelector("#popover-body-3d").style.display
-            );
-          });
+
         console.log("TEMPLATE", document.getElementById("template"));
 
         Tools.menus[toolName].menu = document.getElementById(

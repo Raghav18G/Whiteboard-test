@@ -159,7 +159,7 @@
 	function draw(data, isLocal) {
 		Tools.drawingEvent=true;
 		switch (data.type) {
-			case "new":
+			case "new":draw
 				createTextField(data);
 				break;
 			case "update":

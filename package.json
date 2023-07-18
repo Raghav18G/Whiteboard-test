@@ -6,6 +6,7 @@
    "version": "1.2.14",
    "license": "AGPL-3.0-or-later",
    "dependencies": {
+      "@fortawesome/fontawesome-free": "^6.4.0",
       "@zoomus/websdk": "^1.8.1",
       "accept-language-parser": "^1.5.0",
       "handlebars": "^4.7.6",
