@@ -166,8 +166,7 @@ closeModalBtn.addEventListener("click", function () {
 //to manage change in tabs components click
 function openTab(event, tabId) {
   // Get all tab content elements
-  var tabContents = document.getElementsByClassName("tab-content")
-
+  var tabContents = document.getElementsByClassName("color-tab-content")
   // Hide all tab content elements
   for (var i = 0; i < tabContents.length; i++) {
     tabContents[i].classList.remove("show")
@@ -177,7 +176,7 @@ function openTab(event, tabId) {
   document.getElementById(tabId).classList.add("show")
 
   // Get all tab elements
-  var tabs = document.getElementsByClassName("tab")
+  var tabs = document.getElementsByClassName("color-tab")
 
   // Remove the "active" class from all tabs
   for (var i = 0; i < tabs.length; i++) {

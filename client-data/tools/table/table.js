@@ -24,7 +24,7 @@
  * @licend
  */
 
- (function Table() {
+(function Table() {
   var curText = {
     x: 0,
     y: 0,
@@ -70,10 +70,11 @@
       default:
         console.error("Text: Draw instruction with unknown type. ", data);
         break;
-      }
     }
-    
-    const modal = document.getElementById("table-actions");
+  }
+
+  const modal = document.getElementById("table-actions");
+
   const addInputElement = (row) => {
     const td = document.createElement("td");
     td.style.border = "1px solid #000";
@@ -86,7 +87,7 @@
     input.addEventListener("contextmenu", (e) => {
       e.preventDefault()
       //console.log(e)
-  
+
       cell = e.target;
       modal.style.display = "block";
       modal.style.top = e.clientY + "px";
@@ -98,7 +99,7 @@
 
   window.addEventListener('click', (e) => {
     // handleCloseModal()
-    if(modal.style.display === "block") {
+    if (modal.style.display === "block") {
       modal.style.display = "none";
     }
   })
@@ -111,11 +112,15 @@
       "http://www.w3.org/2000/svg",
       "foreignObject"
     );
-
+    const getExistingForeignObject = document.getElementsByTagName('foreignObject')
+    console.log(getExistingForeignObject, "getExistig")
+    for (let k of getExistingForeignObject) {
+      if (getExistingForeignObject.length !== 0)
+        k.remove()
+    }
     foreignObject.setAttribute("overflow", "visible");
     const table = document.createElement("table");
     table.style.position = "absolute";
-
     foreignObject.style.x = 200;
     foreignObject.style.y = 200;
     foreignObject.style.width = "1px";
@@ -176,18 +181,18 @@
       const rows = tableEle.getElementsByTagName("tr");
 
       for (var i = 0; i < rows.length; i++) {
-         let cells = rows[i].getElementsByTagName("td");
+        let cells = rows[i].getElementsByTagName("td");
         // //columnIndex = cells.length-1
-        // if (cells.length > columnIndex) {
-        //   cells[columnIndex].parentNode.removeChild(cells[columnIndex]);
-        // }
-        //console.log(cells,cells[columnIndex],"parnet node")
-        const lastCellIndex = cells.length - 1; 
-
-        if (lastCellIndex >= 0) {
-          const lastCell = cells[lastCellIndex];
-          lastCell.parentNode.removeChild(lastCell);
+        if (cells.length > columnIndex) {
+          cells[columnIndex].parentNode.removeChild(cells[columnIndex]);
         }
+        //console.log(cells,cells[columnIndex],"parnet node")
+        // const lastCellIndex = cells.length - 1;
+
+        // if (lastCellIndex >= 0) {
+        //   const lastCell = cells[lastCellIndex];
+        //   lastCell.parentNode.removeChild(lastCell);
+        // }
       }
     });
 

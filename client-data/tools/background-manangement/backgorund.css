@@ -35,27 +35,27 @@
     margin:6px;
   }
 
-  .tabs {
+  .color-tabs {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
     height: 10rem;
   }
   
-  .tab {
+  .color-tab {
     padding: 10px;
     cursor: pointer;
   }
-  .tab:active svg {
+  .color-tab:active svg {
    background: bisque
   }
   
-  .tab-content {
+  .color-tab-content {
     display: none;
     padding: 10px; 
   }
   
-  .tab-content.show {
+  .color-tab-content.show {
     display: block;
   }
   

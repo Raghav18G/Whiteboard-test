@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const url = require("url");
 const accept_language_parser = require("accept-language-parser");
+const client_config = require("./client_configuration");
 
 /**
  * Associations from language to translation dictionnaries
@@ -31,18 +32,38 @@ class Template {
     const contents = fs.readFileSync(path, { encoding: "utf8" });
     this.template = handlebars.compile(contents);
   }
-  parameters(parsedUrl, request) {
-    const accept_languages =
-      parsedUrl.query.lang || request.headers["accept-language"];
-    const language =
-      accept_language_parser.pick(languages, accept_languages) || "en";
+  parameters(parsedUrl, request,isModerator) {
+    // const accept_languages =
+    //   parsedUrl.query.lang || request.headers["accept-language"];
+    // const language =
+    //   accept_language_parser.pick(languages, accept_languages) || "en";
+    // const translations = TRANSLATIONS[language] || {};
+    // const baseUrl = findBaseUrl(request);
+    // return { baseUrl, languages, language, translations };
+    const accept_language_str = parsedUrl.query.lang || request.headers["accept-language"];
+    const accept_languages = accept_language_parser.parse(accept_language_str);
+    const opts = { loose: true };
+    let language =
+      accept_language_parser.pick(languages, accept_languages, opts) || "hi";
+    // The loose matcher returns the first language that partially matches, so we need to
+    // check if the preferred language is supported to return it
+    if (accept_languages.length > 0) {
+      const preferred_language = accept_languages[0].code + "-" + accept_languages[0].region;
+      if (languages.includes(preferred_language)) {
+        language = preferred_language;
+      }
+    }
     const translations = TRANSLATIONS[language] || {};
-    const baseUrl = findBaseUrl(request);
-    return { baseUrl, languages, language, translations };
+    const configuration = client_config || {};
+    const prefix = request.url.split("/boards/")[0].substr(1);
+    const baseUrl = findBaseUrl(request) + (prefix ? prefix + "/" : "");
+    const moderator = isModerator;
+    return { baseUrl, languages, language, translations, configuration, moderator };
+ 
   }
-  serve(request, response) {
+  serve(request, response,isModerator) {
     const parsedUrl = url.parse(request.url, true);
-    const parameters = this.parameters(parsedUrl, request);
+    const parameters = this.parameters(parsedUrl, request,isModerator);
     var body = this.template(parameters);
     var headers = {
       "Content-Length": Buffer.byteLength(body),
@@ -58,12 +79,13 @@ class Template {
 }
 
 class BoardTemplate extends Template {
-  parameters(parsedUrl, request) {
-    const params = super.parameters(parsedUrl, request);
+  parameters(parsedUrl, request, isModerator) {
+    const params = super.parameters(parsedUrl, request, isModerator);
     const parts = parsedUrl.pathname.split("boards/", 2);
     const boardUriComponent = parts[1];
     params["boardUriComponent"] = boardUriComponent;
     params["board"] = decodeURIComponent(boardUriComponent);
+    params["hideMenu"] = parsedUrl.query.hideMenu == "true" || false;
     return params;
   }
 }
