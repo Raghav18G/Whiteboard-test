@@ -37,7 +37,7 @@
     sentText: "",
     lastSending: 0,
   };
-
+  let toggleTable = 1;
   let cell = null;
   let columnIndex = 0;
   var tableSvg =
@@ -86,26 +86,15 @@
     input.type = "text";
     input.addEventListener("contextmenu", (e) => {
       e.preventDefault()
-      //console.log(e)
-
       cell = e.target;
-      modal.style.display = "block";
-      modal.style.top = e.clientY + "px";
-      modal.style.left = e.clientX + "px";
     });
 
     return td;
   };
 
-  window.addEventListener('click', (e) => {
-    // handleCloseModal()
-    if (modal.style.display === "block") {
-      modal.style.display = "none";
-    }
-  })
-
 
   const createTable = (fieldData) => {
+
     Tools.curTool = null;
 
     const foreignObject = document.createElementNS(
@@ -136,6 +125,25 @@
       }
       table.appendChild(tr);
     }
+    const editTableButton = document.createElement("button");
+    editTableButton.setAttribute('id', "editTableButton")
+    editTableButton.innerHTML = '<i class="fa fa-pencil">&#xf040;</i>';
+    editTableButton.classList.add('btn-edit-table')
+    foreignObject.appendChild(editTableButton);
+
+    // Add an event listener to the edit button
+    editTableButton.addEventListener("click", function (e) {
+      if (toggleTable) {
+        toggleTable = 0
+      }
+      else {
+        toggleTable = 1
+      }
+      e.preventDefault()
+      modal.style.display = toggleTable ? "none" : "block";
+      modal.style.top = (e.clientY + 10) + "px";
+      modal.style.left = e.clientX + "px";
+    });
 
     const addRow = document.getElementById("add-row");
     addRow.addEventListener("click", (e) => {
@@ -167,10 +175,11 @@
       e.stopPropagation();
       cell = e.target;
       //const rowToBeDeleted = cell.parentNode;
-      table.removeChild(table.lastElementChild);
+      let rowsTR = document.getElementsByTagName('tr')
+
+      if (rowsTR.length - 1 > 0) { table.removeChild(table.lastElementChild); }
     });
 
-    // work on it
     const deleteColumn = document.getElementById("delete-column");
     deleteColumn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -183,7 +192,8 @@
       for (var i = 0; i < rows.length; i++) {
         let cells = rows[i].getElementsByTagName("td");
         // //columnIndex = cells.length-1
-        if (cells.length > columnIndex) {
+        console.log(cells.length, columnIndex, "column delete");
+        if (cells.length - 1 > columnIndex) {
           cells[columnIndex].parentNode.removeChild(cells[columnIndex]);
         }
         //console.log(cells,cells[columnIndex],"parnet node")

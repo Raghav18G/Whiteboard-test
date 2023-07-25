@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap");
 
-
 html,
 body,
 svg {
@@ -16,7 +15,7 @@ svg {
 
 /* Draggable Div Styles */
 
-.stickyNotesModal{
+.stickyNotesModal {
   position: relative;
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -30,91 +29,89 @@ svg {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-
 .stickyNotesModal-content {
   background-color: #fefefe;
   padding: 2px;
   border: 1px solid #888;
   border-radius: 10px;
-  width: 100%; 
+  width: 100%;
   height: 100%;
 }
 
-
-.stickyNotesModal-content  ul,li {
-    list-style: none;
+.stickyNotesModal-content ul,
+li {
+  list-style: none;
 }
 
 .stickyNotesModal-content ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.stickyNotesModal-content  ul li a {
-    text-decoration: none;
-    color: #000;
-    background: #ffc;
-    display: block;
-    height: 10em;
-    width: 10em;
-    padding: 1em;
-    box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
-    transition: transform 0.15s linear;
+.stickyNotesModal-content ul li a {
+  text-decoration: none;
+  color: #000;
+  background: #ffc;
+  display: block;
+  height: 10em;
+  width: 10em;
+  padding: 1em;
+  box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+  transition: transform 0.15s linear;
 }
-.stickyNotesModal-content  ul li {
-    margin: 1em;
+.stickyNotesModal-content ul li {
+  margin: 1em;
 }
 .stickyNotesModal-content ul li:nth-child(odd) a {
-    transform: rotate(-4deg);
-    position: relative;
-    top: 5px;
+  transform: rotate(-4deg);
+  position: relative;
+  top: 5px;
 }
 .stickyNotesModal-content ul li:nth-child(even) a {
-    transform: rotate(4deg);
-    position: relative;
-    top: 5px;
+  transform: rotate(4deg);
+  position: relative;
+  top: 5px;
 }
 .stickyNotesModal-content ul li:nth-child(3n) a {
-    transform: rotate(-3deg);
-    position: relative;
-    top: -5px;
+  transform: rotate(-3deg);
+  position: relative;
+  top: -5px;
 }
 .stickyNotesModal-content ul li:nth-child(5n) a {
-    transform: rotate(5deg);
-    position: relative;
-    top: -10px;
+  transform: rotate(5deg);
+  position: relative;
+  top: -10px;
 }
 .stickyNotesModal-content ul li a:hover,
 ul li a:focus {
-    box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
-    transform: scale(1.25);
-    position: relative;
-    z-index: 5;
+  box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+  transform: scale(1.25);
+  position: relative;
+  z-index: 5;
 }
 .stickyNotesModal-content ul li:nth-child(even) a {
-    position: relative;
-    top: 5px;
-    background: #cfc;
+  position: relative;
+  top: 5px;
+  background: #cfc;
 }
 .stickyNotesModal-content ul li:nth-child(3n) a {
-    position: relative;
-    top: -5px;
-    background: #ccf;
+  position: relative;
+  top: -5px;
+  background: #ccf;
 }
 
-.iframeMoadal{
+.iframeMoadal {
   position: relative;
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 10%;
-    top: 10%;
-    width: 80%; /* Full width */
-    height: 80%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-  
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 10%;
+  top: 10%;
+  width: 80%; /* Full width */
+  height: 80%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 .iframemodal-content {
@@ -122,36 +119,33 @@ ul li a:focus {
   padding: 2px;
   border: 1px solid #888;
   border-radius: 10px;
-  width: 100%; 
+  width: 100%;
   height: 100%;
 }
-iframe{
+iframe {
   position: absolute;
-  top:5%;
+  top: 5%;
   width: 100%;
   height: 95%;
-
-  
 }
 
-  /* The Close Button */
-  .close {
-    color: #111;
-    float: right !important;
-    font-size: 30px;
-    font-weight: 800;
-    margin-right: 1rem;
-    }
-    
-    .close:hover,
-    .close:focus {
-    text-decoration: none;
-    cursor: pointer;
-    }
-#closeModalBtn{
-position :relative;
+/* The Close Button */
+.close {
+  color: #111;
+  float: right !important;
+  font-size: 30px;
+  font-weight: 800;
+  margin-right: 1rem;
 }
-    
+
+.close:hover,
+.close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+#closeModalBtn {
+  position: relative;
+}
 
 #draggableToolbar {
   position: relative;
@@ -160,21 +154,18 @@ position :relative;
   background-color: #f1f1f1;
   border: 1px solid #d3d3d3;
   text-align: center;
-  padding:5px;
+  padding: 5px;
   border-radius: 20px;
   display: flex;
   width: 60%;
   align-items: center;
-  top:280px;
-  left:165px;
- 
-
+  top: 280px;
+  left: 165px;
 }
 
-
-.dragIconContainer{
-background-color: #fff;
-border-radius: 40%;
+.dragIconContainer {
+  background-color: #fff;
+  border-radius: 40%;
 }
 
 #draggableToolbarheader {
@@ -184,18 +175,16 @@ border-radius: 40%;
   color: #fff;
 }
 
-.dragLogo{
-  width:40px;
+.dragLogo {
+  width: 40px;
 }
 
-
-.stopRecordingBtn{
-  width:40px;
+.stopRecordingBtn {
+  width: 40px;
 }
 
-
-.startRecordingBtn{
-  width:40px;
+.startRecordingBtn {
+  width: 40px;
 }
 
 #canvas {
@@ -241,8 +230,6 @@ border-radius: 40%;
 #loadingMessage::after {
   content: "...";
 }
-
-
 
 .tools {
   list-style-type: none;
@@ -321,8 +308,8 @@ border-radius: 40%;
   /*box-shadow: inset 0 0 3px #8FA2BC;*/
 }
 
- .tool-popout:focus-within,
- #settings .tool-popout:hover {
+.tool-popout:focus-within,
+#settings .tool-popout:hover {
   max-width: 100%;
 }
 
@@ -356,12 +343,12 @@ border-radius: 40%;
 }
 
 .tool.curTool,
- .tool-extra.curTool {
+.tool-extra.curTool {
   /* box-shadow: 0 0 5px #0064d9; */
   /*background: linear-gradient(#96E1FF, #36A2FF);*/
 }
 
- .tool-icon {
+.tool-icon {
   display: inline-block;
   text-align: center;
   font-size: 24px;
@@ -374,9 +361,6 @@ border-radius: 40%;
   margin: 0px 26px auto 4px;
   font-family: mono;
 }
-
-
-
 
 .tool-icon > * {
   display: block;
@@ -405,10 +389,7 @@ border-radius: 40%;
   box-shadow: 0 0 3px #7fb2cc;
 }
 
-
-
 .popover .popover-body {
-
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -418,26 +399,23 @@ border-radius: 40%;
                                   supported by Chrome, Opera and Firefox */
   cursor: pointer;
   padding: 5px 5px 5px 5px;
-
 }
 
- .popover-body h5{
+.popover-body h5 {
   background-color: #f5f5f5;
   font-family: "Inter";
   padding: 10px;
   font-weight: 700;
   border-radius: 10px;
-
 }
 
-.popover-header{
+.popover-header {
   margin-left: 10px;
 }
 
 .popover .tool-extra {
   cursor: pointer;
   margin: 0px 0px 0px 0px;
-
 }
 
 .popover .tool-icon {
@@ -455,13 +433,13 @@ border-radius: 40%;
   transform: rotate(-90deg);
   left: 62px;
 }
- .tool-name.slider.sizeSelector #chooseSize {
+.tool-name.slider.sizeSelector #chooseSize {
   width: 130px;
 }
 .tool-name.slider.verticalAlign {
   transform: rotate(-90deg);
 }
- .tool.size_selector_container {
+.tool.size_selector_container {
   max-width: 40px;
   overflow: hidden;
 }
@@ -483,9 +461,8 @@ border-radius: 40%;
   position: absolute;
   bottom: -49px;
   width: 20px;
- 
 }
- .tool-name.slider {
+.tool-name.slider {
   display: inline-block;
   width: 150px;
   height: 30px;
@@ -494,10 +471,6 @@ border-radius: 40%;
   vertical-align: top;
   padding: 6px;
 }
-
-
-
-
 
 .hideOpacity {
   display: none !important;
@@ -862,7 +835,7 @@ footer div:nth-child(2) .footer-button__button-label {
   height: 89% !important;
 }
 #body-new {
-  overflow:unset !important;
+  overflow: unset !important;
 }
 body::-webkit-scrollbar {
   width: 10px;
@@ -982,17 +955,17 @@ div#msr-pod-up {
   #toolID-Clear {
     bottom: 130px;
   }
-  #toolID-Undo .tool-icon{
+  #toolID-Undo .tool-icon {
     margin-left: 5px;
   }
-  .menu .tool-icon{
+  .menu .tool-icon {
     margin-right: 2px;
   }
-  .video__recorder__screen{
+  .video__recorder__screen {
     width: 150px;
     height: 100px;
   }
-  .extend_tools{
+  .extend_tools {
     position: fixed;
     width: 10px;
     right: 25px;
@@ -1011,7 +984,7 @@ div#msr-pod-up {
     background: #f7f7f7;
     padding: 10px;
   } */
-  #toolID-Undo .tool-icon{
+  #toolID-Undo .tool-icon {
     margin-left: 0;
   }
   #toolID-Undo,
@@ -1032,7 +1005,7 @@ div#msr-pod-up {
   #toolID-Clear {
     bottom: 80px;
   }
-  .video__recorder__screen{
+  .video__recorder__screen {
     width: 150px;
     height: 100px;
   }
@@ -1042,51 +1015,48 @@ div#msr-pod-up {
   } */
 }
 
-.hideExtenders{
+.hideExtenders {
   display: none;
 }
 
-#videoPlayer{
+#videoPlayer {
   display: none;
 }
 
-
-
-.downloadModal{
+.downloadModal {
   position: relative;
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    left: 40%;
-    top: 35%;
-    padding: 20px;
-    width: 20%; /* Full width */
-    height: auto; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    border-radius: 20px;
-    font-family: "Inter";
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 40%;
+  top: 35%;
+  padding: 20px;
+  width: 20%; /* Full width */
+  height: auto; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  border-radius: 20px;
+  font-family: "Inter";
 }
 
 .downloadModal-content {
   background-color: rgba(245, 245, 245, 1);
   padding: 2px;
   border-radius: 20px;
-  width: 100%; 
+  width: 100%;
   height: 100%;
 }
 
-.downloadItems{
-padding: 10px;
+.downloadItems {
+  padding: 10px;
 }
 
-
-#videoModalClose img{
- z-index: 20;
- cursor: pointer;
- width:25px;
+#videoModalClose img {
+  z-index: 20;
+  cursor: pointer;
+  width: 25px;
 }
 
-.videoModal{
+.videoModal {
   position: fixed; /* Stay in place */
   display: none;
   z-index: 1; /* Sit on top */
@@ -1100,25 +1070,24 @@ padding: 10px;
   border-radius: 20px;
 }
 
-.videoModalheader{
-  cursor:move;
+.videoModalheader {
+  cursor: move;
   font-family: "Inter";
   font-size: small;
   font-weight: 700;
   background-color: #000;
   color: #ffff;
   text-align: center;
-
 }
 
 .videoModal-content {
   position: relative;
-  width: 100%; 
+  width: 100%;
   height: 100%;
   padding: 2px;
 }
 
-#videoIframe{
+#videoIframe {
   position: absolute;
   display: none;
   width: 95%;
@@ -1127,8 +1096,7 @@ padding: 10px;
   margin: 1rem;
 }
 
-
-.dragVideoModal{
+.dragVideoModal {
   position: fixed; /* Stay in place */
   display: none;
   z-index: 1; /* Sit on top */
@@ -1142,40 +1110,36 @@ padding: 10px;
   border-radius: 20px;
 }
 
-.dragVideoModalheader{
-  cursor:move;
+.dragVideoModalheader {
+  cursor: move;
   font-family: "Inter";
   font-size: small;
   font-weight: 700;
   background-color: #000;
   color: #ffff;
   text-align: center;
-
-
 }
 
-#dragVideoModalClose img{
+#dragVideoModalClose img {
   z-index: 20;
   cursor: pointer;
-  width:25px;
- }
+  width: 25px;
+}
 
 .dragVideoModal-content {
   position: relative;
   background-color: #f5f5f5;
   padding: 2px;
   border-radius: 20px;
-  width: 100%; 
+  width: 100%;
   height: 100%;
 }
 
-
-#videoPlayer{
+#videoPlayer {
   position: absolute;
   width: 95%;
   height: 90%;
   margin: 1rem;
-
 }
 
 /* Drawer Styles */
@@ -1207,7 +1171,6 @@ padding: 10px;
   font-size: 24px;
 }
 
-
 /* Tabs Styling */
 .tab-header {
   margin-top: 2rem;
@@ -1217,7 +1180,7 @@ padding: 10px;
   flex-grow: 1;
   padding: 10px;
   margin: 5px;
-  width:6rem;
+  width: 6rem;
   background-color: #f0f0f0;
   border: none;
   text-align: center;
@@ -1225,9 +1188,9 @@ padding: 10px;
   cursor: pointer;
 }
 
- .tab:focus{
+.tab:focus {
   color: blue !important;
-  background-color:#0077FF0D !important;
+  background-color: #0077ff0d !important;
   border: 1px solid blue !important;
 }
 
@@ -1240,9 +1203,7 @@ padding: 10px;
   max-height: 58%;
 }
 
-
 /* Gallery Styles */
-
 
 .grid {
   display: grid;
@@ -1265,9 +1226,8 @@ padding: 10px;
   object-fit: cover;
 }
 
-
 /* Document Modal Styles */
-.documentModal{
+.documentModal {
   position: fixed; /* Stay in place */
   display: none;
   z-index: 1; /* Sit on top */
@@ -1279,26 +1239,24 @@ padding: 10px;
   font-family: "Inter";
   background-color: #f5f5f5;
   border-radius: 20px;
-
 }
-
 
 .documentModal-content {
   position: relative;
   background-color: #f5f5f5;
   padding: 2px;
   border-radius: 20px;
-  width: 100%; 
+  width: 100%;
   height: 100%;
 }
 
-#documentModalModalClose img{
+#documentModalModalClose img {
   z-index: 20;
   cursor: pointer;
-  width:30px;
+  width: 30px;
 }
 
-.documentModalOptions{
+.documentModalOptions {
   display: flex;
   cursor: pointer;
   font-weight: 800;
@@ -1311,8 +1269,181 @@ padding: 10px;
   vertical-align: middle;
 }
 
-#SelectFromDevice{
+#SelectFromDevice {
   margin-top: 30px;
 }
 
+/* Clock Widget CSS */
+.clockbox {
+  width: 100%;
+  height: 100%;
+}
 
+/* Clock styles */
+.circle {
+  fill: none;
+  stroke: #000;
+  stroke-width: 9;
+  stroke-miterlimit: 10;
+}
+
+.mid-circle {
+  fill: #000;
+}
+
+.hour-marks {
+  fill: none;
+  stroke: #000;
+  stroke-width: 9;
+  stroke-miterlimit: 10;
+}
+
+.hour-arm {
+  fill: none;
+  stroke: #000;
+  stroke-width: 17;
+  stroke-miterlimit: 10;
+}
+
+.minute-arm {
+  fill: none;
+  stroke: #000;
+  stroke-width: 11;
+  stroke-miterlimit: 10;
+}
+
+.second-arm {
+  fill: none;
+  stroke: #000;
+  stroke-width: 4;
+  stroke-miterlimit: 10;
+}
+
+/* Transparent box ensuring arms center properly. */
+.sizing-box {
+  fill: none;
+}
+
+/* Make all arms rotate around the same center point. */
+/* Optional: Use transition for animation. */
+#hour,
+#minute,
+#second {
+  transform-origin: 300px 300px;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* CSS Manifyig glass */
+
+.img-magnifier-container {
+  position: relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 15rem;
+  height: 15rem;
+}
+
+.maginifying-btn {
+  position: absolute;
+  height: 2rem;
+  top: 35%;
+  left: -10%;
+  background-color: #d0c8c8;
+  padding: 0px;
+  border-radius: 5px;
+}
+
+
+/* StopWatch Widget Styles */
+#display {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-left: 2rem;
+}
+#controls {
+  margin-top: 20px;
+  display: flex;
+}
+#controls button {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#controls  button:hover {
+  background-color: #45a049;
+}
+
+
+/* Dice Widget */
+
+#dice{
+  width: 150px;
+  height: 150px;
+  margin: 20px auto;
+  display: block;
+}
+
+.dice {
+  fill: #f0f0f0;
+  stroke: #333;
+  stroke-width: 2;
+}
+#dots-container {
+  display: none;
+}
+.dot {
+  fill: #333;
+}
+
+#rollButton{
+  background-color: #45a049;
+   width:10rem;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Calculator */
+
+#calculatorWidget {
+  width: 300px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 20px auto;
+}
+
+#calculatorWidget input[type="text"] {
+  width: 100%;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#calculatorWidget button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#calculatorWidget button:hover {
+  background-color: #45a049;
+}
