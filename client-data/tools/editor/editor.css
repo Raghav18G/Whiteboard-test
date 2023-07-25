@@ -50,7 +50,7 @@
 
 #wb-editor-container {
 	position:absolute;
-	top:20px;
+	top: 5rem!important;
 	left:30px;
 	border:1px solid lightgray;
 	/*-webkit-user-select:none;*/
@@ -64,10 +64,12 @@
 }
 
 #wb-editor-container-header {
+	display: flex;
+    justify-content: space-between;
 	padding: 9px 10px 9px 10px;
 	cursor: move;
-	opacity:.7;
-	background-color: #2196F3;
+	opacity:1;
+	background-color: #66b7f7;
 	color: #fff;
 }
 

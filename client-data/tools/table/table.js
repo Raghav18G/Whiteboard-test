@@ -110,7 +110,7 @@
     foreignObject.setAttribute("overflow", "visible");
     const table = document.createElement("table");
     table.style.position = "absolute";
-    foreignObject.style.x = 200;
+    foreignObject.style.x = 150;
     foreignObject.style.y = 200;
     foreignObject.style.width = "1px";
     foreignObject.style.height = "1px";

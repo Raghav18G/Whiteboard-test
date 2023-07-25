@@ -1,6 +1,6 @@
 $(document).ready(() => {
   $("body").on("click", ".size_selector_container", () => {
-    $(".size_selector_container .slider").toggleClass("sizeSelector");
+    $(".size_selector_container .verticalAlign").toggleClass("sizeSelector");
   });
   $("body").on("click", ".opacityPicker", () => {
     $(".opacityPicker .opacitySelector").toggleClass("hideOpacity");

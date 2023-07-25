@@ -764,53 +764,53 @@ var cubeImg= ""
       title: "Shapes",
       content2d:
         `<div class="tool-extra submenu-rect" id="submenu-rect-Rectangle">
-							<span title = "rectangle" class="tool-icon">▭</span>
+              <span title = "Rectangle" class="tool-icon" id="shape2d-rectangle">▭</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-Circle">
-							<span title = "circle" class="tool-icon">◯</span>
+              <span title = "Circle" class="tool-icon" id="shape2d-circle">◯</span>
 						</div>
             
 						<div class="tool-extra submenu-rect" id="submenu-rect-Triangle">
-							<span title = "triangle" class="tool-icon">◺</span>
+              <span title = "Triangle" class="tool-icon" id="shape2d-triangle">◺</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-EquiTriangle">
-							<span title = "equiTriangle" class="tool-icon">△</span>
+              <span title = "EquiTriangle" class="tool-icon" id="shape2d-equi">△</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-Parallelogram">
-							<span title = "parallelogram" class="tool-icon">▱</span>
+              <span title = "Parallelogram" class="tool-icon" id="shape2d-parallelogram">▱</span>
 						</div>
             
 						<div class="tool-extra submenu-rect" id="submenu-rect-Trapezoid">
-							<span title = "trapezoid" class="tool-icon">⏢</span>
+              <span title = "Trapezoid" class="tool-icon" id="shape2d-trapezoid">⏢</span>
 						</div>
 
             <div class="tool-extra submenu-rect" id="submenu-rect-Rombus">
-							<span title = "rombus" class="tool-icon">◇</span>
+              <span title = "Rombus" class="tool-icon" id="shape2d-rombus">◇</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-Pentagon">
-							<span title = "pentagon" class="tool-icon">⬠</span>
+              <span title = "Pentagon" class="tool-icon" id="shape2d-pentagon">⬠</span>
 						</div>
             
 						<div class="tool-extra submenu-rect" id="submenu-rect-Hexagon">
-							<span title = "hexagon" class="tool-icon">⎔</span>
+            <span title = "Hexagon" class="tool-icon" id="shape2d-hexagon">⎔</span>
 						</div>
 
             <div class="tool-extra submenu-rect" id="submenu-rect-Ellipse">
-							<span title = "ellipse" class="tool-icon">` +
+							<span title = "Ellipse" class="tool-icon" id="shape2d-ellipse">` +
         icons["Ellipse"].icon +
         `</span>
 						</div>
             `,
             content3d:`  <div class="tool-extra submenu-rect" id="submenu-rect-Cube">
-            <span title = "cube" class="tool-icon">❒</span>
+            <span title = "cube" class="tool-icon" id="shape3d-cube">❒</span>
            </div>
 
           <div class="tool-extra submenu-rect" id="submenu-rect-Cone">
-            <span title = "cone" class="tool-icon">
+            <span title = "cone" class="tool-icon" id="shape3d-cone">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve">             
               <g>
                 <path d="M426.624,469.269c0-0.043-0.021-0.064-0.021-0.107c0-0.597-0.235-1.131-0.32-1.707c-0.107-0.576-0.043-1.152-0.235-1.707    l-0.192-0.555c-0.043-0.128-0.085-0.235-0.128-0.363l-0.448-1.301c-0.256-0.683-0.363-1.387-0.704-2.048L266.069,7.061    c-0.085-0.235-0.256-0.384-0.341-0.597c-0.256-0.64-0.661-1.173-1.045-1.749c-0.384-0.576-0.747-1.173-1.237-1.664    c-0.448-0.448-1.003-0.789-1.536-1.152c-0.619-0.427-1.195-0.832-1.877-1.109c-0.192-0.085-0.341-0.256-0.555-0.32    c-0.469-0.171-0.96-0.107-1.451-0.192C257.365,0.149,256.747,0,256.064,0c-0.832,0-1.621,0.149-2.411,0.341    c-0.384,0.085-0.768,0.021-1.152,0.171c-0.171,0.064-0.277,0.192-0.448,0.256c-0.789,0.32-1.472,0.789-2.176,1.28    c-0.448,0.32-0.917,0.597-1.301,0.981c-0.533,0.533-0.939,1.152-1.344,1.813c-0.363,0.533-0.725,1.045-0.96,1.621    c-0.085,0.213-0.277,0.363-0.341,0.597L87.339,461.504c-0.341,0.64-0.448,1.323-0.683,1.984l-0.789,2.24    c-0.235,0.661-0.171,1.323-0.277,2.005c-0.064,0.512-0.299,0.96-0.299,1.515c0,0.107,0.064,0.213,0.064,0.32    c0.021,0.661,0.213,1.28,0.363,1.92c0.171,0.896,0.341,1.771,0.725,2.603c11.669,36.629,152.768,37.824,169.515,37.824    c16.768,0,158.101-1.195,169.557-37.909c0.064-0.128,0.107-0.277,0.171-0.427c0.192-0.427,0.213-0.896,0.363-1.344    c0.256-0.896,0.512-1.771,0.555-2.709c0-0.043,0.021-0.085,0.021-0.128C426.603,469.333,426.624,469.312,426.624,469.269z     M255.957,42.944l139.435,399.701c-45.739-15.381-126.976-16.064-139.413-16.064c-12.437,0-93.696,0.683-139.435,16.064    L255.957,42.944z M255.957,490.56c-91.285,0.021-141.269-14.272-148.437-20.715c8.384-8,58.176-21.952,148.437-21.952    c91.285,0,141.269,14.272,148.437,20.715C396.011,476.608,346.219,490.56,255.957,490.56z"/>
@@ -820,7 +820,7 @@ var cubeImg= ""
           </div>
 
           <div class="tool-extra submenu-rect" id="submenu-rect-Cylinder">
-            <span title = "cylinder" class="tool-icon">
+            <span title = "cylinder" class="tool-icon" id="shape3d-cylinder">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
               <g>
                 <g>
@@ -832,7 +832,7 @@ var cubeImg= ""
           </div>
 
           <div class="tool-extra submenu-rect" id="submenu-rect-Sphere">
-            <span title = "sphere" class="tool-icon">
+            <span title = "sphere" class="tool-icon" id="shape3d-sphere">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
               <g>
 	              <g>
@@ -843,7 +843,7 @@ var cubeImg= ""
             </span>
           </div>
           <div class="tool-extra submenu-rect" id="submenu-rect-Pyramid">
-           <span title = "pyramid" class="tool-icon">◮</span>
+           <span title = "pyramid" class="tool-icon" id="shape3d-pyramid">◮</span>
           </div>`,
       listener: menuListener,
     },

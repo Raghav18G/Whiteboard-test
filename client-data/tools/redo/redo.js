@@ -54,7 +54,7 @@
 		"name": "Redo",
 		// "icon": "🗑",
 		// "iconHTML":"<i style='color: #3D9970;margin-top:7px' class='fas fa-redo-alt'></i>",
-		"iconHTML":"<p style='font: normal normal normal 15px/20px CircularXX; font-family: CircularXXWeb-Book; letter-spacing: 0px; color: #8B8B8B;opacity: 1;'>Redo</p>",
+		"iconHTML":"<p style='font: normal normal normal 15px/20px CircularXX; font-family: CircularXXWeb-Book; letter-spacing: 0px; color: #8B8B8B;opacity: 1;'id='redo-tag'>Redo</p>",
 		"shortcuts": {
             "actions":[{"key":"shift-R","action":redo}]
         },

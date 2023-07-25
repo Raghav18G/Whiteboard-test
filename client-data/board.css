@@ -13,6 +13,11 @@ svg {
   width: 15px;
 }
 
+/* styles.css */
+#createFolderButton {
+  background-color: black;
+  color: white;
+}
 /* Draggable Div Styles */
 
 .stickyNotesModal {
@@ -149,7 +154,6 @@ iframe {
 
 #draggableToolbar {
   position: relative;
-
   z-index: 1000;
   background-color: #f1f1f1;
   border: 1px solid #d3d3d3;
@@ -239,6 +243,11 @@ iframe {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0;
+}
+
+.localization {
+  margin-left: 55px;
+  margin-top: -45px;
 }
 
 @keyframes minimize {
@@ -429,7 +438,7 @@ iframe {
 }
 .tool-name.slider.sizeSelector {
   position: absolute;
-  bottom: 100px;
+  bottom: 105px;
   transform: rotate(-90deg);
   left: 62px;
 }
@@ -438,16 +447,18 @@ iframe {
 }
 .tool-name.slider.verticalAlign {
   transform: rotate(-90deg);
+  display: contents;
 }
+
 .tool.size_selector_container {
   max-width: 40px;
   overflow: hidden;
 }
 .tool-name.slider.opacitySelector {
   position: absolute;
-  transform: rotate(-90deg);
-  bottom: 150px;
-  left: 100px;
+  transform: rotate(90deg);
+  bottom: 111px;
+  left: 105px;
 }
 
 .tool.opacityPicker {
@@ -460,8 +471,10 @@ iframe {
   transform: rotate(90deg);
   position: absolute;
   bottom: -49px;
-  width: 20px;
+  /* width: 20px; */
+  width: 40px;
 }
+
 .tool-name.slider {
   display: inline-block;
   width: 150px;
@@ -470,10 +483,6 @@ iframe {
   line-height: 15px;
   vertical-align: top;
   padding: 6px;
-}
-
-.hideOpacity {
-  display: none !important;
 }
 
 #shape-lock {
@@ -628,9 +637,13 @@ button.close.window-button {
 }
 
 .rangeChooser {
+  transform: rotate(-90deg) !important;
   display: block;
+  width: 18% !important;
+  bottom: 114px;
+  left: 70px;
   border: 0;
-  width: 100%;
+  position: absolute;
   margin: 0;
   background: transparent;
 }
@@ -639,9 +652,9 @@ button.close.window-button {
 #popover-Rectangle,
 #popover-Line {
   position: absolute !important;
-  bottom: 77px !important;
+  bottom: auto;
   left: 122px !important;
-  top: unset !important;
+  top: 20rem!important;
 }
 
 #toolID-Undo,
@@ -923,12 +936,60 @@ div#msr-pod-up {
   cursor: pointer;
 }
 
+#languageSelect {
+  position: fixed;
+  width: 103px;
+  height: 38px;
+  border-radius: 2rem;
+  border: 1px solid #0077ff;
+  padding: 8px 12px;
+  color: #0077ff;
+  background: none;
+  -webkit-appearance: auto;
+}
+
+.color-tab-parent {
+  /* padding: 0px 10px 10px; */
+  padding: 10px 10px 0px;
+}
+
+.max-calc-icon {
+  margin-right: 24px;
+}
+
+.searchBrowser {
+  width: 100%;
+  text-align: left;
+  background-color: #fff !important;
+  padding: 5px 10px;
+}
+.fa-window-maximize {
+  margin-top: 8px;
+  color: #00000045 !important;
+}
+.close-color-modal-icon {
+  top: -4px !important;
+  margin-right: 0rem;
+}
+#color-tab2 {
+  height: 14rem;
+}
+.sizeSelector {
+  display: none !important;
+}
+.tool-icon-sizeIndicator {
+  height: 5px !important;
+}
 @media screen and (min-width: 200px) and (max-width: 619px) {
   #menu {
     padding: 0;
     bottom: 45px;
     left: 0;
   }
+
+  ::-webkit-scrollbar {
+    width: 6px !important;
+}
 
   #menuItems #tools {
     display: flex;
@@ -975,8 +1036,114 @@ div#msr-pod-up {
     width: 100%;
     height: 100%;
   }
-}
 
+  /* toolbar */
+  #draggableToolbar {
+    position: fixed;
+    display: block;
+    width: 52px;
+    left: 0px !important;
+    top: 30% !important;
+    bottom: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .tools {
+    display: block;
+    width: 100%;
+    /* height: 107px;
+    overflow-y: scroll; */
+  }
+  .dragLogo {
+    width: 24px;
+  }
+  #draggableToolbarheader {
+    display: none;
+  }
+
+  .color-pick {
+    width: 26px;
+    height: 26px;
+    margin: 7px auto;
+  }
+
+  .dragIconContainer {
+    width: 26px;
+  }
+
+  .localization {
+    margin-left: 56px;
+    margin-top: 14px;
+    top: 10px;
+  }
+  .documentModal {
+    display: block;
+    top: 130px !important;
+    left: 60px !important;
+  }
+  .downloadModal {
+    top: 200px !important;
+    left: 100px !important;
+  }
+  .tool-name.slider.opacitySelector {
+    display: contents;
+  }
+  .tool-name.slider.opacitySelector #chooseOpacity {
+    transform: rotate(90deg) !important;
+    left: 85px;
+    position: fixed;
+    top: 190px;
+    bottom: auto;
+  }
+
+  #popover-Rectangle,
+  #popover-Line {
+    left: 20px !important;
+    top: 0px !important;
+    bottom: auto !important;
+  }
+
+  .tool-name.slider.verticalAlign #chooseSize {
+    position: fixed;
+    width: 130px !important;
+    /* margin-left: 54px; */
+    top: 205px;
+    bottom: auto;
+  }
+
+  .close {
+    right: 1px;
+  }
+  #color-tab2 {
+    height: 14rem;
+  }
+  .drawer {
+    width: 85% !important;
+  }
+  .tab {
+    padding: 10px 18px !important;
+    width: auto !important;
+  }
+  .color-tab-parent {
+    padding: 0px 10px 10px;
+    /* padding: 10px 10px 0px; */
+  }
+  .close-color-modal-icon {
+    top: 10px !important;
+    margin-right: 0.3rem !important;
+  }
+  .sizeSelector {
+    display: none !important;
+  }
+  /* .tool-name.slider.verticalAlign{
+    position:absolute;
+  } */
+  .rangeChooser {
+    transform: none !important;
+    bottom: 0px;
+  }
+}
 @media screen and (min-width: 620px) and (max-width: 845px) {
   /* #menuItems #tools {
     display: flex;
@@ -1031,7 +1198,7 @@ div#msr-pod-up {
   left: 40%;
   top: 35%;
   padding: 20px;
-  width: 20%; /* Full width */
+  width: 10rem;
   height: auto; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   border-radius: 20px;
@@ -1048,6 +1215,12 @@ div#msr-pod-up {
 
 .downloadItems {
   padding: 10px;
+}
+.downloadItems h4 {
+  text-align: center;
+  cursor: pointer;
+  font-size: medium;
+  font-weight: 600;
 }
 
 #videoModalClose img {
@@ -1147,7 +1320,8 @@ div#msr-pod-up {
 .drawer {
   position: fixed;
   top: 0;
-  right: -400px;
+  /* right: -400px; */
+  right: -582px;
   width: 400px;
   height: 100%;
   background-color: #f5f5f5;
@@ -1233,8 +1407,8 @@ div#msr-pod-up {
   z-index: 1; /* Sit on top */
   left: 35%;
   top: 30%;
-  width: 25%; /* Full width */
-  height: 30%; /* Full height */
+  width: 18rem; /* Full width */
+  /* height: 30%; Full height */
   overflow: auto; /* Enable scroll if needed */
   font-family: "Inter";
   background-color: #f5f5f5;
@@ -1250,27 +1424,58 @@ div#msr-pod-up {
   height: 100%;
 }
 
+#documentModalModalClose {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  cursor: pointer;
+  font-size: 24px;
+}
 #documentModalModalClose img {
   z-index: 20;
   cursor: pointer;
-  width: 30px;
+  width: 24px;
 }
 
 .documentModalOptions {
   display: flex;
   cursor: pointer;
-  font-weight: 800;
-  font-size: large;
+  font-weight: 600;
+  font-size: medium;
   text-align: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  gap: 16px;
+  /* margin-top: 10px;
   justify-content: space-evenly;
-  vertical-align: middle;
+  vertical-align: middle; */
 }
 
+#downloadModalClose {
+  position: absolute;
+  top: 26px;
+  right: 12px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+#downloadModalClose img {
+  width: 24px;
+}
 #SelectFromDevice {
-  margin-top: 30px;
+  /* margin-top: 30px; */
+  margin: 20px 0px 0px;
+}
+
+#SelectFromLibrary {
+  margin-bottom: 25px;
+}
+
+.document-modal-icon {
+  margin-top: 22px;
+}
+.document-modal-icon2 {
+  margin-top: -21px;
 }
 
 /* Clock Widget CSS */
@@ -1335,32 +1540,10 @@ div#msr-pod-up {
 
 /* CSS Manifyig glass */
 
-.img-magnifier-container {
-  position: relative;
-}
-
-.img-magnifier-glass {
-  position: absolute;
-  border: 3px solid #000;
-  border-radius: 50%;
-  cursor: none;
-  /*Set the size of the magnifier glass:*/
-  width: 15rem;
-  height: 15rem;
-}
-
-.maginifying-btn {
-  position: absolute;
-  height: 2rem;
-  top: 35%;
-  left: -10%;
-  background-color: #d0c8c8;
-  padding: 0px;
-  border-radius: 5px;
-}
-
 
 /* StopWatch Widget Styles */
+
+
 #display {
   font-size: 36px;
   font-weight: bold;
@@ -1447,3 +1630,29 @@ div#msr-pod-up {
 #calculatorWidget button:hover {
   background-color: #45a049;
 }
+
+
+/* CSS Manifyig glass */
+.img-magnifier-container {
+  position:relative;
+}
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 15rem;
+  height: 15rem;
+}
+.maginifying-btn{
+  position: absolute;
+    height: 2rem;
+    top: 35%;
+    left: -10%;
+    background-color: #D0C8C8;
+    padding: 0px;
+    border-radius: 5px
+
+}
+
