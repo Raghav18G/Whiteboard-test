@@ -42,8 +42,8 @@ const ClockWidget = (e) => {
   clockWidget.innerHTML = clockHTML;
   clockWidget.style.maxWidth = "100%";
   clockWidget.style.position = "absolute";
-  foreignObjectClock.style.x = 200;
-  foreignObjectClock.style.y = 200;
+  foreignObjectClock.style.x = e.clientX;
+  foreignObjectClock.style.y = e.clientY;
   foreignObjectClock.style.width = "1px";
   foreignObjectClock.style.height = "1px";
   foreignObjectClock.setAttribute("id", uid);
@@ -116,8 +116,8 @@ const CompassWidget = (e) => {
   compassWidget.innerHTML = compassHTML;
   compassWidget.style.maxWidth = "100%";
   compassWidget.style.position = "absolute";
-  foreignObjectCompass.style.x = 200;
-  foreignObjectCompass.style.y = 200;
+  foreignObjectCompass.style.x = e.clientX ;
+  foreignObjectCompass.style.y = e.clientY ;
   foreignObjectCompass.style.width = "1px";
   foreignObjectCompass.style.height = "1px";
   foreignObjectCompass.setAttribute("id", uid);
@@ -256,7 +256,7 @@ const CompassWidget = (e) => {
 
   rotateArrow();
 };
-const MagnifyingGlass = () => {
+const MagnifyingGlass = (e) => {
   function magnify(imgID, zoom) {
     var img, glass, w, h, bw;
     img = document.getElementById(imgID);
@@ -401,8 +401,8 @@ const calculatorWidget = (e) => {
 
   calculatorWidgetElement.innerHTML = calculatorHTML;
 
-  calculatorForeignObject.style.x = 200;
-  calculatorForeignObject.style.y = 200;
+  calculatorForeignObject.style.x = e.clientX;
+  calculatorForeignObject.style.y = e.clientY;
   calculatorForeignObject.style.width = "1px";
   calculatorForeignObject.style.height = "1px";
   calculatorForeignObject.setAttribute("id", uid);
@@ -490,6 +490,7 @@ const calculatorWidget = (e) => {
 };
 
 const diceWidget = (e) => {
+  console.log(e,"dice widget");
   const diceforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
@@ -520,8 +521,8 @@ const diceWidget = (e) => {
 
   dicewidgetElement.innerHTML = dicewidgetHTML;
 
-  diceforeignObject.style.x = 200;
-  diceforeignObject.style.y = 200;
+  diceforeignObject.style.x = e.clientX;
+  diceforeignObject.style.y = e.clientY;
   diceforeignObject.style.width = "1px";
   diceforeignObject.style.height = "1px";
   diceforeignObject.setAttribute("id", uid);
@@ -574,8 +575,8 @@ const stopWatchWidget = (e) => {
 
   stopwatchWidgetElement.innerHTML = stopwatchWidgetHTML;
 
-  stopWatchforeignObject.style.x = 200;
-  stopWatchforeignObject.style.y = 200;
+  stopWatchforeignObject.style.x = e.clientX;
+  stopWatchforeignObject.style.y = e.clientY;
   stopWatchforeignObject.style.width = "1px";
   stopWatchforeignObject.style.height = "1px";
   stopWatchforeignObject.setAttribute("id", uid);

@@ -32,14 +32,14 @@ function dragElement(elmnt) {
   }
 
   function elementDrag(e) {
-  
+    const touch = e.touches[0]
     e = e || window.event;
     e.preventDefault();
     // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX || e.clientX;
-    pos4 = e.clientY || e.clientY;
+    pos1 = pos3 - (e.clientX || touch.clientX);
+    pos2 = pos4 - (e.clientY|| touch.clientY);
+    pos3 = e.clientX || touch.clientX;
+    pos4 = e.clientY || touch.clientY;
     // set the element's new position:
     elmnt.style.top = elmnt.offsetTop - pos2 + "px";
     elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
