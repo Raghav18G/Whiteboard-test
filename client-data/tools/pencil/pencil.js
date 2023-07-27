@@ -263,7 +263,7 @@
 			index=1;
 		}else{
 			curPen.mode="Pencil"
-			curPen.erasurSize=Tools.getSize();
+			curPen.eraserSize=Tools.getSize();
 			Tools.setSize(curPen.penSize);
 			Tools.showMarker=false;
 			var cursor = Tools.svg.getElementById("mycursor");
@@ -272,6 +272,10 @@
 			}
 		}
 		elem.getElementsByClassName("tool-icon")[0].innerHTML = penIcons[index];
+
+		  // Update the title attribute based on the current mode
+		  elem.setAttribute("title", curPen.mode === "Pencil" ? "Pencil (Click to toggle for Eraser" : "Eraser");
+
 	};
 
 	Tools.add({ //The new tool

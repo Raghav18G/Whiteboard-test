@@ -1,12 +1,12 @@
 // Clock Widget
 let clockInterval;
 const ClockWidget = (e) => {
-  clearInterval(clockInterval)
+  clearInterval(clockInterval);
   const foreignObjectClock = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
   );
-  const clockWidget = document.createElement('div')
+  const clockWidget = document.createElement("div");
   var uid = Tools.generateUID("doc");
 
   const clockHTML = `
@@ -37,27 +37,26 @@ const ClockWidget = (e) => {
           <path class="second-arm" d="M300.5 350V55" />
           <circle class="sizing-box" cx="300" cy="300" r="253.9" />
         </g>
-      </svg>`
+      </svg>`;
 
-
-  clockWidget.innerHTML = clockHTML
-  clockWidget.style.maxWidth = "100%"
+  clockWidget.innerHTML = clockHTML;
+  clockWidget.style.maxWidth = "100%";
   clockWidget.style.position = "absolute";
-  foreignObjectClock.style.x = 200;
-  foreignObjectClock.style.y = 200;
+  foreignObjectClock.style.x = e.clientX;
+  foreignObjectClock.style.y = e.clientY;
   foreignObjectClock.style.width = "1px";
   foreignObjectClock.style.height = "1px";
-  foreignObjectClock.setAttribute('id', uid)
+  foreignObjectClock.setAttribute("id", uid);
   foreignObjectClock.setAttribute("overflow", "visible");
 
-  foreignObjectClock.appendChild(clockWidget)
+  foreignObjectClock.appendChild(clockWidget);
   Tools.group.appendChild(foreignObjectClock);
 
   const HOURHAND = document.querySelector("#hour");
   const MINUTEHAND = document.querySelector("#minute");
   const SECONDHAND = document.querySelector("#second");
 
-  console.log("HOUR HAND", HOURHAND, "MINU", MINUTEHAND)
+  console.log("HOUR HAND", HOURHAND, "MINU", MINUTEHAND);
 
   // Declare and Initialize the inbuilt date function
   const date = new Date();
@@ -76,7 +75,6 @@ const ClockWidget = (e) => {
 
   // Create a function that actually run the clock
   const runClock = () => {
-
     // Set each position when the function is called
     hrPosition = hrPosition + 3 / 360;
     minPosition = minPosition + 6 / 60;
@@ -92,16 +90,16 @@ const ClockWidget = (e) => {
   clockInterval = setInterval(runClock, 1000);
   //  if (msg.transform) clockWidget.setAttribute("transform", msg.transform);
 
-  if (Tools.useLayers) clockWidget.setAttribute("class", "layer-" + Tools.layer);
-
-}
+  if (Tools.useLayers)
+    clockWidget.setAttribute("class", "layer-" + Tools.layer);
+};
 const CompassWidget = (e) => {
   e.preventDefault();
   const foreignObjectCompass = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
   );
-  let compassWidget = document.createElement('div')
+  let compassWidget = document.createElement("div");
   const uid = Tools.generateUID("doc");
 
   const compassHTML = `<div class="main">
@@ -113,19 +111,19 @@ const CompassWidget = (e) => {
   </g>
   </svg>
 </div>
-`
+`;
 
-  compassWidget.innerHTML = compassHTML
-  compassWidget.style.maxWidth = "100%"
+  compassWidget.innerHTML = compassHTML;
+  compassWidget.style.maxWidth = "100%";
   compassWidget.style.position = "absolute";
-  foreignObjectCompass.style.x = 200;
-  foreignObjectCompass.style.y = 200;
+  foreignObjectCompass.style.x = e.clientX ;
+  foreignObjectCompass.style.y = e.clientY ;
   foreignObjectCompass.style.width = "1px";
   foreignObjectCompass.style.height = "1px";
-  foreignObjectCompass.setAttribute('id', uid)
+  foreignObjectCompass.setAttribute("id", uid);
   foreignObjectCompass.setAttribute("overflow", "visible");
 
-  foreignObjectCompass.appendChild(compassWidget)
+  foreignObjectCompass.appendChild(compassWidget);
   Tools.group.appendChild(foreignObjectCompass);
   var svgNS = "http://www.w3.org/2000/svg";
   var svg = document.getElementById("compassWidget");
@@ -220,8 +218,8 @@ const CompassWidget = (e) => {
 
   // Start the auto-rotation
 
-  const compass = document.getElementById('compassWidget');
-  const arrow = document.getElementById('arrow');
+  const compass = document.getElementById("compassWidget");
+  const arrow = document.getElementById("arrow");
 
   let rotationAngle = 0;
   let rotateSpeed = 1; // Adjust this value to control the rotation speed
@@ -236,10 +234,10 @@ const CompassWidget = (e) => {
   const center = { x: 150, y: 150 };
 
   //const center = { x: 200, y: 200 };
-  arrow.setAttribute('x1', center.x);
-  arrow.setAttribute('y1', center.y);
-  arrow.setAttribute('x2', center.x);
-  arrow.setAttribute('y2', center.y - 100);
+  arrow.setAttribute("x1", center.x);
+  arrow.setAttribute("y1", center.y);
+  arrow.setAttribute("x2", center.x);
+  arrow.setAttribute("y2", center.y - 100);
 
   // Start the auto-rotation
   function updateRotation(event) {
@@ -248,43 +246,46 @@ const CompassWidget = (e) => {
     const deltaX = mouseX - center.x;
     const deltaY = mouseY - center.y;
     rotationAngle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
-    arrow.setAttribute('transform', `rotate(${rotationAngle} ${center.x} ${center.y})`);
+    arrow.setAttribute(
+      "transform",
+      `rotate(${rotationAngle} ${center.x} ${center.y})`
+    );
   }
 
-  compass.addEventListener('mousemove', updateRotation);
-
+  compass.addEventListener("mousemove", updateRotation);
 
   rotateArrow();
-
-
-}
-const MagnifyingGlass = () => {
+};
+const MagnifyingGlass = (e) => {
   function magnify(imgID, zoom) {
     var img, glass, w, h, bw;
     img = document.getElementById(imgID);
     /*create magnifier glass:*/
     glass = document.createElement("DIV");
     glass.setAttribute("class", "img-magnifier-glass");
-    glass.setAttribute('id', 'magnifying-glass')
+    glass.setAttribute("id", "magnifying-glass");
     /*insert magnifier glass:*/
     img.parentElement.insertBefore(glass, img);
 
-    const maginifyingBtn = document.createElement('button')
-    maginifyingBtn.setAttribute('id', 'btn-magnifying')
-    maginifyingBtn.classList.add('maginifying-btn')
+    const maginifyingBtn = document.createElement("button");
+    maginifyingBtn.setAttribute("id", "btn-magnifying");
+    maginifyingBtn.classList.add("maginifying-btn");
     maginifyingBtn.innerHTML = '<img src="./assets/CloseCircle.svg">';
     glass.appendChild(maginifyingBtn);
     //clear the Magnigfying class
 
-    maginifyingBtn.addEventListener('click', () => {
-      const MagnifyingGlass = document.getElementsByClassName('img-magnifier-glass')
+    maginifyingBtn.addEventListener("click", () => {
+      const MagnifyingGlass = document.getElementsByClassName(
+        "img-magnifier-glass"
+      );
       console.log(MagnifyingGlass, "maggg");
-      MagnifyingGlass.length >= 1 ? document.getElementById('board')?.removeChild(MagnifyingGlass[0]) : ""
-    })
-
+      MagnifyingGlass.length >= 1
+        ? document.getElementById("board")?.removeChild(MagnifyingGlass[0])
+        : "";
+    });
 
     function addMouoseMove() {
-      console.log("mouse down")
+      console.log("mouse down");
       html2canvas(img, {
         x: window.scrollX,
         y: window.scrollY,
@@ -293,11 +294,12 @@ const MagnifyingGlass = () => {
       }).then(function (res) {
         var canvasURL = res.toDataURL("image/jpg");
         glass.style.backgroundImage = "url('" + canvasURL + "')";
-      })
+      });
 
       /*set background properties for the magnifier glass:*/
       glass.style.backgroundRepeat = "no-repeat";
-      glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+      glass.style.backgroundSize =
+        img.width * zoom + "px " + img.height * zoom + "px";
       bw = 3;
       w = glass.offsetWidth / 2;
       h = glass.offsetHeight / 2;
@@ -316,19 +318,32 @@ const MagnifyingGlass = () => {
         x = pos.x;
         y = pos.y;
         /*prevent the magnifier glass from being positioned outside the image:*/
-        if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
-        if (x < w / zoom) { x = w / zoom; }
-        if (y > img.height - (h / zoom)) { y = img.height - (h / zoom); }
-        if (y < h / zoom) { y = h / zoom; }
+        if (x > img.width - w / zoom) {
+          x = img.width - w / zoom;
+        }
+        if (x < w / zoom) {
+          x = w / zoom;
+        }
+        if (y > img.height - h / zoom) {
+          y = img.height - h / zoom;
+        }
+        if (y < h / zoom) {
+          y = h / zoom;
+        }
         /*set the position of the magnifier glass:*/
-        glass.style.left = (x - w) + "px";
-        glass.style.top = (y - h) + "px";
+        glass.style.left = x - w + "px";
+        glass.style.top = y - h + "px";
         /*display what the magnifier glass "sees":*/
-        glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
-        glass.style.backgroundSize = `${(img.width.baseVal.value - 1000) / 16}rem ${(img.height.baseVal.value - 1200) / 16}rem`
+        glass.style.backgroundPosition =
+          "-" + (x * zoom - w + bw) + "px -" + (y * zoom - h + bw) + "px";
+        glass.style.backgroundSize = `${
+          (img.width.baseVal.value - 1000) / 16
+        }rem ${(img.height.baseVal.value - 1200) / 16}rem`;
       }
       function getCursorPos(e) {
-        var a, x = 0, y = 0;
+        var a,
+          x = 0,
+          y = 0;
         e = e || window.event;
         /*get the x and y positions of the image:*/
         a = img.getBoundingClientRect();
@@ -346,11 +361,283 @@ const MagnifyingGlass = () => {
         img.removeEventListener("mousemove", moveMagnifier);
       }
       glass.addEventListener("mouseup", stopDragging);
-
     }
 
-    glass.addEventListener('mousedown', addMouoseMove)
+    glass.addEventListener("mousedown", addMouoseMove);
   }
 
   magnify("canvas", 2);
-}
+};
+
+const calculatorWidget = (e) => {
+  const calculatorForeignObject = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "foreignObject"
+  );
+
+  const calculatorWidgetElement = document.createElement("div");
+  var uid = Tools.generateUID("doc");
+
+  const calculatorHTML = ` <div id="calculatorWidget">
+<input type="text" id="result" disabled />
+<div>
+<button id="ClearButton" class="calc-btn">C</button>
+<button id="number7" class="calc-btn">7</button>
+<button id="number8" class="calc-btn">8</button>
+<button id="number9" class="calc-btn">9</button>
+<button id="divide" class="calc-btn">/</button>
+<button id="number4" class="calc-btn">4</button>
+<button id="number5" class="calc-btn">5</button>
+<button id="number6" class="calc-btn">6</button>
+<button id="multiply" class="calc-btn">*</button>
+<button id="number1" class="calc-btn">1</button>
+<button id="number2" class="calc-btn">2</button>
+<button id="number3" class="calc-btn">3</button>
+<button id="subtract" class="calc-btn">-</button>
+<button id="number0" class="calc-btn">0</button>
+<button id="decimal" class="calc-btn">.</button>
+<button id="calculate" class="calc-btn">=</button>
+<button id="add" class="calc-btn">+</button>
+</div>
+</div>`;
+
+  calculatorWidgetElement.innerHTML = calculatorHTML;
+
+  calculatorForeignObject.style.x = e.clientX;
+  calculatorForeignObject.style.y = e.clientY;
+  calculatorForeignObject.style.width = "1px";
+  calculatorForeignObject.style.height = "1px";
+  calculatorForeignObject.setAttribute("id", uid);
+  calculatorForeignObject.setAttribute("overflow", "visible");
+
+  calculatorForeignObject.appendChild(calculatorWidgetElement);
+
+  Tools.group.appendChild(calculatorForeignObject);
+
+  // Number Event Listeneres
+  document.querySelector("#number9").addEventListener("click", () => {
+    appendToResult("9");
+  });
+  document.getElementById("number8").addEventListener("click", () => {
+    appendToResult("8");
+  });
+  document.getElementById("number7").addEventListener("click", () => {
+    appendToResult("7");
+  });
+  document.getElementById("number6").addEventListener("click", () => {
+    appendToResult("6");
+  });
+  document.getElementById("number5").addEventListener("click", () => {
+    appendToResult("5");
+  });
+  document.getElementById("number4").addEventListener("click", () => {
+    appendToResult("4");
+  });
+  document.getElementById("number3").addEventListener("click", () => {
+    appendToResult("3");
+  });
+  document.getElementById("number2").addEventListener("click", () => {
+    appendToResult("2");
+  });
+  document.getElementById("number1").addEventListener("click", () => {
+    appendToResult("1");
+  });
+
+  // Buttons Event Listeners
+  document.getElementById("calculate").addEventListener("click", () => {
+    calculate();
+  });
+  document.getElementById("ClearButton").addEventListener("click", () => {
+    clearResult();
+  });
+  document.getElementById("add").addEventListener("click", () => {
+    appendToResult("+");
+  });
+  document.getElementById("subtract").addEventListener("click", () => {
+    appendToResult("-");
+  });
+  document.getElementById("decimal").addEventListener("click", () => {
+    appendToResult(".");
+  });
+  document.getElementById("divide").addEventListener("click", () => {
+    appendToResult("/");
+  });
+  document.getElementById("multiply").addEventListener("click", () => {
+    appendToResult("*");
+  });
+
+  var expression = "";
+  var resultElement = document.getElementById("result");
+
+  function appendToResult(value) {
+    expression += value;
+    resultElement.value = expression;
+  }
+
+  function calculate() {
+    try {
+      const result = eval(expression);
+      expression = result.toString();
+      resultElement.value = result;
+    } catch (error) {
+      expression = "";
+      resultElement.value = "Error";
+    }
+  }
+
+  function clearResult() {
+    expression = "";
+    resultElement.value = "";
+  }
+};
+
+const diceWidget = (e) => {
+  console.log(e,"dice widget");
+  const diceforeignObject = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "foreignObject"
+  );
+
+  const dicewidgetElement = document.createElement("div");
+  dicewidgetElement.id = "diceWidget";
+  var uid = Tools.generateUID("doc");
+
+  const dicewidgetHTML = ` 
+  <svg id="dice" viewBox="0 0 100 100">
+  <rect class="dice" x="10" y="10" width="80" height="80" rx="10" />
+  <g id="dots-container">
+    <circle class="dot" cx="30" cy="30" r="6" />
+    <circle class="dot" cx="50" cy="30" r="6" />
+    <circle class="dot" cx="70" cy="30" r="6" />
+    <circle class="dot" cx="30" cy="50" r="6" />
+    <circle class="dot" cx="50" cy="50" r="6" />
+    <circle class="dot" cx="70" cy="50" r="6" />
+    <circle class="dot" cx="30" cy="70" r="6" />
+    <circle class="dot" cx="50" cy="70" r="6" />
+    <circle class="dot" cx="70" cy="70" r="6" />
+  </g>
+</svg>
+
+<button id="rollButton">Roll Dice</button>i
+ `;
+
+  dicewidgetElement.innerHTML = dicewidgetHTML;
+
+  diceforeignObject.style.x = e.clientX;
+  diceforeignObject.style.y = e.clientY;
+  diceforeignObject.style.width = "1px";
+  diceforeignObject.style.height = "1px";
+  diceforeignObject.setAttribute("id", uid);
+  diceforeignObject.setAttribute("overflow", "visible");
+
+  diceforeignObject.appendChild(dicewidgetElement);
+
+  Tools.group.appendChild(diceforeignObject);
+
+  const dice = document.getElementById("dice");
+  const dotsContainer = document.getElementById("dots-container");
+  const rollButton = document.getElementById("rollButton");
+
+  rollButton.addEventListener("click", rollDice);
+
+  function rollDice() {
+    const dots = document.getElementsByClassName("dot");
+    dotsContainer.style.display = "block";
+
+    // Hide all dots initially
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].style.display = "none";
+    }
+
+    // Show random number of dots (1 to 6)
+    const randomNumber = Math.floor(Math.random() * 6) + 1;
+    for (let i = 0; i < randomNumber; i++) {
+      dots[i].style.display = "block";
+    }
+  }
+};
+
+const stopWatchWidget = (e) => {
+  const stopWatchforeignObject = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "foreignObject"
+  );
+
+  const stopwatchWidgetElement = document.createElement("div");
+  stopwatchWidgetElement.id = "stopwatchWidget";
+  var uid = Tools.generateUID("doc");
+
+  const stopwatchWidgetHTML = `
+  <div id="display">00:00:00</div>
+  <div id="controls">
+    <button id="startButton">Start</button>
+    <button id="stopButton">Stop</button>
+    <button id="resetButton">Reset</button>
+  </div>`;
+
+  stopwatchWidgetElement.innerHTML = stopwatchWidgetHTML;
+
+  stopWatchforeignObject.style.x = e.clientX;
+  stopWatchforeignObject.style.y = e.clientY;
+  stopWatchforeignObject.style.width = "1px";
+  stopWatchforeignObject.style.height = "1px";
+  stopWatchforeignObject.setAttribute("id", uid);
+  stopWatchforeignObject.setAttribute("overflow", "visible");
+
+  stopWatchforeignObject.appendChild(stopwatchWidgetElement);
+
+  Tools.group.appendChild(stopWatchforeignObject);
+
+  let startTime = null;
+  let elapsedTime = 0;
+  let timerId = null;
+  let isRunning = false;
+
+  let displayElement = document.getElementById("display");
+
+  let startButton = document.getElementById("startButton");
+  let stopButton = document.getElementById("stopButton");
+  let resetButton = document.getElementById("resetButton");
+
+  function start() {
+    if (!isRunning) {
+      startTime = Date.now() - elapsedTime;
+      timerId = setInterval(() => {
+        elapsedTime = Date.now() - startTime;
+        updateDisplay();
+      }, 10);
+      isRunning = true;
+    }
+  }
+
+  function stop() {
+    if (isRunning) {
+      clearInterval(timerId);
+      isRunning = false;
+    }
+  }
+
+  function reset() {
+    elapsedTime = 0;
+    updateDisplay();
+  }
+
+  function updateDisplay() {
+    const minutes = Math.floor(elapsedTime / 60000)
+      .toString()
+      .padStart(2, "0");
+    const seconds = Math.floor((elapsedTime % 60000) / 1000)
+      .toString()
+      .padStart(2, "0");
+    const milliseconds = Math.floor((elapsedTime % 1000) / 10)
+      .toString()
+      .padStart(2, "0");
+
+    const timeString = `${minutes}:${seconds}:${milliseconds}`;
+    displayElement.textContent = timeString;
+  }
+
+  startButton.addEventListener("click", () => start());
+  stopButton.addEventListener("click", () => stop());
+  resetButton.addEventListener("click", () => reset());
+};
