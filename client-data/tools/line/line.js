@@ -477,15 +477,15 @@
       title: "Lines",
       content:
         `<div class="tool-extra submenu-line" id="submenu-line-line">
-            <span title="solid line" class="tool-icon" id="line1">☇</span>
+							<span title="solid line" class="tool-icon">☇</span>
 						</div>
 						<div class="tool-extra submenu-line" id="submenu-line-arrw">
-							<span title="solid arrow" class="tool-icon" id="line2">` +
+							<span title="solid arrow" class="tool-icon">` +
         icons["arrw"].icon +
         `</span>
 						</div>
 						<div class="tool-extra submenu-line" id="submenu-line-dashline">
-							<span title="dashed line" class="tool-icon"  id="line3">` +
+							<span title="dashed line" class="tool-icon">` +
         icons["dashline"].icon +
         `</span>
 						</div>

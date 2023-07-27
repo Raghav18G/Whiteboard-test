@@ -40,6 +40,12 @@
 		// clear the Table modal
 		const modal = document.getElementById("table-actions");
 		modal.style.display = "none";
+
+		//clear the Magnigfying class
+		const MagnifyingGlass = document.getElementsByClassName('img-magnifier-glass')
+		console.log(MagnifyingGlass,"maggg");
+		MagnifyingGlass.length >=1 ? document.getElementById('board')?.removeChild(MagnifyingGlass[0]):""
+
 	};
 
 	function draw(data) {

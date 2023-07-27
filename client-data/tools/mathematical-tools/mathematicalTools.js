@@ -9,19 +9,23 @@
   var toggle = 0;
 
   const widgetsImage = [
-    { id: "scale", image: "scale.png" ,title:"Ruler"},
-    { id: "Lprojector", image: "scale2.png" ,title:"Triangular Ruler" },
-    { id: "D", image: "scale3.png" ,title:"Protactor"},
-    { id: "stopwatch", image: "scale4.png", title:"Stop-watch" },
-    { id: "clock", image: "clock.png" ,title:"Clock"},
-    { id: "projector", image: "scale5.png" , title:"Projector"},
-    { id: "compass", image: "scale6.png" ,title:"Compass"},
-    { id: "calculator", image: "scale7.png", title:"Calculator" },
-    { id: "magnifier", image: "scale8.png",title:"Magnifier" },
-    { id: "dice", image: "scale9.png" ,title:"Dice" },
+    { id: "scale", image: "scale.png" },
+    { id: "Lprojector", image: "scale2.png" },
+    { id: "D", image: "scale3.png" },
+    { id: "stopwatch", image: "scale4.png" },
+    { id: "clock", image: "clock.png" },
+    { id: "projector", image: "scale5.png" },
+    { id: "compass", image: "scale6.png" },
+    { id: "calculator", image: "scale7.png" },
+    { id: "magnifier", image: "scale8.png" },
+    { id: "dice", image: "scale9.png" },
+
+
+
   ];
 
   let modalContent = document.getElementById("tab1--mathematiclTool");
+
 
   widgetsImage.map((widget) => {
     let widgetPattern = document.createElement("img");
@@ -29,79 +33,19 @@
     widgetPattern.className = "widgetContainer";
     if (widget.id === "clock") {
       widgetPattern.addEventListener("click", (e) => {
-        ClockWidget(e);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-      widgetPattern.addEventListener("touchstart", (e) => {
-        ClockWidget(e.touches[0]);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-    } else if (widget.id === "compass") {
+        ClockWidget(e)
+      })
+    }
+    if(widget.id==='compass'){
       widgetPattern.addEventListener("click", (e) => {
-        CompassWidget(e);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-      widgetPattern.addEventListener("touchstart", (e) => {
-        CompassWidget(e.touches[0]);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-    } else if (widget.id === "magnifier") {
-      widgetPattern.addEventListener("click", (e) => {
-        e.preventDefault();
-        MagnifyingGlass(e);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-      widgetPattern.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        MagnifyingGlass(e.touches[0]);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-    } else if (widget.id === "stopwatch") {
-      widgetPattern.addEventListener("click", (e) => {
-        e.preventDefault();
-        stopWatchWidget(e);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-      widgetPattern.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        stopWatchWidget(e.touches[0]);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-    } else if (widget.id === "dice") {
-      widgetPattern.addEventListener("click", (e) => {
-        e.preventDefault();
-        diceWidget(e);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-      widgetPattern.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        diceWidget(e.touches[0]);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-    } else if (widget.id === "calculator") {
-      widgetPattern.addEventListener("click", (e) => {
-        e.preventDefault();
-        calculatorWidget(e);
-
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
-      widgetPattern.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        calculatorWidget(e.touches[0]);
-        document.getElementById("mathematicalToolsModal").style.display =
-          "none";
-      });
+        CompassWidget(e)
+      })
+    }
+    if(widget.id==='magnifier'){
+      widgetPattern.addEventListener("click",(e)=>{
+        e.preventDefault()
+        MagnifyingGlass() 
+      })
     }
     modalContent?.appendChild(widgetPattern);
   });
@@ -116,7 +60,11 @@
     } else {
       toggle = 1;
     }
+
+
   }
+
+
 
   Tools.add({
     name: "Mathematical Tools",

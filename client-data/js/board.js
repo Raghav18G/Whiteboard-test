@@ -415,10 +415,10 @@ Tools.HTML = {
           (menu?.content
             ? `<div class="popover-body">` + menu.content + `</div>`
             : `<div class="popover-body">` +
-              `<h5 id="two-dimension">Two Dimensional Shapes (2D) </h5>  <div id="popover-body-2d">` +
+              `<h5>Two Dimensional Shapes (2D) </h5>  <div id="popover-body-2d">` +
               menu.content2d +
               `</div> <br/>` +
-              `<h5 id="three-dimension">Three Dimensional Shapes (3D) </h5> <div id="popover-body-3d">` +
+              `<h5>Three Dimensional Shapes (3D) </h5> <div id="popover-body-3d">` +
               menu.content3d +
               `</div>` +
               `</div>

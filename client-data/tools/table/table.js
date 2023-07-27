@@ -93,8 +93,8 @@
   };
 
 
-  const createTable = (e,fieldData) => {
-    console.log(e);
+  const createTable = (fieldData) => {
+
     Tools.curTool = null;
 
     const foreignObject = document.createElementNS(
@@ -110,8 +110,8 @@
     foreignObject.setAttribute("overflow", "visible");
     const table = document.createElement("table");
     table.style.position = "absolute";
-    foreignObject.style.x =  250;
-    foreignObject.style.y =  300;
+    foreignObject.style.x = 200;
+    foreignObject.style.y = 200;
     foreignObject.style.width = "1px";
     foreignObject.style.height = "1px";
 
@@ -143,19 +143,6 @@
       modal.style.display = toggleTable ? "none" : "block";
       modal.style.top = (e.clientY + 10) + "px";
       modal.style.left = e.clientX + "px";
-    });
-    editTableButton.addEventListener("touchstart", function (e) {
-      const tableTouch= e.touches[0] || e
-      if (toggleTable) {
-        toggleTable = 0
-      }
-      else {
-        toggleTable = 1
-      }
-      e.preventDefault()
-      modal.style.display = toggleTable ? "none" : "block";
-      modal.style.top = (tableTouch.clientY + 10) + "px";
-      modal.style.left = tableTouch.clientX + "px";
     });
 
     const addRow = document.getElementById("add-row");
@@ -227,14 +214,14 @@
     if (Tools.useLayers) table.setAttribute("class", "layer-" + Tools.layer);
     table.setAttribute(
       "opacity",
-      Math.max(0.1, Math.min(1, fieldData?.opacity)) || 1
+      Math.max(0.1, Math.min(1, fieldData.opacity)) || 1
     );
-    if (fieldData?.txt) elem.textContent = fieldData?.txt;
-    if (fieldData?.data) {
-      elem.setAttribute("data-lock", fieldData?.data);
+    if (fieldData.txt) elem.textContent = fieldData.txt;
+    if (fieldData.data) {
+      elem.setAttribute("data-lock", fieldData.data);
     }
-    if (fieldData?.transform)
-      elem.setAttribute("transform", fieldData?.transform);
+    if (fieldData.transform)
+      elem.setAttribute("transform", fieldData.transform);
     Tools.group.appendChild(foreignObject);
     return Table;
   };

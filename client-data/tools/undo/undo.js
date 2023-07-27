@@ -57,7 +57,7 @@
     // "icon": "Undo",
     // "iconHTML":"<i style='color: #39CCCC;margin-top:7px' class='fas fa-undo-alt'></i>",
     iconHTML:
-      "<p style='font: normal normal normal 15px/20px CircularXX;  font-family: CircularXXWeb-Book; letter-spacing: 0px; color: #8B8B8B;opacity: 1;' id='undo-tag'>Undo</p>",
+      "<p style='font: normal normal normal 15px/20px CircularXX;  font-family: CircularXXWeb-Book; letter-spacing: 0px; color: #8B8B8B;opacity: 1;'>Undo</p>",
     shortcuts: {
       actions: [{ key: "shift-U", action: undo }],
     },
