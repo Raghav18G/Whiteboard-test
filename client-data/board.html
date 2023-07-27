@@ -7,33 +7,42 @@
     <title>Iprep | Online collaborative whiteboard</title>
     <link rel="stylesheet" href="Fonts/stylesheet.css">
     <link rel="stylesheet" href="tools/table/table.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
     <!-- <link rel="stylesheet" href="tools/add-pages/addPages.css"> -->
     <link rel="stylesheet" href="tools/mathematical-tools/mathematicaltools.css">
     <link rel="stylesheet" href="tools/PDF/pdf.css">
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/react-select.css" />
+    <!-- <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/bootstrap.css" /> -->
+    <link type="text/css" rel="stylesheet" href="OfflineCDN/source.zoom.us/1.8.0/css/bootstrap.css" />
+    <!-- <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.0/css/react-select.css" /> -->
+    <link type="text/css" rel="stylesheet" href="OfflineCDN/source.zoom.us/1.8.0/css/react-select.css" />
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 
     <link rel="stylesheet" type="text/css" href="board.css" />
-    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
+    <!-- <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" /> -->
+    <!-- <link href="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/" rel="stylesheet" /> -->
+   
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="OfflineCDN/ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/jquery.fullscreen.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+    
+    <script src="OfflineCDN/maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
         integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg=="
         crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="board.css" />
-    <script src="https://kit.fontawesome.com/0166a4ad2b.js" crossorigin="anonymous"></script>
+  
+    <script src="OfflineCDN/kit.fontawesome.com/0166a4ad2b.js" crossorigin="anonymous"></script>
     <script src="socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
+   
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
         integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w=="
         crossorigin="anonymous"></script>
-    <script src="https://www.webrtc-experiment.com/EBML.js"></script> <!-- ../libs/DBML.js -->
+    <script src="OfflineCDN/www.webrtc-experiment.com/EBML.js"></script> <!-- ../libs/DBML.js -->
 
 
 
@@ -793,9 +802,10 @@
     </div>
 
     <!-- HTML 2 Canvas CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
-    </script>
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+    </script> -->
+<script src="OfflineCDN/cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+</script>
     <script type="application/json" id="translations">{}</script>
     <script src="js/path-data-polyfill.js"></script>
     <script src="js/minitpl.js"></script>
@@ -819,10 +829,14 @@
     <!-- Sticky Notes -->
     <!-- <script src="tools/stickyNotes/stickyNotes.js"></script> -->
     <!-- Recorder -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
+        integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w=="
+        crossorigin="anonymous"></script> -->
+        <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js"
         integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w=="
         crossorigin="anonymous"></script>
-    <script src="https://www.webrtc-experiment.com/EBML.js"></script>
+    <!-- <script src="https://www.webrtc-experiment.com/EBML.js"></script> -->
+    <script src="OfflineCDN/www.webrtc-experiment.com/EBML.js"></script>
     <script src="./js/screenRecorder/recorder.js"></script>
 
 
@@ -839,11 +853,14 @@
     <script src="tools/download/download.js"></script>
     <!-- BEGIN EDITOR TOOL -->
     <!-- Editor dep: CodeMirror -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script> -->
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" /> -->
+    <link rel="stylesheet" href="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
 
     <!-- Editor dep: Typo -->
-    <script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
+    <!-- <script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script> -->
+    <script src="OfflineCDN/rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
 
     <!-- Editor dep: Klipse -->
     <script>
@@ -862,9 +879,12 @@
         };
 
     </script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
-    <link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
-    <script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script> -->
+    <script src="OfflineCDN/www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+    <!-- <link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" /> -->
+    <link rel="stylesheet" href="OfflineCDN/firepad.io/releases/v1.5.9/firepad.css" />
+    <!-- <script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script> -->
+    <script src="OfflineCDN/firepad.io/releases/v1.5.9/firepad.min.js"></script>
 
     <!-- Editor -->
     <script src="tools/editor/editor.js"></script>
@@ -877,7 +897,8 @@
 
     <!-- BEGIN CALCULATOR TOOL-->
     <!-- Calculator dep: Desmos-->
-    <script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <!-- <script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script> -->
+    <script src="OfflineCDN/www.desmos.com/api/v1.5/calculator5b31.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 
     <script src="tools/calculator/calculator.js"></script>
     <!-- END CALCULATOR TOOL-->
@@ -903,28 +924,41 @@
     <script src="tools/PDF/pdf.js"></script>
 
     <!-- import ZoomMtg dependencies -->
-    <script src="https://source.zoom.us/1.8.0/lib/vendor/react.min.js"></script>
-    <script src="https://source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script>
-    <script src="https://source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
-    <script src="https://source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/react.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/react-dom.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/redux-thunk.min.js"></script>
     <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/jquery.min.js"></script> -->
-    <script src="https://source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script>
+    <!-- <script src="https://source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/1.8.0/lib/vendor/lodash.min.js"></script>
     <!-- import ZoomMtg -->
-    <script src="https://source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.771.0/aws-sdk.min.js"></script>
+    <!-- <script src="https://source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.771.0/aws-sdk.min.js"></script> -->
+    <script src="OfflineCDN/source.zoom.us/zoom-meeting-1.8.0.min.js"></script>
+    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.771.0/aws-sdk.min.js"></script>
     <script type="module" src="js/zoom/meeting2.js"></script>
-    <script src="https://www.webrtc-experiment.com/common.js"></script>
+    <!-- <script src="https://www.webrtc-experiment.com/common.js"></script> -->
+    <script src="OfflineCDN/www.webrtc-experiment.com/common.js"></script>
     <script type="module" src="js/record/record.js"></script>
     <script type="module" src="js/customJs/zoomOverride.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script src="OfflineCDN/code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="js/record/onlyAudioVideo.js"></script>
 
 
     <!-- pdf.js -->
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
+    <script src="OfflineCDN/mozilla.github.io/pdf.js/build/pdf.js"></script>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script> -->
+       <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
     </script>
     <script src="js/draggableContainers.js"></script>
     <script src="tools/background-manangement/background.js"></script>
