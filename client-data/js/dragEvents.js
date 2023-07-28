@@ -96,6 +96,7 @@ function onstart(event) {
 
 function drop(e) {
   e.preventDefault();
+  console.log(e,"data transfer")
   var imgCount = 1;
   function DropVideo() {
     console.log("Video Dropped", URL.createObjectURL(e.dataTransfer.files[0]));
@@ -117,10 +118,10 @@ function drop(e) {
     video.appendChild(source);
   }
 
-  if (e.dataTransfer.files[0].type.includes("video")) {
+  if (e.dataTransfer?.files[0]?.type.includes("video")) {
     DropVideo();
   } 
-  else if(e.dataTransfer.files[0].type.includes("/pdf")){
+  else if(e.dataTransfer?.files[0]?.type.includes("/pdf")){
     drawPDF(e,e.dataTransfer.files)
   }
   else {

@@ -1,7 +1,18 @@
 ﻿(function documents() {
-  //For drawer
-  const drawer = document.querySelector("#drawer");
   const closeButton = document.querySelector("#closeButton");
+  const drawer = document.querySelector("#drawer");
+
+//google Event
+ document.getElementById("SearchGoogle").addEventListener("click",()=>{
+  document.getElementById("iframeModal").style.display="block"
+    drawer.classList.remove("open");
+ })
+
+ document.getElementById("close-browser").addEventListener("click",()=>{
+  document.getElementById("iframeModal").style.display="none"
+ })
+
+  //For drawer
   const libraryImages = document.querySelectorAll("#libraryImage");
 
   closeButton.addEventListener("click", () => {

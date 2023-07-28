@@ -45,7 +45,7 @@
 
   var icons = {
     line: {
-      icon: "☇",
+      icon: "—",
       isHTML: false,
       isSVG: false,
     },
@@ -477,7 +477,7 @@
       title: "Lines",
       content:
         `<div class="tool-extra submenu-line" id="submenu-line-line">
-            <span title="solid line" class="tool-icon" id="line1">☇</span>
+            <span title="solid line" class="tool-icon" id="line1">—</span>
 						</div>
 						<div class="tool-extra submenu-line" id="submenu-line-arrw">
 							<span title="solid arrow" class="tool-icon" id="line2">` +

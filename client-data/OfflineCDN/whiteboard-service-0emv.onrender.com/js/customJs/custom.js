@@ -5,6 +5,7 @@ $(document).ready(() => {
   $("body").on("click", ".opacityPicker", () => {
     $(".opacityPicker .opacitySelector").toggleClass("hideOpacity");
   });
+
   $("body .popover").removeClass("fade show");
   // $("body").on("click", "#toolID-Rectangle", () => {
   //   $("#popover-Rectangle").toggleClass('toggleRectagleTool');
@@ -16,3 +17,4 @@ $(document).ready(() => {
   //   $("#popover-Rectangle").removeClass('toggleRectagleTool');
   // });
 });
+

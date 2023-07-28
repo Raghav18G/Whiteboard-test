@@ -29,6 +29,10 @@
   var downloadSvg =
     '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512"><g><g> <path d="M 470 319 C 461 319 461 328 461 339 V 471 H 50 V 339 C 50 329 50 319 41 319 C 32 319 32 329 32 339 V 481 C 32 491 37 491 47 491 H 464 C 474 491 479 491 479 481 V 339 C 479 327 479 319 470 319 Z"/> <path d="M 247 317 C 255 321 257 321 265 317 L 380 214 C 384 210 383 203 381 200 C 378 198 370 196 366 200 L 266 295 V 19 C 266 13 260 9 256 9 C 252 9 246 13 246 19 V 295 L 146 200 C 142 196 135 197 132 199 C 130 202 128 210 132 214 L 247 317 Z"/></g></g></svg>';
 
+  function hideDownloadModal() {
+    document.getElementById("downloadModal").style.display = "none";
+  }
+
   function downloadOption() {
     console.log("DOWNLOADING");
     document.getElementById("downloadModal").style.display = "block";
@@ -37,6 +41,35 @@
       .addEventListener("click", () => {
         document.getElementById("downloadModal").style.display = "none";
       });
+
+    // Add a mousedown event listener to the document
+    document.addEventListener("mousedown", function (event) {
+      var downloadModal = document.getElementById("downloadModal");
+      if (
+        event.target !== downloadModal &&
+        !downloadModal.contains(event.target)
+      ) {
+        // Clicked outside the download modal, hide it
+        hideDownloadModal();
+      }
+    });
+
+    // Get all the <h4> elements inside the download modal
+    const downloadItems = document.querySelectorAll(
+      ".downloadModal-content h4"
+    );
+
+    // Add a click event listener to each <h4> element
+    downloadItems.forEach((h4Element) => {
+      h4Element.addEventListener("click", function () {
+        // Remove the 'selected' class from all <h4> elements
+        downloadItems.forEach((item) => item.classList.remove("selected"));
+
+        // Add the 'selected' class to the clicked <h4> element
+        h4Element.classList.add("selected");
+      });
+    });
+
     document
       .getElementById("downloadAsSVG")
       .addEventListener("click", downloadSVGFile);

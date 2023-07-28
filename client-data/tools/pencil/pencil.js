@@ -146,7 +146,7 @@
 				break;
 			default:
 				console.error("Pencil: Draw instruction with unknown type. ", data);
-				break;
+				break;``
 		}
 	}
 
@@ -274,7 +274,7 @@
 		elem.getElementsByClassName("tool-icon")[0].innerHTML = penIcons[index];
 
 		  // Update the title attribute based on the current mode
-		  elem.setAttribute("title", curPen.mode === "Pencil" ? "Pencil (Click to toggle for Eraser" : "Eraser");
+		  elem.setAttribute("title", curPen.mode === "Pencil" ? "For Eraser click to toggle" : "For Pencil click to toggle");
 
 	};
 
@@ -283,7 +283,7 @@
 		// "icon": "✏",
 		"iconHTML": pencilSVG,
 		"name": "Pencil",
-		"title":"Pencil",
+		"title":" For Eraser",
 		"listeners": {
 			"press": startLine,
 			"move": continueLine,

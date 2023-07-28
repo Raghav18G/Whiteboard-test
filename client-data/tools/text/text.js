@@ -98,6 +98,7 @@
 		input.removeEventListener("keyup", textChangeHandler);
 	}
 
+	
 	function startEdit() {
 		if (!input.parentNode) board.appendChild(input);
 		input.value="";
