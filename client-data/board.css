@@ -8,6 +8,16 @@ svg {
   margin: 0;
   font-family: CircularXXWeb-Book !important;
 }
+
+body{
+  background: transparent !important;
+}
+
+
+#rect_1{
+  fill: transparent !important;
+  
+}
 .tool-icon svg {
   height: 17px;
   width: 15px;
