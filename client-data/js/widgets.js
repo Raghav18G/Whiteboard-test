@@ -116,8 +116,8 @@ const CompassWidget = (e) => {
   compassWidget.innerHTML = compassHTML;
   compassWidget.style.maxWidth = "100%";
   compassWidget.style.position = "absolute";
-  foreignObjectCompass.style.x = e.clientX ;
-  foreignObjectCompass.style.y = e.clientY ;
+  foreignObjectCompass.style.x = e.clientX;
+  foreignObjectCompass.style.y = e.clientY;
   foreignObjectCompass.style.width = "1px";
   foreignObjectCompass.style.height = "1px";
   foreignObjectCompass.setAttribute("id", uid);
@@ -378,7 +378,11 @@ const calculatorWidget = (e) => {
   const calculatorWidgetElement = document.createElement("div");
   var uid = Tools.generateUID("doc");
 
-  const calculatorHTML = ` <div id="calculatorWidget">
+  const calculatorHTML = ` 
+  <div id="calculatorWidget">
+  <div>
+  <p>***Hold here to Drag***</p>
+  </div>
 <input type="text" id="result" disabled />
 <div>
 <button id="ClearButton" class="calc-btn">C</button>
@@ -492,7 +496,7 @@ const calculatorWidget = (e) => {
 };
 
 const diceWidget = (e) => {
-  console.log(e,"dice widget");
+  console.log(e, "dice widget");
   const diceforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"

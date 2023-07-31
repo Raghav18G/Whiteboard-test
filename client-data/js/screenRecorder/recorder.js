@@ -54,6 +54,7 @@ function captureScreen(callback) {
 }
 
 function stopRecordingCallback() {
+  console.group("Stopped");
   getSeekableBlob(recorder.getBlob(), function (seekableBlob) {
     recorder.screen.stop();
     recorder.destroy();
@@ -75,10 +76,11 @@ document.getElementById("btn-start-recording").onclick = function () {
       type: "video",
       recorderType: MediaStreamRecorder,
       mimeType: "video/webm",
+
       audio: {
         mandatory: {
           chromeMediaSource: "desktop",
-          chromeMediaSourceId: screen.getAudioTracks()[0].getSettings()
+          chromeMediaSourceId: screen.getAudioTracks()[0]?.getSettings()
             .deviceId,
         },
       },
