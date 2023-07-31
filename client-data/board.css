@@ -1010,7 +1010,18 @@ div#msr-pod-up {
   }
 
   ::-webkit-scrollbar {
-    width: 6px !important;
+    width: 1rem;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: .7rem
+  
   }
 
   #menuItems #tools {
@@ -1104,9 +1115,23 @@ div#msr-pod-up {
     top: 130px !important;
     left: 60px !important;
   }
-  .downloadModal {
+  /* .downloadModal {
     top: 200px !important;
-    left: 100px !important;
+    left: 100px !important;   
+  } */
+
+  .downloadModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #292727; /* Set your desired modal background color */
+    z-index: 9999; /* Set a z-index higher than the modal overlay */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   .tool-name.slider.opacitySelector {
     display: contents;
@@ -1166,7 +1191,7 @@ div#msr-pod-up {
     bottom: 0px;
   }
 }
-@media screen and (min-width: 620px) and (max-width: 845px) {
+@media screen and (min-width: 620px) and (max-width: 960px) {
   /* #menuItems #tools {
     display: flex;
     flex-wrap: wrap;
@@ -1202,6 +1227,20 @@ div#msr-pod-up {
     width: 100%;
     height: 100%;
   } */
+  ::-webkit-scrollbar {
+    width: 2rem;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 1rem
+  
+  }
 }
 
 .hideExtenders {
@@ -1216,10 +1255,10 @@ div#msr-pod-up {
   /* position: relative; */
   display: none; /* Hidden by default */
   position: absolute; /* Stay in place */
-  z-index: auto;
+  z-index: 10033;
   left: 40%;
   top: 35%;
-  padding: 20px;
+  /* padding: 20px; */
   width: 10rem;
   height: auto; /* Full height */
   overflow: auto; /* Enable scroll if needed */
@@ -1481,8 +1520,8 @@ div#msr-pod-up {
 
 #downloadModalClose {
   position: absolute;
-  top: 26px;
-  right: 12px;
+  top: 1px;
+  left: 70px;
   cursor: pointer;
   font-size: 24px;
 }
@@ -1629,7 +1668,7 @@ div#msr-pod-up {
 /* Calculator */
 
 #calculatorWidget {
-  width: 300px;
+  width: 30rem;
   border: 1px solid #ccc;
   padding: 10px;
   margin: 20px auto;
@@ -1644,8 +1683,10 @@ div#msr-pod-up {
 
 #calculatorWidget button {
   font-size: 18px;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   margin: 5px;
+  width: 4.2rem;
+    height: 4.2rem;
   background-color: #4caf50;
   color: white;
   border: none;
@@ -1656,7 +1697,14 @@ div#msr-pod-up {
 #calculatorWidget button:hover {
   background-color: #45a049;
 }
-
+.parent-glass{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 99999;
+  top:0px;
+  left: 0px;
+}
 /* CSS Manifyig glass */
 .img-magnifier-container {
   position: relative;
@@ -1667,19 +1715,242 @@ div#msr-pod-up {
   border-radius: 50%;
   cursor: none;
   /*Set the size of the magnifier glass:*/
-  width: 15rem;
-  height: 15rem;
+  width: 25rem;
+  height: 25rem;
 }
 .maginifying-btn {
   position: absolute;
-  height: 2rem;
-  top: 35%;
-  left: -10%;
+  height: 5rem;
+  width: 3rem;
+  top: 41%;
+  left: -13%;
   background-color: #d0c8c8;
-  padding: 0px;
+  padding: 1px;
   border-radius: 5px;
+  border: none;
 }
 
+
+.downloadOption:hover {
+  background-color: darkgray;
+}
+
+/* protractor widget  */
+.protractor-parent {
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* background-color: #ffff; */
+  background-image: url('canvas.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.rotational-container {
+  position: absolute;
+  top: auto;
+  left: auto;
+  transform-origin: center bottom;
+  cursor: all-scroll;
+  /* cursor: ne-resize;  */
+  display: block;
+  width: 400px;
+  height: 212px;
+}
+
+.rotational-division {
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid black; */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-image: url('Protractor_png.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 2.5px solid beige;
+}
+
+#rotation-angle {
+  position: absolute;
+  top: 51px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 19px;
+  text-align: center;
+  background-color: yellowgreen;
+}
+
+#toggle-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: red;
+  /* text-decoration: underline; */
+  background-color: beige;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Ruler css */
+
+.ruler-parent {
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.rotational-container-ruler{
+  position: absolute;
+  top: auto;
+  left: auto;
+  transform-origin: center bottom;
+  /* cursor: all-scroll; */
+   /* background-image: url('ruler.png'); */
+  /* background-color: silver; */
+  /* cursor: ne-resize;  */
+  display: block;
+  width: 600px;
+  height: 100px;
+}
+.rotational-division-ruler {
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid black; */
+  /* background-color: silver; */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-image: url('ruler.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 2.5px solid beige;
+}
+
+.drag-btn{
+  cursor: all-scroll;
+}
+#canvas-container {
+  position: relative;
+}
+
+canvas {
+  display: block;
+}
+
+#btn-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  height: 50px;
+}
+
+#btn-container>* {
+  flex: 0 0 auto;
+}
+
+/* .color-picker-container {
+  display: flex;
+  align-items: center;
+} */
+
+/* .color-picker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  cursor: pointer;
+} */
+
+/* .color-preview {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 8px;
+} */
+
+/* #colorPicker {
+  position: relative;
+} */
+
+/* .color-picker-popup {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  z-index: 999;
+  display: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+} */
+
+.color-picker-popup input[type="color"] {
+  /* width: 100%;
+  height: 100%; */
+  border: 1px solid cadetblue;
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+  margin: 5px;
+  /* Add margin between color options */
+  cursor: pointer;
+}
+
+#centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  /* Higher value for z-index */
+  width: 700px;
+  height: 100px;
+  background-color: silver;
+  /* border-radius: 50%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* cursor: grab; */
+  border: 2px solid gray;
+  border-radius: 4px;
+}
+
+#rotation-input {
+  margin-top: 10px;
+}
+/* 
+.color-picker {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  cursor: pointer;
+} */
 .browser-btn{
   background-color: #f0f0f0;
   color: #000;
@@ -1695,3 +1966,17 @@ div#msr-pod-up {
   color: #fff; /* Replace with your desired text color */
 }
 
+::-webkit-scrollbar {
+  width: .7rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: .7rem
+
+}

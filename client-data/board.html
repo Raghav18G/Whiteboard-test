@@ -141,13 +141,13 @@
             <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
 
             <div class="downloadItems">
-                <h4 style="text-align: center; cursor: pointer;" id="downloadAsSVG">SVG</h4>
+                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
                 <hr />
-                <h4 style="text-align: center; cursor: pointer;" id="downloadAsPDF">PDF</h4>
+                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>
                 <hr />
-                <h4 style="text-align: center; cursor: pointer;" id="downloadAsPNG">PNG</h4>
+                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
                 <hr />
-                <h4 style="text-align: center; cursor: pointer;" id="downloadAsJPG">JPG</h4>
+                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
             </div>
         </div>
     </div>
@@ -633,10 +633,10 @@
                 <pattern id="zigzag" width="30" height="30" patternUnits="userSpaceOnUse">
                     <path d="M 0 0 L 15 15 L 30 0 L 15 -15" fill="none" stroke="gray" stroke-width="0.5" />
                 </pattern>
-                <pattern id="imagePattern" width="100" height="100" patternUnits="userSpaceOnUse"
-                    patternTransform="scale(6)" patternUnits="matrix(1.5,-.70,.10,1.1,-30,10)">
-                    <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="100" height="100"
-                        preserveAspectRatio="none">
+                <pattern id="imagePattern" width="200" height="150" patternUnits="userSpaceOnUse"
+                    patternTransform="scale(9)" >
+                    <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="200" height="150"
+                    preserveAspectRatio="xMinYMin slice">
                 </pattern>
             </defs>
             <!-- <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%" fill="url(#grid)" /> -->
@@ -805,7 +805,7 @@
             <div id="closeToolModalBtn"> <span class="close">&times;</span></div>
             <div class="tabs">
                 <div id="tab1--mathematiclTool" class="tab-content show">
-                </div>
+                 </div>
             </div>
             <div>
             </div>
@@ -814,16 +814,7 @@
 
 
     <!-- Table Actions -->
-    <div id="table-actions" class="table-modal">
-        <p class="action" id="add-row">Add row</p>
-        <hr />
-        <p class="action" id="delete-column">Delete column</p>
-        <hr />
-        <p class="action" id="add-column">Add column</p>
-        <hr />
-        <p class="action" id="delete-row">Delete row</p>
-        </p>
-    </div>
+  
 
     <!-- HTML 2 Canvas CDN -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
@@ -847,6 +838,9 @@
 
     <!-- Screenshot Tool -->
     <script src="tools/screenshotTool/screenshotTool.js"></script>
+
+    <!-- ContextMenu -->
+    <script src="js/contextMenu.js" ></script>
 
 
 

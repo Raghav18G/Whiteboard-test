@@ -93,6 +93,7 @@ const ClockWidget = (e) => {
   if (Tools.useLayers)
     clockWidget.setAttribute("class", "layer-" + Tools.layer);
 };
+
 const CompassWidget = (e) => {
   e.preventDefault();
   const foreignObjectCompass = document.createElementNS(
@@ -256,36 +257,42 @@ const CompassWidget = (e) => {
 
   rotateArrow();
 };
+
 const MagnifyingGlass = (e) => {
   function magnify(imgID, zoom) {
-    var img, glass, w, h, bw;
+    var img, glass, w, h, bw, parentGlass;
     img = document.getElementById(imgID);
     /*create magnifier glass:*/
     glass = document.createElement("DIV");
+    parentGlass = document.createElement("div");
+    parentGlass.classList.add("parent-glass");
     glass.setAttribute("class", "img-magnifier-glass");
     glass.setAttribute("id", "magnifying-glass");
-    /*insert magnifier glass:*/
-    img.parentElement.insertBefore(glass, img);
+    (glass.style.top = "20vw"),
+      (glass.style.left = "60vh"),
+      /*insert magnifier glass:*/
+      parentGlass.appendChild(glass);
+    img.parentElement.insertBefore(parentGlass, img);
 
     const maginifyingBtn = document.createElement("button");
     maginifyingBtn.setAttribute("id", "btn-magnifying");
     maginifyingBtn.classList.add("maginifying-btn");
     maginifyingBtn.innerHTML = '<img src="./assets/CloseCircle.svg">';
     glass.appendChild(maginifyingBtn);
+
     //clear the Magnigfying class
 
     maginifyingBtn.addEventListener("click", () => {
       const MagnifyingGlass = document.getElementsByClassName(
         "img-magnifier-glass"
       );
-      console.log(MagnifyingGlass, "maggg");
-      MagnifyingGlass.length >= 1
-        ? document.getElementById("board")?.removeChild(MagnifyingGlass[0])
-        : "";
+      MagnifyingGlass.length >= 1 ? parentGlass.remove() : "";
     });
 
     function addMouoseMove() {
-      console.log("mouse down");
+      const getVisibleArea = getVisibleViewport();
+      img = document.getElementById(imgID);
+
       html2canvas(img, {
         x: window.scrollX,
         y: window.scrollY,
@@ -298,8 +305,8 @@ const MagnifyingGlass = (e) => {
 
       /*set background properties for the magnifier glass:*/
       glass.style.backgroundRepeat = "no-repeat";
-      glass.style.backgroundSize =
-        img.width * zoom + "px " + img.height * zoom + "px";
+      // glass.style.backgroundSize =
+      //   img.width * zoom + "px " + img.height * zoom + "px";
       bw = 3;
       w = glass.offsetWidth / 2;
       h = glass.offsetHeight / 2;
@@ -336,9 +343,9 @@ const MagnifyingGlass = (e) => {
         /*display what the magnifier glass "sees":*/
         glass.style.backgroundPosition =
           "-" + (x * zoom - w + bw) + "px -" + (y * zoom - h + bw) + "px";
-        glass.style.backgroundSize = `${
-          (img.width.baseVal.value - 1000) / 16
-        }rem ${(img.height.baseVal.value - 1200) / 16}rem`;
+        glass.style.backgroundSize = `${getVisibleArea.width * zoom}px ${
+          getVisibleArea.height * zoom
+        }px`;
       }
       function getCursorPos(e) {
         var a,
@@ -348,8 +355,8 @@ const MagnifyingGlass = (e) => {
         /*get the x and y positions of the image:*/
         a = img.getBoundingClientRect();
         /*calculate the cursor's x and y coordinates, relative to the image:*/
-        x = e.pageX - a.left;
-        y = e.pageY - a.top;
+        x = e.pageX || e.touches[0].pageX - a.left;
+        y = e.pageY || e.touches[0].pageY - a.top;
         /*consider any page scrolling:*/
         x = x - window.pageXOffset;
         y = y - window.pageYOffset;
@@ -359,13 +366,24 @@ const MagnifyingGlass = (e) => {
       function stopDragging() {
         glass.removeEventListener("mousemove", moveMagnifier);
         img.removeEventListener("mousemove", moveMagnifier);
+        glass.removeEventListener("touchmove", moveMagnifier);
+        img.removeEventListener("touchmove", moveMagnifier);
       }
       glass.addEventListener("mouseup", stopDragging);
+      glass.addEventListener("touchend", stopDragging);
+      window.addEventListener("mouseup", () => {
+        glass.removeEventListener("mousemove", moveMagnifier);
+        img.removeEventListener("mousemove", moveMagnifier);
+      });
+      window.addEventListener("touchend", () => {
+        glass.removeEventListener("touchmove", moveMagnifier);
+        img.removeEventListener("touchmove", moveMagnifier);
+      });
     }
 
     glass.addEventListener("mousedown", addMouoseMove);
+    glass.addEventListener("touchstart", addMouoseMove);
   }
-
   magnify("canvas", 2);
 };
 
@@ -380,9 +398,7 @@ const calculatorWidget = (e) => {
 
   const calculatorHTML = ` 
   <div id="calculatorWidget">
-  <div>
-  <p>***Hold here to Drag***</p>
-  </div>
+ 
 <input type="text" id="result" disabled />
 <div>
 <button id="ClearButton" class="calc-btn">C</button>
@@ -522,7 +538,7 @@ const diceWidget = (e) => {
   </g>
 </svg>
 
-<button id="rollButton">Roll Dice</button>i
+<button id="rollButton">Roll Dice</button>
  `;
 
   dicewidgetElement.innerHTML = dicewidgetHTML;
@@ -645,3 +661,273 @@ const stopWatchWidget = (e) => {
   stopButton.addEventListener("click", () => stop());
   resetButton.addEventListener("click", () => reset());
 };
+
+const protractorWidget = (e) => {
+  console.log("protractor", e);
+
+  const protractorforeignObject = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "foreignObject"
+  );
+  const protractorWidgetElement = document.createElement("div");
+  protractorWidgetElement.id = "protractorWidget";
+  var uid = Tools.generateUID("doc");
+
+  const protractorWidgetHTML = `
+    <div class="protractor-parent">
+      <div class="rotational-container">
+        <div class="rotational-division">
+          <input type="text" id="rotation-angle" value="0°">
+        </div>
+      </div>
+    </div>`;
+
+  protractorWidgetElement.innerHTML = protractorWidgetHTML;
+
+  protractorforeignObject.style.x = e.clientX;
+  protractorforeignObject.style.y = e.clientY;
+  protractorforeignObject.style.width = "1px";
+  protractorforeignObject.style.height = "1px";
+  protractorforeignObject.setAttribute("id", uid);
+  protractorforeignObject.setAttribute("overflow", "visible");
+
+  protractorforeignObject.appendChild(protractorWidgetElement);
+
+  Tools.group.appendChild(protractorforeignObject);
+
+  // Make the widget draggable
+  let isDragging = false;
+  let initialMouseX = 0;
+  let initialMouseY = 0;
+  let initialImageX = 0;
+  let initialImageY = 0;
+
+  protractorforeignObject.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    initialMouseX = e.clientX;
+    initialMouseY = e.clientY;
+    initialImageX = parseInt(protractorforeignObject.style.x);
+    initialImageY = parseInt(protractorforeignObject.style.y);
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      const deltaX = e.clientX - initialMouseX;
+      const deltaY = e.clientY - initialMouseY;
+      const newX = initialImageX + deltaX;
+      const newY = initialImageY + deltaY;
+      protractorforeignObject.style.x = newX + "px";
+      protractorforeignObject.style.y = newY + "px";
+    }
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+
+  // Prevent automatic changing of input field while dragging
+  $(document).ready(function () {
+    const rotationalContainer = $(".rotational-container");
+    const rotationalDiv = $(".rotational-division");
+    const rotationAngleInput = $("#rotation-angle");
+    let initialAngle = 0;
+    let rotationAngle = 0;
+
+    rotationalContainer.on("mousedown", function (e) {
+      isDragging = true;
+      initialAngle = Math.atan2(
+        e.clientY - window.innerHeight / 2,
+        e.clientX - window.innerWidth / 2
+      );
+    });
+
+    $(document).on("mousemove", function (e) {
+      if (isDragging) {
+        const newAngle = Math.atan2(
+          e.clientY - window.innerHeight / 2,
+          e.clientX - window.innerWidth / 2
+        );
+        let newRotationAngle =
+          rotationAngle + ((newAngle - initialAngle) * 180) / Math.PI;
+        newRotationAngle = (newRotationAngle + 360) % 360; // Ensure value in the range of 0 to 360 degrees
+        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
+        rotationAngle = newRotationAngle;
+        if (!isDragging) {
+          // Only update input field value when dragging stops
+          rotationAngleInput.val(`${Math.round(rotationAngle)}°`);
+        }
+        initialAngle = newAngle;
+      }
+    });
+
+    rotationAngleInput.on("input", function () {
+      const inputValue = parseInt(rotationAngleInput.val());
+      if (!isNaN(inputValue)) {
+        let newRotationAngle = inputValue % 360;
+        if (newRotationAngle < 0) newRotationAngle += 360;
+        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
+        rotationAngle = newRotationAngle;
+      }
+    });
+
+    $(document).on("mouseup", function () {
+      isDragging = false;
+    });
+  });
+};
+
+const rulerWidget = (e) => {
+  console.log("ruler", e);
+
+  const rulerforeignObject = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "foreignObject"
+  );
+  const rulerWidgetElement = document.createElement("div");
+  rulerWidgetElement.id = "rulerWidget";
+  var uid = Tools.generateUID("doc");
+
+  const rulerWidgetHTML = `
+    <div class="protractor-parent">
+      <div class="rotational-container-ruler">
+        <div class="rotational-division-ruler">
+          <input type="text" id="rotation-angle" value="0°">
+        </div>
+      </div>
+    </div>`;
+
+  rulerWidgetElement.innerHTML = rulerWidgetHTML;
+
+  rulerforeignObject.style.x = e.clientX;
+  rulerforeignObject.style.y = e.clientY;
+  rulerforeignObject.style.width = "1px";
+  rulerforeignObject.style.height = "1px";
+  rulerforeignObject.setAttribute("id", uid);
+  rulerforeignObject.setAttribute("overflow", "visible");
+
+  rulerforeignObject.appendChild(rulerWidgetElement);
+
+  Tools.group.appendChild(rulerforeignObject);
+
+  // Make the widget draggable
+  let isDragging = false;
+  let initialMouseX = 0;
+  let initialMouseY = 0;
+  let initialImageX = 0;
+  let initialImageY = 0;
+
+  rulerforeignObject.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    initialMouseX = e.clientX;
+    initialMouseY = e.clientY;
+    initialImageX = parseInt(rulerforeignObject.style.x);
+    initialImageY = parseInt(rulerforeignObject.style.y);
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      const deltaX = e.clientX - initialMouseX;
+      const deltaY = e.clientY - initialMouseY;
+      const newX = initialImageX + deltaX;
+      const newY = initialImageY + deltaY;
+      rulerforeignObject.style.x = newX + "px";
+      rulerforeignObject.style.y = newY + "px";
+    }
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+
+  // Prevent automatic changing of input field while dragging
+  $(document).ready(function () {
+    const rotationalContainer = $(".rotational-container-ruler");
+    const rotationalDiv = $(".rotational-division-ruler");
+    const rotationAngleInput = $("#rotation-angle");
+    let initialAngle = 0;
+    let rotationAngle = 0;
+
+    rotationalContainer.on("mousedown", function (e) {
+      isDragging = true;
+      initialAngle = Math.atan2(
+        e.clientY - window.innerHeight / 2,
+        e.clientX - window.innerWidth / 2
+      );
+    });
+
+    $(document).on("mousemove", function (e) {
+      if (isDragging) {
+        const newAngle = Math.atan2(
+          e.clientY - window.innerHeight / 2,
+          e.clientX - window.innerWidth / 2
+        );
+        let newRotationAngle =
+          rotationAngle + ((newAngle - initialAngle) * 180) / Math.PI;
+        newRotationAngle = (newRotationAngle + 360) % 360; // Ensure value in the range of 0 to 360 degrees
+        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
+        rotationAngle = newRotationAngle;
+        if (!isDragging) {
+          // Only update input field value when dragging stops
+          rotationAngleInput.val(`${Math.round(rotationAngle)}°`);
+        }
+        initialAngle = newAngle;
+      }
+    });
+
+    rotationAngleInput.on("input", function () {
+      const inputValue = parseInt(rotationAngleInput.val());
+      if (!isNaN(inputValue)) {
+        let newRotationAngle = inputValue % 360;
+        if (newRotationAngle < 0) newRotationAngle += 360;
+        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
+        rotationAngle = newRotationAngle;
+      }
+    });
+
+    $(document).on("mouseup", function () {
+      isDragging = false;
+    });
+  });
+};
+
+function getVisibleViewport() {
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const scrollX = window.scrollX || window.pageXOffset;
+  const scrollY = window.scrollY || window.pageYOffset;
+
+  // Calculate the visible area of the viewport
+  const visibleWidth = Math.min(
+    viewportWidth,
+    document.documentElement.clientWidth || document.body.clientWidth
+  );
+  const visibleHeight = Math.min(
+    viewportHeight,
+    document.documentElement.clientHeight || document.body.clientHeight
+  );
+
+  // Calculate the visible area's position relative to the document
+  const visibleTop = Math.max(scrollY, 0);
+  const visibleLeft = Math.max(scrollX, 0);
+  const visibleBottom = Math.min(
+    scrollY + visibleHeight,
+    document.documentElement.scrollHeight || document.body.scrollHeight
+  );
+  const visibleRight = Math.min(
+    scrollX + visibleWidth,
+    document.documentElement.scrollWidth || document.body.scrollWidth
+  );
+
+  // Calculate the dimensions of the visible area
+  const visibleAreaWidth = visibleRight - visibleLeft;
+  const visibleAreaHeight = visibleBottom - visibleTop;
+
+  return {
+    width: visibleAreaWidth,
+    height: visibleAreaHeight,
+    top: visibleTop,
+    left: visibleLeft,
+    bottom: visibleBottom,
+    right: visibleRight,
+  };
+}

@@ -9,9 +9,9 @@
   var toggle = 0;
 
   const widgetsImage = [
-    { id: "scale", image: "scale.png" ,title:"Ruler"},
+    { id: "ruler", image: "scale.png" ,title:"Ruler"},
     { id: "Lprojector", image: "scale2.png" ,title:"Triangular Ruler" },
-    { id: "D", image: "scale3.png" ,title:"Protactor"},
+    { id: "protractor", image: "scale3.png" ,title:"Protactor"},
     { id: "stopwatch", image: "scale4.png", title:"Stop-watch" },
     { id: "clock", image: "clock.png" ,title:"Clock"},
     { id: "projector", image: "scale5.png" , title:"Projector"},
@@ -100,6 +100,36 @@
       widgetPattern.addEventListener("touchstart", (e) => {
         e.preventDefault();
         calculatorWidget(e.touches[0]);
+        document.getElementById("mathematicalToolsModal").style.display =
+          "none";
+      });
+    }
+    else if (widget.id === "protractor") {
+      widgetPattern.addEventListener("click", (e) => {
+        e.preventDefault();
+        protractorWidget(e);
+
+        document.getElementById("mathematicalToolsModal").style.display =
+          "none";
+      });
+      widgetPattern.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        protractorWidget(e.touches[0]);
+        document.getElementById("mathematicalToolsModal").style.display =
+          "none";
+      });
+    }
+    else if (widget.id === "ruler") {
+      widgetPattern.addEventListener("click", (e) => {
+        e.preventDefault();
+        rulerWidget(e);
+
+        document.getElementById("mathematicalToolsModal").style.display =
+          "none";
+      });
+      widgetPattern.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        rulerWidget(e.touches[0]);
         document.getElementById("mathematicalToolsModal").style.display =
           "none";
       });

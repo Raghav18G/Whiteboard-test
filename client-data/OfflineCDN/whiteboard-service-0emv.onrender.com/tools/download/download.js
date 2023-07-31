@@ -51,6 +51,21 @@
       .addEventListener("click", downloadAsJPG);
   }
 
+// Get all the download options
+const downloadOptions = document.querySelectorAll('.downloadOption');
+
+// Add click event listeners to each option
+downloadOptions.forEach(option => {
+    option.addEventListener('click', function() {
+        // Remove 'darkgray' background from all options
+        downloadOptions.forEach(opt => opt.style.backgroundColor = '');
+
+        // Add 'darkgray' background to the clicked option
+        this.style.backgroundColor = 'darkgray';
+    });
+});
+
+  
   //   Downloading As PDF
   function downloadAsPDF() {
     document.getElementById("downloadModal").style.display = "none";

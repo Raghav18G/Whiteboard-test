@@ -61,7 +61,6 @@
     overflow: auto; /* Enable scroll if needed */
     font-family: "Inter";
     background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 20px;
   }
   .mathematicalTool-content {
     position: fixed;

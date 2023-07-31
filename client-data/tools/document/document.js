@@ -19,6 +19,20 @@
     drawer.classList.remove("open");
   });
 
+
+// close the modal when click outside of it
+
+    const modal = document.getElementById("documentModal");
+    function closeModal() {
+        modal.style.display = "none";
+    }
+    window.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+    
+
   //Tabs Logic
   const tabs = document.querySelectorAll(".tab");
   const tabContent = document.querySelectorAll(".tab-panel");
