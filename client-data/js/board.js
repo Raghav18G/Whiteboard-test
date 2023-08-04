@@ -923,6 +923,7 @@ Tools.toolHooks = [
   },
   function compileListeners(tool) {
     //compile listeners into compiledListeners
+    console.log("ture");
     var listeners = tool.listeners;
     //A tool may provide precompiled listeners
     var compiled = tool.compiledListeners || {};
@@ -948,6 +949,7 @@ Tools.toolHooks = [
             y = touch.pageY / Tools.getScale();
           return listener(x, y, evt, true);
         }
+        console.log("endddd");
         return true;
       };
     }

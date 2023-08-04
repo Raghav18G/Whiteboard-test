@@ -39,7 +39,8 @@
     <script src="OfflineCDN/kit.fontawesome.com/0166a4ad2b.js" crossorigin="anonymous"></script>
     <script src="socket.io.js"></script>
    
-
+    
+  <script src="node_modules/pdfjs-dist/build/pdf.min.js"></script>
 
     <meta name="description" content="A free and opensource online collaborative drawing tool." />
     <meta name="keywords" content="Collaborative whiteboard,online,draw,paint,shared,realtime" />
@@ -142,11 +143,11 @@
 
             <div class="downloadItems">
                 <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
-                <hr />
+                <hr/>
                 <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>
-                <hr />
+                <hr/>
                 <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
-                <hr />
+                <hr/>
                 <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
             </div>
         </div>
@@ -163,16 +164,15 @@
         </div>
     </div>
 
-    <!-- 
-    Video Player -->
+    <!-- Video Player -->
     <div class="dragVideoModal" id="dragVideoModal">
         <div class="dragVideoModal-content">
-            <span class="close" id="dragVideoModalClose">&times;</span>
+            <span class="close" id="dragVideoModalClose" >&times;</span>
             <!-- Video Tag -->
             <div class="dragVideoModalheader" id="dragVideoModalheader">
                 <p> *************** Hold here to Drag **************** </p>
             </div>
-            <span class="close" id="dragVideoModalClose"><img src="./assets/CloseCircle.svg" /></span>
+            <!-- <span class="close" id="dragVideoModalClose"><img src="./assets/CloseCircle.svg" /></span> -->
             <video id="videoPlayer" controls>
 
                 Your browser does not support the video tag.
@@ -204,7 +204,7 @@
             <span class="close" id="documentModalModalClose"><img src="./assets/CloseCircle.svg" /></span>
             <div>
                 <div class="documentModalOptions">
-                    <img src="assets/AddImageFromLocal.svg" class="document-modal-icon" />
+                    <img src="assets/AddImageFromLocal.svg" class="document-modal-icon1" />
                     <p id="SelectFromDevice">Add Image from Device </p>
 
                 </div>
@@ -215,6 +215,16 @@
                     <p id="SelectFromLibrary">Add Image From Library</p>
                 </div>
 
+                <hr />
+                <div class="documentModalOptions">
+                    <img src="assets/pdff.png" class="document-modal-icon" style="height:20px;width:20px" />
+                    <p id="SelectFromPDF">Upload PDF</p>
+                </div>
+                <hr />
+                <div class="documentModalOptions">
+                    <img src="assets/video.png" class="document-modal-icon" style="height:20px;width:20px" />
+                    <p id="SelectFromVideo">Upload Video</p>
+                </div>
             </div>
         </div>
     </div>
@@ -654,7 +664,7 @@
             <div class="close-max-btn" style="margin-right: 40px">
                 <button type="button" class="close window-button" id="close-calc" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
-                <button type="button" class="window-button window-icon-button" id="max-calc" aria-label="Max">
+                <button type="button" class="window-button window-icon-button" id="max-calc" title="Maximize" aria-label="Max">
                     <span aria-hidden="true"><i class="fa fa-window-maximize wb-editor-icon"></i></span></button>
 
             </div>
@@ -668,15 +678,15 @@
             <div>
                 <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
 
-                <button class="wb-editor-button" data-toggle="tooltip" data-trigger="hover" title="Modes"
+                <button class="wb-editor-button" data-trigger="hover" title="Modes"
                     id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
-                <button class="wb-editor-button wb-button-inactive" data-toggle="tooltip" data-trigger="hover"
+                <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
                     title="Run" id="wb-editor-run" type="button"><i
                         class="fas fa-play-circle wb-editor-icon"></i></button>
-                <button class="wb-editor-button wb-button-inactive" data-toggle="tooltip" data-trigger="hover"
+                <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
                     title="Real-time Run" id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
                         class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
-                <button type="button" class="wb-button wb-textoptions-button" data-toggle="tooltip" data-trigger="hover"
+                <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover"
                     title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
                             class="fas fa-angle-double-down"></i></span></button>
 
@@ -686,7 +696,7 @@
             <div class="close-max-btn" style="margin-right: 40px">
                 <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
                         aria-hidden="true">×</span></button>
-                <button type="button" class="window-button window-icon-button" data-toggle="tooltip"
+                <button type="button" class="window-button window-icon-button"
                     data-trigger="hover" title="Maximize" id="max-editor" aria-label="Max"><span aria-hidden="true"><i
                             class="fa fa-window-maximize wb-editor-icon"></i></span></button>
             </div>
@@ -695,35 +705,35 @@
         <div id="wb-editor-container-modes">
             <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
                     class="fas fa-angle-double-up" aria-hidden="true"></i></button>
-            <button class="wb-editor-mode" id="wb-text" data-toggle="tooltip" data-trigger="hover" title="Text editor"
+            <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
                 type="button">text</button>
-            <button class="wb-editor-mode" id="wb-js" data-toggle="tooltip" data-trigger="hover"
+            <button class="wb-editor-mode" id="wb-js" data-trigger="hover"
                 title="Javascript compiler/editor" type="button">js</button>
-            <button class="wb-editor-mode" id="wb-python" data-toggle="tooltip" data-trigger="hover"
+            <button class="wb-editor-mode" id="wb-python" data-trigger="hover"
                 title="Python compiler/editor" type="button">py</button>
-            <button class="wb-editor-mode" id="wb-cpp" data-toggle="tooltip" data-trigger="hover"
+            <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover"
                 title="C++ compiler/Editor" type="button">c++</button>
         </div>
         <div id="wb-editor-container-toolbar">
             <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
                     aria-hidden="true"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-spell-check" data-toggle="tooltip" data-trigger="hover"
+            <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover"
                 title="Check spelling" type="button"><i id="wb-editor-spell-check-icon"
                     class="fas fa-spell-check"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-code-template" data-toggle="tooltip" data-trigger="hover"
+            <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover"
                 title="Code template" type="button"><i class="fa fa-file-code-o"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-toggle="tooltip" data-trigger="hover"
+            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover"
                 title="Undo" type="button"><i class="fas fa-undo"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-toggle="tooltip" data-trigger="hover"
+            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover"
                 title="Redo" type="button"><i class="fas fa-redo"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-search" data-toggle="tooltip" data-trigger="hover"
+            <button class="wb-button wb-edit-button" id="wb-ed-search"  data-trigger="hover"
                 title="Search" type="button"><i class="fas fa-search"></i></button>
             <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
 
         </div>
         <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
             data-trigger="hover">Search</button> -->
-            <input type="text" placeholder="Type Something...." id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
+            <input type="text" placeholder="Type Something...." id="searchBrowser" class="wb-button wb-edit-button searchBrowser" 
             data-trigger="hover"></input>
         <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
         <div id="wb-editor">
@@ -813,8 +823,7 @@
     </div>
 
 
-    <!-- Table Actions -->
-  
+   <!-- Table Actions -->
 
     <!-- HTML 2 Canvas CDN -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
@@ -1022,7 +1031,7 @@
                     document.getElementById("toolID-Calculator").title = `कैलक्युलेटर`;
                     document.getElementById("toolID-Zoom In").title = `जूम इन`;
                     document.getElementById("toolID-Zoom Out").title = `जूम आउट`;
-                    document.getElementById("toolID-Background").title = `बैकग्राउंड`;
+                    // document.getElementById("toolID-Background").title = `बैकग्राउंड`;
                     document.getElementById("toolID-Table").title = `टेबल`;
                     document.getElementById("toolID-Undo").title = `अन्डू`;
                     document.getElementById("toolID-Redo").title = `रीडू`;
@@ -1058,10 +1067,10 @@
                     document.getElementById("tab5").innerHTML = `साइंस`;
                     document.getElementById("tab6").innerHTML = `मैथ`;
 
-                    document.getElementById("add-row").innerHTML = `ऐड रो`;
-                    document.getElementById("delete-row").innerHTML = `डिलीट रो`;
-                    document.getElementById("add-column").innerHTML = `ऐड कॉलम`;
-                    document.getElementById("delete-column").innerHTML = `डिलीट कॉलम`;
+                    // document.getElementById("add-row").innerHTML = `ऐड रो`;
+                    // document.getElementById("delete-row").innerHTML = `डिलीट रो`;
+                    // document.getElementById("add-column").innerHTML = `ऐड कॉलम`;
+                    // document.getElementById("delete-column").innerHTML = `डिलीट कॉलम`;
 
                     document.getElementById("two-dimension").innerHTML = `2डी शेपस`;
                     document.getElementById("three-dimension").innerHTML = `3डी शेपस`;
@@ -1097,7 +1106,7 @@
                     document.getElementById("toolID-Calculator").title = `Calculator`;
                     document.getElementById("toolID-Zoom In").title = `Zoom In`;
                     document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
-                    document.getElementById("toolID-Background").title = `Background`;
+                    // document.getElementById("toolID-Background").title = `Background`;
                     document.getElementById("toolID-Table").title = `Table`;
 
                     document.getElementById("shape2d-rectangle").title = `Rectangle`;
@@ -1126,10 +1135,12 @@
                     document.getElementById("tab4").innerHTML = `Art`;
                     document.getElementById("tab5").innerHTML = `Science`;
                     document.getElementById("tab6").innerHTML = `Maths`;
-                    document.getElementById("add-row").innerHTML = `Add Row`;
-                    document.getElementById("delete-row").innerHTML = `Delete Row`;
-                    document.getElementById("add-column").innerHTML = `Add columnn`;
-                    document.getElementById("delete-column").innerHTML = `Delete Column`;
+                    
+
+                    // document.getElementById("add-row").innerHTML = `Add Row`;
+                    // document.getElementById("delete-row").innerHTML = `Delete Row`;
+                    // document.getElementById("add-column").innerHTML = `Add columnn`;
+                    // document.getElementById("delete-column").innerHTML = `Delete Column`;
 
                     document.getElementById("two-dimension").innerHTML = `Two Dimensional Shapes (2D)`;
                     document.getElementById("three-dimension").innerHTML = `Three Dimensional Shapes (3D)`;

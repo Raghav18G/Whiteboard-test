@@ -31,12 +31,11 @@ function handleTouchEnd(event) {
 
   // Check if the touchend occurred on the "Paste" option
   if (contextMenuVisible && event.target.classList.contains("paste-option")) {
-    console.log("CALLLEDD PASTE");
     handlePaste();
   }
 
   // Remove the context menu
-  // removeContextMenu();
+  removeContextMenu();
 }
 
 function createContextMenu(x, y) {
@@ -50,7 +49,6 @@ function createContextMenu(x, y) {
   const pasteOption = document.createElement("div");
   pasteOption.className = "context-menu-option paste-option";
   pasteOption.textContent = "Paste";
-  pasteOption.addEventListener("click", handlePaste);
   contextMenu.appendChild(pasteOption);
 
   // Add any other context menu options you want
@@ -58,65 +56,13 @@ function createContextMenu(x, y) {
   return contextMenu;
 }
 
-function drawImage(msg) {
-  var aspect = msg.w / msg.h;
-  var img = Tools.createSVGElement("image");
-  img.id = msg.id;
-  img.setAttribute("class", "layer-" + Tools.layer);
-  img.setAttributeNS(xlinkNS, "href", msg.src);
-  img.x.baseVal.value = msg["x"];
-  img.y.baseVal.value = msg["y"];
-  img.setAttribute("width", 400 * aspect);
-  img.setAttribute("height", 400);
-  if (msg.transform) img.setAttribute("transform", msg.transform);
-  Tools.group.appendChild(img);
-  nnnnnnnnnn;
-}
+function handlePaste() {
+  // Handle the "Paste" action here
+  // For example, you can paste content into the SVG element
+  // ...
 
-async function handlePaste() {
-  try {
-    const permission = await navigator.permissions.query({
-      name: "clipboard-read",
-    });
-    console.log("PERMISSION", permission);
-    if (permission.state === "denied") {
-      throw new Error("Not allowed to read clipboard.");
-    }
-    const clipboardContents = await navigator.clipboard.read();
-    console.log("Clipboard Contents", clipboardContents);
-    for (const item of clipboardContents) {
-      if (!item.types.includes("image/png")) {
-        throw new Error("Clipboard contains non-image data.");
-      }
-      const blob = await item.getType("image/png");
-      console.log("BLOB", blob);
-      console.log("IAMGE BLOB", URL.createObjectURL(blob));
-      var image = new Image();
-      image.src = URL.createObjectURL(blob);
-      image.onload = function () {
-        var uid = Tools.generateUID("doc");
-        var msg = {
-          id: uid,
-          type: "doc",
-          src: image.src,
-          w: this.width || 300,
-          h: this.height || 300,
-          x:
-            (100 + document.documentElement.scrollLeft) / Tools.scale +
-            10 * imgCount,
-          y:
-            (100 + document.documentElement.scrollTop) / Tools.scale +
-            10 * imgCount,
-        };
-        drawImage(msg);
-      };
-    }
-  } catch (error) {
-    console.error(error.message);
-  } finally {
-    console.log("PASTE PASTE");
-    removeContextMenu();
-  }
+  console.log("PASTE PASTE");
+  alert("Paste action performed!");
 }
 
 function removeContextMenu() {

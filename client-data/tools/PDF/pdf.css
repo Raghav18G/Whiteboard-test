@@ -26,7 +26,7 @@
     flex-direction: column;
   }
 canvas{
-    width:90%;
+    width:100%;
     /* margin: .8rem; */
     border:1px solid #000
 }
@@ -37,5 +37,10 @@ canvas{
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  font-size: .6rem
+  font-size: 1.2rem;
+}
+#closePDFBtn{
+  position: relative;
+  bottom: 2.4rem;
+  left: 2.5rem;
 }

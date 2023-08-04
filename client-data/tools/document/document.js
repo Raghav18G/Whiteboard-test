@@ -2,15 +2,15 @@
   const closeButton = document.querySelector("#closeButton");
   const drawer = document.querySelector("#drawer");
 
-//google Event
- document.getElementById("SearchGoogle").addEventListener("click",()=>{
-  document.getElementById("iframeModal").style.display="block"
+  //google Event
+  document.getElementById("SearchGoogle").addEventListener("click", () => {
+    document.getElementById("iframeModal").style.display = "block";
     drawer.classList.remove("open");
- })
+  });
 
- document.getElementById("close-browser").addEventListener("click",()=>{
-  document.getElementById("iframeModal").style.display="none"
- })
+  document.getElementById("close-browser").addEventListener("click", () => {
+    document.getElementById("iframeModal").style.display = "none";
+  });
 
   //For drawer
   const libraryImages = document.querySelectorAll("#libraryImage");
@@ -19,19 +19,17 @@
     drawer.classList.remove("open");
   });
 
+  // close the modal when click outside of it
 
-// close the modal when click outside of it
-
-    const modal = document.getElementById("documentModal");
-    function closeModal() {
-        modal.style.display = "none";
+  const modal = document.getElementById("documentModal");
+  function closeModal() {
+    modal.style.display = "none";
+  }
+  window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      closeModal();
     }
-    window.addEventListener("click", function(event) {
-        if (event.target === modal) {
-            closeModal();
-        }
-    });
-    
+  });
 
   //Tabs Logic
   const tabs = document.querySelectorAll(".tab");
@@ -113,7 +111,6 @@
     fileInput.accept = "image/*";
     fileInput.click();
     fileInput.addEventListener("change", function () {
-
       var reader = new FileReader();
       reader.readAsDataURL(fileInput.files[0]);
       reader.onload = function (e) {
@@ -147,7 +144,27 @@
     });
   }
 
-  function chooseFromLibrary() {
+  function chooseFromLibrary(e) {
+    e = e || window.event;
+
+    const container = document.querySelector(".tab-panel");
+    console.log("Container", container);
+    let startX;
+    let startY;
+
+    container.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    });
+
+    container.addEventListener("touchmove", (e) => {
+      const deltaX = e.touches[0].clientX - startX;
+      const deltaY = e.touches[0].clientY - startY;
+
+      container.scrollLeft -= deltaX;
+      container.scrollTop -= deltaY;
+    });
+
     drawer.classList.add("open");
     document.getElementById("documentModal").style.display = "none";
 
@@ -161,6 +178,49 @@
       });
   }
 
+  function uploadPDF(e) {
+    document.getElementById("documentModal").style.display = "none";
+    document
+      .getElementById("SelectFromPDF")
+      .removeEventListener("click", () => {
+        console.log("Event Listener Removed");
+      });
+  
+    fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "application/pdf"; // Accept only PDF files
+    fileInput.click();
+    fileInput.addEventListener("change", function () {
+      var file = fileInput.files;
+
+      console.log("File Uploaded",file)
+      drawPDF(e,file);
+      
+    });
+  }  
+
+  function uploadVideo() {
+    document.getElementById("videoModal").style.display = "none";
+    document
+      .getElementById("SelectFromVideo")
+      .removeEventListener("click", () => {
+        console.log("Event Listener Removed");
+      });
+  
+    fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "video/*"; // Accept all video formats
+    fileInput.click();
+    fileInput.addEventListener("change", function () {
+      let file = fileInput.files[0];
+  
+      console.log("Video Uploaded", file);
+      // Call your function to handle the video here, for example, you could display it or process it further
+      // handleVideo(e, file);
+      DropVideo(file);
+    })
+  }
+  
   function onstart() {
     document.getElementById("documentModal").style.display = "block";
     document
@@ -174,6 +234,12 @@
     document
       .getElementById("SelectFromLibrary")
       .addEventListener("click", chooseFromLibrary);
+    document
+      .getElementById("SelectFromPDF")
+      .addEventListener("click", uploadPDF);
+    document
+      .getElementById("SelectFromVideo")
+      .addEventListener("click", uploadVideo);
   }
 
   function draw(msg) {

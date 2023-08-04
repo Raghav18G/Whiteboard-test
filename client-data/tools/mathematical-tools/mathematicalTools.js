@@ -10,7 +10,7 @@
 
   const widgetsImage = [
     { id: "ruler", image: "scale.png" ,title:"Ruler"},
-    { id: "Lprojector", image: "scale2.png" ,title:"Triangular Ruler" },
+    { id: "setSquare", image: "scale2.png" ,title:"Set-Square" },
     { id: "protractor", image: "scale3.png" ,title:"Protactor"},
     { id: "stopwatch", image: "scale4.png", title:"Stop-watch" },
     { id: "clock", image: "clock.png" ,title:"Clock"},
@@ -19,6 +19,7 @@
     { id: "calculator", image: "scale7.png", title:"Calculator" },
     { id: "magnifier", image: "scale8.png",title:"Magnifier" },
     { id: "dice", image: "scale9.png" ,title:"Dice" },
+   
   ];
 
   let modalContent = document.getElementById("tab1--mathematiclTool");
@@ -130,6 +131,21 @@
       widgetPattern.addEventListener("touchstart", (e) => {
         e.preventDefault();
         rulerWidget(e.touches[0]);
+        document.getElementById("mathematicalToolsModal").style.display =
+          "none";
+      });
+    }
+    else if (widget.id === "setSquare") {
+      widgetPattern.addEventListener("click", (e) => {
+        e.preventDefault();
+        setSquareWidget(e);
+
+        document.getElementById("mathematicalToolsModal").style.display =
+          "none";
+      });
+      widgetPattern.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        setSquareWidget(e.touches[0]);
         document.getElementById("mathematicalToolsModal").style.display =
           "none";
       });

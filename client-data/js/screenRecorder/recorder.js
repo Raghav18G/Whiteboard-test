@@ -1,4 +1,4 @@
-if (!navigator?.getDisplayMedia && !navigator?.mediaDevices?.getDisplayMedia) {
+if (!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
   var error = "Your browser does NOT support the getDisplayMedia API.";
   document.querySelector("h1").innerHTML = error;
   document.querySelector("video").style.display = "none";

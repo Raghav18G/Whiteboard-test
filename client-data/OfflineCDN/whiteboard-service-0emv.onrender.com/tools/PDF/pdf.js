@@ -26,6 +26,7 @@ function drawPDF(event, file) {
         const file = files[i]
         if (file.type === "application/pdf") {
             // Read the PDF file
+            console.log("pdfFilereaderrr")
             const reader = new FileReader()
             reader.onload = function (e) {
                 const pdfData = new Uint8Array(e.target.result)

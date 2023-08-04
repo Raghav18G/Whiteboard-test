@@ -38,8 +38,6 @@
 		draw(msg, true);
 		Tools.send(msg, "Clear");
 		// clear the Table modal
-		const modal = document.getElementById("table-actions");
-		modal.style.display = "none";
 	};
 
 	function draw(data) {

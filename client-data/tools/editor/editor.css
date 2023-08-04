@@ -68,8 +68,8 @@
     justify-content: space-between;
     padding: 9px 10px 9px 10px;
     cursor: move;
-    opacity:.7;
-    background-color: #2196F3;
+    opacity:1;
+    background-color: #60b8ff;
     color: #fff;
 }
 
