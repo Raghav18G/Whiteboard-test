@@ -24,7 +24,7 @@
  * @licend
  */
 
-(function editor() { //Code isolation
+ (function editor() { //Code isolation
 
 	var win = {
 		toggle : 0,

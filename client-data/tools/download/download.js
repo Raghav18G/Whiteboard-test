@@ -32,7 +32,18 @@
   function hideDownloadModal() {
     document.getElementById("downloadModal").style.display = "none";
   }
-
+  
+  // close the modal when click outside of it
+  const modal = document.getElementById("downloadModal");
+  function closeModal() {
+      modal.style.display = "none";
+  }
+  window.addEventListener("click", function(event) {
+      if (event.target === modal) {
+          closeModal();
+      }
+  });
+  
   function downloadOption() {
     console.log("DOWNLOADING");
     document.getElementById("downloadModal").style.display = "block";

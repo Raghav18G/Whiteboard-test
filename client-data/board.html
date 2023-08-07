@@ -136,22 +136,22 @@
 
 
     <!-- Download Content Modal -->
-
-    <div class="downloadModal" id="downloadModal">
-        <div class="downloadModal-content">
-            <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
-
-            <div class="downloadItems">
-                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
-                <hr/>
-                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>
-                <hr/>
-                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
-                <hr/>
-                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
+        <div class="downloadModal" id="downloadModal">
+            <div class="downloadModal-content">
+                <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
+    
+                <div class="downloadItems">
+                    <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
+                    <hr/>
+                    <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>
+                    <hr/>
+                    <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
+                    <hr/>
+                    <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
+                </div>
             </div>
         </div>
-    </div>
+
 
     <!-- Video Modal -->
     <div class="videoModal" id="videoModal">
@@ -199,6 +199,7 @@
     </div>
 
     <!--Document Moadal -->
+    
     <div class="documentModal" id="documentModal">
         <div class="documentModal-content">
             <span class="close" id="documentModalModalClose"><img src="./assets/CloseCircle.svg" /></span>
@@ -228,6 +229,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Drawer Image Library -->
 
@@ -539,7 +541,9 @@
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
                 </svg>
+               
                 <img src="icon-size.svg" height=30 />
+               
             </span>
 
             <label class="tool-name slider verticalAlign sizeSelector" for="chooseSize">
@@ -673,76 +677,77 @@
     </div>
 
     <!-- Text Editor -->
-    <div class="window" id="wb-editor-container" style="display:none">
-        <div id="wb-editor-container-header">
-            <div>
-                <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
+ <!-- Text Editor -->
+ <div class="window" id="wb-editor-container" style="display:none">
+    <div id="wb-editor-container-header">
+        <div>
+            <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
 
-                <button class="wb-editor-button" data-trigger="hover" title="Modes"
-                    id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
-                <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
-                    title="Run" id="wb-editor-run" type="button"><i
-                        class="fas fa-play-circle wb-editor-icon"></i></button>
-                <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
-                    title="Real-time Run" id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
-                        class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
-                <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover"
-                    title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
-                            class="fas fa-angle-double-down"></i></span></button>
-
-            </div>
-
-
-            <div class="close-max-btn" style="margin-right: 40px">
-                <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <button type="button" class="window-button window-icon-button"
-                    data-trigger="hover" title="Maximize" id="max-editor" aria-label="Max"><span aria-hidden="true"><i
-                            class="fa fa-window-maximize wb-editor-icon"></i></span></button>
-            </div>
+            <button class="wb-editor-button" data-trigger="hover" title="Modes"
+                id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
+            <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
+                title="Run" id="wb-editor-run" type="button"><i
+                    class="fas fa-play-circle wb-editor-icon"></i></button>
+            <button class="wb-editor-button wb-button-inactive" data-trigger="hover"
+                title="Real-time Run" id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
+                    class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
+            <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover"
+                title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
+                        class="fas fa-angle-double-down"></i></span></button>
 
         </div>
-        <div id="wb-editor-container-modes">
-            <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
-                    class="fas fa-angle-double-up" aria-hidden="true"></i></button>
-            <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
-                type="button">text</button>
-            <button class="wb-editor-mode" id="wb-js" data-trigger="hover"
-                title="Javascript compiler/editor" type="button">js</button>
-            <button class="wb-editor-mode" id="wb-python" data-trigger="hover"
-                title="Python compiler/editor" type="button">py</button>
-            <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover"
-                title="C++ compiler/Editor" type="button">c++</button>
-        </div>
-        <div id="wb-editor-container-toolbar">
-            <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
-                    aria-hidden="true"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover"
-                title="Check spelling" type="button"><i id="wb-editor-spell-check-icon"
-                    class="fas fa-spell-check"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover"
-                title="Code template" type="button"><i class="fa fa-file-code-o"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover"
-                title="Undo" type="button"><i class="fas fa-undo"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover"
-                title="Redo" type="button"><i class="fas fa-redo"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-search"  data-trigger="hover"
-                title="Search" type="button"><i class="fas fa-search"></i></button>
-            <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
 
+
+        <div class="close-max-btn" style="margin-right: 40px">
+            <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+            <button type="button" class="window-button window-icon-button"
+                data-trigger="hover" title="Maximize" id="max-editor" aria-label="Max"><span aria-hidden="true"><i
+                        class="fa fa-window-maximize wb-editor-icon"></i></span></button>
         </div>
-        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
-            data-trigger="hover">Search</button> -->
-            <input type="text" placeholder="Type Something...." id="searchBrowser" class="wb-button wb-edit-button searchBrowser" 
-            data-trigger="hover"></input>
-        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
-        <div id="wb-editor">
-            <div class="row wb-editor">
-                <div class="col-sm-12" id="wb-editor-input">
-                </div>
+
+    </div>
+    <div id="wb-editor-container-modes">
+        <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
+                class="fas fa-angle-double-up" aria-hidden="true"></i></button>
+        <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
+            type="button">text</button>
+        <button class="wb-editor-mode" id="wb-js" data-trigger="hover"
+            title="Javascript compiler/editor" type="button">js</button>
+        <button class="wb-editor-mode" id="wb-python" data-trigger="hover"
+            title="Python compiler/editor" type="button">py</button>
+        <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover"
+            title="C++ compiler/Editor" type="button">c++</button>
+    </div>
+    <div id="wb-editor-container-toolbar">
+        <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
+                aria-hidden="true"></i></button>
+        <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover"
+            title="Check spelling" type="button"><i id="wb-editor-spell-check-icon"
+                class="fas fa-spell-check"></i></button>
+        <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover"
+            title="Code template" type="button"><i class="fa fa-file-code-o"></i></button>
+        <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover"
+            title="Undo" type="button"><i class="fas fa-undo"></i></button>
+        <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover"
+            title="Redo" type="button"><i class="fas fa-redo"></i></button>
+        <button class="wb-button wb-edit-button" id="wb-ed-search"  data-trigger="hover"
+            title="Search" type="button"><i class="fas fa-search"></i></button>
+        <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
+
+    </div>
+    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
+        data-trigger="hover">Search</button> -->
+        <input type="text" placeholder="Type Something...." id="searchBrowser" class="wb-button wb-edit-button searchBrowser" 
+        data-trigger="hover"></input>
+    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
+    <div id="wb-editor">
+        <div class="row wb-editor">
+            <div class="col-sm-12" id="wb-editor-input">
             </div>
         </div>
     </div>
+</div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
@@ -876,45 +881,38 @@
 
     <!-- Download -->
     <script src="tools/download/download.js"></script>
-    <!-- BEGIN EDITOR TOOL -->
-    <!-- Editor dep: CodeMirror -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script> -->
-    <script src="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" /> -->
-    <link rel="stylesheet" href="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
+   <!-- BEGIN EDITOR TOOL -->
+	<!-- Editor dep: CodeMirror -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.css" />
 
-    <!-- Editor dep: Typo -->
-    <!-- <script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script> -->
-    <script src="OfflineCDN/rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
+	<!-- Editor dep: Typo -->
+	<script src="https://rawgit.com/cfinke/Typo.js/master/typo/typo.js"></script>
 
-    <!-- Editor dep: Klipse -->
-    <script>
-        window.klipse_settings = {
-            selector_eval_python_client: 'no_element',
-        };
-    </script>
-    <script src="js/klipse_plugin.min.js"></script>
+	<!-- Editor dep: Klipse -->
+	<script>
+		window.klipse_settings = {
+			selector_eval_python_client: 'no_element',
+		};
+	</script>
+	<script src="js/klipse_plugin.min.js"></script>
 
-    <!-- Editor dep: Firebase/Firepad -->
-    <script>
-        var firepad_config = {
-            apiKey: '<API_KEY>',
-            authDomain: "<AUTH_DOMAIN>.firebaseapp.com",
-            databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
-        };
+	<!-- Editor dep: Firebase/Firepad -->
+	<script>
+		var firepad_config = {
+			apiKey: '<API_KEY>',
+			authDomain: "<AUTH_DOMAIN>.firebaseapp.com",
+			databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
+		};
+	</script>
+	<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+	<link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" />
+	<script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script>
 
-    </script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script> -->
-    <script src="OfflineCDN/www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
-    <!-- <link rel="stylesheet" href="https://firepad.io/releases/v1.5.9/firepad.css" /> -->
-    <link rel="stylesheet" href="OfflineCDN/firepad.io/releases/v1.5.9/firepad.css" />
-    <!-- <script src="https://firepad.io/releases/v1.5.9/firepad.min.js"></script> -->
-    <script src="OfflineCDN/firepad.io/releases/v1.5.9/firepad.min.js"></script>
-
-    <!-- Editor -->
-    <script src="tools/editor/editor.js"></script>
-    <!-- END EDITOR TOOL-->
-
+	<!-- Editor -->
+	<script src="tools/editor/editor.js"></script>
+	<!-- END EDITOR TOOL-->
+    
     <script src="tools/handNew/hand.js"></script>
     <script src="tools/grid/grid.js"></script>
     <script src="tools/clear/clear.js"></script>
@@ -1020,11 +1018,15 @@
                     document.getElementById("toolID-Line").title = `लाइनस`;
                     document.getElementById("toolID-Rectangle").title = `शेपस`;
                     document.getElementById("toolID-Text").title = `टेक्स्ट`;
+
                     document.getElementById("toolID-Mathematical Tools").title = `मैथमेटिकल टूल्स`;
+                    // document.getElementById("ruler").title = `रुलर`;
+
                     document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;
                     document.getElementById("toolID-Transform").title = `ट्रांसफोर्म `;
                     document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
                     document.getElementById("toolID-Download").title = `डाउनलोड`;
+              
                     document.getElementById("toolID-Editor").title = `एडीटर`;
                     document.getElementById("toolID-Hand").title = `हैंड`;
                     document.getElementById("toolID-Grid").title = `ग्रिड`;
@@ -1037,8 +1039,6 @@
                     document.getElementById("toolID-Redo").title = `रीडू`;
                     document.getElementById("toolID-Clear").title = `इरेजर`;
                     document.getElementById('toolID-"Touch Up" Eraser').title = `टच अप`;
-
-
 
                     document.getElementById("shape2d-rectangle").title = `रेक्टेंगल`;
                     document.getElementById("shape2d-circle").title = `सर्किल`;
@@ -1060,6 +1060,14 @@
                     document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
                     document.getElementById("SelectFromDevice").innerHTML = `ऐड इमेज from डिवाइस `;
                     document.getElementById("SelectFromLibrary").innerHTML = `ऐड इमेज from लाइब्रेरी`;
+                    document.getElementById("SelectFromPDF").innerHTML = `अपलोड पीडीएफ `;
+                    document.getElementById("SelectFromVideo").innerHTML = `अपलोड वीडियो`;
+
+                     document.getElementById("downloadAsSVG").innerHTML = `एसवीजी`;
+                    document.getElementById("downloadAsPDF").innerHTML = `पीडीऍफ़`;
+                    document.getElementById("downloadAsPNG").innerHTML = `पीएनजी`;
+                    document.getElementById("downloadAsJPG").innerHTML = `जेपीईजी`;
+                                        
                     document.getElementById("tab1").innerHTML = `एजुकेशन`;
                     document.getElementById("tab2").innerHTML = `स्पोर्ट्स`;
                     document.getElementById("tab3").innerHTML = `म्यूजिक`;
@@ -1095,11 +1103,17 @@
                     document.getElementById("toolID-Line").title = `Lines`;
                     document.getElementById("toolID-Rectangle").title = `Shapes`;
                     document.getElementById("toolID-Text").title = `Text`;
+
+                    // mathematical tools
                     document.getElementById("toolID-Mathematical Tools").title = `Mathematical Tools`;
+                    document.getElementById("ruler").title = `ruler`; // Translation for "ruler"
+
+
                     document.getElementById("toolID-Screenshot").title = `Screenshot`;
                     document.getElementById("toolID-Transform").title = `Transform`;
                     document.getElementById("toolID-Document").title = `Document`;
                     document.getElementById("toolID-Download").title = `Download`;
+
                     document.getElementById("toolID-Editor").title = `Editor`;
                     document.getElementById("toolID-Hand").title = `Hand`;
                     document.getElementById("toolID-Grid").title = `Grid`;
@@ -1129,13 +1143,20 @@
                     document.getElementById("img-library").innerHTML = `Image Library`;
                     document.getElementById("SelectFromDevice").innerHTML = `Add Image from Device`;
                     document.getElementById("SelectFromLibrary").innerHTML = `Add Image from Library`;
+                    document.getElementById("SelectFromPDF").innerHTML = `Upload PDF `;
+                    document.getElementById("SelectFromVideo").innerHTML = `Upload Video`;
+
+                    document.getElementById("downloadAsSVG").innerHTML = `SVG`;
+                    document.getElementById("downloadAsPDF").innerHTML = `PDF`;
+                    document.getElementById("downloadAsPNG").innerHTML = `PNG`;
+                    document.getElementById("downloadAsJPG").innerHTML = `JPG`;
+
                     document.getElementById("tab1").innerHTML = `Education`;
                     document.getElementById("tab2").innerHTML = `Sports`;
                     document.getElementById("tab3").innerHTML = `Music`;
                     document.getElementById("tab4").innerHTML = `Art`;
                     document.getElementById("tab5").innerHTML = `Science`;
                     document.getElementById("tab6").innerHTML = `Maths`;
-                    
 
                     // document.getElementById("add-row").innerHTML = `Add Row`;
                     // document.getElementById("delete-row").innerHTML = `Delete Row`;

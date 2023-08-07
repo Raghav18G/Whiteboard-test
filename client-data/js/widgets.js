@@ -89,7 +89,7 @@ const ClockWidget = (e) => {
   // Use the inbuilt setInterval function to invoke the method we created earlier
   clockInterval = setInterval(runClock, 1000);
   //  if (msg.transform) clockWidget.setAttribute("transform", msg.transform);
-  makeDraggeble(foreignObjectClock)
+  makeDraggeble(foreignObjectClock);
   if (Tools.useLayers)
     clockWidget.setAttribute("class", "layer-" + Tools.layer);
 };
@@ -117,7 +117,7 @@ const CompassWidget = (e) => {
   compassWidget.innerHTML = compassHTML;
   compassWidget.style.maxWidth = "100%";
   compassWidget.style.position = "absolute";
-  foreignObjectCompass.style.x = e.clientX ;
+  foreignObjectCompass.style.x = e.clientX;
   foreignObjectCompass.style.y = e.clientY;
   foreignObjectCompass.style.width = "1px";
   foreignObjectCompass.style.height = "1px";
@@ -126,7 +126,7 @@ const CompassWidget = (e) => {
 
   foreignObjectCompass.appendChild(compassWidget);
   Tools.group.appendChild(foreignObjectCompass);
-  makeDraggeble(foreignObjectCompass)
+  makeDraggeble(foreignObjectCompass);
   var svgNS = "http://www.w3.org/2000/svg";
   var svg = document.getElementById("compassWidget");
 
@@ -243,7 +243,6 @@ const CompassWidget = (e) => {
 
   // Start the auto-rotation
   function updateRotation(event) {
-   
     const mouseX = event.clientX - compass.getBoundingClientRect().left;
     const mouseY = event.clientY - compass.getBoundingClientRect().top;
     const deltaX = mouseX - center.x;
@@ -255,7 +254,7 @@ const CompassWidget = (e) => {
     );
   }
   function updateRotationTouch(event) {
-   const touch = event.touches[0]
+    const touch = event.touches[0];
     const mouseX = touch.clientX - compass.getBoundingClientRect().left;
     const mouseY = touch.clientY - compass.getBoundingClientRect().top;
     const deltaX = mouseX - center.x;
@@ -270,11 +269,8 @@ const CompassWidget = (e) => {
   compass.addEventListener("mousemove", updateRotation);
   compass.addEventListener("touchstart", updateRotationTouch);
 
-
   //rotateArrow();
-
 };
-
 
 const MagnifyingGlass = (e) => {
   function magnify(imgID, zoom) {
@@ -530,7 +526,7 @@ const calculatorWidget = (e) => {
     resultElement.value = "";
   }
   //make the widget draggable
-  makeDraggeble(calculatorForeignObject)
+  makeDraggeble(calculatorForeignObject);
 };
 
 const diceWidget = (e) => {
@@ -574,7 +570,7 @@ const diceWidget = (e) => {
   diceforeignObject.appendChild(dicewidgetElement);
 
   Tools.group.appendChild(diceforeignObject);
-  
+
   makeDraggeble(diceforeignObject);
 
   const dice = document.getElementById("dice");
@@ -598,7 +594,6 @@ const diceWidget = (e) => {
       dots[i].style.display = "block";
     }
   }
-
 };
 
 const stopWatchWidget = (e) => {
@@ -633,7 +628,7 @@ const stopWatchWidget = (e) => {
   Tools.group.appendChild(stopWatchforeignObject);
   //make draggable
   makeDraggeble(stopWatchforeignObject);
-  
+
   let startTime = null;
   let elapsedTime = 0;
   let timerId = null;
@@ -686,7 +681,6 @@ const stopWatchWidget = (e) => {
   startButton.addEventListener("click", () => start());
   stopButton.addEventListener("click", () => stop());
   resetButton.addEventListener("click", () => reset());
-  
 };
 
 const protractorWidget = (e) => {
@@ -722,35 +716,37 @@ const protractorWidget = (e) => {
 
   Tools.group.appendChild(protractorforeignObject);
 
+  makeDraggeble(protractorforeignObject);
+
   // Make the widget draggable
-  let isDragging = false;
-  let initialMouseX = 0;
-  let initialMouseY = 0;
-  let initialImageX = 0;
-  let initialImageY = 0;
+  // let isDragging = false;
+  // let initialMouseX = 0;
+  // let initialMouseY = 0;
+  // let initialImageX = 0;
+  // let initialImageY = 0;
 
-  protractorforeignObject.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    initialMouseX = e.clientX;
-    initialMouseY = e.clientY;
-    initialImageX = parseInt(protractorforeignObject.style.x);
-    initialImageY = parseInt(protractorforeignObject.style.y);
-  });
+  // protractorforeignObject.addEventListener("mousedown", (e) => {
+  //   isDragging = true;
+  //   initialMouseX = e.clientX;
+  //   initialMouseY = e.clientY;
+  //   initialImageX = parseInt(protractorforeignObject.style.x);
+  //   initialImageY = parseInt(protractorforeignObject.style.y);
+  // });
 
-  document.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      const deltaX = e.clientX - initialMouseX;
-      const deltaY = e.clientY - initialMouseY;
-      const newX = initialImageX + deltaX;
-      const newY = initialImageY + deltaY;
-      protractorforeignObject.style.x = newX + "px";
-      protractorforeignObject.style.y = newY + "px";
-    }
-  });
+  // document.addEventListener("mousemove", (e) => {
+  //   if (isDragging) {
+  //     const deltaX = e.clientX - initialMouseX;
+  //     const deltaY = e.clientY - initialMouseY;
+  //     const newX = initialImageX + deltaX;
+  //     const newY = initialImageY + deltaY;
+  //     protractorforeignObject.style.x = newX + "px";
+  //     protractorforeignObject.style.y = newY + "px";
+  //   }
+  // });
 
-  document.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+  // document.addEventListener("mouseup", () => {
+  //   isDragging = false;
+  // });
 
   // Prevent automatic changing of input field while dragging
   $(document).ready(function () {
@@ -768,24 +764,24 @@ const protractorWidget = (e) => {
       );
     });
 
-    $(document).on("mousemove", function (e) {
-      if (isDragging) {
-        const newAngle = Math.atan2(
-          e.clientY - window.innerHeight / 2,
-          e.clientX - window.innerWidth / 2
-        );
-        let newRotationAngle =
-          rotationAngle + ((newAngle - initialAngle) * 180) / Math.PI;
-        newRotationAngle = (newRotationAngle + 360) % 360; // Ensure value in the range of 0 to 360 degrees
-        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
-        rotationAngle = newRotationAngle;
-        if (!isDragging) {
-          // Only update input field value when dragging stops
-          rotationAngleInput.val(`${Math.round(rotationAngle)}°`);
-        }
-        initialAngle = newAngle;
-      }
-    });
+    // $(document).on("mousemove", function (e) {
+    //   if (isDragging) {
+    //     const newAngle = Math.atan2(
+    //       e.clientY - window.innerHeight / 2,
+    //       e.clientX - window.innerWidth / 2
+    //     );
+    //     let newRotationAngle =
+    //       rotationAngle + ((newAngle - initialAngle) * 180) / Math.PI;
+    //     newRotationAngle = (newRotationAngle + 360) % 360; // Ensure value in the range of 0 to 360 degrees
+    //     rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
+    //     rotationAngle = newRotationAngle;
+    //     if (!isDragging) {
+    //       // Only update input field value when dragging stops
+    //       rotationAngleInput.val(`${Math.round(rotationAngle)}°`);
+    //     }
+    //     initialAngle = newAngle;
+    //   }
+    // });
 
     rotationAngleInput.on("input", function () {
       const inputValue = parseInt(rotationAngleInput.val());
@@ -797,9 +793,9 @@ const protractorWidget = (e) => {
       }
     });
 
-    $(document).on("mouseup", function () {
-      isDragging = false;
-    });
+    // $(document).on("mouseup", function () {
+    //   isDragging = false;
+    // });
   });
 };
 
@@ -830,17 +826,14 @@ const rulerWidget = (e) => {
   var uid = Tools.generateUID("doc");
 
   const rulerWidgetHTML = `
-  <div id="canvas-container">
-       
-  <div id="parent-div">
-      <div id="element-one">
-          <canvas id="myCanvas" width="868" height="8"></canvas>
-      </div>
-      <div id="ruler-tool">
-
-      </div>
-  </div>
-</div>`;
+  <div id="canvas-container">      
+    <div id="parent-div">
+        <div id="element-one">
+            <canvas id="myCanvas" width="868" height="8"></canvas>
+        </div>
+        <div id="ruler-tool"></div>
+    </div>
+  </div>`;
 
   rulerWidgetElement.innerHTML = rulerWidgetHTML;
 
@@ -854,6 +847,8 @@ const rulerWidget = (e) => {
   rulerforeignObject.appendChild(rulerWidgetElement);
 
   Tools.group.appendChild(rulerforeignObject);
+
+  makeDraggeble(rulerforeignObject);
 
   const canvas = document.getElementById("myCanvas");
   const ctx = canvas.getContext("2d");
@@ -895,103 +890,169 @@ const rulerWidget = (e) => {
   }
 };
 
-const setSquareWidget = (e) => {
-  console.log("setSquare", e);
+const roundCompassWidget = (e) => {
+  console.log("roundCompass", e);
 
-  const setSquareforeignObject = document.createElementNS(
+  const roundCompassforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
   );
-  const setSquareWidgetElement = document.createElement("div");
+  const roundCompassWidgetElement = document.createElement("div");
 
-  setSquareWidgetElement.id = "setSquareWidget";
+  roundCompassWidgetElement.id = "roundCompassWidget";
   var uid = Tools.generateUID("doc");
 
-  const setSquareWidgetHTML = `
-   <div class="setSqaure">
-      <div class="triangle-container" id="rotatableContainer">
-        <div class="triangle" id="rotatableTriangle"></div>
-        <div class="input-container">
-          <input type="number" id="rotationInput" min="0" max="360" value="0">
-        </div>
-      </div>
-    </div>`;
+  const roundCompassWidgetHTML = `
+  <div class="rounded-compass ">
 
-  setSquareWidgetElement.innerHTML = setSquareWidgetHTML;
-// set the image background to view port width
-  setSquareforeignObject.style.x = e.clientX;
-  setSquareforeignObject.style.y = e.clientY;
-  setSquareforeignObject.style.width = "1px";
-  setSquareforeignObject.style.height = "1px";
-  setSquareforeignObject.setAttribute("id", uid);
-  setSquareforeignObject.setAttribute("overflow", "visible");
+  <label for="radius" style="color: red">Radius:</label>
+    <input
+      type="number"
+      id="radius"
+      min="0"
+      max="9.2"
+      step="0.1"
+      value="2.5"
+      style="color: red"
+    />
+    <br />
 
-  setSquareforeignObject.appendChild(setSquareWidgetElement);
+    <label for="degree" style="color: green; border: 1px solid rgb(0, 0, 0)">Degree:</label>
+    <input
+      type="number"
+      id="degree"
+      min="0"
+      max="360"
+      value="0"
+      style="color: green"
+    /><br />
 
-  Tools.group.appendChild(setSquareforeignObject);
+    <canvas id="canvas-roundcompass"> </canvas>
+    </div>
+    `;
 
-  const container = document.getElementById("rotatableContainer");
-  const triangle = document.getElementById("rotatableTriangle");
-  const input = document.getElementById("rotationInput");
+  roundCompassWidgetElement.innerHTML = roundCompassWidgetHTML;
+
+  roundCompassforeignObject.style.x = e.clientX;
+  roundCompassforeignObject.style.y = e.clientY;
+  roundCompassforeignObject.style.width = "1px";
+  roundCompassforeignObject.style.height = "1px";
+  roundCompassforeignObject.setAttribute("id", uid);
+  roundCompassforeignObject.setAttribute("overflow", "visible");
+
+  roundCompassforeignObject.appendChild(roundCompassWidgetElement);
+
+  Tools.group.appendChild(roundCompassforeignObject);
+
+  makeDraggeble(roundCompassforeignObject);
+
+  const canvas = document.getElementById("canvas-roundcompass");
+  const ctx = canvas.getContext("2d");
+
+  const radiusInput = document.getElementById("radius");
+  const degreeInput = document.getElementById("degree");
+
+  let radius = parseFloat(radiusInput.value);
+  let degree = parseInt(degreeInput.value);
 
   let isDragging = false;
-  let startAngle = 0;
-  let containerRotation = 0;
+  let prevX = 0;
 
-  function rotateContainer(event) {
-    if (!isDragging) return;
+  function drawArc() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const x = event.clientX;
-    const y = event.clientY;
-    const rect = container.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
-    let rotation = angle - startAngle + containerRotation;
-    rotation %= 360;
-    if (rotation < 0) {
-      rotation += 360;
-    }
-    container.style.transform = `rotate(${rotation}deg)`;
-    input.value = Math.round(rotation);
+    // Draw the arc/circle
+    ctx.beginPath();
+    ctx.arc(
+      canvas.width / 2,
+      canvas.height / 2,
+      radius * 25,
+      0,
+      (degree * Math.PI) / 180
+    );
+    ctx.strokeStyle = "green";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.closePath();
+
+    // Draw the radius line
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+    const endX =
+      canvas.width / 2 + radius * 25 * Math.cos((degree * Math.PI) / 180);
+    const endY =
+      canvas.height / 2 + radius * 25 * Math.sin((degree * Math.PI) / 180);
+    ctx.lineTo(endX, endY);
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.closePath();
   }
 
+  canvas.addEventListener("mousedown", (e) => {
+    const x = e.clientX - canvas.getBoundingClientRect().left;
+    const y = e.clientY - canvas.getBoundingClientRect().top;
 
-// pass element object to make it draggable
+    const deltaX = x - canvas.width / 2;
+    const deltaY = y - canvas.height / 2;
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-
-  triangle.addEventListener("mousedown", (event) => {
-    event.preventDefault();
-    isDragging = true;
-    const x = event.clientX;
-    const y = event.clientY;
-    const rect = container.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    startAngle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
-    containerRotation =
-      parseFloat(
-        container.style.transform.replace("rotate(", "").replace("deg)", "")
-      ) || 0;
+    // Check if the click is within the radius
+    if (distance <= radius * 50) {
+      isDragging = true;
+      prevX = x;
+    }
   });
 
-  document.addEventListener("mousemove", rotateContainer);
-
-  document.addEventListener("mouseup", () => {
+  canvas.addEventListener("mouseup", () => {
     isDragging = false;
   });
 
-  input.addEventListener("input", () => {
-    let rotation = parseInt(input.value) || 0;
-    rotation = Math.max(0, Math.min(rotation, 360));
-    container.style.transform = `rotate(${rotation}deg)`;
-    containerRotation = rotation;
-    input.value = rotation;
+  canvas.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      const x = e.clientX - canvas.getBoundingClientRect().left;
+      const y = e.clientY - canvas.getBoundingClientRect().top;
+      const deltaX = x - canvas.width / 2;
+      const deltaY = y - canvas.height / 2;
+
+      // Calculate the angle from the x-axis to the current point
+      let newDegree = (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+      if (newDegree < 0) {
+        newDegree += 360;
+      }
+
+      degree = newDegree;
+      degreeInput.value = Math.round(degree);
+      drawArc();
+    }
   });
+
+  radiusInput.addEventListener("input", () => {
+    radius = parseFloat(radiusInput.value);
+    drawArc();
+  });
+
+  degreeInput.addEventListener("input", () => {
+    degree = parseInt(degreeInput.value);
+    drawArc();
+  });
+
+  canvas.addEventListener("mouseover", () => {
+    if (!isDragging) {
+      canvas.style.cursor = "pointer"; // Set the custom cursor when hovering over the radius
+    }
+  });
+
+  canvas.addEventListener("mouseout", () => {
+    if (!isDragging) {
+      canvas.style.cursor = "default"; // Reset to the default pointer when not hovering over the radius
+    }
+  });
+
+  drawArc();
 };
 
 function makeDraggeble(parentRef) {
- 
   let isDragging = false;
   let initialMouseX = 0;
   let initialMouseY = 0;
@@ -1022,9 +1083,9 @@ function makeDraggeble(parentRef) {
   });
 
   // for touch events
-  let touch
+  let touch;
   parentRef.addEventListener("touchstart", (e) => {
-    touch = e.touches[0]
+    touch = e.touches[0];
     isDragging = true;
     initialMouseX = touch.clientX;
     initialMouseY = touch.clientY;
@@ -1033,7 +1094,7 @@ function makeDraggeble(parentRef) {
   });
 
   document.addEventListener("touchmove", (e) => {
-   touch = e.touches[0]
+    touch = e.touches[0];
     if (isDragging) {
       const deltaX = touch.clientX - initialMouseX;
       const deltaY = touch.clientY - initialMouseY;
@@ -1047,7 +1108,6 @@ function makeDraggeble(parentRef) {
   document.addEventListener("touchend", () => {
     isDragging = false;
   });
-
 }
 
 // set the image background to view port width
@@ -1058,14 +1118,26 @@ function getVisibleViewport() {
   const scrollY = window.scrollY || window.pageYOffset;
 
   // Calculate the visible area of the viewport
-  const visibleWidth = Math.min(viewportWidth, document.documentElement.clientWidth || document.body.clientWidth);
-  const visibleHeight = Math.min(viewportHeight, document.documentElement.clientHeight || document.body.clientHeight);
+  const visibleWidth = Math.min(
+    viewportWidth,
+    document.documentElement.clientWidth || document.body.clientWidth
+  );
+  const visibleHeight = Math.min(
+    viewportHeight,
+    document.documentElement.clientHeight || document.body.clientHeight
+  );
 
   // Calculate the visible area's position relative to the document
   const visibleTop = Math.max(scrollY, 0);
   const visibleLeft = Math.max(scrollX, 0);
-  const visibleBottom = Math.min(scrollY + visibleHeight, document.documentElement.scrollHeight || document.body.scrollHeight);
-  const visibleRight = Math.min(scrollX + visibleWidth, document.documentElement.scrollWidth || document.body.scrollWidth);
+  const visibleBottom = Math.min(
+    scrollY + visibleHeight,
+    document.documentElement.scrollHeight || document.body.scrollHeight
+  );
+  const visibleRight = Math.min(
+    scrollX + visibleWidth,
+    document.documentElement.scrollWidth || document.body.scrollWidth
+  );
 
   // Calculate the dimensions of the visible area
   const visibleAreaWidth = visibleRight - visibleLeft;
@@ -1080,3 +1152,178 @@ function getVisibleViewport() {
     right: visibleRight,
   };
 }
+
+function toggleDiv(className) {
+  const div = document.querySelector(`.${className}`);
+  if (div.style.display === "none") {
+    div.style.display = "block";
+  } else {
+    div.style.display = "none";
+  }
+}
+const setSquareWidget = (e) => {
+  console.log("setSquare", e);
+
+  const setSquareforeignObject = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "foreignObject"
+  );
+  const setSquareWidgetElement = document.createElement("div");
+
+  setSquareWidgetElement.id = "setSquareWidget";
+  var uid = Tools.generateUID("doc");
+
+  const setSquareWidgetHTML = `
+  <div class="setSqaure">
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+    <button
+      onclick="toggleDiv('triangle-container-two')"
+      style="background-color: yellowgreen; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer;">(30,
+      60, 90)</button>
+    <button onclick="toggleDiv('triangle-container')"
+      style="background-color: beige; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer;">(45,
+      45, 90)</button>
+  </div>
+
+  <div class="triangle-container-two" id="rotatableContainerTwo">
+    <div class="triangle-two" id="rotatableTriangleTwo"></div>
+    <div class="input-container-two">
+      <input type="number" id="rotationInputTwo" min="0" max="360" value="0">
+    </div>
+  </div>
+
+  <div class="triangle-container" id="rotatableContainer">
+    <div class="triangle" id="rotatableTriangle"></div>
+    <div class="input-container">
+      <input type="number" id="rotationInput" min="0" max="360" value="0">
+    </div>
+  </div>
+  </div>`;
+
+  setSquareWidgetElement.innerHTML = setSquareWidgetHTML;
+  // set the image background to view port width
+  setSquareforeignObject.style.x = e.clientX;
+  setSquareforeignObject.style.y = e.clientY;
+  setSquareforeignObject.style.width = "1px";
+  setSquareforeignObject.style.height = "1px";
+  setSquareforeignObject.setAttribute("id", uid);
+  setSquareforeignObject.setAttribute("overflow", "visible");
+
+  setSquareforeignObject.appendChild(setSquareWidgetElement);
+
+  Tools.group.appendChild(setSquareforeignObject);
+  // makeDraggeble(setSquareforeignObject);
+
+  // for 30-60 set-square
+
+  const containerTwo = document.getElementById("rotatableContainerTwo");
+  const triangleTwo = document.getElementById("rotatableTriangleTwo");
+  const inputTwo = document.getElementById("rotationInputTwo");
+
+  let isDraggingTwo = false;
+  let startAngleTwo = 0;
+  let containerRotationTwo = 0;
+
+  function rotateContainerTwo(event) {
+    if (!isDraggingTwo) return;
+
+    const x = event.clientX;
+    const y = event.clientY;
+    const rect = containerTwo.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+    let rotationTwo = angle - startAngleTwo + containerRotationTwo;
+    rotationTwo %= 360;
+    if (rotationTwo < 0) {
+      rotationTwo += 360;
+    }
+    containerTwo.style.transform = `rotate(${rotationTwo}deg)`;
+    inputTwo.value = Math.round(rotationTwo);
+  }
+
+  triangleTwo.addEventListener("mousedown", (event) => {
+    event.preventDefault();
+    isDraggingTwo = true;
+    const x = event.clientX;
+    const y = event.clientY;
+    const rect = containerTwo.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    startAngleTwo = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+    containerRotationTwo =
+      parseFloat(
+        containerTwo.style.transform.replace("rotate(", "").replace("deg)", "")
+      ) || 0;
+  });
+
+  document.addEventListener("mousemove", rotateContainerTwo);
+
+  document.addEventListener("mouseup", () => {
+    isDraggingTwo = false;
+  });
+
+  inputTwo.addEventListener("input", () => {
+    let rotationTwo = parseInt(inputTwo.value) || 0;
+    rotationTwo = Math.max(0, Math.min(rotationTwo, 360));
+    containerTwo.style.transform = `rotate(${rotationTwo}deg)`;
+    containerRotationTwo = rotationTwo;
+    inputTwo.value = rotationTwo;
+  });
+
+  // for 45-45 set-square
+  const container = document.getElementById("rotatableContainer");
+  const triangle = document.getElementById("rotatableTriangle");
+  const input = document.getElementById("rotationInput");
+
+  let isDragging = false;
+  let startAngle = 0;
+  let containerRotation = 0;
+
+  function rotateContainer(event) {
+    if (!isDragging) return;
+
+    const x = event.clientX;
+    const y = event.clientY;
+    const rect = container.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+    let rotation = angle - startAngle + containerRotation;
+    rotation %= 360;
+    if (rotation < 0) {
+      rotation += 360;
+    }
+    container.style.transform = `rotate(${rotation}deg)`;
+    input.value = Math.round(rotation);
+  }
+
+  triangle.addEventListener("mousedown", (event) => {
+    event.preventDefault();
+    isDragging = true;
+    const x = event.clientX;
+    const y = event.clientY;
+    const rect = container.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    startAngle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+    containerRotation =
+      parseFloat(
+        container.style.transform.replace("rotate(", "").replace("deg)", "")
+      ) || 0;
+  });
+
+  document.addEventListener("mousemove", rotateContainer);
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+
+  input.addEventListener("input", () => {
+    let rotation = parseInt(input.value) || 0;
+    rotation = Math.max(0, Math.min(rotation, 360));
+    container.style.transform = `rotate(${rotation}deg)`;
+    containerRotation = rotation;
+    input.value = rotation;
+  });
+};

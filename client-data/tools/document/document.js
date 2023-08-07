@@ -200,7 +200,7 @@
   }  
 
   function uploadVideo() {
-    document.getElementById("videoModal").style.display = "none";
+    document.getElementById("documentModal").style.display = "none";
     document
       .getElementById("SelectFromVideo")
       .removeEventListener("click", () => {
@@ -215,12 +215,13 @@
       let file = fileInput.files[0];
   
       console.log("Video Uploaded", file);
-      // Call your function to handle the video here, for example, you could display it or process it further
-      // handleVideo(e, file);
+     
       DropVideo(file);
-    })
+    
+    });
+    
   }
-  
+ 
   function onstart() {
     document.getElementById("documentModal").style.display = "block";
     document

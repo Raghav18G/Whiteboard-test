@@ -14,7 +14,7 @@
     { id: "protractor", image: "scale3.png" ,title:"Protactor"},
     { id: "stopwatch", image: "scale4.png", title:"Stop-watch" },
     { id: "clock", image: "clock.png" ,title:"Clock"},
-    { id: "projector", image: "scale5.png" , title:"Projector"},
+    { id: "roundCompass", image: "scale5.png" , title:"Round-Compass"},
     { id: "compass", image: "scale6.png" ,title:"Compass"},
     { id: "calculator", image: "scale7.png", title:"Calculator" },
     { id: "magnifier", image: "scale8.png",title:"Magnifier" },
@@ -149,6 +149,20 @@
         document.getElementById("mathematicalToolsModal").style.display =
           "none";
       });
+    } else if (widget.id === "roundCompass") {
+      widgetPattern.addEventListener("click", (e) => {
+        e.preventDefault();
+        roundCompassWidget(e);
+
+        document.getElementById("mathematicalToolsModal").style.display =
+          "none";
+      });
+      widgetPattern.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        roundCompassWidget(e.touches[0]);
+        document.getElementById("mathematicalToolsModal").style.display =
+          "none";
+      });
     }
     modalContent?.appendChild(widgetPattern);
   });
@@ -175,8 +189,8 @@
     listeners: {},
     //draw: draw,
     onstart: onstart,
-    oneTouch: true,
-    mouseCursor: "crosshair",
+    // oneTouch: true,
+    mouseCursor: "auto",
   });
 })(); //End of code isolation
 

@@ -523,22 +523,23 @@
       shape.setAttribute("transform", data.transform);
     }
   }
-
+  
   function updatePentagon(shape, data) {
     // Extract the required properties from the data object
-    var centerX = Math.round((data.x2 + data.x) / 2);
-    var centerY = Math.round((data.y2 + data.y) / 2);
-    var sideLength = Math.abs(Math.round((data.x2 - data.x) / 2));
-
+    var centerX = (data.x2 + data.x) / 2;
+    var centerY = (data.y2 + data.y) / 2;
+    var sideLength = Math.abs(data.x2 - data.x) / 2;
+  
     // Calculate the coordinates of the pentagon vertices
+    var angleOffset = Math.PI * 3 / 2; // Offset to start from the bottom vertex
     var angle = (2 * Math.PI) / 5;
     var points = [];
     for (var i = 0; i < 5; i++) {
-      var x = centerX + sideLength * Math.cos(angle * i);
-      var y = centerY + sideLength * Math.sin(angle * i);
+      var x = centerX + sideLength * Math.cos(angle * i + angleOffset);
+      var y = centerY + sideLength * Math.sin(angle * i + angleOffset);
       points.push(x + "," + y);
     }
-
+  
     // Update the attributes of the polygon shape
     shape.setAttribute("points", points.join(" "));
     shape.setAttribute("fill", "none");
@@ -549,6 +550,7 @@
       shape.setAttribute("transform", data.transform);
     }
   }
+  
 
   function updateHexagon(shape, data) {
     // Extract the required properties from the data object

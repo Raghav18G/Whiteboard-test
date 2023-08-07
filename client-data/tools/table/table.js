@@ -154,6 +154,7 @@ let TableObjectsId = [];
     if (fieldData?.transform)
       elem.setAttribute("transform", fieldData?.transform);
     Tools.group.appendChild(foreignObject);
+    makeDraggeble(foreignObject)
     return Table;
   };
 
@@ -162,9 +163,9 @@ let TableObjectsId = [];
     iconHTML: tableSvg,
     listeners: {},
     // draw: backgroundChange,
-    oneTouch: true,
+    //"oneTouch":true,
     onstart: createTable, // start the fn while tool is selected
-    mouseCursor: "crosshair",
+    mouseCursor: "auto",
     draw: draw,
   });
 })(); //End of code isolation

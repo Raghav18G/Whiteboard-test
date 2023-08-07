@@ -24,6 +24,8 @@
  * @licend
  */
 
+// const { func } = require("calculator");
+
  (function hand() { //Code isolation
 	var selectorStates = {
 		pointing: 0,
@@ -460,30 +462,50 @@
 				x: document.documentElement.scrollLeft + evt.clientX,
 				y: document.documentElement.scrollTop + evt.clientY,
 			}
+			console.log('harsh moce called')
+		
+		}
+		else{
+			selected = {
+				x: document.documentElement.scrollLeft + evt.touches[0].clientX,
+				y: document.documentElement.scrollTop + evt.touches[0].clientY,
+			}
 		}
 	}
+	
 	function moveHand(x, y, evt, isTouchEvent) {
 		if (selected && !isTouchEvent) { //Let the browser handle touch to scroll
 			console.log(selected.x ,evt, selected.y , evt.clientY,selected)
 			window.scrollTo(selected.x - evt.clientX, selected.y - evt.clientY);
 		}
+		else{
+			if(selected){
+				const touch = evt.touches[0]
+			window.scrollTo(selected.x - touch.clientX, selected.y - touch.clientY);
+			}
+		}
 	}
 
+	
 	function press(x, y, evt, isTouchEvent) {
+		console.log("press",isTouchEvent)
 		if (!handTool.secondary.active) startHand(x, y, evt, isTouchEvent);
 		else clickSelector(x, y, evt, isTouchEvent);
 	}
 
 
 	function move(x, y, evt, isTouchEvent) {
+		console.log('move')
 		if (!handTool.secondary.active) moveHand(x, y, evt, isTouchEvent);
 		else moveSelector(x, y, evt, isTouchEvent);
 	}
 
 	function release(x, y, evt, isTouchEvent) {
+		console.log('release')
 		move(x, y, evt, isTouchEvent);
 		if (handTool.secondary.active) releaseSelector(x, y, evt, isTouchEvent);
 		selected = null;
+
 	}
 
 	function deleteShortcut(e) {
@@ -537,10 +559,10 @@
     },
     draw: draw,
     iconHTML: handSvg,
-    mouseCursor: "move",
+    mouseCursor: "pointer",
     showMarker: true,
   };
 
   Tools.add(handTool);
-  Tools.change("Hand"); // Use the hand tool by default
+  Tools.change("Hand"); // Use the hand tool by default 
 })(); //End of code isolation
