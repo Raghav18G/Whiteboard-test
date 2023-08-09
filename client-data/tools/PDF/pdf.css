@@ -22,6 +22,7 @@
     cursor: pointer; 
     width: 60%;  
     border-radius: 5px;
+    gap:.8rem;
     display: flex;
     flex-direction: column;
   }

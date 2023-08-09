@@ -457,6 +457,8 @@
 	}
 
 	function startHand(x, y, evt, isTouchEvent) {
+		evt.preventDefault()
+        evt.stopPropagation();
 		if (!isTouchEvent) {
 			selected = {
 				x: document.documentElement.scrollLeft + evt.clientX,
@@ -474,6 +476,8 @@
 	}
 	
 	function moveHand(x, y, evt, isTouchEvent) {
+		evt.preventDefault()
+        evt.stopPropagation();
 		if (selected && !isTouchEvent) { //Let the browser handle touch to scroll
 			console.log(selected.x ,evt, selected.y , evt.clientY,selected)
 			window.scrollTo(selected.x - evt.clientX, selected.y - evt.clientY);
@@ -489,6 +493,8 @@
 	
 	function press(x, y, evt, isTouchEvent) {
 		console.log("press",isTouchEvent)
+		evt.preventDefault()
+        evt.stopPropagation();
 		if (!handTool.secondary.active) startHand(x, y, evt, isTouchEvent);
 		else clickSelector(x, y, evt, isTouchEvent);
 	}
@@ -496,12 +502,16 @@
 
 	function move(x, y, evt, isTouchEvent) {
 		console.log('move')
+        evt.stopPropagation();
+		evt.preventDefault()
 		if (!handTool.secondary.active) moveHand(x, y, evt, isTouchEvent);
 		else moveSelector(x, y, evt, isTouchEvent);
 	}
 
 	function release(x, y, evt, isTouchEvent) {
 		console.log('release')
+		evt.preventDefault()
+        evt.stopPropagation();
 		move(x, y, evt, isTouchEvent);
 		if (handTool.secondary.active) releaseSelector(x, y, evt, isTouchEvent);
 		selected = null;
@@ -535,13 +545,8 @@
 		window.removeEventListener("keydown", duplicateShortcut);
 	}
   var gridSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M0,0V17H17V0ZM12,1V4H9V1ZM8,9v3H5V9ZM5,8V5H8V8ZM9,9h3v3H9ZM9,8V5h3V8ZM8,1V4H5V1ZM1,1H4V4H1ZM1,5H4V8H1ZM1,9H4v3H1Zm0,7V13H4v3Zm4,0V13H8v3Zm4,0V13h3v3Zm7,0H13V13h3Zm0-4H13V9h3Zm0-4H13V5h3Zm0-4H13V1h3Z"/></g></g></svg>';
-  var handSvg = `<svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-	  <path d="M18.66 19.24a3.53 3.53 0 10-5.57 4.25l11.54 15.1 2.69 3.39-7.9-10.33a3.53 3.53 0 10-5.56 4.24l7.9 10.34 6.26 7.9c5.47 6.27 14.52 5.93 20.79.46a19.62 19.62 0 006.51-12.31c.39-4.23.81-15.3.81-15.3-.18-2.6-3.13-4.52-3.51-3.18l-4.9 9.76-3.36-4.23 3.36 4.23-3.36-4.23-13.47-17.2a3.53 3.53 0 10-5.56 4.24l4.25 5.57L36 30.42 22.58 12.74a3.53 3.53 0 10-5.56 4.25L31.69 36"/>
-	  <path stroke-miterlimit="10" d="M11.67 42.87c0 2.57 1.75 4.64 3.9 4.64M7.06 42.44c0 5.6 3.81 10.12 8.52 10.12M45.26 21.24c0-2.57-1.75-4.65-3.9-4.65M49.87 21.67c0-5.6-3.8-10.12-8.51-10.12"/>
-  </g>
-</svg>`;
-  var handTool = {
+  var handSvg = `<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.9094 3.92194C17.8955 2.88646 16.4495 2.50452 15.034 2.9073C14.6356 3.02066 14.2207 2.78959 14.1074 2.39119C13.994 1.99279 14.2251 1.57792 14.6235 1.46456C16.5617 0.913072 18.5781 1.43959 19.9812 2.8725C20.271 3.16846 20.266 3.64331 19.97 3.9331C19.6741 4.2229 19.1992 4.2179 18.9094 3.92194ZM11.1938 3.30839C10.9797 2.94131 10.3559 2.7187 9.72223 3.08085C9.09088 3.44168 8.97984 4.07772 9.19017 4.4384L11.7158 8.76952C11.9245 9.12734 11.8036 9.58656 11.4457 9.79522C11.0879 10.0039 10.6287 9.88296 10.42 9.52514L7.89439 5.19403C7.89427 5.19381 7.89452 5.19424 7.89439 5.19403L7.05251 3.75032C6.83845 3.38324 6.21464 3.16063 5.58096 3.52278C4.94961 3.88361 4.83857 4.51965 5.0489 4.88033L8.83739 11.377C9.04604 11.7348 8.92513 12.1941 8.56731 12.4027C8.20949 12.6114 7.75027 12.4905 7.54161 12.1326L5.85784 9.24522C5.64378 8.87814 5.01997 8.65553 4.38629 9.01768C3.75494 9.37851 3.6439 10.0145 3.85423 10.3752L7.64272 16.8719C9.25165 19.631 13.222 20.5264 16.589 18.6021C19.9536 16.6792 21.1497 12.8377 19.5445 10.085L17.0188 5.75387C16.8048 5.3868 16.1809 5.16418 15.5473 5.52633C14.9159 5.88716 14.8049 6.5232 15.0152 6.88389L16.699 9.7713C16.7998 9.94411 16.8273 10.15 16.7755 10.3432C16.7237 10.5365 16.5969 10.701 16.4232 10.8003C14.8808 11.6818 14.4081 13.3863 15.0834 14.5443C15.292 14.9022 15.1711 15.3614 14.8133 15.57C14.4555 15.7787 13.9963 15.6578 13.7876 15.3C12.7284 13.4835 13.3951 11.2368 15.051 9.92287L11.1938 3.30839ZM13.922 5.00916L12.4896 2.55277C11.7737 1.32517 10.1665 1.09928 8.97794 1.77853C8.61165 1.98787 8.3001 2.27483 8.0652 2.60775C7.26515 1.72687 5.88732 1.62001 4.83667 2.22046C3.64583 2.90104 3.03354 4.40197 3.75312 5.63596L4.75529 7.35452C4.37025 7.39635 3.98835 7.51742 3.642 7.71536C2.45116 8.39595 1.83887 9.89687 2.55845 11.1309L6.34694 17.6275C8.45768 21.2471 13.4115 22.1458 17.3333 19.9044C21.2574 17.6617 22.9547 12.9554 20.8402 9.32937L18.3146 4.99825C17.5987 3.77065 15.9915 3.54476 14.803 4.22401C14.453 4.42406 14.1529 4.69498 13.922 5.00916ZM4.41743 17.859C4.77525 17.6504 5.23447 17.7713 5.44313 18.1291C6.26999 19.5471 7.53408 20.6193 9.09296 21.3151C9.47121 21.4839 9.64099 21.9274 9.47217 22.3057C9.30335 22.6839 8.85986 22.8537 8.48161 22.6849C6.6701 21.8764 5.1503 20.6046 4.14735 18.8847C3.93869 18.5269 4.05961 18.0677 4.41743 17.859Z" fill="#1C274C"/></svg><label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Hand</p></label>`;
+   var handTool = {
     //The new tool
     name: "Hand",
     shortcut: "h",

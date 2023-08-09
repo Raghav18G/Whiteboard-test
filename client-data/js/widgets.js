@@ -272,7 +272,7 @@ const CompassWidget = (e) => {
   //rotateArrow();
 };
 
-const MagnifyingGlass = (e) => {
+const MagnifyingGlass = () => {
   function magnify(imgID, zoom) {
     var img, glass, w, h, bw, parentGlass;
     img = document.getElementById(imgID);
@@ -296,14 +296,28 @@ const MagnifyingGlass = (e) => {
 
     //clear the Magnigfying class
 
-    maginifyingBtn.addEventListener("click", () => {
+    maginifyingBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const MagnifyingGlass = document.getElementsByClassName(
+        "img-magnifier-glass"
+      );
+      MagnifyingGlass.length >= 1 ? parentGlass.remove() : "";
+    });
+    maginifyingBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const MagnifyingGlass = document.getElementsByClassName(
         "img-magnifier-glass"
       );
       MagnifyingGlass.length >= 1 ? parentGlass.remove() : "";
     });
 
-    function addMouoseMove() {
+
+    function addMouoseMove(e) {
+      e.preventDefault()
+      e.stopPropagation();
+
       const getVisibleArea = getVisibleViewport();
       img = document.getElementById(imgID);
 
@@ -330,10 +344,13 @@ const MagnifyingGlass = (e) => {
       /*and also for touch screens:*/
       glass.addEventListener("touchmove", moveMagnifier);
       img.addEventListener("touchmove", moveMagnifier);
+      
       function moveMagnifier(e) {
-        var pos, x, y;
         /*prevent any other actions that may occur when moving over the image*/
         e.preventDefault();
+        e.stopPropagation();
+
+        var pos, x, y;
         /*get the cursor's x and y positions:*/
         pos = getCursorPos(e);
         x = pos.x;
@@ -362,6 +379,10 @@ const MagnifyingGlass = (e) => {
         }px`;
       }
       function getCursorPos(e) {
+        e.preventDefault()
+        e.stopPropagation();
+
+        window.event.preventDefault();
         var a,
           x = 0,
           y = 0;
@@ -377,7 +398,9 @@ const MagnifyingGlass = (e) => {
         return { x: x, y: y };
       }
 
-      function stopDragging() {
+      function stopDragging(e) {
+        e.preventDefault()
+        e.stopPropagation()
         glass.removeEventListener("mousemove", moveMagnifier);
         img.removeEventListener("mousemove", moveMagnifier);
         glass.removeEventListener("touchmove", moveMagnifier);
@@ -1212,7 +1235,7 @@ const setSquareWidget = (e) => {
   setSquareforeignObject.appendChild(setSquareWidgetElement);
 
   Tools.group.appendChild(setSquareforeignObject);
-  // makeDraggeble(setSquareforeignObject);
+  makeDraggeble(setSquareforeignObject);
 
   // for 30-60 set-square
 

@@ -18,11 +18,14 @@ body{
   fill: transparent !important;
   
 }
-.tool-icon svg {
+/* .tool-icon svg {
   height: 17px;
   width: 15px;
-}
-
+} */
+  
+  .tool-icon-svg{
+    height:20px;
+  }
 /* styles.css */
 #createFolderButton {
   background-color: black;
@@ -167,7 +170,8 @@ iframe {
   background-color: #f1f1f1;
   border: 1px solid #d3d3d3;
   text-align: center;
-  padding: 5px;
+  /* padding: 6px 15px 6px; */
+  padding: 21px 15px 6px;
   border-radius: 20px;
   display: flex;
   width: max-content;
@@ -182,14 +186,20 @@ iframe {
 }
 
 #draggableToolbarheader {
-  padding: 8px;
+  /* padding: 8px; */
+  padding: 0px 8px 12px;
   cursor: move;
   z-index: 10000;
   color: #fff;
 }
 
-.dragLogo {
+ /* .dragLogo {
   width: 40px;
+} */
+
+.dragLogo {
+  width: 24px;
+  height: 24px;
 }
 
 .stopRecordingBtn {
@@ -246,17 +256,19 @@ iframe {
 
 .tools {
   list-style-type: none;
+  align-items: flex-start;
   padding: 0;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   margin-bottom: 0;
 }
 
 .localization {
   margin-left: 55px;
-  margin-top: -45px;
+  /* margin-top: -45px; */
+  margin-top: -78px;
 }
 
 @keyframes minimize {
@@ -285,7 +297,8 @@ iframe {
   /* height: 40px; */
   line-height: 37px;
   /* border-radius: 3px; */
-  max-width: 40px;
+ /* max-width: 40px; */
+ max-width: 55px;
   transition-duration: 0.2s;
   overflow: hidden;
   float: left;
@@ -460,18 +473,20 @@ iframe {
 }
 
 .tool.size_selector_container {
-  max-width: 40px;
+  /* max-width: 40px; */
+  max-width: 58px;
   overflow: hidden;
 }
 .tool-name.slider.opacitySelector {
   position: absolute;
   transform: rotate(90deg);
-  bottom: 7rem;
-  left: 10.3rem;
+  bottom: 10.5rem;
+  left: 11.8rem;
 }
 
 .tool.opacityPicker {
-  width: 40px;
+  /* width: 40px; */
+  width: 52px;
 }
 .hideOpacity {
   display: none !important;
@@ -640,7 +655,7 @@ button.close.window-button {
 .color-pick {
   width: 30px;
   height: 30px;
-  margin: 8px;
+    /* margin: 5px; */
   overflow: hidden;
   border-radius: 100%;
 }
@@ -649,7 +664,7 @@ button.close.window-button {
   transform: rotate(-90deg) !important;
   display: block;
   width: 12rem !important;
-  bottom: 11rem;
+  bottom: 14.5rem;
   height: 1rem;
   left: 8rem;
   border: 0;
@@ -1076,6 +1091,7 @@ div#msr-pod-up {
     position: fixed;
     display: block;
     width: 54px;
+    padding: 6px 3px 6px;
     top: 15rem!important;
     left: 0px !important;
     bottom: 0px;
@@ -1191,6 +1207,13 @@ div#msr-pod-up {
     transform: none !important;
     bottom: 0px;
   }
+    /* tabs toolbar ui */
+ .label-tool{
+  display:none!important;
+} 
+.color-tool-pick{
+  margin:auto!important;
+}   
 }
 @media screen and (min-width: 620px) and (max-width: 960px) {
   /* #menuItems #tools {
@@ -1648,8 +1671,10 @@ div#msr-pod-up {
 #dice {
   width: 150px;
   height: 150px;
-  margin: 20px auto;
+   /* margin: 20px auto; */
+   margin-left: -25px;
   display: block;
+
 }
 
 .dice {

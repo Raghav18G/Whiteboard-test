@@ -41,7 +41,8 @@ let TableObjectsId = [];
   };
 
   var tableSvg =
-    '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16" id="IconChangeColor"> <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" id="mainIconPathAttribute" fill="#000000"></path> </svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" class="tool-icon-svg" width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M25.2778 0H0.722222C0.323267 0 0 0.323267 0 0.722222V25.2778C0 25.6767 0.323267 26 0.722222 26H25.2778C25.6767 26 26 25.6767 26 25.2778V0.722222C26 0.323267 25.6767 0 25.2778 0ZM8.18509 24.5556H1.44444V17.8149H8.18509V24.5556ZM8.18509 16.3705H1.44444V9.62953H8.18509V16.3705ZM8.18509 8.18509H1.44444V1.44444H8.18509V8.18509ZM16.3705 24.5556H9.62953V17.8149H16.3702L16.3705 24.5556ZM16.3705 16.3705H9.62953V9.62953H16.3702L16.3705 16.3705ZM16.3705 8.18509H9.62953V1.44444H16.3702L16.3705 8.18509ZM24.5556 24.5556H17.8149V17.8149H24.5556V24.5556ZM24.5556 16.3705H17.8149V9.62953H24.5556V16.3705ZM24.5556 8.18509H17.8149V1.44444H24.5556V8.18509Z" fill="black"/><rect x="0.867188" y="1.15527" width="24.2667" height="3.75556" fill="black"/></svg><label class="label-tool" style="font-size:10px;line-height: 2px; font-weight:400;margin-top: 14px;"><p>Table</p></label>';
+
   function draw() {
     Tools.drawingEvent = true;
     switch (data.type) {
@@ -158,6 +159,10 @@ let TableObjectsId = [];
     return Table;
   };
 
+  function onQuit(newtool){
+		//console.log("hiii onquit called",newtool)
+	};
+
   Tools.add({
     name: "Table",
     iconHTML: tableSvg,
@@ -166,6 +171,7 @@ let TableObjectsId = [];
     //"oneTouch":true,
     onstart: createTable, // start the fn while tool is selected
     mouseCursor: "auto",
+    "onquit":onQuit,
     draw: draw,
   });
 })(); //End of code isolation
@@ -185,6 +191,7 @@ const addInputElement = (row) => {
   input.type = "text";
   input.addEventListener("contextmenu", (e) => {
     e.preventDefault()
+    e.stopPropagation()
     cell = e.target;
   });
 
