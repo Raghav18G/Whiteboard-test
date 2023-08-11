@@ -13,18 +13,19 @@ body{
   background: transparent !important;
 }
 
-
+/* 
 #rect_1{
   fill: transparent !important;
   
-}
+} */
+
 /* .tool-icon svg {
   height: 17px;
   width: 15px;
 } */
   
   .tool-icon-svg{
-    height:20px;
+    height:24px;
   }
 /* styles.css */
 #createFolderButton {
@@ -171,7 +172,7 @@ iframe {
   border: 1px solid #d3d3d3;
   text-align: center;
   /* padding: 6px 15px 6px; */
-  padding: 21px 15px 6px;
+  padding: 20px 15px 6px;
   border-radius: 20px;
   display: flex;
   width: max-content;
@@ -198,8 +199,8 @@ iframe {
 } */
 
 .dragLogo {
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
 }
 
 .stopRecordingBtn {
@@ -268,7 +269,7 @@ iframe {
 .localization {
   margin-left: 55px;
   /* margin-top: -45px; */
-  margin-top: -78px;
+margin-top: -85px;
 }
 
 @keyframes minimize {
@@ -1127,29 +1128,17 @@ div#msr-pod-up {
     margin-top: 14px;
     top: 10px;
   }
-  .documentModal {
+  /* .documentModal {
     display: block;
     top: 130px !important;
     left: 60px !important;
-  }
+  } */
   /* .downloadModal {
     top: 200px !important;
     left: 100px !important;   
   } */
 
-  .downloadModal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #292727; /* Set your desired modal background color */
-    z-index: 9999; /* Set a z-index higher than the modal overlay */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    max-width: 400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+ 
   .tool-name.slider.opacitySelector {
     display: contents;
   }
@@ -1292,7 +1281,7 @@ div#msr-pod-up {
   position: fixed;
   background-color: #f5f5f5;
   padding: 20px;
-  width: 8%;
+  width: 14rem;
   border-radius: 20px;
   top: 50%;
   left: 50%;
@@ -1672,7 +1661,7 @@ div#msr-pod-up {
   width: 150px;
   height: 150px;
    /* margin: 20px auto; */
-   margin-left: -25px;
+   margin-left: -15px;
   display: block;
 
 }
@@ -1691,7 +1680,7 @@ div#msr-pod-up {
 
 #rollButton {
   background-color: #45a049;
-  width: 10rem;
+  width: 12rem;
   padding: 10px 20px;
   color: white;
   border-radius: 4px;
@@ -1780,7 +1769,6 @@ div#msr-pod-up {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   /* background-color: #ffff; */
   background-image: url('canvas.svg');
   background-repeat: no-repeat;
@@ -1988,7 +1976,7 @@ div#msr-pod-up {
 
 /* Rounded Compass*/
 .rounded-compass {
-  margin: 0;
+  /* margin: 0; */
   position: relative;
   z-index: 9999;
   cursor: crosshair;
@@ -1997,6 +1985,9 @@ div#msr-pod-up {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -197px;
+    /* left: -77px; */
+    right: 86px;
 
 }
 
@@ -2009,3 +2000,13 @@ div#msr-pod-up {
   cursor: crosshair;
   z-index: 9999;
 }
+.drag-widget{
+  position: absolute;
+  top:-3rem;
+  left: -1rem;
+  background-color: #e0e0e0;
+  padding: 5px 5px;
+  cursor: grab;
+  text-align: center;
+  z-index: 10000;
+  }

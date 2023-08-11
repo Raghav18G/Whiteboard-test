@@ -651,7 +651,7 @@ Tools.change = function (toolName) {
         console.log("TOOL Toogling New Tool");
         newtool.toggle(elem);
       }
-      return;
+      //return;
     }
     //Remove the old event listeners
     for (var event in Tools.curTool.compiledListeners) {
