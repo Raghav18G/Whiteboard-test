@@ -274,6 +274,14 @@ var screenshotSVG =
           a.textContent = "Download Screen Recording";
 
           document.body.appendChild(a);
+
+          // Programmatically click the anchor tag
+          a.click();
+
+          // Clean up: Remove the anchor tag and event listeners
+          document.body.removeChild(a);
+          mediaRecorder.ondataavailable = null;
+          mediaRecorder.onstop = null;
         };
 
         // Start recording
@@ -282,7 +290,7 @@ var screenshotSVG =
         // Stop recording after a certain duration (e.g., 10 seconds)
         setTimeout(() => {
           mediaRecorder.stop();
-        }, 10000); // Change duration as needed
+        }, 20000); // Change duration as needed
       })
       .catch(function (error) {
         console.error("Error accessing user media:", error);
