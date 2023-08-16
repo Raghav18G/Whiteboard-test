@@ -3,14 +3,14 @@ var screenshotSVG =
 
 (function Recorder() {
   console.log("Screen Recorder called");
-  if (!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
-    var error = "Your browser does NOT support the getDisplayMedia API.";
+  //   if (!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
+  //     var error = "Your browser does NOT support the getDisplayMedia API.";
 
-    document.querySelector("video").style.display = "none";
-    document.getElementById("btn-start-recording").style.display = "none";
-    document.getElementById("btn-stop-recording").style.display = "none";
-    throw new Error(error);
-  }
+  //     document.querySelector("video").style.display = "none";
+  //     document.getElementById("btn-start-recording").style.display = "none";
+  //     document.getElementById("btn-stop-recording").style.display = "none";
+  //     throw new Error(error);
+  //   }
 
   function invokeGetDisplayMedia(success, error) {
     var displaymediastreamconstraints = {
