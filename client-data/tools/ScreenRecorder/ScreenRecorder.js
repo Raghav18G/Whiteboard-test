@@ -33,7 +33,7 @@ var screenshotSVG =
     }
   }
 
-  function invokegetUserMEdia() {
+  function invokegetUserMEdia(success) {
     console.log("IN USER MEDIA");
     var userMediaConstraints = {
       video: {
@@ -48,6 +48,7 @@ var screenshotSVG =
         .getUserMedia(userMediaConstraints)
         .then(() => {
           console.log("USER MEDIA SUCCESS");
+          success;
         })
         .catch(() => {
           console.log(" USER MEDIA ERROR");
@@ -67,7 +68,24 @@ var screenshotSVG =
     if (isMobile) {
       console.log("This is a mobile device.");
       console.log("This is a mobile device.");
-      invokegetUserMEdia();
+      invokegetUserMEdia(
+        function (screen) {
+          document.getElementById("btn-start-recording").style.display = "none";
+          document.getElementById("btn-stop-recording").style.display = "block";
+
+          addStreamStopListener(screen, function () {
+            document.getElementById("btn-stop-recording").click();
+          });
+          callback(screen);
+        },
+        function (error) {
+          console.error(error);
+          alert(
+            "Unable to capture your screen. Please check console logs.\n" +
+              error
+          );
+        }
+      );
     } else {
       console.log("This is a desktop device.");
       invokeGetDisplayMedia(
@@ -89,24 +107,6 @@ var screenshotSVG =
         }
       );
     }
-
-    invokeGetDisplayMedia(
-      function (screen) {
-        document.getElementById("btn-start-recording").style.display = "none";
-        document.getElementById("btn-stop-recording").style.display = "block";
-
-        addStreamStopListener(screen, function () {
-          document.getElementById("btn-stop-recording").click();
-        });
-        callback(screen);
-      },
-      function (error) {
-        console.error(error);
-        alert(
-          "Unable to capture your screen. Please check console logs.\n" + error
-        );
-      }
-    );
   }
 
   function stopRecordingCallback() {
