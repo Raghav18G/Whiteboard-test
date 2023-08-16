@@ -292,12 +292,12 @@ var screenshotSVG =
   Tools.add({
     name: "Screen-Recorder",
     // "icon": "🖼️",
-    iconHTML: startScreenRecording,
+    iconHTML: screenshotSVG,
     // shortcuts: {
     //   changeTool: "s",
     // },
     //   draw: draw,
-    onstart: MobileRecorder,
+    onstart: startScreenRecording,
     oneTouch: true,
   });
 })();
