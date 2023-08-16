@@ -35,16 +35,22 @@ var screenshotSVG =
 
   function invokegetUserMEdia() {
     console.log("IN USER MEDIA");
-    var userMediaConstraints = { audio: true, video: true };
+    var userMediaConstraints = {
+      video: {
+        mediaSource: "screen",
+        cursor: "always", // or 'motion' for cursor sharing
+      },
+      audio: true,
+    };
 
     if (navigator.mediaDevices.getDisplayMedia) {
       navigator.mediaDevices
         .getUserMedia(userMediaConstraints)
         .then(() => {
-          console.log("SUCCESS");
+          console.log("USER MEDIA SUCCESS");
         })
         .catch(() => {
-          console.log("ERROR");
+          console.log(" USER MEDIA ERROR");
         });
     }
   }
