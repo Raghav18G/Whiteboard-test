@@ -46,10 +46,7 @@ var screenshotSVG =
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia(userMediaConstraints)
-        .then(() => {
-          console.log("USER MEDIA SUCCESS");
-          success;
-        })
+        .then(success)
         .catch(() => {
           console.log(" USER MEDIA ERROR");
         });
@@ -70,12 +67,15 @@ var screenshotSVG =
       console.log("This is a mobile device.");
       invokegetUserMEdia(
         function (screen) {
-          document.getElementById("btn-start-recording").style.display = "none";
-          document.getElementById("btn-stop-recording").style.display = "block";
+          console.log("CALLING SUCCESSS CALLBACK");
+          //   document.getElementById("btn-start-recording").style.display = "none";
+          //   document.getElementById("btn-stop-recording").style.display = "block";
 
-          addStreamStopListener(screen, function () {
-            document.getElementById("btn-stop-recording").click();
-          });
+          //   addStreamStopListener(screen, function () {
+          //     document.getElementById("btn-stop-recording").click();
+          //   });
+
+          console.log("CAALING CALLBACK");
           callback(screen);
         },
         function (error) {
@@ -134,7 +134,6 @@ var screenshotSVG =
 
       if (audioTracks.length > 0) {
         audioConstraints.mandatory = {
-          chromeMediaSource: "desktop",
           chromeMediaSourceId: audioTracks[0].getSettings().deviceId,
         };
       }
@@ -157,11 +156,6 @@ var screenshotSVG =
 
   startRecordingInit();
 
-  document
-    .getElementById("btn-start-recording")
-    .addEventListener("touchstart", () => {
-      console.log("SYSTEUMMMM TOUCH ");
-    });
   document.getElementById("btn-start-recording").ontouchstart = function () {
     console.log("START RECORDING Touch event", navigator);
 
