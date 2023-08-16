@@ -128,6 +128,7 @@ var screenshotSVG =
     console.log("START RECORDING", navigator);
 
     captureScreen(function (screen) {
+      console.log("CAPTURING", screen);
       const audioTracks = screen.getAudioTracks();
       const audioConstraints = {};
 
