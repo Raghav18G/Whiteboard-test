@@ -51,15 +51,6 @@ var screenshotSVG =
         .catch(() => {
           console.log("ERROR");
         });
-    } else {
-      navigator
-        .getUserMedia(userMediaConstraints)
-        .then(() => {
-          console.log("SUCCESS");
-        })
-        .catch(() => {
-          console.log("ERROR");
-        });
     }
   }
 
