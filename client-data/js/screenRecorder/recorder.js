@@ -147,8 +147,41 @@
     });
   };
 
+  document.getElementById("btn-start-recording").ontouchstart = function () {
+    console.log("START RECORDING Touch event", navigator);
+
+    captureScreen(function (screen) {
+      const audioTracks = screen.getAudioTracks();
+      const audioConstraints = {};
+
+      if (audioTracks.length > 0) {
+        audioConstraints.mandatory = {
+          chromeMediaSource: "desktop",
+          chromeMediaSourceId: audioTracks[0].getSettings().deviceId,
+        };
+      }
+
+      recorder = RecordRTC(screen, {
+        type: "video",
+        recorderType: MediaStreamRecorder,
+        mimeType: "video/webm",
+        audio: audioConstraints,
+      });
+
+      recorder.startRecording();
+
+      // release screen on stopRecording
+      recorder.screen = screen;
+
+      document.getElementById("btn-stop-recording").disabled = false;
+    });
+  };
+
   document.getElementById("btn-stop-recording").onclick = function () {
     this.disabled = true;
+    recorder.stopRecording(stopRecordingCallback);
+  };
+  document.getElementById("btn-stop-recording").ontouchstart = function () {
     recorder.stopRecording(stopRecordingCallback);
   };
 
