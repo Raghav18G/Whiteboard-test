@@ -4,9 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <title>Iprep | Online collaborative whiteboard</title>
+    <title>Iprep  Whiteboard</title>
     <link rel="stylesheet" href="Fonts/stylesheet.css">
     <link rel="stylesheet" href="tools/table/table.css">
+    
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="OfflineCDN/cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="tools/background-manangement/backgorund.css">
@@ -43,16 +44,12 @@
 
     <meta name="description" content="A free and opensource online collaborative drawing tool." />
     <meta name="keywords" content="Collaborative whiteboard,online,draw,paint,shared,realtime" />
-    <link rel="shortcut icon"
-        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon_sptzcl.ico" />
-    <link rel="apple-touch-icon" sizes="180x180"
-        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/apple-touch-icon_ls1yzj.png">
-    <link rel="icon" type="image/png" sizes="32x32"
-        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-32x32_bshltf.png">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="https://res.cloudinary.com/ddwbbzuxw/image/upload/v1597236050/fevicon/favicon-16x16_w5wobw.png">
-    <link rel="manifest"
-        href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/Fevicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/Fevicon.png" />
+    <link
+      rel="manifest"
+      href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest"
+    />
     <style>
         .modal-backdrop {
             opacity: 0.25 !important;
@@ -131,6 +128,19 @@
         </div>
     </div>
 
+
+    
+    <!-- Add new Page modal -->
+    <div id="addNewPageModal" class="addNewPageModal">
+        <div class="addNewPageModal-content">
+          <span class="pagesModalClose" id="pagesModalClose">&times;</span>
+          <h2>Page Navigation</h2>
+          <div class="page-container" id="pageContainer">
+            <!-- Pages will be dynamically added here -->
+          </div>
+          <button id="addPageBtn">Add Page</button>
+        </div>
+      </div>
 
     <!-- Download Content Modal -->
     <div class="downloadModal" id="downloadModal">
@@ -690,6 +700,8 @@
             </label>
         </button>
 
+            <button id="add-page" onclick="addNewPage()">Add New</button>
+
     </div>
 
 
@@ -957,6 +969,8 @@
     <script src="tools/eraser/eraser.js"></script>
     <script src="js/widgets.js"></script>
     <script src="tools/mathematical-tools/mathematicalTools.js"></script>
+    <!-- ADD NEW PAGES -->
+    <!-- <script src="tools/add-pages/addPages.js"></script> -->
 
 
     <!-- Screenshot Tool -->
@@ -1099,8 +1113,8 @@
 
     <script src="js/dragEvents.js"></script>
     <script src="tools/table/table.js"></script>
-    <!-- ADD NEW PAGES -->
-    <!-- <script src="tools/add-pages/addPages.js"></script> -->
+
+    <script src="js/addPages.js"></script>
 
     <script async src="https://cse.google.com/cse.js?cx=95c89d889e52e4b7f">
     </script>

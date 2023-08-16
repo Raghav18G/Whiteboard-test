@@ -1,3 +1,36 @@
+//initially disable button
+var select = document.getElementById("newBoard--Select");
+var btn = document.getElementById("go-btn");
+
+if (!select.options[select.selectedIndex].value) {
+  btn.disabled = true;
+}
+var Tools = {};
+
+(function () {
+  const form = document.getElementById("startNewBoardForm");
+  const input = document.getElementById("board");
+  console.log("Gorm", form);
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    const inputValue = input.value;
+    console.log("Form", form);
+    window.location.href = `board.html?board=${inputValue}&file=1`;
+  });
+
+  var myform = document.getElementById("existingBoardForm");
+  myform.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var select = document.getElementById("newBoard--Select");
+    var board_name = select.options[select.selectedIndex].value;
+    console.log("BOARD NAMe", board_name);
+    window.location.href = `board.html?board=${board_name}&file=1`;
+    window.localStorage.setItem("selectedBoard", board_name);
+    window.localStorage.setItem("currentFile", "1.json");
+  });
+})();
+
 //Registering Service Worker
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -12,21 +45,6 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-//initially disable button
-var select = document.getElementById("newBoard--Select");
-var btn = document.getElementById("go-btn");
-if (!select.options[select.selectedIndex].value) {
-  btn.disabled = true;
-}
-var Tools = {};
-
-function SetData() {
-  var select = document.getElementById("newBoard--Select");
-  var myform = document.getElementById("existingBoardForm");
-  var board_name = select.options[select.selectedIndex].value;
-  myform.action = "board.html?board=" + board_name;
-  myform.submit();
-}
 //after Selecting a board name unable the GO button
 function checkDisable() {
   var select = document.getElementById("newBoard--Select");
@@ -66,13 +84,13 @@ function checkDisable() {
     });
 
     this.socket.on("boardName", function (data) {
+      console.log("DATA 1", data);
       var dropdown = document.getElementsByClassName("newBoard--Select");
       data.boardNames.map((name) => {
         dropdown[0].innerHTML =
-          dropdown[0].innerHTML + `<option  value=${name}>${name}</option>`;
+          dropdown[0].innerHTML + `<option  value=${name}>${decodeURI(name)}</option>`;
       });
-
-      console.log("DROPDOWN", dropdown[0].innerHTML);
+      window.localStorage.setItem("structure", data.structure);
     });
   });
 

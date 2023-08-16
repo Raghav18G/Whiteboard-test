@@ -57,7 +57,7 @@ const ClockWidget = (e) => {
   foreignObjectClock.appendChild(clockWidget);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" />';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
   dragDiv.classList.add("drag-widget");
   foreignObjectClock.appendChild(dragDiv);
 
@@ -146,7 +146,7 @@ const CompassWidget = (e) => {
   foreignObjectCompass.appendChild(compassWidget);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" />';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
   dragDiv.classList.add("drag-widget");
   foreignObjectCompass.appendChild(compassWidget).appendChild(dragDiv);
   Tools.group.appendChild(foreignObjectCompass);
@@ -317,7 +317,7 @@ const MagnifyingGlass = () => {
     const maginifyingBtn = document.createElement("button");
     maginifyingBtn.setAttribute("id", "btn-magnifying");
     maginifyingBtn.classList.add("maginifying-btn");
-    maginifyingBtn.innerHTML = '<img src="./assets/CloseCircle.svg">';
+    maginifyingBtn.innerHTML = '<img src="./assets/CloseCircle.svg" ></img>';
     glass.appendChild(maginifyingBtn);
 
     //clear the Magnigfying class
@@ -463,7 +463,7 @@ const calculatorWidget = (e) => {
 
   const calculatorHTML = ` 
   <div id="calculatorWidget">
-<input type="text" id="result" disabled />
+<input type="text" id="result" disabled="true" ></input>
 <div>
 <button id="ClearButton" class="calc-btn">C</button>
 <button id="number7" class="calc-btn">7</button>
@@ -497,7 +497,7 @@ const calculatorWidget = (e) => {
   calculatorForeignObject.appendChild(calculatorWidgetElement);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" />';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
   dragDiv.classList.add("drag-widget");
   calculatorForeignObject.appendChild(dragDiv);
 
@@ -571,7 +571,7 @@ const calculatorWidget = (e) => {
       resultElement.value = result;
     } catch (error) {
       expression = "";
-      resultElement.value = "Error";
+      resultElement.value = "Invalid Input";
     }
   }
 
@@ -690,7 +690,7 @@ const diceWidget = (e) => {
 
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" />';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
   dragDiv.classList.add("drag-widget");
 
   diceforeignObject.appendChild(dragDiv);
@@ -822,7 +822,7 @@ const stopWatchWidget = (e) => {
   Tools.group.appendChild(stopWatchforeignObject);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"/>';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false" ></img>';
   dragDiv.classList.add("drag-widget");
 
   stopWatchforeignObject.appendChild(dragDiv);
@@ -901,7 +901,7 @@ const protractorWidget = (e) => {
     <div class="protractor-parent">
       <div class="rotational-container">
         <div class="rotational-division">
-          <input type="text" id="rotation-angle" value="0°">
+          <input type="text" id="rotation-angle" value="0°"></input>
         </div>
       </div>
     </div>`;
@@ -920,7 +920,7 @@ const protractorWidget = (e) => {
   Tools.group.appendChild(protractorforeignObject);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"/>';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
   dragDiv.classList.add("drag-widget");
 
   protractorforeignObject.appendChild(dragDiv);
@@ -1061,7 +1061,7 @@ const rulerWidget = (e) => {
   //makeDraggeble(rulerforeignObject);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"/>';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
   dragDiv.classList.add("drag-widget");
 
   rulerforeignObject.appendChild(dragDiv);
@@ -1121,8 +1121,8 @@ const roundCompassWidget = (e) => {
   var uid = Tools.generateUID("doc");
 
   const roundCompassWidgetHTML = `
-  <div class="rounded-compass ">
-<div class="rounded-compass-input" style="display:"block">
+  <div class="rounded-compass">
+<div class="rounded-compass-input" style="display:block">
 <div style="display:flex;margin-bottom: 11px;">
   <label for="radius" style="color: red">Radius:</label>
     <input
@@ -1134,7 +1134,6 @@ const roundCompassWidget = (e) => {
       value="2.5"
       style="color: red;margin: -4px 0px 0px 8px;"
     />
-  
 </div>
 <div style="display:flex">
     <label for="degree" style="color: green;">Degree:</label>
@@ -1169,7 +1168,7 @@ const roundCompassWidget = (e) => {
   //makeDraggeble(roundCompassforeignObject);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"/>';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
   dragDiv.classList.add("drag-widget");
 
   roundCompassWidgetElement.appendChild(dragDiv);
@@ -1455,14 +1454,14 @@ const setSquareWidget = (e) => {
   <div class="triangle-container-two" id="rotatableContainerTwo">
     <div class="triangle-two" id="rotatableTriangleTwo"></div>
     <div class="input-container-two">
-      <input type="number" id="rotationInputTwo" min="0" max="360" value="0">
+      <input type="number" id="rotationInputTwo" min="0" max="360" value="0" ></input>
     </div>
   </div>
 
   <div class="triangle-container" id="rotatableContainer">
     <div class="triangle" id="rotatableTriangle"></div>
     <div class="input-container">
-      <input type="number" id="rotationInput" min="0" max="360" value="0">
+      <input type="number" id="rotationInput" min="0" max="360" value="0" ></input>
     </div>
   </div>
   </div>`;
@@ -1482,7 +1481,7 @@ const setSquareWidget = (e) => {
   //makeDraggeble(setSquareforeignObject);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"/>';
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
   dragDiv.classList.add("drag-widget");
 
   setSquareforeignObject.appendChild(dragDiv);

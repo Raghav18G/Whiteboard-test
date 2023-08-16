@@ -2,23 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Iprep | Online collaborative whiteboard</title>
+    <title>Iprep Whiteboard</title>
     <link rel="stylesheet" href="index.css" />
     <script src="socket.io.js"></script>
     <link rel="shortcut icon" href="assets/iPrepLogo.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/iPrepLogo.png" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/iPrepLogo.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="assets/iPrepLogo.png"
-    />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/Fevicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/Fevicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/Fevicon.png" />
     <link
       rel="manifest"
       href="https://res.cloudinary.com/ddwbbzuxw/raw/upload/v1597236051/fevicon/site_uzghky.webmanifest"
@@ -44,7 +34,7 @@
       <p class="iprepLanding--body" id="iprepLanding--body">
         To get started, either select an existing board or create a new one.
       </p>
-      <form method="GET" action="board.html" id="existingBoardForm">
+      <form id="existingBoardForm">
         <select
           class="newBoard--Select"
           name="board"
@@ -55,7 +45,7 @@
             Select an existing board
           </option>
         </select>
-        <button onClick="SetData()" id="go-btn">Go</button>
+        <button type="submit" id="go-btn">Go</button>
       </form>
 
       <p class="iprepLanding--body" id="iprepLanding-or-text">Or</p>
@@ -74,7 +64,7 @@
         <p class="iprepModal--subheader" id="iprepModal--subheader">
           Enter a name to your board and press start
         </p>
-        <form action="./board.html" method="GET">
+        <form id="startNewBoardForm">
           <div class="input-box">
             <input
               type="text"

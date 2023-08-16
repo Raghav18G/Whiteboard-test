@@ -1,3 +1,9 @@
+const express = require("express");
+const http = require("http");
+const socketIO = require("socket.io");
+const app = express();
+const server = http.createServer(app);
+
 var iolib = require("socket.io"),
   BoardData = require("./boardData.js").BoardData,
   config = require("./configuration.js");
@@ -5,6 +11,27 @@ const fs = require("fs");
 // Map from name to *promises* of BoardData
 var boards = {};
 var io;
+
+var _FileNameListWithDir = [];
+const testFolder = "./server-data";
+
+function getFileNameWithDir(rootFolder, parentFolder) {
+  fs.readdirSync(rootFolder, { withFileTypes: true }).forEach((item) => {
+    const itemPath = rootFolder + `/${item.name}`;
+    console.log(item.isDirectory());
+    if (item.isDirectory()) {
+      getFileNameWithDir(itemPath, item.name); // Recursively traverse subdirectories
+    } else {
+      if (!item.name.startsWith(".")) {
+        if (parentFolder) {
+          _FileNameListWithDir.push(
+            `${parentFolder.replace("board-", "")}/${item.name}`
+          );
+        }
+      }
+    }
+  });
+}
 
 function noFail(fn) {
   return function noFailWrapped(arg) {
@@ -65,19 +92,22 @@ function socketConnection(socket) {
 
   (function readingBoardDataDirectory() {
     var boardNames = [];
-    const testFolder = "./server-data";
-    console.log("Reading Board directory");
+    if (!fs.existsSync(testFolder)) {
+      fs.mkdirSync(testFolder);
+    }
+    _FileNameListWithDir = [];
+    getFileNameWithDir(testFolder);
     fs.readdir(testFolder, (err, files) => {
       files.forEach((file) => {
-        let name = file.split("-")[1];
+        let name = file.replace("board-", "");
         if (name) {
           let currName = name.split(".")[0];
-          boardNames.push(currName);
+          currName.length ? boardNames.push(currName) : undefined;
         }
       });
-      console.log("Board Names", boardNames);
-      socket.emit("boardName", { boardNames });
+      socket.emit("boardName", { boardNames, structure: _FileNameListWithDir });
     });
+    console.log({ _FileNameListWithDir });
   })();
 
   socket.on(
@@ -86,20 +116,36 @@ function socketConnection(socket) {
       joinBoard(name).then((board) => {
         //Send all the board's data as soon as it's loaded
         var batches = board.getAll();
+        _FileNameListWithDir = [];
+        if (!fs.existsSync(testFolder)) {
+          fs.mkdirSync(testFolder);
+        }
+        getFileNameWithDir(testFolder);
+        console.log({ _FileNameListWithDir });
         socket.emit("broadcast", {
           _children: batches[0] || [],
           _more: batches.length > 1,
           userCount: board.users.size,
+          structure: _FileNameListWithDir,
         });
         for (var i = 1; i < batches.length; i++) {
           socket.emit("broadcast", {
             _children: batches[i],
             _more: i != batches.length - 1,
+            structure: _FileNameListWithDir,
           });
         }
-        socket.broadcast
-          .to(board.name)
-          .emit("broadcast", { userCount: board.users.size });
+        // const testFolder = "./server-data";
+        // if (!fs.existsSync(testFolder)) {
+        //   fs.mkdirSync(testFolder);
+        // }
+        // getFileNameWithDir(testFolder)
+        console.log({ _FileNameListWithDir });
+
+        socket.broadcast.to(board.name).emit("broadcast", {
+          userCount: board.users.size,
+          structure: _FileNameListWithDir,
+        });
       });
     })
   );

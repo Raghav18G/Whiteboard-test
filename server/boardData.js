@@ -37,11 +37,17 @@ var BoardData = function (name) {
   this.name = name;
   this.size = 0;
   this.elements = {};
-  console.log("myname",name);
-  this.file = path.join(
-    config.HISTORY_DIR,
-    "board-" + encodeURIComponent(name) + ".json"
-  );
+  console.log("myname", name);
+  //TODO: need to store things in local storage
+  const selectedBoard = ""; //localStorage.getItem("selectedBoard");
+  const structure = []; // JSON.parse(localStorage.getItem("structure"));
+  this.fileCount = 0;
+  (structure || []).map((dir) => {
+    if ((dir || "").startWith(selectedBoard)) {
+      this.fileCount++;
+    }
+  });
+  this.file = path.join(config.HISTORY_DIR, "board-" + name + ".json");
   this.lastSaveDate = Date.now();
   this.actionHistory = [];
   this.actionHistory.push = function () {
@@ -513,7 +519,19 @@ BoardData.prototype.save = function (file) {
   this.clean();
   if (config.SAVE_BOARDS) {
     //TODO Need to updat this
+    console.log({ file });
     if (!file) file = this.file;
+    file = file.replace(/\\/g, "/");
+    console.log({ file });
+    const fileName = file.split("/")[file.split("/").length - 1];
+    console.log({ fileName });
+    const dirPath = file.replace("/" + fileName, "");
+    console.log({ dirPath, file });
+    const isFolderExists = fs.existsSync(path.resolve(dirPath));
+    console.log({ isFolderExists });
+    if (!isFolderExists) {
+      fs.mkdirSync(path.resolve(dirPath));
+    }
     var board_txt = JSON.stringify(this.elements);
     var that = this;
     fs.writeFile(file, board_txt, function onBoardSaved(err) {
@@ -525,7 +543,6 @@ BoardData.prototype.save = function (file) {
     });
   }
 };
-
 /** Remove old elements from the board */
 BoardData.prototype.clean = function cleanBoard() {
   var elems = this.elements;

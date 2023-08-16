@@ -191,6 +191,7 @@
     e.preventDefault();
     e.stopPropagation();
     var canvasCopy = Tools.svg.cloneNode(true);
+    console.log("CANVAS TOOLS SVG ", Tools.svg);
     console.log("CANVAS COPY", canvasCopy);
     canvasCopy.removeAttribute("style", ""); // Remove css transform
     var styleNode = document.createElement("style");
