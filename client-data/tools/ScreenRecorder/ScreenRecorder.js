@@ -30,11 +30,6 @@ var screenshotSVG =
         .getDisplayMedia(displaymediastreamconstraints)
         .then(success)
         .catch(error);
-    } else {
-      navigator
-        .getDisplayMedia(displaymediastreamconstraints)
-        .then(success)
-        .catch(error);
     }
   }
 
