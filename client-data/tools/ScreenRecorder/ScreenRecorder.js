@@ -240,19 +240,33 @@ var screenshotSVG =
 //   });
 // })()
 (function MobileRecorder() {
+  function download(blob) {
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "test.webm";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 100);
+  }
   function startScreenRecording() {
     console.log("STARTED SCREEN RECORDING");
     const constraints = {
-      video: {
-        mediaSource: "screen",
-      },
+      audio: false,
+      video: { mandatory: { chromeMediaSource: "screen" } },
     };
 
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then(function (stream) {
         console.log("USER MEDIA STREAM", stream);
-        const mediaRecorder = new MediaRecorder(stream);
+        const mediaRecorder = new MediaRecorder(stream, {
+          mimeType: "video/webm; codecs=vp9",
+        });
         const recordedChunks = [];
 
         mediaRecorder.ondataavailable = (event) => {
@@ -264,28 +278,12 @@ var screenshotSVG =
 
         mediaRecorder.onstop = () => {
           const blob = new Blob(recordedChunks, { type: "video/webm" });
-
-          const url = URL.createObjectURL(blob);
-          console.log("BLOB STOPPED", url);
-
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "screen_recording.webm";
-          a.textContent = "Download Screen Recording";
-
-          document.body.appendChild(a);
-
-          // Programmatically click the anchor tag
-          a.click();
-
-          // Clean up: Remove the anchor tag and event listeners
-          document.body.removeChild(a);
-          mediaRecorder.ondataavailable = null;
-          mediaRecorder.onstop = null;
+          console.log("BLOB STOPPED", blob);
+          download(blob);
         };
 
         // Start recording
-        mediaRecorder.start();
+        mediaRecorder.start(100);
 
         // Stop recording after a certain duration (e.g., 10 seconds)
         setTimeout(() => {
