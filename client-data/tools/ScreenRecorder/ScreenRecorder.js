@@ -151,6 +151,10 @@ var screenshotSVG =
       recorder.screen = screen;
 
       document.getElementById("btn-stop-recording").disabled = false;
+
+      setTimeout(() => {
+        stopRecordingCallback();
+      }, [10000]);
     });
   }
 
