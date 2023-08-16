@@ -40,13 +40,7 @@ var screenshotSVG =
 
   function invokegetUserMEdia() {
     console.log("IN USER MEDIA");
-    var userMediaConstraints = {
-      video: {
-        mediaSource: "screen",
-        cursor: "always", // or 'motion' for cursor sharing
-      },
-      audio: true,
-    };
+    var userMediaConstraints = { audio: true, video: true };
 
     if (navigator.mediaDevices.getDisplayMedia) {
       navigator.mediaDevices
