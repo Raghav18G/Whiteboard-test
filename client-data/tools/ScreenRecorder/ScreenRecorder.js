@@ -43,7 +43,7 @@ var screenshotSVG =
       audio: true,
     };
 
-    if (navigator.mediaDevices.getDisplayMedia) {
+    if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia(userMediaConstraints)
         .then(() => {
