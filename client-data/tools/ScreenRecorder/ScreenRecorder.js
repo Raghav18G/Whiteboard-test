@@ -66,6 +66,7 @@ var screenshotSVG =
 
     if (isMobile) {
       console.log("This is a mobile device.");
+      console.log("This is a mobile device.");
       invokegetUserMEdia();
     } else {
       console.log("This is a desktop device.");
