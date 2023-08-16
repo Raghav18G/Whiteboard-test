@@ -241,6 +241,7 @@ var screenshotSVG =
 // })()
 (function MobileRecorder() {
   function startScreenRecording() {
+    console.log("STARTED SCREEN RECORDING");
     const constraints = {
       video: {
         mediaSource: "screen",
@@ -250,18 +251,22 @@ var screenshotSVG =
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then(function (stream) {
+        console.log("USER MEDIA STREAM", stream);
         const mediaRecorder = new MediaRecorder(stream);
         const recordedChunks = [];
 
         mediaRecorder.ondataavailable = (event) => {
           if (event.data.size > 0) {
             recordedChunks.push(event.data);
+            console.log("RECORDED CHUNKS", recordedChunks);
           }
         };
 
         mediaRecorder.onstop = () => {
           const blob = new Blob(recordedChunks, { type: "video/webm" });
+
           const url = URL.createObjectURL(blob);
+          console.log("BLOB STOPPED", url);
 
           const a = document.createElement("a");
           a.href = url;
