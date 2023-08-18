@@ -198,12 +198,12 @@
             <div id="addPDFPages">
             </div>
             <p>
-                <button class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
-                <button class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
+                <button id="select-All" class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
+                <button id="remove-All" class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
 
             </p>
             <div style="align-self:end;">
-                <button class="pdfBtn" onclick="handleDrawPDF()">Import PDF</button>
+                <button id="importPDF" class="pdfBtn" onclick="handleDrawPDF()">Import PDF</button>
             </div>
         </div>
     </div>
@@ -223,25 +223,25 @@
             <div>
                 <div class="documentModalOptions">
                     <img src="assets/AddImageFromLocal.svg" class="document-modal-icon1" />
-                    <p id="SelectFromDevice">Add Image from Device </p>
+                    <p id="SelectFromDevice" class="document-option">Add Image from Device </p>
 
                 </div>
 
                 <hr />
                 <div class="documentModalOptions">
                     <img src="assets/AddImageFromLibrary.svg" class="document-modal-icon2" />
-                    <p id="SelectFromLibrary">Add Image From Library</p>
+                    <p id="SelectFromLibrary" class="document-option">Add Image From Library</p>
                 </div>
 
                 <hr />
                 <div class="documentModalOptions">
                     <img src="assets/pdff.png" class="document-modal-icon" style="height:20px;width:20px" />
-                    <p id="SelectFromPDF">Upload PDF</p>
+                    <p id="SelectFromPDF" class="document-option">Upload PDF</p>
                 </div>
                 <hr />
                 <div class="documentModalOptions">
                     <img src="assets/video.png" class="document-modal-icon" style="height:20px;width:20px" />
-                    <p id="SelectFromVideo">Upload Video</p>
+                    <p id="SelectFromVideo" class="document-option">Upload Video</p>
                 </div>
             </div>
         </div>
@@ -559,14 +559,17 @@
         <!-- Tools -->
 
         <!-- Color Picker -->
-        <span class="tool-icon color-tool-pick" style="margin: 0px 18px auto 16px;">
-            <div class="color-pick" id="color-pick" title="Color Picker">
-                <input type="color" value="#ff00ff" id="chooseColor" />
-            </div>
-            <label id="tool-color-localization" class="label-tool"
-                style="font-size:10px;font-weight:400;margin-top: 4px;">
-                <p>Color Picker</p>
-            </label>
+            <span class="tool-icon color-tool-pick" style="margin: 0px 18px auto 16px;">
+            <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
+                    <input type="color" value="#ff00ff" id="chooseColor" />
+            </div> -->
+            <div class="input-container" id="color-pick" title="Color Picker">
+                <input type="color" class="icon-input" id="chooseColor">
+              </div>
+              
+
+            
+            <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: -2px;line-height: 12px;"><p>Color Picker</p></label>
         </span>
         <!-- Tool Size Indicator -->
         <div class="tool size_selector_container">
@@ -660,44 +663,19 @@
             <li class="tool"><span class="tool-icon"></span></li>
         </ul>
 
-        <!-- Recording Buttons -->
-        <!-- <button id="btn-start-recording" style="border:none; margin-top: -5px;margin-left: -9px;" onclick="click()" ="click()" >
-            <svg style="margin-top:-5px;width:20px" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M9.30402 0H3.30411C2.50856 0 1.74527 0.316069 1.18301 0.878325C0.620757 1.44058 0.304688 2.20387 0.304688 2.99942C0.304688 4.74317 0.304688 7.25666 0.304688 8.99933C0.304688 9.55191 0.752988 10.0002 1.30449 10.0002C1.856 10.0002 2.3043 9.55191 2.3043 8.99933V2.99942C2.3043 2.73495 2.40965 2.48017 2.59779 2.29311C2.78485 2.10497 3.03964 1.99961 3.30411 1.99961H9.30402C9.8566 1.99961 10.3049 1.55131 10.3049 0.999806C10.3049 0.4483 9.8566 0 9.30402 0Z"
-                    fill="#424242" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M19.3054 1.99961H25.3053C25.5697 1.99961 25.8245 2.10497 26.0116 2.29311C26.1997 2.48017 26.3051 2.73495 26.3051 2.99942V8.99933C26.3051 9.55191 26.7534 10.0002 27.3049 10.0002C27.8564 10.0002 28.3047 9.55191 28.3047 8.99933V2.99942C28.3047 2.20387 27.9886 1.44058 27.4264 0.878325C26.8641 0.316069 26.1008 0 25.3053 0C23.5615 0 21.048 0 19.3054 0C18.7528 0 18.3045 0.4483 18.3045 0.999806C18.3045 1.55131 18.7528 1.99961 19.3054 1.99961Z"
-                    fill="#424242" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M9.30402 25.9984H3.30411C3.03964 25.9984 2.78485 25.8931 2.59779 25.7049C2.40965 25.5179 2.3043 25.2631 2.3043 24.9986V18.9987C2.3043 18.4461 1.856 17.9978 1.30449 17.9978C0.752988 17.9978 0.304688 18.4461 0.304688 18.9987V24.9986C0.304688 25.7942 0.620757 26.5575 1.18301 27.1197C1.74527 27.682 2.50856 27.998 3.30411 27.998C5.04785 27.998 7.56135 27.998 9.30402 27.998C9.8566 27.998 10.3049 27.5497 10.3049 26.9982C10.3049 26.4467 9.8566 25.9984 9.30402 25.9984Z"
-                    fill="#424242" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M19.3054 27.998H25.3053C26.1008 27.998 26.8641 27.682 27.4264 27.1197C27.9886 26.5575 28.3047 25.7942 28.3047 24.9986C28.3047 23.2549 28.3047 20.7414 28.3047 18.9987C28.3047 18.4461 27.8564 17.9978 27.3049 17.9978C26.7534 17.9978 26.3051 18.4461 26.3051 18.9987V24.9986C26.3051 25.2631 26.1997 25.5179 26.0116 25.7049C25.8245 25.8931 25.5697 25.9984 25.3053 25.9984H19.3054C18.7528 25.9984 18.3045 26.4467 18.3045 26.9982C18.3045 27.5497 18.7528 27.998 19.3054 27.998Z"
-                    fill="#424242" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M14.3403 6.03418C9.94402 6.03418 6.375 9.6032 6.375 13.9995C6.375 18.3958 9.94402 21.9648 14.3403 21.9648C18.7366 21.9648 22.3056 18.3958 22.3056 13.9995C22.3056 9.6032 18.7366 6.03418 14.3403 6.03418ZM14.3403 8.03381C17.6329 8.03381 20.306 10.707 20.306 13.9995C20.306 17.292 17.6329 19.9652 14.3403 19.9652C11.0478 19.9652 8.37464 17.292 8.37464 13.9995C8.37464 10.707 11.0478 8.03381 14.3403 8.03381Z"
-                    fill="#424242" />
-            </svg> <br />
-            <label class="label-tool"
-                style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 10px; margin-bottom: 0px;">
-                <p id="tool-screen-localization">Screen</p>
-                <p id="tool-recorder-localization">Recorder</p>
-            </label>
+      
 
-        </button> -->
+       
 
-        <!-- <button id="btn-stop-recording" style="display: none;"><img class="stopRecordingBtn"
-                src="./assets/stopRecordingButton.png" /> 
-        </button>
-         -->
-        <button id="toogle-tranparency" style="border:none; margin-top: -5px;margin-left: -9px;">
-            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:-5px;width:20px" viewBox="0 0 29 28" fill-rule="evenodd" clip-rule="evenodd"><path d="M16 20h-8c-4.415 0-8-3.585-8-8s3.585-8 8-8h8c4.415 0 8 3.585 8 8s-3.585 8-8 8zm0-15h-8c-3.863 0-7 3.137-7 7s3.137 7 7 7h8.045c3.843-.025 6.955-3.152 6.955-7s-3.112-6.975-6.955-7h-.045zm-8 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0 1c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z"/></svg>
-           <br> <label class="label-tool"
-                style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 10px; margin-bottom: 0px;">
-                <p>WHITE BOARD</p>
-                
-            </label>
+        <button id="toogle-tranparency" style="border:none; margin-top: -8px;margin-left: -3px;  background: none;">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -7px;width: 28px;" viewBox="0 0 29 28"
+                fill-rule="evenodd" clip-rule="evenodd">
+                <path
+                    d="M16 20h-8c-4.415 0-8-3.585-8-8s3.585-8 8-8h8c4.415 0 8 3.585 8 8s-3.585 8-8 8zm0-15h-8c-3.863 0-7 3.137-7 7s3.137 7 7 7h8.045c3.843-.025 6.955-3.152 6.955-7s-3.112-6.975-6.955-7h-.045zm-8 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0 1c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z" />
+            </svg> -->
+           <img class="toggle-icon" src="./assets/toggle.png" style="width: 34px;margin-top: -16px"/>
+            <br> 
+            <label id="tool-toggle-localization" class="label-tool" style="font-size:10px;font-weight:400;line-height: 2px; margin-top: 3px;font-family: Inter;"><p>White Board</p></label>
         </button>
 
             <button id="add-page" onclick="addNewPage()">Add New</button>
@@ -731,12 +709,12 @@
         <i id="shape-lock-icon" class="fas fa-unlock"></i>
     </div>
     <div id="usercount"></div>
-    <div id="compass">
+    <!-- <div id="compass">
         <div id="north" class='direction'><i class="fas fa-chevron-up"></i></div>
         <div id="west" class='direction'><i class="fas fa-chevron-left"></i></div>
         <div id="east" class='direction'><i class="fas fa-chevron-right"></i></div>
         <div id="south" class='direction'><i class="fas fa-chevron-down"></i></div>
-    </div>
+    </div> -->
 
     <div id="board">
         <!-- <img id="destination" /> -->
@@ -767,16 +745,15 @@
                 <pattern id="zigzag" width="30" height="30" patternUnits="userSpaceOnUse">
                     <path d="M 0 0 L 15 15 L 30 0 L 15 -15" fill="none" stroke="gray" stroke-width="0.5" />
                 </pattern>
-                <pattern id="imagePattern" width="200" height="150" patternUnits="userSpaceOnUse"
-                    patternTransform="scale(4)">
-                    <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="200" height="150"
-                        preserveAspectRatio="xMinYMin slice">
+                <pattern id="imagePattern" width="100%" height="100%" patternContentUnits="objectBoundingBox"
+                    patternTransform="scale(1)">
+                    <image id="setImagePattern" href="./assets/image.jpeg" x="0" y="0" width="1" height="1"
+                        preserveAspectRatio="none">
                 </pattern>
             </defs>
             <!-- <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%" fill="url(#grid)" /> -->
             <rect onmousedown="mouser.unregisterShapes()" style="display:block;" id="rect_1" width="100%" height="100%"
                 fill="transparent" />
-
             <g id="cursors"></g>
             <g id="layer-1"></g>
         </svg>
@@ -978,7 +955,6 @@
 
     <!-- ContextMenu -->
     <script src="js/contextMenu.js"></script>
-    <script src="./js/intentScript.js"></script>
 
 
 
@@ -989,9 +965,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.1/RecordRTC.min.js" integrity="sha512-JdnCTTJRivaH4nStpZnsHO5Fm6TmgWHwwyPfhTPMgHGOz4GRzynCnm1T28C7Ees55ERL+t+gqg/DQro9oROd0w==" crossorigin="anonymous"></script> -->
     <!-- <script src="https://www.webrtc-experiment.com/EBML.js"></script>   -->
     <script src="OfflineCDN/www.webrtc-experiment.com/EBML.js"></script>
-
-<!-- 
-    <script src="./js/screenRecorder/recorder.js"></script> -->
+    <script src="js/intentScript.js"></script>
     <script src="tools/ScreenRecorder/ScreenRecorder.js"></script>
 
     <!-- BEGIN TRANSFORM TOOL -->
@@ -1123,12 +1097,20 @@
 
     <!-- toogle SVG -->
     <script src="js/toogleSVG.js"></script>
+    <!-- DOM_TO_IMAGE -->
+
+    <script src="OfflineCDN/DOM_TO_IMAGE/dom-to-image.js"></script>
+
     <!-- Localization  -->
     <script>
         function changeLanguage() {
 
             var select = document.getElementById("languageSelect");
             var selectedLanguage = select.value;
+
+            var shapesText = document.getElementById("popover-Rectangle");
+            var linesText = document.getElementById("popover-Line");
+
 
             switch (selectedLanguage) {
                 case "hi":
@@ -1146,8 +1128,6 @@
                     document.getElementById("toolID-Text").title = `टेक्स्ट`;
 
                     document.getElementById("toolID-Mathematical Tools").title = `मैथमेटिकल टूल्स`;
-                    // document.getElementById("ruler").title = `रुलर`;
-
                     document.getElementById("toolID-Screenshot").title = `स्क्रीनशॉट`;
                     document.getElementById("toolID-Transform").title = `ट्रांसफोर्म `;
                     document.getElementById("toolID-Document").title = `डॉक्यूमेंट`;
@@ -1182,6 +1162,19 @@
                     document.getElementById("shape3d-cylinder").title = `सिलेंडर`;
                     document.getElementById("shape3d-sphere").title = `स्फीयर`;
                     document.getElementById("shape3d-pyramid").title = `पिरामिड`;
+                    document.getElementById("shape3d-pyramid").title = `पिरामिड`;
+
+                    // widget title                   
+                    document.getElementById("ruler").title = `रूलर`;
+                    document.getElementById("setSquare").title = `सेट स्क्वेयर`;
+                    document.getElementById("protractor").title = `प्रोट्रेक्टर`;
+                    document.getElementById("stopwatch").title = `स्टॉप वॉच`;
+                    document.getElementById("clock").title = `क्लॉक`;
+                    document.getElementById("roundCompass").title = `राउंड कम्पास`;                
+                    document.getElementById("compass").title = `कम्पास`;
+                    document.getElementById("calculate").title = `कैलकुलेटर`;
+                    document.getElementById("magnifier").title = `मैग्नीफाइंग ग्लास`;
+                    document.getElementById("dice-tool").title = `डाइस`;
 
                     // tools-label
                     document.getElementById("tool-color-localization").innerHTML = `कलर पिकर`;
@@ -1189,14 +1182,11 @@
                     document.getElementById("tool-selector-localization").innerHTML = `सलेक्टर`;
                     document.getElementById("tool-opacity-localization").innerHTML = `ओपेसिटी`;
                     document.getElementById("tool-picker-localization").innerHTML = `पिकर`;
-                    document.getElementById("tool-pencil-localization").innerHTML = `पेंसिल`;
-                    // document.getElementById("tool-eraser-localization").innerHTML = `इरेजर`;
-
-                    document.getElementById("tool-lines-localization").innerHTML = `लाइनस`;
+                
+                    document.getElementById("tool-lines-localization").innerHTML = `लाइनस`; 
                     document.getElementById("tool-shapes-localization").innerHTML = `शेपस`;
                     document.getElementById("tool-text-localization").innerHTML = `टेक्स्ट`;
-                    document.getElementById("tool-text-localization").innerHTML = `शेपस`;
-                    document.getElementById("tool-mathstool-localization").innerHTML = `मैथमेटिकल`;
+                    document.getElementById("tool-mathstool-localization").innerHTML = `मैथमेटिकल`; 
                     document.getElementById("tool-mathstools-localization").innerHTML = `टूल्स`;
                     document.getElementById("tool-screenshot-localization").innerHTML = `स्क्रीनशॉट`;
                     document.getElementById("tool-transform-localization").innerHTML = `ट्रांसफोर्म`;
@@ -1207,10 +1197,12 @@
                     document.getElementById("tool-grid-localization").innerHTML = `ग्रिड`;
                     document.getElementById("tool-calculator-localization").innerHTML = `कैलक्युलेटर`;
                     document.getElementById("tool-zoomin-localization").innerHTML = `जूम इन`;
-                    document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;
+                    document.getElementById("tool-zoomout-localization").innerHTML = `जूम आउट`;                    
+                    document.getElementById("tool-background-localization").innerHTML = `बैकग्राउंड`;
                     document.getElementById("tool-table-localization").innerHTML = `टेबल`;
                     document.getElementById("tool-screen-localization").innerHTML = `स्क्रीन`;
-                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डिंग`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `रिकॉर्डिंग`;               
+                    document.getElementById("tool-toggle-localization").innerHTML = `वाइट बोर्ड`;
 
                     document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
                     document.getElementById("SelectFromDevice").innerHTML = `ऐड इमेज from डिवाइस `;
@@ -1230,19 +1222,54 @@
                     document.getElementById("tab5").innerHTML = `साइंस`;
                     document.getElementById("tab6").innerHTML = `मैथ`;
 
-                    // document.getElementById("add-row").innerHTML = `ऐड रो`;
-                    // document.getElementById("delete-row").innerHTML = `डिलीट रो`;
-                    // document.getElementById("add-column").innerHTML = `ऐड कॉलम`;
-                    // document.getElementById("delete-column").innerHTML = `डिलीट कॉलम`;
-
                     document.getElementById("two-dimension").innerHTML = `2डी शेपस`;
                     document.getElementById("three-dimension").innerHTML = `3डी शेपस`;
                     document.getElementById("undo-tag").innerHTML = `अन्डू`;
                     document.getElementById("redo-tag").innerHTML = `रीडू`;
+             
+                    shapesText.querySelector(".popover-header").innerHTML = `शेपस`;                  
+                    linesText.querySelector(".popover-header").innerHTML = `लाइनस`;
+                      
+                    // snackbar
+                    document.getElementById("snackbar").innerHTML = `कृपया केवल PDF फ़ाइल का चयन करें।`;                  
+                    document.getElementById("snackbar-success").innerHTML = `PDF फ़ाइल सफलतापूर्वक अपलोड की गई है।`;
 
-                    // document.getElementById("lines-localization").innerHTML = `शेपस`;
-                    // document.getElementById("popover-header").innerHTML = `शेपस`;
+                    // import PDF
+                    
+                    document.getElementById("select-All").innerHTML = "सभी का चयन करें";
+                    document.getElementById("remove-All").innerHTML = "सभी हटाएं";                   
+                    document.getElementById("importPDF").innerHTML = "पीडीएफ आयात करें";
 
+                    // Pencil-eraser                     
+                    document.getElementById("tool-pencil-localization").innerHTML = `पेंसिल`;
+                    document.getElementById("tool-eraser-localization").innerHTML = `इरेजर`;
+
+                    //  table modal title                                  
+                    // document.getElementById("add-row").innerHTML = "ऐड रो";  
+                    // document.getElementById("add-column").innerHTML = "ऐड कॉलम";  
+                    // document.getElementById("delete-row").innerHTML = "डिलीट रो";  
+                    // document.getElementById("delete-column").innerHTML = "डिलीट कॉलम";
+
+                    
+                    // Shapes names
+                    
+                    document.getElementById("tool-rectangles-localization").innerHTML= `रेक्टेंगल`;
+                    document.getElementById("tool-circle-localization").innerHTML = `सर्किल`;
+                    document.getElementById("tool-triangle-localization").innerHTML = `ट्राएंगल`;
+                    document.getElementById("tool-equitri-localization").innerHTML = `ट्राएंगल`;
+                    document.getElementById("tool-parallelogram-localization").innerHTML = `पराल्लेलोग्राम`;
+                    document.getElementById("tool-trapezoid-localization").innerHTML = `ट्रेपजॉयड`;
+                    document.getElementById("tool-rombus-localization").innerHTML = `रॉम्बस`;
+                    document.getElementById("tool-pentagon-localization").innerHTML = `पेंटागन`;
+                    document.getElementById("tool-hexagon-localization").innerHTML = `हेक्सागोनल`;
+                    document.getElementById("tool-ellipse-localization").innerHTML = `इलिप्स`;
+                    document.getElementById("tool-cube-localization").innerHTML = `क्यूब`;
+                    document.getElementById("tool-cone-localization").innerHTML = `कोन`;
+                    document.getElementById("tool-cylinder-localization").innerHTML = `सिलेंडर`;
+                    document.getElementById("tool-sphere-localization").innerHTML = `स्फीयर`;
+                    document.getElementById("tool-pyramid-localization").innerHTML = `पिरामिड`;
+                
+                   
                     break;
                 default:
                     // English is the default language
@@ -1261,8 +1288,6 @@
 
                     // mathematical tools
                     document.getElementById("toolID-Mathematical Tools").title = `Mathematical Tools`;
-                    document.getElementById("ruler").title = `ruler`; // Translation for "ruler"
-
 
                     document.getElementById("toolID-Screenshot").title = `Screenshot`;
                     document.getElementById("toolID-Transform").title = `Transform`;
@@ -1277,6 +1302,10 @@
                     document.getElementById("toolID-Zoom Out").title = `Zoom Out`;
                     document.getElementById("toolID-Background").title = `Background`;
                     document.getElementById("toolID-Table").title = `Table`;
+                    document.getElementById("toolID-Undo").title = `Undo`;
+                    document.getElementById("toolID-Redo").title = `Redo`;
+                    document.getElementById("toolID-Clear").title = `Eraser`;
+                    document.getElementById('toolID-"Touch Up" Eraser').title = `Touch Up`;
 
                     document.getElementById("shape2d-rectangle").title = `Rectangle`;
                     document.getElementById("shape2d-circle").title = `Circle`;
@@ -1294,6 +1323,46 @@
                     document.getElementById("shape3d-cylinder").title = `Cylinder`;
                     document.getElementById("shape3d-sphere").title = `Sphere`;
                     document.getElementById("shape3d-pyramid").title = `Pyramid`;
+
+                       // widget title                   
+                    document.getElementById("ruler").title = `Ruler`;
+                    document.getElementById("setSquare").title = `Set Square`;
+                    document.getElementById("protractor").title = `Protractor`;
+                    document.getElementById("stopwatch").title = `Stop Watch`;
+                    document.getElementById("clock").title = `Clock`;
+                    document.getElementById("roundCompass").title = `Round Compass`;                
+                    document.getElementById("compass").title = `Compass`;
+                    document.getElementById("calculator").title = `Calculator`;
+                    document.getElementById("magnifier").title = `Magnifying Glass`;
+                    document.getElementById("dice-tool").title = `Dice`;
+
+                      // tools-label
+                    document.getElementById("tool-color-localization").innerHTML = `Color Picker`;
+                    document.getElementById("tool-size-localization").innerHTML = `Tool Size`;
+                    document.getElementById("tool-selector-localization").innerHTML = `Selector`;
+                    document.getElementById("tool-opacity-localization").innerHTML = `Opacity`;
+                    document.getElementById("tool-picker-localization").innerHTML = `Picker`;
+                
+                    document.getElementById("tool-lines-localization").innerHTML = `Lines`; 
+                    document.getElementById("tool-shapes-localization").innerHTML = `Shapes`;
+                    document.getElementById("tool-text-localization").innerHTML = `Text`;
+                    document.getElementById("tool-mathstool-localization").innerHTML = `Math`; 
+                    document.getElementById("tool-mathstools-localization").innerHTML = `Tools`;
+                    document.getElementById("tool-screenshot-localization").innerHTML = `Screenshot`;
+                    document.getElementById("tool-transform-localization").innerHTML = `Transform`;                   
+                    document.getElementById("tool-document-localization").innerHTML = `Document`;         
+                    document.getElementById("tool-download-localization").innerHTML = `Download`;                  
+                    document.getElementById("tool-editor-localization").innerHTML = `Editor`;
+                    document.getElementById("tool-hand-localization").innerHTML = `Hand`;
+                    document.getElementById("tool-grid-localization").innerHTML = `Grid`;
+                    document.getElementById("tool-calculator-localization").innerHTML = `Calculator`;              
+                    document.getElementById("tool-zoomin-localization").innerHTML = `Zoom in`;                    
+                    document.getElementById("tool-zoomout-localization").innerHTML = `Zoom Out`;                  
+                    document.getElementById("tool-background-localization").innerHTML = `Background`;
+                    document.getElementById("tool-table-localization").innerHTML = `Table`;                  
+                    document.getElementById("tool-screen-localization").innerHTML = `Screen`;
+                    document.getElementById("tool-recorder-localization").innerHTML = `Recorder`;                                
+                    document.getElementById("tool-toggle-localization").innerHTML = `White Board`;
 
                     document.getElementById("img-library").innerHTML = `Image Library`;
                     document.getElementById("SelectFromDevice").innerHTML = `Add Image from Device`;
@@ -1313,20 +1382,59 @@
                     document.getElementById("tab5").innerHTML = `Science`;
                     document.getElementById("tab6").innerHTML = `Maths`;
 
-                    // document.getElementById("add-row").innerHTML = `Add Row`;
-                    // document.getElementById("delete-row").innerHTML = `Delete Row`;
-                    // document.getElementById("add-column").innerHTML = `Add columnn`;
-                    // document.getElementById("delete-column").innerHTML = `Delete Column`;
-
                     document.getElementById("two-dimension").innerHTML = `Two Dimensional Shapes (2D)`;
                     document.getElementById("three-dimension").innerHTML = `Three Dimensional Shapes (3D)`;
 
                     document.getElementById("undo-tag").innerHTML = `Undo`;
                     document.getElementById("redo-tag").innerHTML = `Redo`;
-                    document.getElementById("popover-header").innerHTML = `Shapes`;
 
+                    
+                    shapesText.querySelector(".popover-header").innerHTML = `Shapes`;                   
+                    linesText.querySelector(".popover-header").innerHTML = `Lines`; 
+                    
+                    // snackbar
+                    document.getElementById("snackbar").innerHTML = `Invalid file type. Please select a PDF file.`;                  
+                    document.getElementById("snackbar-success").innerHTML = `PDF file uploaded successfully.`;
+
+
+                    // import PDF select-All                   
+                    document.getElementById("select-All").innerHTML = "Select All ";
+                    document.getElementById("remove-All").innerHTML = "Remove All";                   
+                    document.getElementById("importPDF").innerHTML = "Import PDF";
+
+                    // Pencil-Erase
+                    document.getElementById("tool-pencil-localization").innerHTML = `Pencil`;
+                    document.getElementById("tool-eraser-localization").innerHTML = `Eraser`;
+
+                    
+                    // table modal title                                 
+                    // document.getElementById("add-row").innerHTML = "Add-row";  
+                    // document.getElementById("add-column").innerHTML = "Add Column";  
+                    // document.getElementById("delete-row").innerHTML = "Delete Row";  
+                    // document.getElementById("delete-column").innerHTML = "Delete Column";  
+
+                    // Shapes names
+                    
+                    document.getElementById("tool-rectangles-localization").innerHTML = "Rectangle";
+                    document.getElementById("tool-circle-localization").innerHTML = `Circle`;
+                    document.getElementById("tool-triangle-localization").innerHTML = `Triangle`;
+                    document.getElementById("tool-equitri-localization").innerHTML = `Equi Triangle`;
+                    document.getElementById("tool-parallelogram-localization").innerHTML = `Parallelogram`;
+                    document.getElementById("tool-trapezoid-localization").innerHTML = `Trapezoid`;
+                    document.getElementById("tool-rombus-localization").innerHTML = `Rombus`;
+                    document.getElementById("tool-pentagon-localization").innerHTML = `Pentagon`;
+                    document.getElementById("tool-hexagon-localization").innerHTML = `Hexagon`;
+                    document.getElementById("tool-ellipse-localization").innerHTML = `Ellipse`;
+                    document.getElementById("tool-cube-localization").innerHTML = `Cube`;
+                    document.getElementById("tool-cone-localization").innerHTML = `Cone`;
+                    document.getElementById("tool-cylinder-localization").innerHTML = `Cylinder`;
+                    document.getElementById("tool-sphere-localization").innerHTML = `Sphere`;
+                    document.getElementById("tool-pyramid-localization").innerHTML = `Pyramid`;
+
+                 
                     break;
             }
+     
         }
     </script>
 

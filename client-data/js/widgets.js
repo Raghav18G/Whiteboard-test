@@ -18,8 +18,8 @@ const ClockWidget = (e) => {
       <svg
         id="clock"
         xmlns="http://www.w3.org/2000/svg"
-        width="300"
-        height="200"
+        width="350"
+        height="250"
         viewBox="0 0 600 600"
       >
         <g id="face">
@@ -346,16 +346,28 @@ const MagnifyingGlass = () => {
       const getVisibleArea = getVisibleViewport();
       img = document.getElementById(imgID);
 
-      html2canvas(img, {
-        x: window.scrollX,
-        y: window.scrollY,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      }).then(function (res) {
-        var canvasURL = res.toDataURL("image/jpg");
-        console.log(canvasURL, "utl");
-        glass.style.backgroundImage = "url('" + canvasURL + "')";
-      });
+      // html2canvas(img, {
+      //   x: window.scrollX,
+      //   y: window.scrollY,
+      //   width: window.innerWidth,
+      //   height: window.innerHeight,
+      // }).then(function (res) {
+      //   var canvasURL = res.toDataURL("image/jpg");
+      //   console.log(canvasURL, "utl");
+      //   glass.style.backgroundImage = "url('" + canvasURL + "')";
+      // });
+      domtoimage
+        .toJpeg(img, {
+          height: window.innerHeight,
+          width: window.innerWidth,
+          bgcolor: "#fff",
+        })
+        .then(function (res) {
+          glass.style.backgroundImage = "url('" + res + "')";
+        })
+        .catch(function (error) {
+          console.error("oops, something went wrong!", error);
+        });
 
       /*set background properties for the magnifier glass:*/
       glass.style.backgroundRepeat = "no-repeat";
@@ -416,8 +428,8 @@ const MagnifyingGlass = () => {
         /*get the x and y positions of the image:*/
         a = img.getBoundingClientRect();
         /*calculate the cursor's x and y coordinates, relative to the image:*/
-        x = e.pageX || e.touches[0].pageX - a.left;
-        y = e.pageY || e.touches[0].pageY - a.top;
+        x = e.pageX || e.touches[0]?.pageX - a.left;
+        y = e.pageY || e.touches[0]?.pageY - a.top;
         /*consider any page scrolling:*/
         x = x - window.pageXOffset;
         y = y - window.pageYOffset;
@@ -447,7 +459,7 @@ const MagnifyingGlass = () => {
     glass.addEventListener("mousedown", addMouoseMove);
     glass.addEventListener("touchstart", addMouoseMove);
   }
-  magnify("canvas", 1.5);
+  magnify("board", 1.5);
 };
 
 const calculatorWidget = (e) => {
@@ -1121,16 +1133,16 @@ const roundCompassWidget = (e) => {
   var uid = Tools.generateUID("doc");
 
   const roundCompassWidgetHTML = `
-  <div class="rounded-compass">
-<div class="rounded-compass-input" style="display:block">
+  <div class="rounded-compass ">
+<div class="rounded-compass-input" style="display:"block">
 <div style="display:flex;margin-bottom: 11px;">
   <label for="radius" style="color: red">Radius:</label>
     <input
       type="number"
       id="radius"
       min="0"
-      max="6"
-      step="0.1"
+      max="2.9"
+     
       value="2.5"
       style="color: red;margin: -4px 0px 0px 8px;"
     />

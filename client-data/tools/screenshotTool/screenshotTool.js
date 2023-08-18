@@ -15,16 +15,13 @@ var screenshotSVG = '<svg class="tool-icon-svg" width="32" height="32"viewBox="0
   console.log("SCREENSHOT TOOL");
 
   function onStart() {
-    let canvas = document.getElementById("canvas");
+    let canvas = document.getElementById("board");
     console.log("CANVAS", canvas);
-    html2canvas(canvas, {
-      x: window.scrollX,
-      y: window.scrollY,
-      width: window.innerWidth,
-      height: window.innerHeight,
+    domtoimage.toJpeg(canvas, {
+      bgcolor:"#fff"
     }).then(function (res) {
       console.log("AFTER CONVERTING RES", res);
-      var dataURL = res.toDataURL();
+      var dataURL = res
       console.log("DATA URL", dataURL);
       var aspect = msg.w / msg.h;
       var img = Tools.createSVGElement("image");

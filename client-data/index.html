@@ -75,12 +75,12 @@
             />
           </div>
 
-          <div class="btn-submit">
-            <button type="submit" id="modalSubmitBtn" disabled>Start</button>
-          </div>
-        </form>
-      </div>
+        <div class="btn-submit start-modal-button">
+          <button type="submit" id="modalSubmitBtn" disabled>Start</button>
+        </div>
+      </form>
     </div>
+  </div>
 
     <script>
       var modal = document.getElementById("myModal");
@@ -112,45 +112,45 @@
         var select = document.getElementById("languageSelect");
         var selectedLanguage = select.value;
 
-        switch (selectedLanguage) {
-          case "hi":
-            document.getElementById(
-              "iprepLanding--header"
-            ).innerHTML = `Iprep Play में आपका स्वागत है`;
-            document.getElementById(
-              "iprepLanding--body"
-            ).innerHTML = `शुरू करने के लिए किसी मौजूदा बोर्ड को चुने या नया बनाये`;
-            document.getElementById(
-              "newBoard--placeholder"
-            ).innerHTML = `किसी मौजूदा बोर्ड का चयन करें`;
-            document.getElementById("iprepLanding-or-text").innerHTML = `या`;
-            document.getElementById("modalBtn").innerHTML = `शुरू करें`;
-            document.getElementById(
-              "iprepModal--header"
-            ).innerHTML = `शुरू करें बोर्ड`;
-            document.getElementById(
-              "iprepModal--subheader"
-            ).innerHTML = `अपने बोर्ड को नाम दे और शुरू करें`;
-            document.getElementById("modalSubmitBtn").innerHTML = `शुरू करें`;
-            var inputElement = document.getElementById("board");
-            inputElement.placeholder = "बोर्ड को नाम दे";
-            break;
-          default:
-            // English is the default language
-            document.getElementById(
-              "iprepLanding--header"
-            ).innerHTML = `Welcome to iPrep Play`;
-            document.getElementById(
-              "iprepLanding--body"
-            ).innerHTML = `To get started, either select an existing board or create a new one.`;
-            document.getElementById(
-              "newBoard--placeholder"
-            ).innerHTML = `Select an existing board`;
-            document.getElementById("iprepLanding-or-text").innerHTML = `Or`;
-            document.getElementById("modalBtn").innerHTML = `Start new board`;
-            document.getElementById(
-              "iprepModal--header"
-            ).innerHTML = `Start your board`;
+      switch (selectedLanguage) {
+        case "hi":
+          document.getElementById(
+            "iprepLanding--header"
+          ).innerHTML = `iPrep Play में आपका स्वागत है`;
+          document.getElementById(
+            "iprepLanding--body"
+          ).innerHTML = `शुरू करने के लिए किसी मौजूदा बोर्ड को चुने या नया बोर्ड बनाये`;
+          document.getElementById(
+            "newBoard--placeholder"
+          ).innerHTML = `किसी मौजूदा बोर्ड का चयन करें`;
+          document.getElementById("iprepLanding-or-text").innerHTML = `या`;
+          document.getElementById("modalBtn").innerHTML = `शुरू करें`;
+          document.getElementById(
+            "iprepModal--header"
+          ).innerHTML = `नए बोर्ड की शुरुआत करें`;
+          document.getElementById(
+            "iprepModal--subheader"
+          ).innerHTML = `अपने बोर्ड को नाम दे और शुरू करें`;
+          document.getElementById("modalSubmitBtn").innerHTML = `शुरू करें`;
+          var inputElement = document.getElementById("board");
+          inputElement.placeholder = "बोर्ड को नाम दे";
+          break;
+        default:
+          // English is the default language
+          document.getElementById(
+            "iprepLanding--header"
+          ).innerHTML = `Welcome to iPrep Play`;
+          document.getElementById(
+            "iprepLanding--body"
+          ).innerHTML = `To get started, either select an existing board or create a new one.`;
+          document.getElementById(
+            "newBoard--placeholder"
+          ).innerHTML = `Select an existing board`;
+          document.getElementById("iprepLanding-or-text").innerHTML = `Or`;
+          document.getElementById("modalBtn").innerHTML = `Start new board`;
+          document.getElementById(
+            "iprepModal--header"
+          ).innerHTML = `Start your board`;
 
             document.getElementById(
               "iprepModal--subheader"
@@ -179,7 +179,9 @@
         }
       });
     </script>
- 
+    <!-- <footer>
+	<a href="https://github.com/rdbeach/wb" class="smallink">Source code on github</a>
+</footer> -->
   </body>
   <script src="socket.io.js"></script>
   <script src="./testScript.js"></script>

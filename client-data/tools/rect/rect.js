@@ -27,56 +27,55 @@
 (function () {
   //Code isolation
   //Indicates the id of the shape the user is currently drawing or an empty string while the user is not drawing
-  var ellipse =
-    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"><g><path id="submenu-rect-path" fill="';
+  // var ellipse =
+  //   '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"><g><path id="submenu-rect-path" fill="';
   var shapeSVG =
-    '<svg class="tool-icon-svg" viewBox="0 0 21 29" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.8531 10.6557L16.5479 8.17546L16.5443 3.63952L10.638 0.235352L4.73646 3.64889L4.74114 8.19264L0.453125 10.6729L0.462499 22.4515L10.6682 28.3333L20.8641 22.4359L20.8531 10.6557ZM14.9885 9.55671L11.4302 11.6145V7.73014L14.9839 5.50254L14.9885 9.55671ZM9.86823 11.6176L6.3026 9.56348L6.29896 5.49264L9.86823 7.67233V11.6176ZM10.6401 2.04004L14.249 4.12025L10.6974 6.34681L7.0474 4.11816L10.6401 2.04004ZM4.74323 10.4671L10.65 13.8708L11.0411 13.6452L16.5505 10.4572L16.55 9.9791L18.5021 11.1041L10.6396 15.5911L2.80208 11.1192L4.74271 9.99681L4.74323 10.4671ZM2.01562 12.4692L9.86823 16.9499V26.0687L2.02344 21.5494L2.01562 12.4692ZM11.4302 26.0864V16.9385L19.2927 12.4525L19.301 21.5343L11.4302 26.0864Z" fill="#424242"/></svg><label  id="tool-shapes-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Shapes</p></label>';
-      var ellipse2 =
-    '" d="M435.204,126.967C387.398,94.1,324.11,76,257,76c-67.206,0-130.824,18.084-179.138,50.922C27.652,161.048,0,206.889,0,256c0,49.111,27.652,94.952,77.862,129.078C126.176,417.916,189.794,436,257,436c67.11,0,130.398-18.1,178.204-50.967C484.727,350.986,512,305.161,512,256S484.727,161.014,435.204,126.967z M418.208,360.312C375.354,389.774,318.103,406,257,406 c-61.254,0-118.884-16.242-162.273-45.733C52.986,331.898,30,294.868,30,256s22.986-75.898,64.727-104.267C138.116,122.242,195.746,106,257,106c61.103,0,118.354,16.226,161.208,45.688C459.345,179.97,482,217.015,482,256S459.345,332.03,418.208,360.312z"/></g></svg>';
-  var cubeImg = "";
+    '<svg xmlns="http://www.w3.org/2000/svg" class="shape-svg-icon" width="40" height:"40" style="margin-top: -8px;" viewBox="0 0 44 50" fill="none"><path d="M27.5526 18.9786L27.5531 19.4568L21.6526 22.8703L15.7458 19.4667L15.7453 18.9958L13.8047 20.1182L21.6422 24.5901L29.5047 20.1036L27.5526 18.9786ZM25.2516 13.1193L21.6427 11.0391L18.05 13.1172L21.7 15.3458L25.2516 13.1193Z" fill="#FBCF26"/><path d="M31.8531 19.6557L27.5479 17.1755L27.5443 12.6395L21.638 9.23535L15.7365 12.6489L15.7411 17.1926L11.4531 19.6729L11.4625 31.4515L21.6682 37.3333L31.8641 31.4359L31.8531 19.6557ZM25.9885 18.5567L22.4302 20.6145V16.7301L25.9839 14.5025L25.9885 18.5567ZM20.8682 20.6176L17.3026 18.5635L17.299 14.4926L20.8682 16.6723V20.6176ZM21.6401 11.04L25.249 13.1202L21.6974 15.3468L18.0474 13.1182L21.6401 11.04ZM15.7432 19.4671L21.65 22.8708L22.0411 22.6452L27.5505 19.4572L27.55 18.9791L29.5021 20.1041L21.6396 24.5911L13.8021 20.1192L15.7427 18.9968L15.7432 19.4671ZM13.0156 21.4692L20.8682 25.9499V35.0687L13.0234 30.5494L13.0156 21.4692ZM22.4302 35.0864V25.9385L30.2927 21.4525L30.301 30.5343L22.4302 35.0864Z" fill="#424242"/><path d="M31.8568 27.6213V29.4114L35.3854 31.3796L21.6411 39.5114L7.89948 31.3796L11.4536 29.3973L11.4521 27.6104L4.76562 31.3385L21.6411 41.3275L38.5214 31.339L31.8568 27.6213Z" fill="#FBCF26"/></svg><label id="tool-shapes-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-left: 6px;"><p>Shapes</p></label>';
+    
   var icons = {
     Rectangle: {
-      icon: `▭ <br> <label id="tool-rectangle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Reactangle</p></label>`,
+      icon: '▭ <br><p id="tool-rectangles-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;">Rectangle</p>',
       isHTML: true,
       isSVG: false,
-    },
+    }
+   ,
     Circle: {
       icon: `◯ <br> <label id="tool-circle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Circle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Triangle: {
-      icon: `◺<br> <label id="tool-triangle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Triangle</p></label>`, 
+      icon: `◺<br> <label id="tool-triangle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Triangle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     EquiTriangle: {
-      icon: `△<br> <label id="tool-equitri-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Triangle</p></label>`, 
+      icon: `△<br> <label id="tool-equitri-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Triangle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Parallelogram: {
-      icon: `▱<br> <label id="tool-parallelogram-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`, 
+      icon: `▱<br> <label id="tool-parallelogram-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Rombus: {
-      icon: `◇<br> <label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`, 
+      icon: `◇<br> <label id="tool-rombus-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`, 
       isHTML: true,
       isSVG: false,
     },
     Trapezoid: {
-      icon: `⏢<br> <label id="tool-trapezoid-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Trapezoid</p></label>`, 
+      icon: `⏢<br> <label id="tool-trapezoid-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Trapezoid</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Pentagon: {
-      icon: `⬠<br> <label id="tool-pentagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Pentagon</p></label>`, 
+      icon: `⬠<br> <label id="tool-pentagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Pentagon</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Hexagon: {
-      icon: `⎔<br> <label id="tool-hexagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p> Hexagon</p></label>`, 
+      icon: `⎔<br> <label id="tool-hexagon-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p> Hexagon</p></label>`,
       isHTML: true,
       isSVG: false,
     },
@@ -107,25 +106,9 @@
     },
     Ellipse: {
       icon:
-        `<span><img style = 'margin-top:-7px;' draggable="false" src='data:image/svg+xml;utf8,` +
-        ellipse +
-        `black` +
-        ellipse2 +
-        `' ></span>`,
-      menuIcon:
-        `<span><img style = 'margin-top:-7px;' draggable="false" src='data:image/svg+xml;utf8,` +
-        ellipse +
-        `gray` +
-        ellipse2 +
-        `' ></span>`,
-      menuIconActive:
-        `<span><img style = 'margin-top:-7px;' draggable="false" src='data:image/svg+xml;utf8,` +
-        ellipse +
-        `green` +
-        ellipse2 +
-        `' ></span>`,
+        `⬭ <br> <label id="tool-ellipse-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Ellipse</p></label>`,
       isHTML: true,
-      isSVG: true,
+      isSVG: false,
     },
   };
 
@@ -162,7 +145,7 @@
 
   function move(x, y, evt) {
     /*Wait 20ms before adding any point to the currently drawing shape.
-		This allows the animation to be smother*/
+    This allows the animation to be smother*/
     if (curId !== "") {
       var curUpdate = {
         //The data of the message that will be sent for every new point
@@ -355,7 +338,7 @@
       Math.round(
         Math.sqrt(
           Math.pow(data["x2"] - data["x"], 2) +
-            Math.pow(data["y2"] - data["y"], 2)
+          Math.pow(data["y2"] - data["y"], 2)
         ) / 2
       )
     );
@@ -510,9 +493,8 @@
 
     var topWidth = width * 0.6; // Adjust the top width ratio as needed
 
-    var points = `${x1},${y1} ${x2},${y1} ${
-      x2 - (width - topWidth) / 2
-    },${y2} ${x1 + (width - topWidth) / 2},${y2}`;
+    var points = `${x1},${y1} ${x2},${y1} ${x2 - (width - topWidth) / 2
+      },${y2} ${x1 + (width - topWidth) / 2},${y2}`;
 
     shape.setAttribute("points", points);
     shape.setAttribute("fill", "none");
@@ -523,13 +505,13 @@
       shape.setAttribute("transform", data.transform);
     }
   }
-  
+
   function updatePentagon(shape, data) {
     // Extract the required properties from the data object
     var centerX = (data.x2 + data.x) / 2;
     var centerY = (data.y2 + data.y) / 2;
     var sideLength = Math.abs(data.x2 - data.x) / 2;
-  
+
     // Calculate the coordinates of the pentagon vertices
     var angleOffset = Math.PI * 3 / 2; // Offset to start from the bottom vertex
     var angle = (2 * Math.PI) / 5;
@@ -539,7 +521,7 @@
       var y = centerY + sideLength * Math.sin(angle * i + angleOffset);
       points.push(x + "," + y);
     }
-  
+
     // Update the attributes of the polygon shape
     shape.setAttribute("points", points.join(" "));
     shape.setAttribute("fill", "none");
@@ -550,7 +532,7 @@
       shape.setAttribute("transform", data.transform);
     }
   }
-  
+
 
   function updateHexagon(shape, data) {
     // Extract the required properties from the data object
@@ -606,7 +588,7 @@
         "././assets/cone.png";
     } else if (data.shape === "Cube") {
       image.src =
-        "https://images.nagwa.com/figures/explainers/158156163529/6.svg";
+        "././assets/cube.png";
     } else if (data.shape === "Cylinder") {
       image.src =
         "././assets/cylinder.png";
@@ -617,25 +599,62 @@
         "././assets/pyramid.png";
     }
 
+    var uid = Tools.generateUID("doc");
+    // image.onload = function () {
+
+    //   var msg = {
+    //     id: uid,
+    //     type: "doc",
+    //     src: image.src,
+    //     w: this.width || 300,
+    //     h: this.height || 300,
+    //     x:
+    //       (100 + document.documentElement.scrollLeft) / Tools.scale +
+    //       10 * imgCount,
+    //     y:
+    //       (100 + document.documentElement.scrollTop) / Tools.scale +
+    //       10 * imgCount,
+    //   };
+    //   console.log("enter in shape draw");
+    //   drawImage(msg);
+    // };
     image.onload = function () {
-      var uid = Tools.generateUID("doc");
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", image.src, true);
+      xhr.responseType = "blob";
+      xhr.send();
 
-      var msg = {
-        id: uid,
-        type: "doc",
-        src: image.src,
-        w: this.width || 300,
-        h: this.height || 300,
-        x:
-          (100 + document.documentElement.scrollLeft) / Tools.scale +
-          10 * imgCount,
-        y:
-          (100 + document.documentElement.scrollTop) / Tools.scale +
-          10 * imgCount,
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Create a new FileReader instance
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            // The result attribute contains the data URL
+            var dataURL = reader.result;
+
+            var msgLibrary = {
+              id: uid,
+              type: "doc",
+              src: dataURL,
+              w: this.width || 300,
+              h: this.height || 300,
+              x:
+                (100 + document.documentElement.scrollLeft) / Tools.scale +
+                10 * imgCount,
+              y:
+                (100 + document.documentElement.scrollTop) / Tools.scale +
+                10 * imgCount,
+            };
+            drawImage(msgLibrary);
+            Tools.send(msgLibrary, "Document");
+            imgCount++;
+          };
+
+          // Read the file as a Data URL
+          reader.readAsDataURL(xhr.response);
+        }
       };
-
-      drawImage(msg);
-    };
+    }
   }
 
   function drawImage(msg) {
@@ -692,7 +711,8 @@
     if (icons[curshape].isHTML) {
       button.getElementsByClassName("tool-icon")[0].innerHTML =
         icons[curshape].icon;
-    } else {
+    } 
+    else {
       button.getElementsByClassName("tool-icon")[0].textContent =
         icons[curshape].icon;
     }
@@ -710,10 +730,10 @@
       btns[i].style.borderRadius = "8px";
     }
     /*if(shape=="Ellipse"){
-			var extender = document.getElementById("submenu-rect-extend")
-			extender.style.display = 'block';
-			$(extender).animate({width:250,height:200});
-		}*/
+      var extender = document.getElementById("submenu-rect-extend")
+      extender.style.display = 'block';
+      $(extender).animate({width:250,height:200});
+    }*/
     var btn = document.getElementById("submenu-rect-" + shape);
     if (icons[btn.id.substr(13)].isSVG) {
       btn.getElementsByClassName("tool-icon")[0].innerHTML =
@@ -800,16 +820,14 @@
 						</div>
 
             <div class="tool-extra submenu-rect" id="submenu-rect-Ellipse">
-							<span title = "Ellipse" class="tool-icon" id="shape2d-ellipse">` +
-        icons["Ellipse"].icon +
-        `</span>
+							<span title = "Ellipse" class="tool-icon" id="shape2d-ellipse">⬭</span>
 						</div>
             `,
       content3d: `  <div class="tool-extra submenu-rect" id="submenu-rect-Cube">
             <span title = "cube" class="tool-icon" id="shape3d-cube">❒</span>
            </div>
 
-          <div class="tool-extra submenu-rect" id="submenu-rect-Cone">
+          <div class="tool-extra submenu-rect three-d-backround" id="submenu-rect-Cone">
             <span title = "cone" class="tool-icon" id="shape3d-cone">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 511.915 511.915" xml:space="preserve">             
               <g>
@@ -819,7 +837,7 @@
             </span>
           </div>
 
-          <div class="tool-extra submenu-rect" id="submenu-rect-Cylinder">
+          <div class="tool-extra submenu-rect three-d-backround" id="submenu-rect-Cylinder">
             <span title = "cylinder" class="tool-icon" id="shape3d-cylinder">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
               <g>
@@ -831,7 +849,7 @@
             </span>
           </div>
 
-          <div class="tool-extra submenu-rect" id="submenu-rect-Sphere">
+          <div class="tool-extra submenu-rect three-d-backround" id="submenu-rect-Sphere">
             <span title = "sphere" class="tool-icon" id="shape3d-sphere">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="16px" width="16px" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
               <g>

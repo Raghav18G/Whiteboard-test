@@ -171,8 +171,8 @@ iframe {
 #draggableToolbar {
   position: relative;
   z-index: 1000;
-  background-color: #f1f1f1;
-  border: 1px solid #d3d3d3;
+  background-color: #F6F6F6;
+  border: 1px solid #F6F6F6;
   text-align: center;
   /* padding: 6px 15px 6px; */
   padding: 20px 15px 6px;
@@ -182,11 +182,13 @@ iframe {
   align-items: center;
   top: 280px;
   left: 165px;
+  box-shadow: 0px 6px 8px 0px #e0e0e0;;
 }
 
 .dragIconContainer {
-  background-color: #fff;
-  border-radius: 40%;
+  background-color: #EDEBF2;
+  padding: 6px;
+  border-radius: 50%;
 }
 
 #draggableToolbarheader {
@@ -202,8 +204,8 @@ iframe {
 } */
 
 .dragLogo {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 }
 
 .stopRecordingBtn {
@@ -442,15 +444,20 @@ iframe {
   padding: 10px;
   font-weight: 700;
   border-radius: 10px;
+  margin-top: 0px;
+  margin-bottom: 9px;
+
 }
 
 .popover-header {
   margin-left: 10px;
+  margin-top: 15px;
 }
 
 .popover .tool-extra {
   cursor: pointer;
   margin: 0px 0px 0px 0px;
+  padding-bottom: 6px;
 }
 
 .popover .tool-icon {
@@ -485,7 +492,7 @@ iframe {
   position: absolute;
   transform: rotate(90deg);
   bottom: 10.5rem;
-  left: 11.8rem;
+  left: 12.6rem;
 }
 
 .tool.opacityPicker {
@@ -527,14 +534,18 @@ iframe {
   color: red;
 }
 
-#compass {
+/* #compass {
   position: absolute;
   bottom: 10px;
   right: 3px;
   display: none;
   width: 52px;
   height: 40px;
-}
+} */
+
+/* #compass{
+  display:none;
+} */
 
 #compass .direction {
   position: absolute;
@@ -641,15 +652,14 @@ button.close.window-button {
   background-color: #008ec3;
 }
 #chooseColor {
-  width: 100%;
-  height: 100%;
+  width: 0px;
+  height: 0px;
   line-height: 30x;
   border: 0px solid black;
   border-radius: 0px;
   color: black;
   text-shadow: 0 0 0px white;
   display: block;
-  width: 100%;
   margin: 0px;
   padding: 0px;
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -668,9 +678,9 @@ button.close.window-button {
   transform: rotate(-90deg) !important;
   display: block;
   width: 12rem !important;
-  bottom: 14.5rem;
+  bottom: 14.8rem;
   height: 1rem;
-  left: 8rem;
+  left: 9.5rem;
   border: 0;
   position: absolute;
   margin: 0;
@@ -678,9 +688,9 @@ button.close.window-button {
 }
 .rangeChooser-opacity {
   width: 8rem !important;
-  bottom: 1.8rem !important;
+  bottom: 2.5rem!important;
   height: 12rem;
-  left: 1.9rem;
+  left: 1.7rem;
 }
 
 /* shape styles */
@@ -977,7 +987,7 @@ div#msr-pod-up {
   height: 38px;
   border-radius: 2rem;
   border: 1px solid #0077ff;
-  padding: 8px 12px;
+  padding: 7px 8px;
   color: #0077ff;
   background: none;
   -webkit-appearance: auto;
@@ -1147,7 +1157,7 @@ div#msr-pod-up {
     transform: rotate(90deg) !important;
     left: 8rem;
     position: fixed;
-    top: 19.5rem;
+    top: 20.5rem;
     bottom: auto;
   }
 
@@ -1162,7 +1172,7 @@ div#msr-pod-up {
     position: fixed;
     /* width: 130px !important; */
     left: 6rem;
-    top: 20.8rem;
+    top: 21.8rem;
     bottom: auto;
   }
 
@@ -1197,13 +1207,44 @@ div#msr-pod-up {
     transform: none !important;
     bottom: 0px;
   }
-  /* tabs toolbar ui */
-  .label-tool {
-    display: none !important;
-  }
-  .color-tool-pick {
-    margin: auto !important;
-  }
+    /* tabs toolbar ui */
+ .label-tool{
+  display:none!important;
+} 
+.color-tool-pick{
+  margin: 0px 18px 26px 7px!important;
+}   
+#btn-start-recording{
+  margin-left: -2px!important;
+}
+.calc-svg{
+  margin-left: -3px!important;
+}
+.tool-icon{
+  max-height: 30px;
+}
+.size_selector_container {
+  margin-bottom: 4px;
+}
+.lines-svg{
+  margin-top: -7px;
+    height: 47px;
+    width: 37px;
+}
+.shape-svg-icon{
+  margin-left: -3px;
+}
+.toggle-icon{
+  width: 30px!important;
+  height: 35px;
+  margin-top: 8px!important;
+  margin-left: 2px;
+  margin-bottom:8px;
+}
+.table-svg{
+  margin-bottom: 4px;
+}
+
 }
 @media screen and (min-width: 620px) and (max-width: 960px) {
   /* #menuItems #tools {
@@ -1252,8 +1293,14 @@ div#msr-pod-up {
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #888;
-    border-radius: 1rem;
+    border-radius: 1rem
+  
   }
+  /* Rounded Compass*/
+.rounded-compass {
+  right: -98px!important;
+
+}
 }
 
 .hideExtenders {
@@ -1497,6 +1544,7 @@ div#msr-pod-up {
 
 .documentModal-content {
   position: fixed;
+  width: 29rem;
   background-color: #f5f5f5;
   padding: 20px;
   border-radius: 20px;
@@ -1656,10 +1704,16 @@ div#msr-pod-up {
 
 /* Dice Widget */
 
+.dice-tool{
+  width: 150px;
+  height: 150px;
+  margin-left: -15px;
+  display: block;
+}
+
 #dice {
   width: 150px;
   height: 150px;
-  /* margin: 20px auto; */
   margin-left: -15px;
   display: block;
 }
@@ -1754,7 +1808,13 @@ div#msr-pod-up {
 .downloadOption:hover {
   color: red;
 }
-#dragVideoModalClose {
+.document-option:hover{
+  color:red;
+}
+.document-option:hover{
+  color:red;
+}
+#dragVideoModalClose{
   top: 18px;
   right: 7px;
 }
@@ -1781,7 +1841,7 @@ div#msr-pod-up {
   /* cursor: ne-resize;  */
   display: block;
   width: 400px;
-  height: 212px;
+  height: 201px;
 }
 
 .rotational-division {
@@ -1872,6 +1932,7 @@ div#msr-pod-up {
 }
 
 #element-one {
+  display:none;
   width: 100%;
   height: 3px;
   background-color: #ffffff;
@@ -1993,6 +2054,69 @@ div#msr-pod-up {
   height: 413px;
   cursor: crosshair;
   z-index: 9999;
+}
+
+
+
+/* Hide the input visually but keep it accessible */
+/* .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+} */
+
+/* Style the SVG to look like the original input */
+/* .color-pick svg {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  
+} */
+
+.three-d-backround{
+  padding-top: 8px;
+}
+
+.disabled-btn-PDF{
+  color:slategray;
+}
+
+/* color picker svg */
+
+.input-container {
+  position: relative;
+  display: inline-block;
+  visibility: hidden;
+}
+
+.icon-input {
+  padding: 10px 40px 10px 10px; /* Add some padding to make room for the icon */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 250px;
+  font-size: 16px;
+}
+
+.icon-input::before {
+
+  content: "";
+    background-image: url(./assets/color-picker.svg);
+    background-size: 16px;
+    background-repeat: no-repeat;
+    /* background-position: right 10px center; */
+    position: absolute;
+    /* top: -10%; */
+    transform: translateY(-50%);
+    top: 10%;
+    width: 29px;
+    height:31px;
+    right: -12px;
+    visibility: visible;
+    cursor:pointer;
 }
 .drag-widget {
   position: absolute;

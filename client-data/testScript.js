@@ -9,6 +9,6 @@ if (supportsGetDisplayMedia) {
   );
 } else {
   console.log(
-    "This browser does not support navigator.getDisplayMedia or navigator.mediaDevices.getDisplayMedia. JODDDDD"
+    "This browser does not support navigator.getDisplayMedia or navigator.mediaDevices.getDisplayMedia."
   );
 }
