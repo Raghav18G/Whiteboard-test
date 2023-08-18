@@ -239,7 +239,8 @@ var screenshotSVG =
 //     oneTouch: true,
 //   });
 // })()
-(function MobileRecorder() {
+
+(function ScreenRecorder() {
   function download(blob) {
     var url = window.URL.createObjectURL(blob);
     var a = document.createElement("a");
@@ -253,8 +254,7 @@ var screenshotSVG =
       window.URL.revokeObjectURL(url);
     }, 100);
   }
-  function startScreenRecording() {
-    console.log("STARTED SCREEN RECORDING");
+  function MobileRecorder() {
     const constraints = {
       audio: false,
       video: { mandatory: { chromeMediaSource: "screen" } },
@@ -293,6 +293,22 @@ var screenshotSVG =
       .catch(function (error) {
         console.error("Error accessing user media:", error);
       });
+  }
+  function DesktopRecorder() {
+    
+  }
+  function startScreenRecording() {
+    console.log("STARTED SCREEN RECORDING");
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+
+    if (isMobile) {
+      MobileRecorder();
+    } else {
+      DesktopRecorder();
+    }
   }
 
   Tools.add({
