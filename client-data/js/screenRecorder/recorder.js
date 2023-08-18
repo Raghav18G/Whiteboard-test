@@ -35,52 +35,7 @@
     }
   }
 
-  function invokegetUserMEdia(success, error) {
-    console.log("IN USER MEDIA");
-    var userMediaConstraints = {
-      video: {
-        mediaSource: "screen",
-        cursor: "always", // or 'motion' for cursor sharing
-      },
-      audio: true,
-    };
-
-    if (navigator.mediaDevices.getDisplayMedia) {
-      navigator.mediaDevices
-        .getUserMedia(userMediaConstraints)
-        .then(() => {
-          console.log("SUCCESS");
-        })
-        .catch(() => {
-          console.log("ERROR");
-        });
-    } else {
-      navigator
-        .getUserMedia(userMediaConstraints)
-        .then(() => {
-          console.log("SUCCESS");
-        })
-        .catch(() => {
-          console.log("ERROR");
-        });
-    }
-  }
-
   function captureScreen(callback) {
-    console.log("IN CAPTURE MEDIA");
-
-    // Check if the user agent contains keywords indicating a mobile device
-    const isMobile =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
-
-    if (isMobile) {
-      console.log("This is a mobile device.");
-    } else {
-      console.log("This is a desktop device.");
-    }
-
     invokeGetDisplayMedia(
       function (screen) {
         document.getElementById("btn-start-recording").style.display = "none";
@@ -115,80 +70,42 @@
 
   var recorder; // globally accessible
 
-  document.getElementById("btn-start-recording").onclick = function () {
-    this.disabled = true;
+  // document.getElementById("btn-start-recording").onclick = function () {
+  //   this.disabled = true;
 
-    console.log("START RECORDING", navigator);
+  //   console.log("START RECORDING", navigator);
 
-    captureScreen(function (screen) {
-      const audioTracks = screen.getAudioTracks();
-      const audioConstraints = {};
+  //   captureScreen(function (screen) {
+  //     const audioTracks = screen.getAudioTracks();
+  //     const audioConstraints = {};
 
-      if (audioTracks.length > 0) {
-        audioConstraints.mandatory = {
-          chromeMediaSource: "desktop",
-          chromeMediaSourceId: audioTracks[0].getSettings().deviceId,
-        };
-      }
+  //     if (audioTracks.length > 0) {
+  //       audioConstraints.mandatory = {
+  //         chromeMediaSource: "desktop",
+  //         chromeMediaSourceId: audioTracks[0].getSettings().deviceId,
+  //       };
+  //     }
 
-      recorder = RecordRTC(screen, {
-        type: "video",
-        recorderType: MediaStreamRecorder,
-        mimeType: "video/webm",
-        audio: audioConstraints,
-      });
+  //     recorder = RecordRTC(screen, {
+  //       type: "video",
+  //       recorderType: MediaStreamRecorder,
+  //       mimeType: "video/webm",
+  //       audio: audioConstraints,
+  //     });
 
-      recorder.startRecording();
+  //     recorder.startRecording();
 
-      // release screen on stopRecording
-      recorder.screen = screen;
+  //     // release screen on stopRecording
+  //     recorder.screen = screen;
 
-      document.getElementById("btn-stop-recording").disabled = false;
-    });
-  };
+  //     document.getElementById("btn-stop-recording").disabled = false;
+  //   });
+  // };
 
-  document
-    .getElementById("btn-start-recording")
-    .addEventListener("touchstart", () => {
-      console.log("SYSTEUMMMM TOUCH ");
-    });
-  document.getElementById("btn-start-recording").ontouchstart = function () {
-    console.log("START RECORDING Touch event", navigator);
-
-    captureScreen(function (screen) {
-      const audioTracks = screen.getAudioTracks();
-      const audioConstraints = {};
-
-      if (audioTracks.length > 0) {
-        audioConstraints.mandatory = {
-          chromeMediaSource: "desktop",
-          chromeMediaSourceId: audioTracks[0].getSettings().deviceId,
-        };
-      }
-
-      recorder = RecordRTC(screen, {
-        type: "video",
-        recorderType: MediaStreamRecorder,
-        mimeType: "video/webm",
-        audio: audioConstraints,
-      });
-
-      recorder.startRecording();
-
-      // release screen on stopRecording
-      recorder.screen = screen;
-
-      document.getElementById("btn-stop-recording").disabled = false;
-    });
-  };
-
-  document.getElementById("btn-stop-recording").onclick = function () {
-    this.disabled = true;
-    recorder.stopRecording(stopRecordingCallback);
-  };
-  document.getElementById("btn-stop-recording").ontouchstart = function () {
-    recorder.stopRecording(stopRecordingCallback);
-  };
+  // document.getElementById("btn-stop-recording").onclick = function () {
+  //   this.disabled = true;
+  //   recorder.stopRecording(stopRecordingCallback);
+  // };
 
   function addStreamStopListener(stream, callback) {
     stream.addEventListener(
@@ -227,7 +144,3 @@
     });
   }
 })();
-
-function click() {
-  console.log("cli");
-}
