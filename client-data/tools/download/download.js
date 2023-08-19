@@ -60,7 +60,7 @@
     if (generatedImages.length > 0) {
       const pdf = new jsPDF();
       //looping through the array
-      generatedImages.forEach(function (dataURL, index) {
+      generatedImages.forEach(function (obj, index) {
         if (index !== 0) {
           pdf.addPage(); // Add a new page for each image except the first one
         }
@@ -68,7 +68,7 @@
         const imgWidth = 190; // Adjust as needed
         const imgHeight = 0; // Height will be auto-calculated based on the aspect ratio
 
-        pdf.addImage(dataURL, "PNG", 10, 10, imgWidth, imgHeight);
+        pdf.addImage(...Object.values(obj), "PNG", 10, 10, imgWidth, imgHeight);
       });
 
       // Save the PDF and provide it for download
@@ -94,11 +94,35 @@
   });
 
   function downloadOption() {
-    console.log("DOWNLOADING");
-
     const generatedImages = JSON.parse(
       window.localStorage.getItem("generatedImages")
     );
+    const pageNumber = window.location.search.split("&file=")[1];
+
+    let pageKey = "1";
+
+    if (generatedImages.length > 0) {
+      pageKey = String(
+        ...Object.keys(generatedImages[generatedImages.length - 1])
+      );
+    }
+
+    if (pageKey === pageNumber) {
+      console.log("KEY ALREADY EXUSTS");
+    } else {
+      console.log("Key Doesen't Exists");
+      domtoimage.toPng(canvas, { bgcolor: "#fff" }).then(function (dataURL) {
+        const pageNumber = window.location.search.split("&file=")[1];
+        let obj = {};
+        obj[pageNumber] = dataURL;
+        generatedImages.push(obj);
+        console.log("GENERATED IMAGES", generatedImages);
+        localStorage.setItem(
+          "generatedImages",
+          JSON.stringify(generatedImages)
+        );
+      });
+    }
 
     if (generatedImages.length > 0) {
       document.getElementById("downloadingMulyipageOption").style.display =
