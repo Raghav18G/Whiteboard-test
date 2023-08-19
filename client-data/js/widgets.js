@@ -477,23 +477,26 @@ const calculatorWidget = (e) => {
   <div id="calculatorWidget">
 <input type="text" id="result" disabled="true" ></input>
 <div>
-<button id="ClearButton" class="calc-btn">C</button>
+
 <button id="number7" class="calc-btn">7</button>
 <button id="number8" class="calc-btn">8</button>
 <button id="number9" class="calc-btn">9</button>
 <button id="divide" class="calc-btn">/</button>
+<button id="ClearButton" class="calc-btn">C</button>
 <button id="number4" class="calc-btn">4</button>
 <button id="number5" class="calc-btn">5</button>
 <button id="number6" class="calc-btn">6</button>
 <button id="multiply" class="calc-btn">*</button>
+<button id="add" class="calc-btn">+</button>
 <button id="number1" class="calc-btn">1</button>
 <button id="number2" class="calc-btn">2</button>
 <button id="number3" class="calc-btn">3</button>
 <button id="subtract" class="calc-btn">-</button>
-<button id="number0" class="calc-btn">0</button>
 <button id="decimal" class="calc-btn">.</button>
+<button id="number0" class="calc-btn">0</button>
+
 <button id="calculate" class="calc-btn">=</button>
-<button id="add" class="calc-btn">+</button>
+
 </div>
 </div>`;
 
