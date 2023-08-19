@@ -1324,11 +1324,21 @@ div#msr-pod-up {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.download-chip {
+  display: inline-block;
+  background-color: #f0f0f0;
+  border-radius: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
 .downloadModal-content {
   position: fixed;
+  text-align: center;
   background-color: #f5f5f5;
   padding: 20px;
-  width: 14rem;
+  width: 50rem;
   border-radius: 20px;
   top: 50%;
   left: 50%;
@@ -1337,7 +1347,19 @@ div#msr-pod-up {
 
 .downloadItems {
   padding: 0px;
+  display: flex;
+  
+  flex-direction: column;
+  justify-content: center;
 }
+
+.downloadItems--container{
+  display: flex;
+ width:100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .downloadItems h4 {
   text-align: center;
   cursor: pointer;
@@ -1803,6 +1825,13 @@ div#msr-pod-up {
   padding: 1px;
   border-radius: 5px;
   border: none;
+}
+
+.downloadOption{
+background-color: #f5f5f5;
+border-radius: 10px;
+padding: 10px;
+
 }
 
 .downloadOption:hover {

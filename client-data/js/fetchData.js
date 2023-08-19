@@ -5,6 +5,7 @@ var btn = document.getElementById("go-btn");
 if (!select.options[select.selectedIndex].value) {
   btn.disabled = true;
 }
+
 var Tools = {};
 
 (function () {
@@ -88,7 +89,8 @@ function checkDisable() {
       var dropdown = document.getElementsByClassName("newBoard--Select");
       data.boardNames.map((name) => {
         dropdown[0].innerHTML =
-          dropdown[0].innerHTML + `<option  value=${name}>${decodeURI(name)}</option>`;
+          dropdown[0].innerHTML +
+          `<option  value=${name}>${decodeURI(name)}</option>`;
       });
       window.localStorage.setItem("structure", data.structure);
     });

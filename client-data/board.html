@@ -144,17 +144,33 @@
 
     <!-- Download Content Modal -->
     <div class="downloadModal" id="downloadModal">
-        <div class="downloadModal-content">
+    <div class="downloadModal-content">
             <span class="close" id="downloadModalClose"><img src="./assets/CloseCircle.svg" /></span>
 
             <div class="downloadItems">
-                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
-                <hr />
-                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>
-                <hr />
-                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
-                <hr />
-                <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
+                <h3 style="font-weight: 800;"> Download Current Page in the Following Formats</h3>
+                <div class="downloadItems--container">
+                    <div  class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsSVG">SVG</h4>
+                    </div>
+                    <div  class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPDF">PDF</h4>    
+                    </div>
+                    <div  class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsPNG">PNG</h4>
+                    </div>
+                    <div  class="download-chip">
+                        <h4 style="text-align: center; cursor: pointer;" class="downloadOption" id="downloadAsJPG">JPG</h4>
+                    </div>
+                  
+                </div>
+            </div>
+            <h3 style="font-weight: 800;">OR</h3>
+            <div class="donwnloadAllPages" >
+                <div  class="download-chip">
+                    <h3  style="text-align: center; cursor: pointer;" id="downlaodAllPages" class="downloadOption">Download All Pages</h3>
+
+                </div>
             </div>
         </div>
     </div>
@@ -1313,7 +1329,7 @@
                     document.getElementById("shape2d-equi").title = `Equilateral Triangle`;
                     document.getElementById("shape2d-parallelogram").title = `Parallelogram`;
                     document.getElementById("shape2d-trapezoid").title = `Trapezoid`;
-                    document.getElementById("shape2d-rombus").title = `Rombus`;
+                    document.getElementById("shape2d-rombus").title = `Rhombus`;
                     document.getElementById("shape2d-pentagon").title = `Pentagon`;
                     document.getElementById("shape2d-hexagon").title = `Hexagon`;
                     document.getElementById("shape2d-ellipse").title = `Ellipse`;
@@ -1421,7 +1437,7 @@
                     document.getElementById("tool-equitri-localization").innerHTML = `Equi Triangle`;
                     document.getElementById("tool-parallelogram-localization").innerHTML = `Parallelogram`;
                     document.getElementById("tool-trapezoid-localization").innerHTML = `Trapezoid`;
-                    document.getElementById("tool-rombus-localization").innerHTML = `Rombus`;
+                    document.getElementById("tool-rombus-localization").innerHTML = `Rhombus`;
                     document.getElementById("tool-pentagon-localization").innerHTML = `Pentagon`;
                     document.getElementById("tool-hexagon-localization").innerHTML = `Hexagon`;
                     document.getElementById("tool-ellipse-localization").innerHTML = `Ellipse`;

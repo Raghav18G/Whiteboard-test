@@ -25,7 +25,6 @@ async function startRecording() {
     video.src = window.URL.createObjectURL(audioStream);
   }
 
-  
   video.onloadedmetadata = function (e) {
     video.play();
   };
@@ -105,6 +104,8 @@ const checkForRecordStart = () => {
     $("body").on("click", ".close__meeting", () => {
       if (!token && !meetingId) {
         window.location.href = "/";
+
+        window.localStorage.setItem("generatedImages", JSON.stringify([]));
       }
     });
   }

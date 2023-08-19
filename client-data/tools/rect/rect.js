@@ -55,12 +55,12 @@
       isSVG: false,
     },
     Parallelogram: {
-      icon: `▱<br> <label id="tool-parallelogram-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`,
+      icon: `▱<br> <label id="tool-parallelogram-localization" class="label-tool" style="font-size: 9.4px;line-height: 2px;font-weight:400; margin-top: 1px;margin-left: -4px;"><p>Parallelogram</p></label>`,
       isHTML: true,
       isSVG: false,
     },
     Rombus: {
-      icon: `◇<br> <label id="tool-rombus-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Parallelogram</p></label>`, 
+      icon: `◇<br> <label id="tool-rombus-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 1px;"><p>Rhombus</p></label>`, 
       isHTML: true,
       isSVG: false,
     },
@@ -808,7 +808,7 @@
 						</div>
 
             <div class="tool-extra submenu-rect" id="submenu-rect-Rombus">
-              <span title = "Rombus" class="tool-icon" id="shape2d-rombus">◇</span>
+              <span title = "Rhombus" class="tool-icon" id="shape2d-rombus">◇</span>
 						</div>
 
 						<div class="tool-extra submenu-rect" id="submenu-rect-Pentagon">

@@ -102,6 +102,10 @@ var loading = true;
         .split("&")[0];
       window.localStorage.removeItem("selectedBoard");
       window.localStorage.setItem("selectedBoard", selectedBoard);
+      if (!window.localStorage?.getItem("generatedImages")) {
+        window.localStorage.setItem("generatedImages", JSON.stringify([]));
+      }
+
       handleMessage(msg);
 
       if (
@@ -148,6 +152,8 @@ Tools.svg.addEventListener("mousemove", handleMarker, false);
 //}else{
 Tools.svg.addEventListener("touchmove", handleMarker, { passive: false });
 //}
+
+//Adding Genrated Images For board
 
 var lastPointerUpdate = 0;
 var cursorLastUse = {};
