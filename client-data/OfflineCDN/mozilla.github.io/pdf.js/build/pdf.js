@@ -109,6 +109,7 @@ const AnnotationEditorType = {
 exports.AnnotationEditorType = AnnotationEditorType;
 const AnnotationEditorParamsType = {
   RESIZE: 1,
+  CREATE: 2,
   FREETEXT_SIZE: 11,
   FREETEXT_COLOR: 12,
   FREETEXT_OPACITY: 13,
@@ -969,7 +970,7 @@ function getDocument(src) {
   }
   const fetchDocParams = {
     docId,
-    apiVersion: '3.10.86',
+    apiVersion: '3.10.90',
     data,
     password,
     disableAutoFetch,
@@ -1102,7 +1103,17 @@ class PDFDocumentLoadingTask {
   }
   async destroy() {
     this.destroyed = true;
-    await this._transport?.destroy();
+    try {
+      if (this._worker?.port) {
+        this._worker._pendingDestroy = true;
+      }
+      await this._transport?.destroy();
+    } catch (ex) {
+      if (this._worker?.port) {
+        delete this._worker._pendingDestroy;
+      }
+      throw ex;
+    }
     this._transport = null;
     if (this._worker) {
       this._worker.destroy();
@@ -1783,9 +1794,6 @@ class PDFWorker {
     port = null,
     verbosity = (0, _util.getVerbosityLevel)()
   } = {}) {
-    if (port && PDFWorker.#workerPorts.has(port)) {
-      throw new Error("Cannot use more than one PDFWorker per port.");
-    }
     this.name = name;
     this.destroyed = false;
     this.verbosity = verbosity;
@@ -1794,6 +1802,9 @@ class PDFWorker {
     this._webWorker = null;
     this._messageHandler = null;
     if (port) {
+      if (PDFWorker.#workerPorts.has(port)) {
+        throw new Error("Cannot use more than one PDFWorker per port.");
+      }
       PDFWorker.#workerPorts.set(port, this);
       this._initializeFromPort(port);
       return;
@@ -1931,8 +1942,12 @@ class PDFWorker {
     if (!params?.port) {
       throw new Error("PDFWorker.fromPort - invalid method signature.");
     }
-    if (this.#workerPorts.has(params.port)) {
-      return this.#workerPorts.get(params.port);
+    const cachedPort = this.#workerPorts.get(params.port);
+    if (cachedPort) {
+      if (cachedPort._pendingDestroy) {
+        throw new Error("PDFWorker.fromPort - the worker is being destroyed.\n" + "Please remember to await `PDFDocumentLoadingTask.destroy()`-calls.");
+      }
+      return cachedPort;
     }
     return new PDFWorker(params);
   }
@@ -2074,9 +2089,7 @@ class WorkerTransport {
       this.fontLoader.clear();
       this.#methodPromises.clear();
       this.filterFactory.destroy();
-      if (this._networkStream) {
-        this._networkStream.cancelAllRequests(new _util.AbortException("Worker was terminated."));
-      }
+      this._networkStream?.cancelAllRequests(new _util.AbortException("Worker was terminated."));
       if (this.messageHandler) {
         this.messageHandler.destroy();
         this.messageHandler = null;
@@ -2726,9 +2739,9 @@ class InternalRenderTask {
     }
   }
 }
-const version = '3.10.54';
+const version = '3.10.90';
 exports.version = version;
-const build = 'f89020e9b';
+const build = '60581c427';
 exports.build = build;
 
 /***/ }),
@@ -2912,9 +2925,10 @@ class AnnotationEditor {
   #resizersDiv = null;
   #boundFocusin = this.focusin.bind(this);
   #boundFocusout = this.focusout.bind(this);
-  #hasBeenSelected = false;
+  #hasBeenClicked = false;
   #isEditing = false;
   #isInEditMode = false;
+  _initialOptions = Object.create(null);
   _uiManager = null;
   _focusEventsAllowed = true;
   #isDraggable = false;
@@ -2934,6 +2948,7 @@ class AnnotationEditor {
     this._uiManager = parameters.uiManager;
     this.annotationElementId = null;
     this._willKeepAspectRatio = false;
+    this._initialOptions.isCentered = parameters.isCentered;
     const {
       rotation,
       rawDims: {
@@ -2971,6 +2986,12 @@ class AnnotationEditor {
   static get defaultPropertiesToUpdate() {
     return [];
   }
+  static isHandlingMimeForPasting(_mime) {
+    return false;
+  }
+  static paste(item, parent) {
+    (0, _util.unreachable)("Not implemented");
+  }
   get propertiesToUpdate() {
     return [];
   }
@@ -2980,6 +3001,28 @@ class AnnotationEditor {
   set _isDraggable(value) {
     this.#isDraggable = value;
     this.div?.classList.toggle("draggable", value);
+  }
+  center() {
+    const [pageWidth, pageHeight] = this.pageDimensions;
+    switch (this.parentRotation) {
+      case 90:
+        this.x -= this.height * pageHeight / (pageWidth * 2);
+        this.y += this.width * pageWidth / (pageHeight * 2);
+        break;
+      case 180:
+        this.x += this.width / 2;
+        this.y += this.height / 2;
+        break;
+      case 270:
+        this.x += this.height * pageHeight / (pageWidth * 2);
+        this.y -= this.width * pageWidth / (pageHeight * 2);
+        break;
+      default:
+        this.x -= this.width / 2;
+        this.y -= this.height / 2;
+        break;
+    }
+    this.fixAndSetPosition();
   }
   addCommands(params) {
     this._uiManager.addCommands(params);
@@ -3004,10 +3047,10 @@ class AnnotationEditor {
     if (!this._focusEventsAllowed) {
       return;
     }
-    if (!this.#hasBeenSelected) {
+    if (!this.#hasBeenClicked) {
       this.parent.setSelected(this);
     } else {
-      this.#hasBeenSelected = false;
+      this.#hasBeenClicked = false;
     }
   }
   focusout(event) {
@@ -3057,7 +3100,27 @@ class AnnotationEditor {
   }
   translateInPage(x, y) {
     this.#translate(this.pageDimensions, x, y);
-    this.parent.moveEditorInDOM(this);
+    this.moveInDOM();
+    this.div.scrollIntoView({
+      block: "nearest"
+    });
+  }
+  drag(tx, ty) {
+    const [parentWidth, parentHeight] = this.parentDimensions;
+    this.x += tx / parentWidth;
+    this.y += ty / parentHeight;
+    if (this.x < 0 || this.x > 1 || this.y < 0 || this.y > 1) {
+      const {
+        x,
+        y
+      } = this.div.getBoundingClientRect();
+      if (this.parent.findNewParent(this, x, y)) {
+        this.x -= Math.floor(this.x);
+        this.y -= Math.floor(this.y);
+      }
+    }
+    this.div.style.left = `${(100 * this.x).toFixed(2)}%`;
+    this.div.style.top = `${(100 * this.y).toFixed(2)}%`;
     this.div.scrollIntoView({
       block: "nearest"
     });
@@ -3179,6 +3242,9 @@ class AnnotationEditor {
   getInitialTranslation() {
     return [0, 0];
   }
+  static #noContextMenu(e) {
+    e.preventDefault();
+  }
   #createResizers() {
     if (this.#resizersDiv) {
       return;
@@ -3194,11 +3260,18 @@ class AnnotationEditor {
       this.#resizersDiv.append(div);
       div.classList.add("resizer", name);
       div.addEventListener("pointerdown", this.#resizerPointerdown.bind(this, name));
+      div.addEventListener("contextmenu", AnnotationEditor.#noContextMenu);
     }
     this.div.prepend(this.#resizersDiv);
   }
   #resizerPointerdown(name, event) {
     event.preventDefault();
+    const {
+      isMac
+    } = _util.FeatureTest.platform;
+    if (event.button !== 0 || event.ctrlKey && isMac) {
+      return;
+    }
     const boundResizerPointermove = this.#resizerPointermove.bind(this, name);
     const savedDraggable = this._isDraggable;
     this._isDraggable = false;
@@ -3237,7 +3310,7 @@ class AnnotationEditor {
           const [parentWidth, parentHeight] = this.parentDimensions;
           this.setDims(parentWidth * newWidth, parentHeight * newHeight);
           this.fixAndSetPosition();
-          this.parent.moveEditorInDOM(this);
+          this.moveInDOM();
         },
         undo: () => {
           this.width = savedWidth;
@@ -3247,7 +3320,7 @@ class AnnotationEditor {
           const [parentWidth, parentHeight] = this.parentDimensions;
           this.setDims(parentWidth * savedWidth, parentHeight * savedHeight);
           this.fixAndSetPosition();
-          this.parent.moveEditorInDOM(this);
+          this.moveInDOM();
         },
         mustExec: true
       });
@@ -3368,81 +3441,57 @@ class AnnotationEditor {
       event.preventDefault();
       return;
     }
-    if (event.ctrlKey && !isMac || event.shiftKey || event.metaKey && isMac) {
-      this.parent.toggleSelected(this);
-    } else {
-      this.parent.setSelected(this);
-    }
-    this.#hasBeenSelected = true;
+    this.#hasBeenClicked = true;
     this.#setUpDragSession(event);
   }
   #setUpDragSession(event) {
     if (!this._isDraggable) {
       return;
     }
-    this._uiManager.disableUserSelect(true);
-    const savedParent = this.parent;
-    const savedX = this.x;
-    const savedY = this.y;
-    const pointerMoveOptions = {
-      passive: true,
-      capture: true
-    };
-    const pointerMoveCallback = e => {
-      const [parentWidth, parentHeight] = this.parentDimensions;
-      const [tx, ty] = this.screenToPageTranslation(e.movementX, e.movementY);
-      this.x += tx / parentWidth;
-      this.y += ty / parentHeight;
-      if (this.x < 0 || this.x > 1 || this.y < 0 || this.y > 1) {
-        const {
-          x,
-          y
-        } = this.div.getBoundingClientRect();
-        if (this.parent.findNewParent(this, x, y)) {
-          this.x -= Math.floor(this.x);
-          this.y -= Math.floor(this.y);
-        }
-      }
-      this.div.style.left = `${(100 * this.x).toFixed(2)}%`;
-      this.div.style.top = `${(100 * this.y).toFixed(2)}%`;
-      this.div.scrollIntoView({
-        block: "nearest"
-      });
-    };
-    window.addEventListener("pointermove", pointerMoveCallback, pointerMoveOptions);
+    const isSelected = this._uiManager.isSelected(this);
+    this._uiManager.setUpDragSession();
+    let pointerMoveOptions, pointerMoveCallback;
+    if (isSelected) {
+      pointerMoveOptions = {
+        passive: true,
+        capture: true
+      };
+      pointerMoveCallback = e => {
+        const [tx, ty] = this.screenToPageTranslation(e.movementX, e.movementY);
+        this._uiManager.dragSelectedEditors(tx, ty);
+      };
+      window.addEventListener("pointermove", pointerMoveCallback, pointerMoveOptions);
+    }
     const pointerUpCallback = () => {
-      this._uiManager.disableUserSelect(false);
       window.removeEventListener("pointerup", pointerUpCallback);
       window.removeEventListener("blur", pointerUpCallback);
-      window.removeEventListener("pointermove", pointerMoveCallback, pointerMoveOptions);
-      const newParent = this.parent;
-      const newX = this.x;
-      const newY = this.y;
-      if (newParent === savedParent && newX === savedX && newY === savedY) {
-        return;
+      if (isSelected) {
+        window.removeEventListener("pointermove", pointerMoveCallback, pointerMoveOptions);
       }
-      this.addCommands({
-        cmd: () => {
-          newParent.changeParent(this);
-          this.x = newX;
-          this.y = newY;
-          this.fixAndSetPosition();
-          newParent.moveEditorInDOM(this);
-        },
-        undo: () => {
-          savedParent.changeParent(this);
-          this.x = savedX;
-          this.y = savedY;
-          this.fixAndSetPosition();
-          savedParent.moveEditorInDOM(this);
-        },
-        mustExec: false
-      });
-      this.fixAndSetPosition();
-      this.parent.moveEditorInDOM(this);
+      this.#hasBeenClicked = false;
+      if (!this._uiManager.endDragSession()) {
+        const {
+          isMac
+        } = _util.FeatureTest.platform;
+        if (event.ctrlKey && !isMac || event.shiftKey || event.metaKey && isMac) {
+          this.parent.toggleSelected(this);
+        } else {
+          this.parent.setSelected(this);
+        }
+      }
     };
     window.addEventListener("pointerup", pointerUpCallback);
     window.addEventListener("blur", pointerUpCallback);
+  }
+  moveInDOM() {
+    this.parent.moveEditorInDOM(this);
+  }
+  _setParentAndPosition(parent, x, y) {
+    parent.changeParent(this);
+    this.x = x;
+    this.y = y;
+    this.fixAndSetPosition();
+    this.moveInDOM();
   }
   getRect(tx, ty) {
     const scale = this.parentScale;
@@ -3951,12 +4000,14 @@ class AnnotationEditorUIManager {
   #commandManager = new CommandManager();
   #currentPageIndex = 0;
   #deletedAnnotationsElementIds = new Set();
+  #draggingEditors = null;
   #editorTypes = null;
   #editorsToRescale = new Set();
   #eventBus = null;
   #filterFactory = null;
   #idManager = new IdManager();
   #isEnabled = false;
+  #isWaiting = false;
   #lastActiveElement = null;
   #mode = _util.AnnotationEditorType.NONE;
   #selectedEditors = new Set();
@@ -4165,9 +4216,7 @@ class AnnotationEditorUIManager {
   }
   copy(event) {
     event.preventDefault();
-    if (this.#activeEditor) {
-      this.#activeEditor.commitOrRemove();
-    }
+    this.#activeEditor?.commitOrRemove();
     if (!this.hasSelection) {
       return;
     }
@@ -4189,7 +4238,18 @@ class AnnotationEditorUIManager {
   }
   paste(event) {
     event.preventDefault();
-    let data = event.clipboardData.getData("application/pdfjs");
+    const {
+      clipboardData
+    } = event;
+    for (const item of clipboardData.items) {
+      for (const editorType of this.#editorTypes) {
+        if (editorType.isHandlingMimeForPasting(item.type)) {
+          editorType.paste(item, this.currentLayer);
+          return;
+        }
+      }
+    }
+    let data = clipboardData.getData("application/pdfjs");
     if (!data) {
       return;
     }
@@ -4295,6 +4355,9 @@ class AnnotationEditorUIManager {
   get currentLayer() {
     return this.#allLayers.get(this.#currentPageIndex);
   }
+  getLayer(pageIndex) {
+    return this.#allLayers.get(pageIndex);
+  }
   get currentPageIndex() {
     return this.#currentPageIndex;
   }
@@ -4310,6 +4373,9 @@ class AnnotationEditorUIManager {
     this.#allLayers.delete(layer.pageIndex);
   }
   updateMode(mode, editId = null) {
+    if (this.#mode === mode) {
+      return;
+    }
     this.#mode = mode;
     if (mode === _util.AnnotationEditorType.NONE) {
       this.setEditingState(false);
@@ -4318,6 +4384,7 @@ class AnnotationEditorUIManager {
     }
     this.setEditingState(true);
     this.#enableAll();
+    this.unselectAll();
     for (const layer of this.#allLayers.values()) {
       layer.updateMode(mode);
     }
@@ -4345,11 +4412,29 @@ class AnnotationEditorUIManager {
     if (!this.#editorTypes) {
       return;
     }
+    if (type === _util.AnnotationEditorParamsType.CREATE) {
+      this.currentLayer.addNewEditor(type);
+      return;
+    }
     for (const editor of this.#selectedEditors) {
       editor.updateParams(type, value);
     }
     for (const editorType of this.#editorTypes) {
       editorType.updateDefaultParams(type, value);
+    }
+  }
+  enableWaiting(mustWait = false) {
+    if (this.#isWaiting === mustWait) {
+      return;
+    }
+    this.#isWaiting = mustWait;
+    for (const layer of this.#allLayers.values()) {
+      if (mustWait) {
+        layer.disableClick();
+      } else {
+        layer.enableClick();
+      }
+      layer.div.classList.toggle("waiting", mustWait);
     }
   }
   #enableAll() {
@@ -4598,6 +4683,102 @@ class AnnotationEditorUIManager {
     }, TIME_TO_WAIT);
     for (const editor of editors) {
       editor.translateInPage(x, y);
+    }
+  }
+  setUpDragSession() {
+    if (!this.hasSelection) {
+      return;
+    }
+    this.disableUserSelect(true);
+    this.#draggingEditors = new Map();
+    for (const editor of this.#selectedEditors) {
+      this.#draggingEditors.set(editor, {
+        savedX: editor.x,
+        savedY: editor.y,
+        savedPageIndex: editor.parent.pageIndex,
+        newX: 0,
+        newY: 0,
+        newPageIndex: -1
+      });
+    }
+  }
+  endDragSession() {
+    if (!this.#draggingEditors) {
+      return false;
+    }
+    this.disableUserSelect(false);
+    const map = this.#draggingEditors;
+    this.#draggingEditors = null;
+    let mustBeAddedInUndoStack = false;
+    for (const [{
+      x,
+      y,
+      parent
+    }, value] of map) {
+      value.newX = x;
+      value.newY = y;
+      value.newPageIndex = parent.pageIndex;
+      mustBeAddedInUndoStack ||= x !== value.savedX || y !== value.savedY || parent.pageIndex !== value.savedPageIndex;
+    }
+    if (!mustBeAddedInUndoStack) {
+      return false;
+    }
+    const move = (editor, x, y, pageIndex) => {
+      if (this.#allEditors.has(editor.id)) {
+        const parent = this.#allLayers.get(pageIndex);
+        if (parent) {
+          editor._setParentAndPosition(parent, x, y);
+        } else {
+          editor.pageIndex = pageIndex;
+          editor.x = x;
+          editor.y = y;
+        }
+      }
+    };
+    this.addCommands({
+      cmd: () => {
+        for (const [editor, {
+          newX,
+          newY,
+          newPageIndex
+        }] of map) {
+          move(editor, newX, newY, newPageIndex);
+        }
+      },
+      undo: () => {
+        for (const [editor, {
+          savedX,
+          savedY,
+          savedPageIndex
+        }] of map) {
+          move(editor, savedX, savedY, savedPageIndex);
+        }
+      },
+      mustExec: true
+    });
+    return true;
+  }
+  dragSelectedEditors(tx, ty) {
+    if (!this.#draggingEditors) {
+      return;
+    }
+    for (const editor of this.#draggingEditors.keys()) {
+      editor.drag(tx, ty);
+    }
+  }
+  rebuild(editor) {
+    if (editor.parent === null) {
+      const parent = this.getLayer(editor.pageIndex);
+      if (parent) {
+        parent.changeParent(editor);
+        parent.addOrRebuild(editor);
+      } else {
+        this.addEditor(editor);
+        this.addToAnnotationStorage(editor);
+        editor.rebuild();
+      }
+    } else {
+      editor.parent.addOrRebuild(editor);
     }
   }
   isActive(editor) {
@@ -12583,7 +12764,6 @@ class AnnotationEditorLayer {
     } else {
       this.enableClick();
     }
-    this.#uiManager.unselectAll();
     if (mode !== _util.AnnotationEditorType.NONE) {
       this.div.classList.toggle("freeTextEditing", mode === _util.AnnotationEditorType.FREETEXT);
       this.div.classList.toggle("inkEditing", mode === _util.AnnotationEditorType.INK);
@@ -12606,7 +12786,7 @@ class AnnotationEditorLayer {
     const editor = this.#createAndAddNewEditor({
       offsetX: 0,
       offsetY: 0
-    });
+    }, false);
     editor.setInBackground();
   }
   setEditingState(isEditing) {
@@ -12754,6 +12934,9 @@ class AnnotationEditorLayer {
     this.#uiManager.addToAnnotationStorage(editor);
   }
   moveEditorInDOM(editor) {
+    if (!editor.isAttachedToDOM) {
+      return;
+    }
     const {
       activeElement
     } = document;
@@ -12778,9 +12961,7 @@ class AnnotationEditorLayer {
     }
   }
   addUndoableEditor(editor) {
-    const cmd = () => {
-      this.addOrRebuild(editor);
-    };
+    const cmd = () => editor._uiManager.rebuild(editor);
     const undo = () => {
       editor.remove();
     };
@@ -12804,6 +12985,27 @@ class AnnotationEditorLayer {
     }
     return null;
   }
+  pasteEditor(mode, params) {
+    this.#uiManager.updateToolbar(mode);
+    this.#uiManager.updateMode(mode);
+    const {
+      offsetX,
+      offsetY
+    } = this.#getCenterPoint();
+    const id = this.getNextId();
+    const editor = this.#createNewEditor({
+      parent: this,
+      id,
+      x: offsetX,
+      y: offsetY,
+      uiManager: this.#uiManager,
+      isCentered: true,
+      ...params
+    });
+    if (editor) {
+      this.add(editor);
+    }
+  }
   deserialize(data) {
     switch (data.annotationType ?? data.annotationEditorType) {
       case _util.AnnotationEditorType.FREETEXT:
@@ -12815,19 +13017,42 @@ class AnnotationEditorLayer {
     }
     return null;
   }
-  #createAndAddNewEditor(event) {
+  #createAndAddNewEditor(event, isCentered) {
     const id = this.getNextId();
     const editor = this.#createNewEditor({
       parent: this,
       id,
       x: event.offsetX,
       y: event.offsetY,
-      uiManager: this.#uiManager
+      uiManager: this.#uiManager,
+      isCentered
     });
     if (editor) {
       this.add(editor);
     }
     return editor;
+  }
+  #getCenterPoint() {
+    const {
+      x,
+      y,
+      width,
+      height
+    } = this.div.getBoundingClientRect();
+    const tlX = Math.max(0, x);
+    const tlY = Math.max(0, y);
+    const brX = Math.min(window.innerWidth, x + width);
+    const brY = Math.min(window.innerHeight, y + height);
+    const centerX = (tlX + brX) / 2 - x;
+    const centerY = (tlY + brY) / 2 - y;
+    const [offsetX, offsetY] = this.viewport.rotation % 180 === 0 ? [centerX, centerY] : [centerY, centerX];
+    return {
+      offsetX,
+      offsetY
+    };
+  }
+  addNewEditor() {
+    this.#createAndAddNewEditor(this.#getCenterPoint(), true);
   }
   setSelected(editor) {
     this.#uiManager.setSelected(editor);
@@ -12859,7 +13084,11 @@ class AnnotationEditorLayer {
       this.#allowClick = true;
       return;
     }
-    this.#createAndAddNewEditor(event);
+    if (this.#uiManager.getMode() === _util.AnnotationEditorType.STAMP) {
+      this.#uiManager.unselectAll();
+      return;
+    }
+    this.#createAndAddNewEditor(event, false);
   }
   pointerdown(event) {
     if (this.#hadPointerDown) {
@@ -13086,6 +13315,9 @@ class FreeTextEditor extends _editor.AnnotationEditor {
     return [-FreeTextEditor._internalPadding * scale, -(FreeTextEditor._internalPadding + this.#fontSize) * scale];
   }
   rebuild() {
+    if (!this.parent) {
+      return;
+    }
     super.rebuild();
     if (this.div === null) {
       return;
@@ -13146,6 +13378,10 @@ class FreeTextEditor extends _editor.AnnotationEditor {
     }
     this.enableEditMode();
     this.editorDiv.focus();
+    if (this._initialOptions?.isCentered) {
+      this.center();
+    }
+    this._initialOptions = null;
   }
   isEmpty() {
     return !this.editorDiv || this.editorDiv.innerText.trim() === "";
@@ -13213,7 +13449,7 @@ class FreeTextEditor extends _editor.AnnotationEditor {
         return;
       }
       this.#setContent();
-      this.rebuild();
+      this._uiManager.rebuild(this);
       this.#setEditorDimensions();
     };
     this.addCommands({
@@ -16316,6 +16552,9 @@ class InkEditor extends _editor.AnnotationEditor {
     });
   }
   rebuild() {
+    if (!this.parent) {
+      return;
+    }
     super.rebuild();
     if (this.div === null) {
       return;
@@ -16593,7 +16832,7 @@ class InkEditor extends _editor.AnnotationEditor {
     this.#fitToContent(true);
     this.makeResizable();
     this.parent.addInkEditorIfNeeded(true);
-    this.parent.moveEditorInDOM(this);
+    this.moveInDOM();
     this.div.focus({
       preventScroll: true
     });
@@ -16984,10 +17223,12 @@ class StampEditor extends _editor.AnnotationEditor {
   #bitmapId = null;
   #bitmapPromise = null;
   #bitmapUrl = null;
+  #bitmapFile = null;
   #canvas = null;
   #observer = null;
   #resizeTimeoutId = null;
   #isSvg = false;
+  #hasBeenAddedInUndoStack = false;
   static _type = "stamp";
   constructor(params) {
     super({
@@ -16995,70 +17236,81 @@ class StampEditor extends _editor.AnnotationEditor {
       name: "stampEditor"
     });
     this.#bitmapUrl = params.bitmapUrl;
+    this.#bitmapFile = params.bitmapFile;
   }
   static get supportedTypes() {
     const types = ["apng", "avif", "bmp", "gif", "jpeg", "png", "svg+xml", "webp", "x-icon"];
-    return (0, _util.shadow)(this, "supportedTypes", types.map(type => `image/${type}`).join(","));
+    return (0, _util.shadow)(this, "supportedTypes", types.map(type => `image/${type}`));
+  }
+  static get supportedTypesStr() {
+    return (0, _util.shadow)(this, "supportedTypesStr", this.supportedTypes.join(","));
+  }
+  static isHandlingMimeForPasting(mime) {
+    return this.supportedTypes.includes(mime);
+  }
+  static paste(item, parent) {
+    parent.pasteEditor(_util.AnnotationEditorType.STAMP, {
+      bitmapFile: item.getAsFile()
+    });
+  }
+  #getBitmapFetched(data, fromId = false) {
+    if (!data) {
+      this.remove();
+      return;
+    }
+    this.#bitmap = data.bitmap;
+    if (!fromId) {
+      this.#bitmapId = data.id;
+      this.#isSvg = data.isSvg;
+    }
+    this.#createCanvas();
+  }
+  #getBitmapDone() {
+    this.#bitmapPromise = null;
+    this._uiManager.enableWaiting(false);
+    if (this.#canvas) {
+      this.div.focus();
+    }
   }
   #getBitmap() {
     if (this.#bitmapId) {
-      this._uiManager.imageManager.getFromId(this.#bitmapId).then(data => {
-        if (!data) {
-          this.remove();
-          return;
-        }
-        this.#bitmap = data.bitmap;
-        this.#createCanvas();
-      });
+      this._uiManager.enableWaiting(true);
+      this._uiManager.imageManager.getFromId(this.#bitmapId).then(data => this.#getBitmapFetched(data, true)).finally(() => this.#getBitmapDone());
       return;
     }
     if (this.#bitmapUrl) {
       const url = this.#bitmapUrl;
       this.#bitmapUrl = null;
-      this.#bitmapPromise = this._uiManager.imageManager.getFromUrl(url).then(data => {
-        this.#bitmapPromise = null;
-        if (!data) {
-          this.remove();
-          return;
-        }
-        ({
-          bitmap: this.#bitmap,
-          id: this.#bitmapId,
-          isSvg: this.#isSvg
-        } = data);
-        this.#createCanvas();
-      });
+      this._uiManager.enableWaiting(true);
+      this.#bitmapPromise = this._uiManager.imageManager.getFromUrl(url).then(data => this.#getBitmapFetched(data)).finally(() => this.#getBitmapDone());
+      return;
+    }
+    if (this.#bitmapFile) {
+      const file = this.#bitmapFile;
+      this.#bitmapFile = null;
+      this._uiManager.enableWaiting(true);
+      this.#bitmapPromise = this._uiManager.imageManager.getFromFile(file).then(data => this.#getBitmapFetched(data)).finally(() => this.#getBitmapDone());
       return;
     }
     const input = document.createElement("input");
     input.type = "file";
-    input.accept = StampEditor.supportedTypes;
+    input.accept = StampEditor.supportedTypesStr;
     this.#bitmapPromise = new Promise(resolve => {
       input.addEventListener("change", async () => {
-        this.#bitmapPromise = null;
         if (!input.files || input.files.length === 0) {
           this.remove();
         } else {
+          this._uiManager.enableWaiting(true);
           const data = await this._uiManager.imageManager.getFromFile(input.files[0]);
-          if (!data) {
-            this.remove();
-            return;
-          }
-          ({
-            bitmap: this.#bitmap,
-            id: this.#bitmapId,
-            isSvg: this.#isSvg
-          } = data);
-          this.#createCanvas();
+          this.#getBitmapFetched(data);
         }
         resolve();
       });
       input.addEventListener("cancel", () => {
-        this.#bitmapPromise = null;
         this.remove();
         resolve();
       });
-    });
+    }).finally(() => this.#getBitmapDone());
     input.click();
   }
   remove() {
@@ -17073,6 +17325,12 @@ class StampEditor extends _editor.AnnotationEditor {
     super.remove();
   }
   rebuild() {
+    if (!this.parent) {
+      if (this.#bitmapId) {
+        this.#getBitmap();
+      }
+      return;
+    }
     super.rebuild();
     if (this.div === null) {
       return;
@@ -17086,11 +17344,10 @@ class StampEditor extends _editor.AnnotationEditor {
   }
   onceAdded() {
     this._isDraggable = true;
-    this.parent.addUndoableEditor(this);
     this.div.focus();
   }
   isEmpty() {
-    return this.#bitmapPromise === null && this.#bitmap === null && this.#bitmapUrl === null;
+    return !(this.#bitmapPromise || this.#bitmap || this.#bitmapUrl || this.#bitmapFile);
   }
   get isResizable() {
     return true;
@@ -17105,10 +17362,10 @@ class StampEditor extends _editor.AnnotationEditor {
       baseY = this.y;
     }
     super.render();
+    this.div.hidden = true;
     if (this.#bitmap) {
       this.#createCanvas();
     } else {
-      this.div.classList.add("loading");
       this.#getBitmap();
     }
     if (this.width) {
@@ -17137,18 +17394,28 @@ class StampEditor extends _editor.AnnotationEditor {
     }
     const [parentWidth, parentHeight] = this.parentDimensions;
     this.setDims(width * parentWidth / pageWidth, height * parentHeight / pageHeight);
+    this._uiManager.enableWaiting(false);
     const canvas = this.#canvas = document.createElement("canvas");
     div.append(canvas);
+    div.hidden = false;
     this.#drawBitmap(width, height);
     this.#createObserver();
-    div.classList.remove("loading");
+    if (!this.#hasBeenAddedInUndoStack) {
+      this.parent.addUndoableEditor(this);
+      this.#hasBeenAddedInUndoStack = true;
+    }
   }
   #setDimensions(width, height) {
     const [parentWidth, parentHeight] = this.parentDimensions;
     this.width = width / parentWidth;
     this.height = height / parentHeight;
     this.setDims(width, height);
-    this.fixAndSetPosition();
+    if (this._initialOptions?.isCentered) {
+      this.center();
+    } else {
+      this.fixAndSetPosition();
+    }
+    this._initialOptions = null;
     if (this.#resizeTimeoutId !== null) {
       clearTimeout(this.#resizeTimeoutId);
     }
@@ -17183,6 +17450,8 @@ class StampEditor extends _editor.AnnotationEditor {
     return bitmap;
   }
   #drawBitmap(width, height) {
+    width = Math.ceil(width);
+    height = Math.ceil(height);
     const canvas = this.#canvas;
     if (!canvas || canvas.width === width && canvas.height === height) {
       return;
@@ -17591,8 +17860,8 @@ var _tools = __w_pdfjs_require__(5);
 var _annotation_layer = __w_pdfjs_require__(29);
 var _worker_options = __w_pdfjs_require__(14);
 var _xfa_layer = __w_pdfjs_require__(32);
-const pdfjsVersion = '3.10.54';
-const pdfjsBuild = 'f89020e9b';
+const pdfjsVersion = '3.10.90';
+const pdfjsBuild = '60581c427';
 })();
 
 /******/ 	return __webpack_exports__;
