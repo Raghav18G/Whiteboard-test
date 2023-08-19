@@ -9,6 +9,10 @@ if (!select.options[select.selectedIndex].value) {
 var Tools = {};
 
 (function () {
+  window.addEventListener("hashchange", function () {
+    const newHash = window.location.hash;
+    console.log("Hash changed to:", newHash);
+  });
   const form = document.getElementById("startNewBoardForm");
   const input = document.getElementById("board");
   console.log("Gorm", form);
@@ -32,19 +36,7 @@ var Tools = {};
   });
 })();
 
-//Registering Service Worker
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("../service-worker.js")
-      .then((registration) => {
-        console.log("Service worker registered!", registration);
-      })
-      .catch((error) => {
-        console.error("Service worker registration failed:", error);
-      });
-  });
-}
+window.localStorage.setItem("generatedImages", JSON.stringify([]));
 
 //after Selecting a board name unable the GO button
 function checkDisable() {

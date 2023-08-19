@@ -73,6 +73,8 @@
 
       // Save the PDF and provide it for download
       pdf.save(`${Tools.boardName}-ALLPAGES.pdf`);
+    } else {
+      downloadAsPDF();
     }
   }
 
