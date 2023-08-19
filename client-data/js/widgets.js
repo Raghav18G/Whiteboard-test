@@ -477,7 +477,6 @@ const calculatorWidget = (e) => {
   <div id="calculatorWidget">
 <input type="text" id="result" disabled="true" ></input>
 <div>
-
 <button id="number7" class="calc-btn">7</button>
 <button id="number8" class="calc-btn">8</button>
 <button id="number9" class="calc-btn">9</button>
