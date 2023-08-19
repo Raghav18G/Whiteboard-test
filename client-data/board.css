@@ -1311,6 +1311,8 @@ div#msr-pod-up {
   display: none;
 }
 
+
+
 .downloadModal {
   position: fixed;
   display: none;
@@ -1344,6 +1346,12 @@ div#msr-pod-up {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+
+#downloadingMulyipageOption{
+  display: none;
+}
+
 
 .downloadItems {
   padding: 0px;

@@ -95,6 +95,15 @@
 
   function downloadOption() {
     console.log("DOWNLOADING");
+
+    const generatedImages = JSON.parse(
+      window.localStorage.getItem("generatedImages")
+    );
+
+    if (generatedImages.length > 0) {
+      document.getElementById("downloadingMulyipageOption").style.display =
+        "block";
+    }
     document.getElementById("downloadModal").style.display = "block";
     document
       .getElementById("downloadModalClose")
