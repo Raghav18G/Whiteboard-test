@@ -31,6 +31,7 @@ async function startRecording() {
 
   // start video
   $("body").on("click", ".hide__video", () => {
+    console.log("CLICKEd VIDEO ELEMENET");
     if ("srcObject" in video) {
       video.srcObject = audioStream;
     } else {

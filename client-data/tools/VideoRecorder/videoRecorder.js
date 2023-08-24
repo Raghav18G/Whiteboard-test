@@ -22,9 +22,11 @@ $(document).ready(() => {
   $("body").on("click", ".hide__video", () => {
     console.log("CLICKED VIDEO ELEMENT");
     $(".video__container").empty().append(video);
+    audioVideo();
   });
   $("body").on("click", ".video__recorder", () => {
     console.log("CLICKED VIDEO ELEMENT AGAIN");
     $(".video__container").empty().append(hideVideo);
+   
   });
 });

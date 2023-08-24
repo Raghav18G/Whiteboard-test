@@ -36,11 +36,13 @@ const audioVideo = async () => {
     // stop video
     $("body").on("click", ".video__recorder", () => {
       const stream = video.srcObject;
-      const tracks = stream.getTracks();
       video.onloadedmetadata = function (e) {
         video.pause();
       };
       video.srcObject = null;
+      const tracks = audioStream.getTracks();
+      console.log("MIC CLICKED MUTE", tracks);
+      tracks.forEach((track) => track.stop());
     });
 
     // unmute
@@ -63,10 +65,6 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const token = urlParams.get("token");
 const meetingId = urlParams.get("meetingId");
-
-if (!token && !meetingId) {
-  audioVideo();
-}
 
 const changeMiceIfAudioOn = () => {
   const mice = `<svg class="mice__record" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 23"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M12,13V6A6,6,0,0,0,0,6v7a6,6,0,0,0,5.05,5.92V21H0v2H12V21H7V18.91A6,6,0,0,0,12,13ZM2,13V6a4,4,0,0,1,8,0v7a4,4,0,0,1-8,0Z"/></g></g></svg>`;
