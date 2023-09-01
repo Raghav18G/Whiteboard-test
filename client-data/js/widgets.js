@@ -47,8 +47,10 @@ const ClockWidget = (e) => {
   clockWidget.innerHTML = clockHTML;
   clockWidget.style.maxWidth = "100%";
   clockWidget.style.position = "absolute";
-  foreignObjectClock.style.x = e.clientX;
-  foreignObjectClock.style.y = e.clientY;
+  foreignObjectClock.style.x = `${e.clientX + window.scrollX}px`;
+  foreignObjectClock.style.y = `${e.clientY + window.scrollY}px`;
+  // foreignObjectClock.style.x = e.clientX;
+  // foreignObjectClock.style.y = e.clientY;
   foreignObjectClock.style.width = "1px";
   foreignObjectClock.style.height = "1px";
   foreignObjectClock.setAttribute("id", uid);
@@ -136,8 +138,8 @@ const CompassWidget = (e) => {
   compassWidget.innerHTML = compassHTML;
   compassWidget.style.maxWidth = "100%";
   compassWidget.style.position = "absolute";
-  foreignObjectCompass.style.x = e.clientX;
-  foreignObjectCompass.style.y = e.clientY;
+  foreignObjectCompass.style.x = `${e.clientX + window.scrollX}px`;
+  foreignObjectCompass.style.y = `${e.clientY + window.scrollY}px`;
   foreignObjectCompass.style.width = "1px";
   foreignObjectCompass.style.height = "1px";
   foreignObjectCompass.setAttribute("id", uid);
@@ -498,9 +500,10 @@ const calculatorWidget = (e) => {
 </div>`;
 
   calculatorWidgetElement.innerHTML = calculatorHTML;
-
-  calculatorForeignObject.style.x = e.clientX;
-  calculatorForeignObject.style.y = e.clientY;
+  calculatorForeignObject.style.x = `${e.clientX + window.scrollX}px`;
+  calculatorForeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  // calculatorForeignObject.style.x = e.clientX;
+  // calculatorForeignObject.style.y = e.clientY;
   calculatorForeignObject.style.width = "1px";
   calculatorForeignObject.style.height = "1px";
   calculatorForeignObject.setAttribute("id", uid);
@@ -593,73 +596,6 @@ const calculatorWidget = (e) => {
   }
 };
 
-// const diceWidget = (e) => {
-//   const diceforeignObject = document.createElementNS(
-//     "http://www.w3.org/2000/svg",
-//     "foreignObject"
-//   );
-
-//   const dicewidgetElement = document.createElement("div");
-//   dicewidgetElement.id = "diceWidget";
-//   var uid = Tools.generateUID("doc");
-
-//   const dicewidgetHTML = `
-//   <svg id="dice" viewBox="0 0 100 100">
-//   <rect class="dice" x="10" y="10" width="80" height="80" rx="10" />
-//   <g id="dots-container">
-//     <circle class="dot" cx="30" cy="30" r="6" />
-//     <circle class="dot" cx="50" cy="30" r="6" />
-//     <circle class="dot" cx="70" cy="30" r="6" />
-//     <circle class="dot" cx="30" cy="50" r="6" />
-//     <circle class="dot" cx="50" cy="50" r="6" />
-//     <circle class="dot" cx="70" cy="50" r="6" />
-//     <circle class="dot" cx="30" cy="70" r="6" />
-//     <circle class="dot" cx="50" cy="70" r="6" />
-//     <circle class="dot" cx="70" cy="70" r="6" />
-//   </g>
-// </svg>
-
-// <button id="rollButton">Roll Dice</button>
-//  `;
-
-//   dicewidgetElement.innerHTML = dicewidgetHTML;
-
-//   diceforeignObject.style.x = e.clientX;
-//   diceforeignObject.style.y = e.clientY;
-//   diceforeignObject.style.width = "1px";
-//   diceforeignObject.style.height = "1px";
-//   diceforeignObject.setAttribute("id", uid);
-//   diceforeignObject.setAttribute("overflow", "visible");
-
-//   diceforeignObject.appendChild(dicewidgetElement);
-
-//   Tools.group.appendChild(diceforeignObject);
-
-//   makeDraggeble(diceforeignObject);
-
-//   const dice = document.getElementById("dice");
-//   const dotsContainer = document.getElementById("dots-container");
-//   const rollButton = document.getElementById("rollButton");
-
-//   rollButton.addEventListener("click", rollDice);
-
-//   function rollDice() {
-//     const dots = document.getElementsByClassName("dot");
-//     dotsContainer.style.display = "block";
-
-//     // Hide all dots initially
-//     for (let i = 0; i < dots.length; i++) {
-//       dots[i].style.display = "none";
-//     }
-
-//     // Show random number of dots (1 to 6)
-//     const randomNumber = Math.floor(Math.random() * 6) + 1;
-//     for (let i = 0; i < randomNumber; i++) {
-//       dots[i].style.display = "block";
-//     }
-//   }
-// };
-
 const diceWidget = (e) => {
   createDrag = new Draggable();
   const diceforeignObject = document.createElementNS(
@@ -691,8 +627,10 @@ const diceWidget = (e) => {
 
   dicewidgetElement.innerHTML = dicewidgetHTML;
 
-  diceforeignObject.style.x = e.clientX;
-  diceforeignObject.style.y = e.clientY;
+  diceforeignObject.style.x = `${e.clientX + window.scrollX}px`;
+  diceforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  // diceforeignObject.style.x = e.clientX;
+  // diceforeignObject.style.y = e.clientY;
   diceforeignObject.style.width = "1px";
   diceforeignObject.style.height = "1px";
   diceforeignObject.setAttribute("id", uid);
@@ -821,9 +759,10 @@ const stopWatchWidget = (e) => {
   </div>`;
 
   stopwatchWidgetElement.innerHTML = stopwatchWidgetHTML;
-
-  stopWatchforeignObject.style.x = e.clientX;
-  stopWatchforeignObject.style.y = e.clientY;
+  stopWatchforeignObject.style.x = `${e.clientX + window.scrollX}px`;
+  stopWatchforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  // stopWatchforeignObject.style.x = e.clientX;
+  // stopWatchforeignObject.style.y = e.clientY;
   stopWatchforeignObject.style.width = "1px";
   stopWatchforeignObject.style.height = "1px";
   stopWatchforeignObject.setAttribute("id", uid);
@@ -920,8 +859,10 @@ const protractorWidget = (e) => {
 
   protractorWidgetElement.innerHTML = protractorWidgetHTML;
 
-  protractorforeignObject.style.x = e.clientX;
-  protractorforeignObject.style.y = e.clientY;
+  protractorforeignObject.style.x = `${e.clientX + window.scrollX}px`;
+  protractorforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  // protractorforeignObject.style.x = e.clientX;
+  // protractorforeignObject.style.y = e.clientY;
   protractorforeignObject.style.width = "1px";
   protractorforeignObject.style.height = "1px";
   protractorforeignObject.setAttribute("id", uid);
@@ -1059,8 +1000,10 @@ const rulerWidget = (e) => {
 
   rulerWidgetElement.innerHTML = rulerWidgetHTML;
 
-  rulerforeignObject.style.x = e.clientX;
-  rulerforeignObject.style.y = e.clientY;
+  rulerforeignObject.style.x = `${e.clientX + window.scrollX}px`;
+  rulerforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  // rulerforeignObject.style.x = e.clientX;
+  // rulerforeignObject.style.y = e.clientY;
   rulerforeignObject.style.width = "1px";
   rulerforeignObject.style.height = "1px";
   rulerforeignObject.setAttribute("id", uid);
@@ -1166,8 +1109,10 @@ const roundCompassWidget = (e) => {
 
   roundCompassWidgetElement.innerHTML = roundCompassWidgetHTML;
 
-  roundCompassforeignObject.style.x = e.clientX;
-  roundCompassforeignObject.style.y = e.clientY;
+  roundCompassforeignObject.style.x = `${e.clientX + window.scrollX}px`;
+  roundCompassforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  // roundCompassforeignObject.style.x = e.clientX;
+  // roundCompassforeignObject.style.y = e.clientY;
   roundCompassforeignObject.style.width = "1px";
   roundCompassforeignObject.style.height = "1px";
   roundCompassforeignObject.setAttribute("id", uid);
@@ -1438,6 +1383,7 @@ function toggleDiv(className) {
     div.style.display = "none";
   }
 }
+
 const setSquareWidget = (e) => {
   console.log("setSquare", e);
   createDrag = new Draggable();
@@ -1472,7 +1418,7 @@ const setSquareWidget = (e) => {
 
   <div class="triangle-container" id="rotatableContainer">
     <div class="triangle" id="rotatableTriangle"></div>
-    <div class="input-container">
+    <div class="input-container setSquare-input-two">
       <input type="number" id="rotationInput" min="0" max="360" value="0" ></input>
     </div>
   </div>
@@ -1480,8 +1426,11 @@ const setSquareWidget = (e) => {
 
   setSquareWidgetElement.innerHTML = setSquareWidgetHTML;
   // set the image background to view port width
-  setSquareforeignObject.style.x = e.clientX;
-  setSquareforeignObject.style.y = e.clientY;
+  
+  setSquareforeignObject.style.x = `${e.clientX + window.scrollX}px`;
+  setSquareforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  // setSquareforeignObject.style.x = e.clientX;
+  // setSquareforeignObject.style.y = e.clientY;
   setSquareforeignObject.style.width = "1px";
   setSquareforeignObject.style.height = "1px";
   setSquareforeignObject.setAttribute("id", uid);

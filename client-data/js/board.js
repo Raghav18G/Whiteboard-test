@@ -122,7 +122,10 @@ var loading = true;
 
       if (loading) {
         var loadingEl = document.getElementById("loadingMessage");
+        var loadingStrip = document.getElementById("toolbarLoadingStrip");
         loadingEl.classList.add("hidden");
+        loadingStrip.style.display = "none";
+        document.getElementById("draggableToolbar").style.display = "flex";
         loading = false;
       }
     });
@@ -521,9 +524,11 @@ Tools.HTML = {
       } else {
         elem.getElementsByClassName("tool-icon")[0].textContent = toolIcon;
       }
-      elem.title =
-        Tools?.i18n?.t(Tools?.list[toolName]?.title || toolName) +
-        (Tools?.list[toolName]?.toggle ? "  Click to toggle" : "");
+      //   elem.title =
+      //     Tools?.i18n?.t(Tools?.list[toolName]?.title || toolName) +
+      //     (Tools?.list[toolName]?.toggle ? "  Click to toggle" : "");
+      // });
+      elem.title = Tools?.i18n?.t(Tools?.list[toolName]?.title || toolName);
     });
   },
   changeTool: function (oldToolName, newToolName) {
