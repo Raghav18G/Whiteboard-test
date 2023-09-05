@@ -37,6 +37,7 @@ var isTouchDevice = "ontouchstart" in document.documentElement;
 Tools.board = document.getElementById("board");
 Tools.svg = document.getElementById("canvas");
 console.log("CANAVS", Tools.svg);
+console.log("Navigator Status", navigator.onLine);
 Tools.group = Tools.svg.getElementById("layer-1");
 Tools.compass = document.getElementById("compass");
 
@@ -64,10 +65,20 @@ Tools.suppressPointerMsg = false;
 
 const MAX_CURSOR_UPDATES_PER_SECOND = 20;
 const DISPLAY_ACTIVITY_MONITOR = true;
+
 var loading = true;
 
 (Tools.socket = null),
   (Tools.connect = function () {
+    if (!navigator.onLine) {
+      var loadingEl = document.getElementById("loadingMessage");
+      var loadingStrip = document.getElementById("toolbarLoadingStrip");
+      loadingEl.classList.add("hidden");
+      loadingStrip.style.display = "none";
+      document.getElementById("draggableToolbar").style.display = "flex";
+      loading = false;
+    }
+
     var self = this;
     if (self.socket) {
       self.socket.destroy();

@@ -4,7 +4,8 @@ html,
 body,
 svg {
   padding: 0;
-  margin: 0;
+  margin: 0px;
+  /* top: -5px !important; */
   font-family: CircularXXWeb-Book !important;
 }
 
@@ -352,7 +353,8 @@ iframe {
 .localization {
   margin-left: 55px;
   /* margin-top: -45px; */
-  margin-top: -95px;
+  margin-top: -11rem;
+  padding-top:.1rem;
 }
 
 @keyframes minimize {
