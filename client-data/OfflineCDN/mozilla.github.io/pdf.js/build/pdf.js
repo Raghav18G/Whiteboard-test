@@ -69,6 +69,7 @@
           exports.BASELINE_FACTOR =
           exports.AnnotationType =
           exports.AnnotationReplyType =
+          exports.AnnotationPrefix =
           exports.AnnotationMode =
           exports.AnnotationFlag =
           exports.AnnotationFieldFlag =
@@ -974,6 +975,8 @@
           }
           return bytesToString(buf);
         }
+        const AnnotationPrefix = "pdfjs_internal_id_";
+        exports.AnnotationPrefix = AnnotationPrefix;
 
         /***/
       },
@@ -1177,7 +1180,7 @@
           }
           const fetchDocParams = {
             docId,
-            apiVersion: "3.10.90",
+            apiVersion: "3.11.83",
             data,
             password,
             disableAutoFetch,
@@ -2096,7 +2099,7 @@
           };
         }
         class PDFWorker {
-          static #workerPorts = new WeakMap();
+          static #workerPorts;
           constructor({
             name = null,
             port = null,
@@ -2110,10 +2113,10 @@
             this._webWorker = null;
             this._messageHandler = null;
             if (port) {
-              if (PDFWorker.#workerPorts.has(port)) {
+              if (PDFWorker.#workerPorts?.has(port)) {
                 throw new Error("Cannot use more than one PDFWorker per port.");
               }
-              PDFWorker.#workerPorts.set(port, this);
+              (PDFWorker.#workerPorts ||= new WeakMap()).set(port, this);
               this._initializeFromPort(port);
               return;
             }
@@ -2270,7 +2273,7 @@
               this._webWorker.terminate();
               this._webWorker = null;
             }
-            PDFWorker.#workerPorts.delete(this._port);
+            PDFWorker.#workerPorts?.delete(this._port);
             this._port = null;
             if (this._messageHandler) {
               this._messageHandler.destroy();
@@ -2281,7 +2284,7 @@
             if (!params?.port) {
               throw new Error("PDFWorker.fromPort - invalid method signature.");
             }
-            const cachedPort = this.#workerPorts.get(params.port);
+            const cachedPort = this.#workerPorts?.get(params.port);
             if (cachedPort) {
               if (cachedPort._pendingDestroy) {
                 throw new Error(
@@ -2986,11 +2989,7 @@
         class PDFObjects {
           #objs = Object.create(null);
           #ensureObj(objId) {
-            const obj = this.#objs[objId];
-            if (obj) {
-              return obj;
-            }
-            return (this.#objs[objId] = {
+            return (this.#objs[objId] ||= {
               capability: new _util.PromiseCapability(),
               data: null,
             });
@@ -3144,9 +3143,7 @@
             this.running = false;
             this.cancelled = true;
             this.gfx?.endDrawing();
-            if (this._canvas) {
-              InternalRenderTask.#canvasInUse.delete(this._canvas);
-            }
+            InternalRenderTask.#canvasInUse.delete(this._canvas);
             this.callback(
               error ||
                 new _display_utils.RenderingCancelledException(
@@ -3199,18 +3196,16 @@
             if (this.operatorListIdx === this.operatorList.argsArray.length) {
               this.running = false;
               if (this.operatorList.lastChunk) {
-                this.gfx.endDrawing(this.pageColors);
-                if (this._canvas) {
-                  InternalRenderTask.#canvasInUse.delete(this._canvas);
-                }
+                this.gfx.endDrawing();
+                InternalRenderTask.#canvasInUse.delete(this._canvas);
                 this.callback();
               }
             }
           }
         }
-        const version = "3.10.90";
+        const version = "3.11.83";
         exports.version = version;
-        const build = "60581c427";
+        const build = "e37e7b6f3";
         exports.build = build;
 
         /***/
@@ -3414,6 +3409,7 @@
           _focusEventsAllowed = true;
           #isDraggable = false;
           #zIndex = AnnotationEditor._zIndex++;
+          static _borderLineWidth = -1;
           static _colorManager = new _tools.ColorManager();
           static _zIndex = 1;
           constructor(parameters) {
@@ -3430,6 +3426,7 @@
             this.annotationElementId = null;
             this._willKeepAspectRatio = false;
             this._initialOptions.isCentered = parameters.isCentered;
+            this._structTreeParentId = null;
             const {
               rotation,
               rawDims: { pageWidth, pageHeight, pageX, pageY },
@@ -3462,12 +3459,19 @@
             fakeEditor.deleted = true;
             fakeEditor._uiManager.addToAnnotationStorage(fakeEditor);
           }
-          static initialize(_l10n) {}
+          static initialize(_l10n) {
+            if (AnnotationEditor._borderLineWidth !== -1) {
+              return;
+            }
+            const style = getComputedStyle(document.documentElement);
+            AnnotationEditor._borderLineWidth =
+              parseFloat(style.getPropertyValue("--outline-width")) || 0;
+          }
           static updateDefaultParams(_type, _value) {}
           static get defaultPropertiesToUpdate() {
             return [];
           }
-          static isHandlingMimeForPasting(_mime) {
+          static isHandlingMimeForPasting(mime) {
             return false;
           }
           static paste(item, parent) {
@@ -3581,7 +3585,6 @@
           }
           translateInPage(x, y) {
             this.#translate(this.pageDimensions, x, y);
-            this.moveInDOM();
             this.div.scrollIntoView({
               block: "nearest",
             });
@@ -3590,18 +3593,41 @@
             const [parentWidth, parentHeight] = this.parentDimensions;
             this.x += tx / parentWidth;
             this.y += ty / parentHeight;
-            if (this.x < 0 || this.x > 1 || this.y < 0 || this.y > 1) {
+            if (
+              this.parent &&
+              (this.x < 0 || this.x > 1 || this.y < 0 || this.y > 1)
+            ) {
               const { x, y } = this.div.getBoundingClientRect();
               if (this.parent.findNewParent(this, x, y)) {
                 this.x -= Math.floor(this.x);
                 this.y -= Math.floor(this.y);
               }
             }
-            this.div.style.left = `${(100 * this.x).toFixed(2)}%`;
-            this.div.style.top = `${(100 * this.y).toFixed(2)}%`;
+            let { x, y } = this;
+            const [bx, by] = this.#getBaseTranslation();
+            x += bx;
+            y += by;
+            this.div.style.left = `${(100 * x).toFixed(2)}%`;
+            this.div.style.top = `${(100 * y).toFixed(2)}%`;
             this.div.scrollIntoView({
               block: "nearest",
             });
+          }
+          #getBaseTranslation() {
+            const [parentWidth, parentHeight] = this.parentDimensions;
+            const { _borderLineWidth } = AnnotationEditor;
+            const x = _borderLineWidth / parentWidth;
+            const y = _borderLineWidth / parentHeight;
+            switch (this.rotation) {
+              case 90:
+                return [-x, y];
+              case 180:
+                return [x, y];
+              case 270:
+                return [x, -y];
+              default:
+                return [-x, -y];
+            }
           }
           fixAndSetPosition() {
             const [pageWidth, pageHeight] = this.pageDimensions;
@@ -3628,10 +3654,15 @@
                 y = Math.max(0, Math.min(pageHeight - width, y));
                 break;
             }
-            this.x = x / pageWidth;
-            this.y = y / pageHeight;
-            this.div.style.left = `${(100 * this.x).toFixed(2)}%`;
-            this.div.style.top = `${(100 * this.y).toFixed(2)}%`;
+            this.x = x /= pageWidth;
+            this.y = y /= pageHeight;
+            const [bx, by] = this.#getBaseTranslation();
+            x += bx;
+            y += by;
+            const { style } = this.div;
+            style.left = `${(100 * x).toFixed(2)}%`;
+            style.top = `${(100 * y).toFixed(2)}%`;
+            this.moveInDOM();
           }
           static #rotatePoint(x, y, angle) {
             switch (angle) {
@@ -3831,7 +3862,6 @@
                     parentHeight * newHeight
                   );
                   this.fixAndSetPosition();
-                  this.moveInDOM();
                 },
                 undo: () => {
                   this.width = savedWidth;
@@ -3844,7 +3874,6 @@
                     parentHeight * savedHeight
                   );
                   this.fixAndSetPosition();
-                  this.moveInDOM();
                 },
                 mustExec: true,
               });
@@ -4061,14 +4090,13 @@
             window.addEventListener("blur", pointerUpCallback);
           }
           moveInDOM() {
-            this.parent.moveEditorInDOM(this);
+            this.parent?.moveEditorInDOM(this);
           }
           _setParentAndPosition(parent, x, y) {
             parent.changeParent(this);
             this.x = x;
             this.y = y;
             this.fixAndSetPosition();
-            this.moveInDOM();
           }
           getRect(tx, ty) {
             const scale = this.parentScale;
@@ -4153,7 +4181,7 @@
             this.div?.addEventListener("focusin", this.#boundFocusin);
             this.div?.addEventListener("focusout", this.#boundFocusout);
           }
-          serialize(_isForCopying = false, _context = null) {
+          serialize(isForCopying = false, context = null) {
             (0, _util.unreachable)("An editor must be serializable");
           }
           static deserialize(data, parent, uiManager) {
@@ -5410,7 +5438,7 @@
               this.#draggingEditors.set(editor, {
                 savedX: editor.x,
                 savedY: editor.y,
-                savedPageIndex: editor.parent.pageIndex,
+                savedPageIndex: editor.pageIndex,
                 newX: 0,
                 newY: 0,
                 newPageIndex: -1,
@@ -5425,14 +5453,14 @@
             const map = this.#draggingEditors;
             this.#draggingEditors = null;
             let mustBeAddedInUndoStack = false;
-            for (const [{ x, y, parent }, value] of map) {
+            for (const [{ x, y, pageIndex }, value] of map) {
               value.newX = x;
               value.newY = y;
-              value.newPageIndex = parent.pageIndex;
+              value.newPageIndex = pageIndex;
               mustBeAddedInUndoStack ||=
                 x !== value.savedX ||
                 y !== value.savedY ||
-                parent.pageIndex !== value.savedPageIndex;
+                pageIndex !== value.savedPageIndex;
             }
             if (!mustBeAddedInUndoStack) {
               return false;
@@ -5522,7 +5550,6 @@
           exports.DOMFilterFactory =
           exports.DOMCanvasFactory =
           exports.DOMCMapReaderFactory =
-          exports.AnnotationPrefix =
             void 0;
         exports.deprecated = deprecated;
         exports.getColorValues = getColorValues;
@@ -5540,8 +5567,6 @@
         var _base_factory = __w_pdfjs_require__(7);
         var _util = __w_pdfjs_require__(1);
         const SVG_NS = "http://www.w3.org/2000/svg";
-        const AnnotationPrefix = "pdfjs_internal_id_";
-        exports.AnnotationPrefix = AnnotationPrefix;
         class PixelsPerInch {
           static CSS = 96.0;
           static PDF = 72.0;
@@ -14999,7 +15024,7 @@
               this.div.append(div);
               editor.isAttachedToDOM = true;
             }
-            this.moveEditorInDOM(editor);
+            editor.fixAndSetPosition();
             editor.onceAdded();
             this.#uiManager.addToAnnotationStorage(editor);
           }
@@ -15011,24 +15036,29 @@
             if (editor.div.contains(activeElement)) {
               editor._focusEventsAllowed = false;
               setTimeout(() => {
-                editor.div.addEventListener(
-                  "focusin",
-                  () => {
-                    editor._focusEventsAllowed = true;
-                  },
-                  {
-                    once: true,
-                  }
-                );
-                activeElement.focus();
+                if (!editor.div.contains(document.activeElement)) {
+                  editor.div.addEventListener(
+                    "focusin",
+                    () => {
+                      editor._focusEventsAllowed = true;
+                    },
+                    {
+                      once: true,
+                    }
+                  );
+                  activeElement.focus();
+                } else {
+                  editor._focusEventsAllowed = true;
+                }
               }, 0);
             }
-            this.#accessibilityManager?.moveElementInDOM(
-              this.div,
-              editor.div,
-              editor.contentDiv,
-              true
-            );
+            editor._structTreeParentId =
+              this.#accessibilityManager?.moveElementInDOM(
+                this.div,
+                editor.div,
+                editor.contentDiv,
+                true
+              );
           }
           addOrRebuild(editor) {
             if (editor.needsToBeRebuilt()) {
@@ -15196,6 +15226,7 @@
           }
           destroy() {
             if (this.#uiManager.getActive()?.parent === this) {
+              this.#uiManager.commitOrRemove();
               this.#uiManager.setActiveEditor(null);
             }
             for (const editor of this.#editors.values()) {
@@ -15369,6 +15400,7 @@
             this.#fontSize = params.fontSize || FreeTextEditor._defaultFontSize;
           }
           static initialize(l10n) {
+            super.initialize(l10n);
             this._l10nPromise = new Map(
               [
                 "free_text2_default_content",
@@ -15833,6 +15865,7 @@
               pageIndex: this.pageIndex,
               rect,
               rotation: this.rotation,
+              structTreeParentId: this._structTreeParentId,
             };
             if (isForCopying) {
               return serialized;
@@ -15990,6 +16023,12 @@
               this._createQuadrilaterals();
             }
           }
+          static _hasPopupData({ titleObj, contentsObj, richText }) {
+            return !!(titleObj?.str || contentsObj?.str || richText?.str);
+          }
+          get hasPopupData() {
+            return AnnotationElement._hasPopupData(this.data);
+          }
           _createContainer(ignoreBorder) {
             const {
               data,
@@ -15997,6 +16036,9 @@
             } = this;
             const container = document.createElement("section");
             container.setAttribute("data-annotation-id", data.id);
+            if (!(this instanceof WidgetAnnotationElement)) {
+              container.tabIndex = DEFAULT_TAB_INDEX;
+            }
             container.style.zIndex = this.parent.zIndex++;
             if (this.data.popupRef) {
               container.setAttribute("aria-haspopup", "dialog");
@@ -16142,11 +16184,7 @@
                 event.target.title = event.detail.userName;
               },
               readonly: (event) => {
-                if (event.detail.readonly) {
-                  event.target.setAttribute("readonly", "");
-                } else {
-                  event.target.removeAttribute("readonly");
-                }
+                event.target.disabled = event.detail.readonly;
               },
               required: (event) => {
                 this._setRequired(event.target, event.detail.required);
@@ -16628,14 +16666,8 @@
         }
         class TextAnnotationElement extends AnnotationElement {
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
             });
           }
           render() {
@@ -16651,7 +16683,7 @@
             image.dataset.l10nArgs = JSON.stringify({
               type: this.data.name,
             });
-            if (!this.data.popupRef) {
+            if (!this.data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             this.container.append(image);
@@ -16677,7 +16709,13 @@
             const { isWin, isMac } = _util.FeatureTest.platform;
             return (isWin && event.ctrlKey) || (isMac && event.metaKey);
           }
-          _setEventListener(element, baseName, eventName, valueGetter) {
+          _setEventListener(
+            element,
+            elementData,
+            baseName,
+            eventName,
+            valueGetter
+          ) {
             if (baseName.includes("mouse")) {
               element.addEventListener(baseName, (event) => {
                 this.linkService.eventBus?.dispatch("dispatcheventinsandbox", {
@@ -16693,6 +16731,20 @@
               });
             } else {
               element.addEventListener(baseName, (event) => {
+                if (baseName === "blur") {
+                  if (!elementData.focused || !event.relatedTarget) {
+                    return;
+                  }
+                  elementData.focused = false;
+                } else if (baseName === "focus") {
+                  if (elementData.focused) {
+                    return;
+                  }
+                  elementData.focused = true;
+                }
+                if (!valueGetter) {
+                  return;
+                }
                 this.linkService.eventBus?.dispatch("dispatcheventinsandbox", {
                   source: this,
                   detail: {
@@ -16704,10 +16756,38 @@
               });
             }
           }
-          _setEventListeners(element, names, getter) {
+          _setEventListeners(element, elementData, names, getter) {
             for (const [baseName, eventName] of names) {
               if (eventName === "Action" || this.data.actions?.[eventName]) {
-                this._setEventListener(element, baseName, eventName, getter);
+                if (eventName === "Focus" || eventName === "Blur") {
+                  elementData ||= {
+                    focused: false,
+                  };
+                }
+                this._setEventListener(
+                  element,
+                  elementData,
+                  baseName,
+                  eventName,
+                  getter
+                );
+                if (eventName === "Focus" && !this.data.actions?.Blur) {
+                  this._setEventListener(
+                    element,
+                    elementData,
+                    "blur",
+                    "Blur",
+                    null
+                  );
+                } else if (eventName === "Blur" && !this.data.actions?.Focus) {
+                  this._setEventListener(
+                    element,
+                    elementData,
+                    "focus",
+                    "Focus",
+                    null
+                  );
+                }
               }
             }
           }
@@ -16817,6 +16897,7 @@
                 formattedValue: fieldFormattedValues,
                 lastCommittedValue: null,
                 commitKey: 1,
+                focused: false,
               };
               if (this.data.multiLine) {
                 element = document.createElement("textarea");
@@ -16841,7 +16922,7 @@
               GetElementsByNameSet.add(element);
               element.setAttribute("data-element-id", id);
               element.disabled = this.data.readOnly;
-              element.name = this.data.baseFieldName || this.data.fieldName;
+              element.name = this.data.fieldName;
               element.tabIndex = DEFAULT_TAB_INDEX;
               this._setRequired(element, this.data.required);
               if (maxLen) {
@@ -16873,12 +16954,16 @@
               };
               if (this.enableScripting && this.hasJSActions) {
                 element.addEventListener("focus", (event) => {
+                  if (elementData.focused) {
+                    return;
+                  }
                   const { target } = event;
                   if (elementData.userValue) {
                     target.value = elementData.userValue;
                   }
                   elementData.lastCommittedValue = target.value;
                   elementData.commitKey = 1;
+                  elementData.focused = true;
                 });
                 element.addEventListener("updatefromsandbox", (jsEvent) => {
                   this.showElementAndHideCanvas(jsEvent.target);
@@ -16981,9 +17066,10 @@
                 const _blurListener = blurListener;
                 blurListener = null;
                 element.addEventListener("blur", (event) => {
-                  if (!event.relatedTarget) {
+                  if (!elementData.focused || !event.relatedTarget) {
                     return;
                   }
+                  elementData.focused = false;
                   const { value } = event.target;
                   elementData.userValue = value;
                   if (elementData.lastCommittedValue !== value) {
@@ -17062,6 +17148,7 @@
                 }
                 this._setEventListeners(
                   element,
+                  elementData,
                   [
                     ["focus", "Focus"],
                     ["blur", "Blur"],
@@ -17128,7 +17215,7 @@
             element.disabled = data.readOnly;
             this._setRequired(element, this.data.required);
             element.type = "checkbox";
-            element.name = data.baseFieldName || data.fieldName;
+            element.name = data.fieldName;
             if (value) {
               element.setAttribute("checked", true);
             }
@@ -17168,6 +17255,7 @@
               });
               this._setEventListeners(
                 element,
+                null,
                 [
                   ["change", "Validate"],
                   ["change", "Action"],
@@ -17216,7 +17304,7 @@
             element.disabled = data.readOnly;
             this._setRequired(element, this.data.required);
             element.type = "radio";
-            element.name = data.baseFieldName || data.fieldName;
+            element.name = data.fieldName;
             if (value) {
               element.setAttribute("checked", true);
             }
@@ -17262,6 +17350,7 @@
               });
               this._setEventListeners(
                 element,
+                null,
                 [
                   ["change", "Validate"],
                   ["change", "Action"],
@@ -17321,7 +17410,7 @@
             selectElement.setAttribute("data-element-id", id);
             selectElement.disabled = this.data.readOnly;
             this._setRequired(selectElement, this.data.required);
-            selectElement.name = this.data.baseFieldName || this.data.fieldName;
+            selectElement.name = this.data.fieldName;
             selectElement.tabIndex = DEFAULT_TAB_INDEX;
             let addAnEmptyEntry =
               this.data.combo && this.data.options.length > 0;
@@ -17509,6 +17598,7 @@
               });
               this._setEventListeners(
                 selectElement,
+                null,
                 [
                   ["focus", "Focus"],
                   ["blur", "Blur"],
@@ -17541,13 +17631,8 @@
         class PopupAnnotationElement extends AnnotationElement {
           constructor(parameters) {
             const { data, elements } = parameters;
-            const isRenderable = !!(
-              data.titleObj?.str ||
-              data.contentsObj?.str ||
-              data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: AnnotationElement._hasPopupData(data),
             });
             this.elements = elements;
           }
@@ -17572,12 +17657,16 @@
               elementIds.push(element.data.id);
               element.addHighlightArea();
             }
-            this.container.setAttribute("aria-controls", elementIds.join(","));
+            this.container.setAttribute(
+              "aria-controls",
+              elementIds.map((id) => `${_util.AnnotationPrefix}${id}`).join(",")
+            );
             return this.container;
           }
         }
         class PopupElement {
           #dateTimePromise = null;
+          #boundKeyDown = this.#keyDown.bind(this);
           #boundHide = this.#hide.bind(this);
           #boundShow = this.#show.bind(this);
           #boundToggle = this.#toggle.bind(this);
@@ -17633,6 +17722,13 @@
               element.addEventListener("click", this.#boundToggle);
               element.addEventListener("mouseenter", this.#boundShow);
               element.addEventListener("mouseleave", this.#boundHide);
+              element.classList.add("popupTriggerArea");
+            }
+            for (const element of elements) {
+              element.container?.addEventListener(
+                "keydown",
+                this.#boundKeyDown
+              );
             }
             this.#container.hidden = true;
             if (open) {
@@ -17743,14 +17839,35 @@
             }
             return p;
           }
+          #keyDown(event) {
+            if (
+              event.altKey ||
+              event.shiftKey ||
+              event.ctrlKey ||
+              event.metaKey
+            ) {
+              return;
+            }
+            if (
+              event.key === "Enter" ||
+              (event.key === "Escape" && this.#pinned)
+            ) {
+              this.#toggle();
+            }
+          }
           #toggle() {
             this.#pinned = !this.#pinned;
             if (this.#pinned) {
               this.#show();
               this.#container.addEventListener("click", this.#boundToggle);
+              this.#container.addEventListener("keydown", this.#boundKeyDown);
             } else {
               this.#hide();
               this.#container.removeEventListener("click", this.#boundToggle);
+              this.#container.removeEventListener(
+                "keydown",
+                this.#boundKeyDown
+              );
             }
           }
           #show() {
@@ -17794,14 +17911,8 @@
         }
         class FreeTextAnnotationElement extends AnnotationElement {
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
             });
             this.textContent = parameters.data.textContent;
@@ -17821,7 +17932,7 @@
               }
               this.container.append(content);
             }
-            if (!this.data.popupRef) {
+            if (!this.data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             this._editOnDoubleClick();
@@ -17832,14 +17943,8 @@
         class LineAnnotationElement extends AnnotationElement {
           #line = null;
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
             });
           }
@@ -17859,7 +17964,7 @@
             line.setAttribute("fill", "transparent");
             svg.append(line);
             this.container.append(svg);
-            if (!data.popupRef) {
+            if (!data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             return this.container;
@@ -17874,14 +17979,8 @@
         class SquareAnnotationElement extends AnnotationElement {
           #square = null;
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
             });
           }
@@ -17902,7 +18001,7 @@
             square.setAttribute("fill", "transparent");
             svg.append(square);
             this.container.append(svg);
-            if (!data.popupRef) {
+            if (!data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             return this.container;
@@ -17917,14 +18016,8 @@
         class CircleAnnotationElement extends AnnotationElement {
           #circle = null;
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
             });
           }
@@ -17945,7 +18038,7 @@
             circle.setAttribute("fill", "transparent");
             svg.append(circle);
             this.container.append(svg);
-            if (!data.popupRef) {
+            if (!data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             return this.container;
@@ -17960,14 +18053,8 @@
         class PolylineAnnotationElement extends AnnotationElement {
           #polyline = null;
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
             });
             this.containerClassName = "polylineAnnotation";
@@ -17994,8 +18081,8 @@
             polyline.setAttribute("fill", "transparent");
             svg.append(polyline);
             this.container.append(svg);
-            if (!data.popupRef) {
-              this._createPopup(polyline, data);
+            if (!data.popupRef && this.hasPopupData) {
+              this._createPopup();
             }
             return this.container;
           }
@@ -18015,20 +18102,14 @@
         }
         class CaretAnnotationElement extends AnnotationElement {
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
             });
           }
           render() {
             this.container.classList.add("caretAnnotation");
-            if (!this.data.popupRef) {
+            if (!this.data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             return this.container;
@@ -18037,14 +18118,8 @@
         class InkAnnotationElement extends AnnotationElement {
           #polylines = [];
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
             });
             this.containerClassName = "inkAnnotation";
@@ -18075,8 +18150,8 @@
               );
               polyline.setAttribute("stroke", "transparent");
               polyline.setAttribute("fill", "transparent");
-              if (!data.popupRef) {
-                this._createPopup(polyline, data);
+              if (!data.popupRef && this.hasPopupData) {
+                this._createPopup();
               }
               svg.append(polyline);
             }
@@ -18093,20 +18168,14 @@
         exports.InkAnnotationElement = InkAnnotationElement;
         class HighlightAnnotationElement extends AnnotationElement {
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
               createQuadrilaterals: true,
             });
           }
           render() {
-            if (!this.data.popupRef) {
+            if (!this.data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             this.container.classList.add("highlightAnnotation");
@@ -18115,20 +18184,14 @@
         }
         class UnderlineAnnotationElement extends AnnotationElement {
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
               createQuadrilaterals: true,
             });
           }
           render() {
-            if (!this.data.popupRef) {
+            if (!this.data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             this.container.classList.add("underlineAnnotation");
@@ -18137,20 +18200,14 @@
         }
         class SquigglyAnnotationElement extends AnnotationElement {
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
               createQuadrilaterals: true,
             });
           }
           render() {
-            if (!this.data.popupRef) {
+            if (!this.data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             this.container.classList.add("squigglyAnnotation");
@@ -18159,20 +18216,14 @@
         }
         class StrikeOutAnnotationElement extends AnnotationElement {
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
               createQuadrilaterals: true,
             });
           }
           render() {
-            if (!this.data.popupRef) {
+            if (!this.data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             this.container.classList.add("strikeoutAnnotation");
@@ -18181,20 +18232,14 @@
         }
         class StampAnnotationElement extends AnnotationElement {
           constructor(parameters) {
-            const isRenderable = !!(
-              parameters.data.popupRef ||
-              parameters.data.titleObj?.str ||
-              parameters.data.contentsObj?.str ||
-              parameters.data.richText?.str
-            );
             super(parameters, {
-              isRenderable,
+              isRenderable: true,
               ignoreBorder: true,
             });
           }
           render() {
             this.container.classList.add("stampAnnotation");
-            if (!this.data.popupRef) {
+            if (!this.data.popupRef && this.hasPopupData) {
               this._createPopup();
             }
             return this.container;
@@ -18221,7 +18266,7 @@
           }
           render() {
             this.container.classList.add("fileAttachmentAnnotation");
-            const { data } = this;
+            const { container, data } = this;
             let trigger;
             if (data.hasAppearance || data.fillAlpha === 0) {
               trigger = document.createElement("div");
@@ -18236,17 +18281,21 @@
                 )}%);`;
               }
             }
-            trigger.classList.add("popupTriggerArea");
-            trigger.addEventListener("dblclick", this._download.bind(this));
+            trigger.addEventListener("dblclick", this.#download.bind(this));
             this.#trigger = trigger;
-            if (
-              !data.popupRef &&
-              (data.titleObj?.str || data.contentsObj?.str || data.richText)
-            ) {
+            const { isMac } = _util.FeatureTest.platform;
+            container.addEventListener("keydown", (evt) => {
+              if (evt.key === "Enter" && (isMac ? evt.metaKey : evt.ctrlKey)) {
+                this.#download();
+              }
+            });
+            if (!data.popupRef && this.hasPopupData) {
               this._createPopup();
+            } else {
+              trigger.classList.add("popupTriggerArea");
             }
-            this.container.append(trigger);
-            return this.container;
+            container.append(trigger);
+            return container;
           }
           getElementsToTriggerPopup() {
             return this.#trigger;
@@ -18254,7 +18303,7 @@
           addHighlightArea() {
             this.container.classList.add("highlightArea");
           }
-          _download() {
+          #download() {
             this.downloadManager?.openOrDownloadData(
               this.container,
               this.content,
@@ -18285,7 +18334,7 @@
           }
           #appendElement(element, id) {
             const contentElement = element.firstChild || element;
-            contentElement.id = `${_display_utils.AnnotationPrefix}${id}`;
+            contentElement.id = `${_util.AnnotationPrefix}${id}`;
             this.div.append(element);
             this.#accessibilityManager?.moveElementInDOM(
               this.div,
@@ -18855,6 +18904,7 @@
             this._willKeepAspectRatio = true;
           }
           static initialize(l10n) {
+            super.initialize(l10n);
             this._l10nPromise = new Map(
               ["editor_ink_canvas_aria_label", "editor_ink2_aria_label"].map(
                 (str) => [str, l10n.get(str)]
@@ -19755,6 +19805,7 @@
               pageIndex: this.pageIndex,
               rect,
               rotation: this.rotation,
+              structTreeParentId: this._structTreeParentId,
             };
           }
         }
@@ -20170,6 +20221,7 @@
               rect: this.getRect(0, 0),
               rotation: this.rotation,
               isSvg: this.#isSvg,
+              structTreeParentId: this._structTreeParentId,
             };
             if (isForCopying) {
               serialized.bitmapUrl = this.#serializeBitmap(true);
@@ -20508,8 +20560,8 @@
       var _annotation_layer = __w_pdfjs_require__(29);
       var _worker_options = __w_pdfjs_require__(14);
       var _xfa_layer = __w_pdfjs_require__(32);
-      const pdfjsVersion = "3.10.90";
-      const pdfjsBuild = "60581c427";
+      const pdfjsVersion = "3.11.83";
+      const pdfjsBuild = "e37e7b6f3";
     })();
 
     /******/ return __webpack_exports__;
