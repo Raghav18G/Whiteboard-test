@@ -266,6 +266,7 @@
     //   changeTool: "7",
     // },
     draw: draw,
+    isExtra: true,
     onstart: onstart,
     oneTouch: true,
   });

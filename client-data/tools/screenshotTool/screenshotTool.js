@@ -50,6 +50,7 @@ var screenshotSVG = '<div class="tool-selected"><svg class="tool-icon-svg screen
   Tools.add({
     name: "Screenshot",
     // "icon": "🖼️",
+    isExtra:true,
     iconHTML: screenshotSVG,
     // shortcuts: {
     //   changeTool: "s",

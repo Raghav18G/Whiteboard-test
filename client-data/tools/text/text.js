@@ -211,6 +211,7 @@
 	Tools.add({ //The new tool
 		// "name": "Text",
 		//  "icon": "T",
+		isExtra:true,
 		iconHTML: textSVG,
         "name": "Text",
         //"icon": "",

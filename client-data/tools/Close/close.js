@@ -66,6 +66,7 @@ $(document).ready(() => {
     listeners: {},
     // draw: draw,
     // onstart: onstart,
+    isExtra: true,
     //oneTouch: true,
     // "onquit":onQuit,
     mouseCursor: "auto",

@@ -335,6 +335,7 @@
     listeners: {},
     iconHTML: downloadSvg,
     oneTouch: true,
+    isExtra: false,
     onstart: downloadOption,
     mouseCursor: "crosshair",
   });

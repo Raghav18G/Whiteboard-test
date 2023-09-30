@@ -56,13 +56,15 @@
 	Tools.add({ //The new tool
 		"name": "Clear",
 		// "icon": "🗑",
-		"iconHTML": binSVG,
+		title: "Clear",
+		"iconHTML": `<div class="tool-selected">${binSVG}</div><label id="tool-clear-localization" class="label-clear" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Clear</label>`,
 		"shortcuts": {
 			"actions": [{ "key": "shift-C", "action": clearBoard }]
 		},
 		"listeners": {},
 		"draw": draw,
 		"oneTouch": true,
+		"isExtra": false,
 		"onstart": clearBoard,
 		"mouseCursor": "crosshair",
 	});

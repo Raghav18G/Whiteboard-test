@@ -196,6 +196,7 @@ let TableObjectsId = [];
 
   Tools.add({
     name: "Table",
+    isExtra:true,
     iconHTML: tableSvg,
     listeners: {},
     // draw: backgroundChange,

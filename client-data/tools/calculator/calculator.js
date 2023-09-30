@@ -281,7 +281,7 @@
 		"listeners": {},
 		"draw": draw,
 		"oneTouch":true,
-		"isExtra":false,
+		"isExtra":true,
 		"onstart":toggleCalc,
 		"mouseCursor": "crosshair",
 		"stylesheet": "tools/calculator/calculator.css"

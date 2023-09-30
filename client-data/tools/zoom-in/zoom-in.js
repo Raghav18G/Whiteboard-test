@@ -132,6 +132,6 @@
       release: release,
     },
     mouseCursor: "zoom-in",
-    isExtra: false,
+    isExtra: true,
   });
 })(); //End of code isolation

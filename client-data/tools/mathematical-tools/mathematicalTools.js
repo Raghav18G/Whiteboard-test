@@ -185,6 +185,7 @@
     name: "Mathematical Tools",
     // "icon": "🖼️",
     iconHTML: uploadSVG,
+    isExtra: true,
     // shortcuts: {
     //   actions: [{ key: "12", action: onstart }],
     // },

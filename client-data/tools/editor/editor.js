@@ -669,6 +669,7 @@ int main() {
 		"listeners": {},
 		"draw": draw,
 		"oneTouch":true,
+		"isExtra": true,
 		"onstart":toggleEditor,
 		"mouseCursor": "crosshair",
 		"stylesheet": "tools/editor/editor.css"

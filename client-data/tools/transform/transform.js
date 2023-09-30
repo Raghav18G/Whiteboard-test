@@ -453,6 +453,7 @@
 	};
 
 	Tools.add({ //The new tool
+		isExtra:true,
 		"name": "Transform",
 		"icon": "?",
 		"iconHTML":icons[0],

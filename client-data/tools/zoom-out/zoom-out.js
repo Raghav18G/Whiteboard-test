@@ -180,6 +180,7 @@
 
 
     Tools.add({ //The new tool
+       
          "icon": "🔎",
     // "iconHTML":"<i style='color: #B10DC9;margin-top:7px' class='fas fa-search-minus'></i>",
     "iconHTML": zoomOutSVG,
@@ -193,6 +194,6 @@
 	    "release": release,
         },
         "mouseCursor": "zoom-out",
-	"isExtra":false
+	"isExtra":true
     });
 })(); //End of code isolation

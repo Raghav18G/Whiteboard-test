@@ -315,6 +315,7 @@
     iconHTML: pencilSVG, // Replace with the SVG icon for the pencil tool
     name: "Pencil",
     title: "Pencil",
+    isExtra:false,
     listeners: {
       press: startLine,
       move: continueLine,

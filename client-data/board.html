@@ -85,6 +85,13 @@
     <script>
         $(window).on("load", function () {
             init();
+            document.getElementById("openMoreTools").addEventListener("click",()=>{
+                document.getElementById("moreTools").style.display="block"
+            })
+            
+            document.getElementById("moreToolsClose").addEventListener("click",()=>{
+                document.getElementById("moreTools").style.display="none"
+            })
         });
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -568,38 +575,50 @@
 
 
     <!-- Loading Toolbar Strip -->
-    <div id="toolbarLoadingStrip">
+    <!-- <div id="toolbarLoadingStrip">
         <div class="loading-strip" id="strip">
         </div>
         <div class="loading-text" id="loadingText">Loading...</div>
+    </div> -->
+    <div class="moreTools" id="moreTools">
+        <ul id="tool-list" class="tool-list">
+            <li class="tool-extra">
+                <div class="tool-center">
+                    <span class=" tool-icon tool-icon-modal "></span>
+                </div>
+
+               
+            </li>
+        </ul>
+        <button id="moreToolsClose">Close</button>
     </div>
     <!-- Draggable Toolbar  -->
     <div id="draggableToolbar">
-        <div id="draggableToolbarheader">
-            <div class="dragIconContainer">
-                <img src="./assets/DRAG.svg" class="dragLogo" height="30" />
+        <!-- Tools -->
+         <!-- Color Picker -->
+         <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
+            <div class="tool-selected">
+                <span class="tool-icon color-tool-pick" style="margin: -12px -7px 27px -10px;">
+          
+                <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
+                        <input type="color" value="#ff00ff" id="chooseColor" />
+                </div> -->
+                    <div class="input-container" id="color-pick" title="Color Picker">
+                        <input type="color" class="icon-input" id="chooseColor">
+                    </div>
+                  
+                
+                
+                <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: 12px;line-height: 12px;"><p>Color Picker</p></label>
+                </span>
             </div>
         </div>
-        <!-- Tools -->
-
-        <!-- Color Picker -->
-        <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
-        <div class="tool-selected">
-            <span class="tool-icon color-tool-pick" style="margin: -12px -7px 27px -10px;">
+        <ul id="tools" class="tools">
+            <li class="tool"><span class="tool-icon"></span></li>
+        </ul>
       
-            <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
-                    <input type="color" value="#ff00ff" id="chooseColor" />
-            </div> -->
-                <div class="input-container" id="color-pick" title="Color Picker">
-                    <input type="color" class="icon-input" id="chooseColor">
-                </div>
-              
-            
-            
-            <label id="tool-color-localization" class="label-tool" style="font-size:10px;font-weight:400;margin-top: 12px;line-height: 12px;"><p>Color Picker</p></label>
-            </span>
-        </div>
-    </div>
+
+       
         <!-- Tool Size Indicator -->
         <div class="tool size_selector_container">
             <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
@@ -692,36 +711,16 @@
                     style="-webkit-appearance: slider-vertical" class="rangeChooser rangeChooser-opacity" />
             </label>
         </div>
+        <button id="openMoreTools"><img src="./assets/Add Circle.png" width="30"/></button>
 
-        <ul id="tools" class="tools">
-            <li class="tool"><span class="tool-icon"></span></li>
-        </ul>
-
-      
-
-            <button id="toogle-tranparency" style="border:none; margin-right: 10px;margin-bottom: 7px; margin-left: -14px; background: none;" title="White Board">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: -7px;width: 28px;" viewBox="0 0 29 28"
-                fill-rule="evenodd" clip-rule="evenodd">
-                <path
-                    d="M16 20h-8c-4.415 0-8-3.585-8-8s3.585-8 8-8h8c4.415 0 8 3.585 8 8s-3.585 8-8 8zm0-15h-8c-3.863 0-7 3.137-7 7s3.137 7 7 7h8.045c3.843-.025 6.955-3.152 6.955-7s-3.112-6.975-6.955-7h-.045zm-8 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0 1c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z" />
-            </svg> -->
-            <div class="tool-selected whiteboard-background-icon" style="margin-top: -6px;">
-                <img class="toggle-icon" src="./assets/toggle.png" style="width: 28px;height: 31px;margin-top: -2.5px;"/>
-            </div>
-          
-            <br>
-            <div style="margin-top:-17px;">
-                <label id="tool-toggle-localization" class="label-tool" style="font-size:10px;font-weight:400;line-height: 2px;font-family: Inter;"><p>White Board</p></label>
-            </div>
-            
-        </button>
-
+       
+       
             <button id="add-page" onclick="addNewPage()">Add New</button>
 
     </div>
 
 
-    <div id="loadingMessage"></div>
+    <!-- <div id="loadingMessage"></div> -->
     <div id="overlay"></div>
     <div id="top_left_tools" class="top__tools">
     </div>
@@ -965,7 +964,6 @@
 
 
     <!-- Table Actions -->
-
     <!-- HTML 2 Canvas CDN -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script> -->
@@ -979,6 +977,11 @@
 
     <script src="tools/pencil/pencil.js"></script>  
     <script src="tools/eraser/eraser.js"></script>
+    <script src="tools/clear/clear.js"></script>
+  <!-- Download -->
+  <script src="tools/download/download.js"></script>
+  <script src="tools/undo/undo.js"></script>
+  <script src="tools/redo/redo.js"></script>
         <script src="tools/line/line.js"></script>
     <script src="tools/rect/rect.js"></script>
     <script src="tools/text/text.js"></script>
@@ -1016,8 +1019,7 @@
     <!-- END TRANSFORM TOOL -->
     <script src="tools/document/document.js"></script>
 
-    <!-- Download -->
-    <script src="tools/download/download.js"></script>
+  
     <!-- BEGIN EDITOR TOOL -->
     <!-- Editor dep: CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.min.js"></script>
@@ -1052,7 +1054,6 @@
 
     <script src="tools/handNew/hand.js"></script>
     <script src="tools/grid/grid.js"></script>
-    <script src="tools/clear/clear.js"></script>
     <script src="tools/eraser2/eraser2.js"></script>
 
     <!-- BEGIN CALCULATOR TOOL-->
@@ -1063,8 +1064,7 @@
     <script src="tools/calculator/calculator.js"></script>
     <!-- END CALCULATOR TOOL-->
 
-    <script src="tools/undo/undo.js"></script>
-    <script src="tools/redo/redo.js"></script>
+ 
 
     <!-- Browser -->
     <!-- <script src="tools/browserUtil/browserUtil.js"></script> -->

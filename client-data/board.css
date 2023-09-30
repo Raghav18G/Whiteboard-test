@@ -13,6 +13,9 @@ body {
   background: transparent !important;
 }
 
+ul {
+  padding: 0px;
+}
 
 /* #rect_1{
   fill: transparent !important; 
@@ -64,6 +67,29 @@ body {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
+.moreTools{
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%; /* Full width */
+  border-radius: 16px;
+  height: 70%; /* Full height */
+  padding:12px;
+  overflow: auto; /* Enable scroll if needed */
+  /* background-color: #f6f6f6; Fallback color */
+  background-color: #ffffff; /* Set background color to white */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Add a light shadow */
+} 
+
+
+
+#openMoreTools{
+border:none;
+margin-right: 5px;
+}
 .stickyNotesModal-content {
   background-color: #fefefe;
   padding: 2px;
@@ -183,23 +209,45 @@ iframe {
 }
 
 #draggableToolbar {
-  position: relative;
+  position: fixed;
   z-index: 1000;
   background-color: #F6F6F6;
   border: 1px solid #F6F6F6;
   text-align: center;
   /* padding: 6px 15px 6px; */
   /* padding: 20px 15px 6px; */
+  padding: 10px 15px 0px; /* Adjusted padding */
+  height: 11rem;
+  border-radius: 20px;
+  display: flex;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  box-shadow: 0px 6px 8px 0px #e0e0e0;
+}
+
+/* #draggableToolbar {
+  position: fixed;
+  z-index: 1000;
+  background-color: #F6F6F6;
+  border: 1px solid #F6F6F6;
+  text-align: center;
+
   padding: 10px 15px 0px;
   height:11rem;
   border-radius: 20px;
-  display: none;
+  display: flex;
   width: max-content;
   align-items: center;
-  top: 280px;
-  left: 165px;
-  box-shadow: 0px 6px 8px 0px #e0e0e0;;
-}
+  justify-content: center;
+
+  left:30%;
+  bottom:0px;
+  box-shadow: 0px 6px 8px 0px #e0e0e0;
+} */
 
 #toolbarLoadingStrip{
   position: relative;
@@ -339,22 +387,55 @@ iframe {
   content: "...";
 }
 
+.tool-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 100%;
+  height: 400px;
+  padding: 0px;
+  overflow: auto;
+  gap: 8px; /* Adjust the gap between items if needed */
+}
+
+.tool-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tool-extra {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  margin: 4px; /* Add some margin for spacing */
+  background-color: #D9D9D94D; /* Light gray color for the box */
+  cursor: pointer;
+  border-radius: 8px; /* Rounded corners */
+}
+
+
+
 .tools {
   list-style-type: none;
   align-items: flex-start;
   padding: 0;
   overflow: hidden;
   display: flex;
+  flex-wrap: wrap;
+  padding: 0px;
   /* align-items: center; */
   justify-content: space-between;
   margin-bottom: 0;
+  margin-top: 1rem;
 }
 
 .localization {
   margin-left: 55px;
   /* margin-top: -45px; */
-  margin-top: -11rem;
-  padding-top:.1rem;
+  /* margin-top: -11rem; */
+  /* padding-top:.1rem; */
 }
 
 @keyframes minimize {
@@ -442,11 +523,7 @@ iframe {
 	*/
 }
 
-.tool-extra {
-  margin: 0px 3px 0px 5px;
-  width: 39px;
-  display: inline-block;
-}
+
 
 /* .oneTouch:active {
   border-radius: 3px;
@@ -462,6 +539,23 @@ iframe {
 .tool-extra.curTool {
   /* box-shadow: 0 0 5px #0064d9; */
   /*background: linear-gradient(#96E1FF, #36A2FF);*/
+}
+
+.tool-icon-modal {
+  display: flex !important;
+  flex-direction: column;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+  font-size: 24px;
+  width: 100% !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  height: 100% !important;
+  max-height:  none !important;
+  height: 100%;
+  /* margin: 0px 26px auto 4px; */
+  font-family: mono;
 }
 
 .tool-icon {
@@ -780,10 +874,10 @@ button.close.window-button {
   left: 122px !important;
   top: 20rem !important;
 }
-#toolID-close{
+/* #toolID-close{
   margin-left: -8px;
-}
-
+} */
+/* 
 #toolID-Undo,
 #toolID-Redo,
 #toolID-Clear + .tool,
@@ -794,8 +888,8 @@ button.close.window-button {
   background-color: #f7f7f7;
   bottom: 16px;
   max-width: 60px;
-}
-#toolID-Undo .tool-icon {
+} */
+/* #toolID-Undo .tool-icon {
   margin-left: 10px;
 }
 #toolID-Redo {
@@ -813,7 +907,7 @@ button.close.window-button {
 }
 #toolID-Clear {
   right: 16px;
-}
+} */
 
 .top__tools {
   max-width: 30px;
@@ -1141,7 +1235,7 @@ div#msr-pod-up {
     background: #f7f7f7;
     padding: 10px;
   }
-  #toolID-Undo,
+  /* #toolID-Undo,
   #toolID-Redo,
   #toolID-Clear + .tool,
   #toolID-Clear {
@@ -1162,7 +1256,7 @@ div#msr-pod-up {
   }
   #toolID-Undo .tool-icon {
     margin-left: 5px;
-  }
+  } */
   .menu .tool-icon {
     margin-right: 2px;
   }
@@ -1449,6 +1543,7 @@ div#msr-pod-up {
   font-family: "Inter";
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 
 .download-chip {
   display: inline-block;
@@ -2377,6 +2472,20 @@ padding: 10px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#moreToolsClose{
+  display: block;
+  padding: 12px 20px;
+  background-color: #007BFF;
+  margin-top:5px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }

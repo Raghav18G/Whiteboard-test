@@ -153,6 +153,7 @@
     },
     listeners: {},
     draw: backgroundChange,
+    isExtra: true,
    // oneTouch: true,
     onstart: toggleColorPicker, // start the fn while tool is selected
     mouseCursor: "crosshair",

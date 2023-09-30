@@ -74,6 +74,7 @@
         "listeners": {},
         "draw": draw,
         "oneTouch":true,
+        "isExtra": true,
         "onstart":toggleGrid,
         "mouseCursor": "crosshair",
     });

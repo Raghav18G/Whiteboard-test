@@ -545,6 +545,7 @@
     //The new tool
     name: "Hand",
     // shortcut: "h",
+	isExtra:false,
     listeners: {
       press: press,
       move: move,
