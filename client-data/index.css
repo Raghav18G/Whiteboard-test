@@ -51,7 +51,7 @@ main {
   display:flex;
   background: hsla(211, 100%, 50%, 0.1);
   flex-direction: column;
-  padding: 20px;
+  /* padding: 20px; */
   justify-items:center;
   gap: 20px;
   align-items:center;
