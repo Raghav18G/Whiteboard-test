@@ -575,11 +575,13 @@
 
 
     <!-- Loading Toolbar Strip -->
-    <!-- <div id="toolbarLoadingStrip">
-        <div class="loading-strip" id="strip">
+   
+        <div id="toolbarLoadingStrip">
+            <div class="loading-strip" id="strip">
+            </div>
+            <div class="loading-text" id="loadingText">Loading...</div>
         </div>
-        <div class="loading-text" id="loadingText">Loading...</div>
-    </div> -->
+  
     <div class="moreTools" id="moreTools">
         <ul id="tool-list" class="tool-list">
             <li class="tool-extra">
@@ -670,7 +672,7 @@
                     <circle cx=4 cy=4.6 id="opacityIndicator" r=3.5 fill="url(#opacityPattern)" />
                 </svg> -->
                 <div class="tool-selected">
-                    <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="26" height="26"  style="margin-left: 0.5px;" viewBox="0 0 28 28"
+                    <svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24"  style="margin-left: 0.5px;" viewBox="0 0 28 28"
                     fill="none">
                     <mask id="mask0_8261_28999" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
                         width="28" height="28">
@@ -711,7 +713,12 @@
                     style="-webkit-appearance: slider-vertical" class="rangeChooser rangeChooser-opacity" />
             </label>
         </div>
-        <button id="openMoreTools"><img src="./assets/Add Circle.png" width="30"/></button>
+        <div class="tool-name">
+            <button id="openMoreTools">
+                <img src="./assets/Add Circle.png" width="30"/>
+                <label id="tool-more-localization" class="label-more" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">More</label>
+            </button>
+        </div>
 
        
        
@@ -720,7 +727,8 @@
     </div>
 
 
-    <!-- <div id="loadingMessage"></div> -->
+    
+    <div id="loadingMessage"></div>
     <div id="overlay"></div>
     <div id="top_left_tools" class="top__tools">
     </div>

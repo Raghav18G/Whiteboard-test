@@ -18,7 +18,7 @@ var screenshotSVG = '<div class="tool-selected"><svg class="tool-icon-svg screen
     let canvas = document.getElementById("board");
     console.log("CANVAS", canvas);
     domtoimage.toJpeg(canvas, {
-      bgcolor:"#fff"
+      bgcolor:"transparent"
     }).then(function (res) {
       console.log("AFTER CONVERTING RES", res);
       var dataURL = res

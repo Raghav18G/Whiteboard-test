@@ -83,8 +83,12 @@ ul {
 }
 
 #openMoreTools {
+  display: flex;
+  flex-direction: column;
   border: none;
   margin-right: 5px;
+  margin-bottom: 20px;
+  align-items: center
 }
 .stickyNotesModal-content {
   background-color: #fefefe;
@@ -245,14 +249,33 @@ iframe {
 } */
 
 #toolbarLoadingStrip {
-  position: relative;
+  position: fixed;
+  z-index: 99999;
+  background-color: #f6f6f6;
+  border: 1px solid #f6f6f6;
+  text-align: center;
+  /* padding: 6px 15px 6px; */
+  /* padding: 20px 15px 6px; */
+  padding: 10px 15px 0px; /* Adjusted padding */
+  height: 11rem;
+  width: 75rem;
+  border-radius: 20px;
+  display: flex;
+  /* width: max-content; */
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  box-shadow: 0px 6px 8px 0px #e0e0e0;
+  /* position: relative;
   z-index: 1000;
   background-color: #f6f6f6;
   border: 1px solid #f6f6f6;
   text-align: center;
   /* padding: 6px 15px 6px; */
   /* padding: 20px 15px 6px; */
-  padding: 10px 15px 0px;
+  /* padding: 10px 15px 0px;
   height: 11rem;
   border-radius: 20px;
   display: flex;
@@ -261,7 +284,7 @@ iframe {
   align-items: center;
   top: 280px;
   left: 165px;
-  box-shadow: 0px 6px 8px 0px #e0e0e0;
+  box-shadow: 0px 6px 8px 0px #e0e0e0; */ */
 }
 
 .loading-strip {
@@ -388,7 +411,11 @@ iframe {
   overflow: auto;
   gap: 8px; /* Adjust the gap between items if needed */
 }
-
+.tool-img{
+  width: 24px;
+  height: 24px;
+  margin-bottom: 10px;
+}
 .tool-center {
   display: flex;
   justify-content: center;
@@ -417,7 +444,7 @@ iframe {
   /* align-items: center; */
   justify-content: space-between;
   margin-bottom: 0;
-  margin-top: 1rem;
+  margin-top: -1rem;
 }
 
 .localization {
@@ -631,9 +658,8 @@ iframe {
 }
 .tool-name.slider.sizeSelector {
   position: absolute;
-  bottom: 105px;
-  transform: rotate(-90deg);
-  left: 62px;
+  top: -100px;
+  transform: translateX(-50%) rotate(-90deg);
 }
 .tool-name.slider.sizeSelector #chooseSize {
   width: 130px;
@@ -650,10 +676,9 @@ iframe {
 }
 .tool-name.slider.opacitySelector {
   position: absolute;
-  /* bottom: 12rem;
-  left: 12.6rem; */
   top: -100px;
-  transform: translateX(-50%) rotate(-90deg);
+  right: 123px;
+  transform: translateX(-50%) rotate(-270deg);
 }
 
 .tool.opacityPicker {
@@ -839,9 +864,12 @@ button.close.window-button {
   transform: rotate(-90deg) !important;
   display: block;
   width: 12rem !important;
-  bottom: 16.4rem;
+  /* bottom: 16.4rem;
   height: 1rem;
-  left: 9.5rem;
+  left: 9.5rem; */
+  top: -65px;
+  right: 196px;
+  transform: translateX(-50%) rotate(-90deg);
   border: 0;
   position: absolute;
   margin: 0;

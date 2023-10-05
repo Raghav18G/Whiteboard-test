@@ -64,7 +64,7 @@ Tools.suppressPointerMsg = false;
 
 const MAX_CURSOR_UPDATES_PER_SECOND = 20;
 const DISPLAY_ACTIVITY_MONITOR = true;
-// var loading = true;
+var loading = true;
 
 (Tools.socket = null),
   (Tools.connect = function () {
@@ -120,14 +120,17 @@ const DISPLAY_ACTIVITY_MONITOR = true;
         }
       }
 
-      // if (loading) {
-      //   var loadingEl = document.getElementById("loadingMessage");
-      //   var loadingStrip = document.getElementById("toolbarLoadingStrip");
-      //   loadingEl.classList.add("hidden");
-      //   loadingStrip.style.display = "none";
-      //   document.getElementById("draggableToolbar").style.display = "flex";
-      //   loading = false;
-      // }
+      if (loading) {
+        setTimeout(function() {
+          var loadingEl = document.getElementById("loadingMessage");
+          var loadingStrip = document.getElementById("toolbarLoadingStrip");
+          loadingEl.classList.add("hidden");
+          loadingStrip.style.display = "none";
+          document.getElementById("draggableToolbar").style.display = "flex";
+          loading = false;
+        }, 500);
+      }
+
     });
 
     this.socket.on("reconnect", function onReconnection() {
@@ -570,12 +573,12 @@ Tools.list = {}; // An array of all known tools. {"toolName" : {toolObject}}
 Tools.add = function (newTool) {
   // console.log("TOOLs aDD CALLED", newTool.name);
   //    // Define an array of allowed tools
-  //    var allowedTools = ["Pencil", "Hand", "Eraser"]; // Add the names of the allowed tools
+    //  var notAllowedTools = ["Grid", "Zoom In", "Zoom Out", "Background", "Download"]; // Add the names of the allowed tools
 
-  //    if (!allowedTools.includes(newTool.name)) {
-  //      console.log("Tool '" + newTool.name + "' is not in the allowed list.");
-  //      return; // Exit the function if tool is not allowed
-  //    }
+    //  if (notAllowedTools.includes(newTool.name)) {
+    //    console.log("Tool '" + newTool.name + "' is not in the allowed list.");
+    //    return; // Exit the function if tool is not allowed
+    //  }
   if (newTool.name in Tools.list) {
     console.log(
       "Tools.add: The tool '" +
