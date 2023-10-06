@@ -622,7 +622,7 @@
 
        
         <!-- Tool Size Indicator -->
-        <div class="tool size_selector_container">
+        <div class="tool size_selector_container hidden">
             <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
@@ -660,7 +660,7 @@
 
 
         <!-- Opacity Picker -->
-        <div class="tool opacityPicker">
+        <div class="tool opacityPicker hidden">
             <span class="tool-icon" id="opacity-picker" title="Opacity Picker">
                 <!-- <svg class="tool-icon-svg" viewBox="0 0 8 8">
                     <pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
@@ -720,9 +720,9 @@
             </button>
         </div>
 
+          <button id="add-page" onclick="addNewPage()">Add New</button>
        
-       
-            <button id="add-page" onclick="addNewPage()">Add New</button>
+         
 
     </div>
 
@@ -1076,12 +1076,12 @@
 
     <!-- Browser -->
     <!-- <script src="tools/browserUtil/browserUtil.js"></script> -->
+    <script src="tools/Close/close.js"></script>
     <script src="tools/zoom-in/zoom-in.js"></script>
     <script src="tools/zoom-out/zoom-out.js"></script>
     <script src="components/measurement/measurement.js"></script>
     <script src="js/canvascolor/canvascolor.min.js"></script>
     <script src="js/customJs/custom.js"></script>
-    <script src="tools/Close/close.js"></script>
     <script src="tools/FullScreen/fullscreen.js"></script>
     <script src="tools/Mice/mice.js"></script>
     <script src="tools/VideoRecorder/videoRecorder.js"></script>

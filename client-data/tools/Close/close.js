@@ -59,14 +59,20 @@ $(document).ready(() => {
     name: "close",
     title:"Close",
     // "icon": "🖼️",
-    iconHTML: element,
+    // iconHTML: element,
+    iconHTML : `
+    <div class="tool-selected">
+        <img class="tool-img close__meeting" id="close-meet" src="assets/close.svg" alt="Close Icon">
+    </div>
+    <label id="tool-close-localization" class="label-close" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Close</label>
+    `,
     // shortcuts: {
     //   actions: [{ key: "19", action: onstart }],
     // },
     listeners: {},
     // draw: draw,
     // onstart: onstart,
-    isExtra: true,
+    isExtra: false,
     //oneTouch: true,
     // "onquit":onQuit,
     mouseCursor: "auto",

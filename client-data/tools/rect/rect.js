@@ -619,41 +619,43 @@
     //   drawImage(msg);
     // };
     image.onload = function () {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", image.src, true);
-      xhr.responseType = "blob";
-      xhr.send();
-
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          // Create a new FileReader instance
-          var reader = new FileReader();
-          reader.onloadend = function () {
-            // The result attribute contains the data URL
-            var dataURL = reader.result;
-
-            var msgLibrary = {
-              id: uid,
-              type: "doc",
-              src: dataURL,
-              w: this.width || 300,
-              h: this.height || 300,
-              x:
-                (100 + document.documentElement.scrollLeft) / Tools.scale +
-                10 * imgCount,
-              y:
-                (100 + document.documentElement.scrollTop) / Tools.scale +
-                10 * imgCount,
-            };
-            drawImage(msgLibrary);
-            Tools.send(msgLibrary, "Document");
-            imgCount++;
-          };
-
-          // Read the file as a Data URL
-          reader.readAsDataURL(xhr.response);
-        }
+      var msgLibrary = {
+        id: uid,
+        type: "doc",
+        src: image.src,
+        w: this.width || 300,
+        h: this.height || 300,
+        x:
+          (100 + document.documentElement.scrollLeft) / Tools.scale +
+          10 * imgCount,
+        y:
+          (100 + document.documentElement.scrollTop) / Tools.scale +
+          10 * imgCount,
       };
+      drawImage(msgLibrary);
+      Tools.send(msgLibrary, "Document");
+      imgCount++;
+
+      // var xhr = new XMLHttpRequest();
+      // xhr.open("GET", image.src, true);
+      // xhr.responseType = "blob";
+      // xhr.send();
+
+      // xhr.onload = function () {
+      //   if (xhr.status === 200) {
+      //     // Create a new FileReader instance
+      //     var reader = new FileReader();
+      //     reader.onloadend = function () {
+      //       // The result attribute contains the data URL
+      //       var dataURL = reader.result;
+
+          
+      //     };
+
+      //     // Read the file as a Data URL
+      //     reader.readAsDataURL(xhr.response);
+      //   }
+      // };
     }
   }
 
