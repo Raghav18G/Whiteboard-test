@@ -433,6 +433,11 @@ iframe {
   border-radius: 8px; /* Rounded corners */
 }
 
+.shapes-spacing { 
+  width: 30% !important;
+  height: 30% !important;
+}
+
 .tools {
   list-style-type: none;
   align-items: flex-start;
@@ -448,10 +453,16 @@ iframe {
 }
 
 .localization {
+  position: absolute;
+  top: 10px;
   margin-left: 55px;
   /* margin-top: -45px; */
   /* margin-top: -11rem; */
   /* padding-top:.1rem; */
+}
+.localization-children{
+  display: flex;
+  justify-content: space-between
 }
 
 @keyframes minimize {
@@ -885,10 +896,29 @@ button.close.window-button {
 /* shape styles */
 #popover-Rectangle,
 #popover-Line {
-  position: absolute !important;
+  /* position: absolute !important;
   bottom: auto;
   left: 122px !important;
-  top: 20rem !important;
+  top: 20rem !important; */
+  position: fixed !important;
+  bottom: auto;
+  left: 50% !important;
+  top: 50% !important;
+  overflow: auto;
+  transform: translate(-50%, -50%) !important;
+  z-index: 100000;
+  width: 100%;
+}
+
+#popover-body-2d {
+  display: flex !important;
+  flex-wrap: wrap !important ;
+  gap: 7px !important;
+}
+#popover-body-3d{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
 }
 /* #toolID-close{
   margin-left: -8px;
@@ -1174,7 +1204,6 @@ div#msr-pod-up {
 }
 
 #languageSelect {
-  position: fixed;
   width: 103px;
   height: 38px;
   border-radius: 2rem;
@@ -2315,14 +2344,11 @@ div#msr-pod-up {
   /* border: 1px solid beige; */
   border: none;
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: 828px;
+  height: 413px;
   cursor: crosshair;
   z-index: 9999;
 }
-
-
-
 .hidden {
   display: none !important;
 }
@@ -2520,4 +2546,54 @@ div#msr-pod-up {
   width: 10rem;
   cursor: pointer;
   position: relative;
+}
+
+/* round compass css */
+
+.roundCompass--container {
+  display: flex;
+  flex-direction: column;
+  height: 560px;
+  width:500px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+#drawButton{
+  display: block;
+  padding: 12px 20px;
+  background-color: #007bff;
+  margin-top: 5px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+canvas {
+  border: 1px solid #000;
+  height: 400px; /* Set the canvas height in pixels */
+}
+
+.controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+button {
+  display: block;
+  margin-top: 10px;
+}
+
+#compassCanvas {
+  cursor: move;
 }

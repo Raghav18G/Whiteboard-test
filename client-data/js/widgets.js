@@ -1145,184 +1145,191 @@ const rulerWidget = (e) => {
   }
 };
 
-const roundCompassWidget = (e) => {
-  console.log("roundCompass", e);
-  createDrag = new Draggable();
+// const roundCompassWidget = e => {
+//   console.log("roundCompass", e)
+//   createDrag = new Draggable()
 
-  const roundCompassforeignObject = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "foreignObject"
-  );
-  const roundCompassWidgetElement = document.createElement("div");
+//   const roundCompassforeignObject = document.createElementNS(
+//     "http://www.w3.org/2000/svg",
+//     "foreignObject"
+//   )
+//   const roundCompassWidgetElement = document.createElement("div")
 
-  roundCompassWidgetElement.id = "roundCompassWidget";
-  let uid = Tools.generateUID("doc");
+//   roundCompassWidgetElement.id = "roundCompassWidget"
+//   let uid = Tools.generateUID("doc")
 
-  const roundCompassWidgetHTML = `
-  <div class="rounded-compass ">
-<div class="rounded-compass-input" style="display:"block">
-<div style="display:flex;margin-bottom: 11px;">
-<label for="radius" style="color: red;">Radius:</label>
-<input type="number" id="radius" min="0" max="10" step="0.1px" value="4.5" style="color: red; margin: -4px 0px 0px 8px;">
-</div>
-<div style="display:flex">
-    <label for="degree" style="color: green;">Degree:</label>
-    <input
-      type="number"
-      id="degree"
-      min="0"
-      max="360"
-      value="0"
-      style="color: green;margin: -4px 0px 0px 8px;"
-    />
-    </div>
-    </div>
+//   const roundCompassWidgetHTML = `
+//   <div class="rounded-compass ">
+// <div class="rounded-compass-input" style="display:"block">
+// <div style="display:flex;margin-bottom: 11px;">
+//   <label for="radius" style="color: red">Radius:</label>
+//     <input
+//       type="number"
+//       id="radius"
+//       min="0"
+//       max="2.9"
 
-    <canvas id="canvas-roundcompass"> </canvas>
-    </div>
-    `;
+//       value="2.5"
+//       style="color: red;margin: -4px 0px 0px 8px;"
+//     />
+// </div>
+// <div style="display:flex">
+//     <label for="degree" style="color: green;">Degree:</label>
+//     <input
+//       type="number"
+//       id="degree"
+//       min="0"
+//       max="360"
+//       value="0"
+//       style="color: green;margin: -4px 0px 0px 8px;"
+//     />
+//     </div>
+//     </div>
 
-  roundCompassWidgetElement.innerHTML = roundCompassWidgetHTML;
+//     <canvas id="canvas-roundcompass"> </canvas>
+//     </div>
+//     `
 
-  roundCompassforeignObject.style.x = `${e.clientX + window.scrollX}px`;
-  roundCompassforeignObject.style.y = `${e.clientY + window.scrollY}px`;
-  // roundCompassforeignObject.style.x = e.clientX;
-  // roundCompassforeignObject.style.y = e.clientY;
-  roundCompassforeignObject.style.width = "1px";
-  roundCompassforeignObject.style.height = "1px";
-  roundCompassforeignObject.setAttribute("id", uid);
-  roundCompassforeignObject.setAttribute("overflow", "visible");
+//   roundCompassWidgetElement.innerHTML = roundCompassWidgetHTML
 
-  roundCompassforeignObject.appendChild(roundCompassWidgetElement);
+//   roundCompassforeignObject.style.x = `${e.clientX + window.scrollX}px`
+//   roundCompassforeignObject.style.y = `${e.clientY + window.scrollY}px`
+//   // roundCompassforeignObject.style.x = e.clientX;
+//   // roundCompassforeignObject.style.y = e.clientY;
+//   roundCompassforeignObject.style.width = "1px"
+//   roundCompassforeignObject.style.height = "1px"
+//   roundCompassforeignObject.setAttribute("id", uid)
+//   roundCompassforeignObject.setAttribute("overflow", "visible")
 
-  const crossDiv = document.createElement("div");
-  crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>';
+//   roundCompassforeignObject.appendChild(roundCompassWidgetElement)
 
-  crossDiv.classList.add("cross-div");
+//   const crossDiv = document.createElement("div")
+//   crossDiv.innerHTML =
+//     '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
 
-  roundCompassforeignObject.appendChild(crossDiv);
+//   crossDiv.classList.add("cross-div")
 
-  crossDiv.addEventListener("click", () => widgetRemove(uid));
+//   roundCompassforeignObject.appendChild(crossDiv)
 
-  Tools.group.appendChild(roundCompassforeignObject);
+//   crossDiv.addEventListener("click", ()=>widgetRemove(uid))
 
-  //makeDraggeble(roundCompassforeignObject);
-  const dragDiv = document.createElement("div");
-  dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
-  dragDiv.classList.add("drag-widget");
+//   Tools.group.appendChild(roundCompassforeignObject)
 
-  roundCompassWidgetElement.appendChild(dragDiv);
+//   //makeDraggeble(roundCompassforeignObject);
+//   const dragDiv = document.createElement("div")
+//   dragDiv.innerHTML =
+//     '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>'
+//   dragDiv.classList.add("drag-widget")
 
-  createDrag.addDrag(dragDiv, roundCompassforeignObject);
+//   roundCompassWidgetElement.appendChild(dragDiv)
 
-  const canvas = document.getElementById("canvas-roundcompass");
-  const ctx = canvas.getContext("2d");
+//   createDrag.addDrag(dragDiv, roundCompassforeignObject)
 
-  const radiusInput = document.getElementById("radius");
-  const degreeInput = document.getElementById("degree");
+//   const canvas = document.getElementById("canvas-roundcompass")
+//   const ctx = canvas.getContext("2d")
 
-  let radius = parseFloat(radiusInput.value);
-  let degree = parseInt(degreeInput.value);
+//   const radiusInput = document.getElementById("radius")
+//   const degreeInput = document.getElementById("degree")
 
-  let isDragging = false;
-  let prevX = 0;
+//   let radius = parseFloat(radiusInput.value)
+//   let degree = parseInt(degreeInput.value)
 
-  function drawArc() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   let isDragging = false
+//   let prevX = 0
 
-    // Draw the arc/circle
+//   function drawArc() {
+//     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    ctx.beginPath();
+//     // Draw the arc/circle
+//     ctx.beginPath()
+//     ctx.arc(
+//       canvas.width / 2,
+//       canvas.height / 2,
+//       radius * 25,
+//       0,
+//       (degree * Math.PI) / 180
+//     )
+//     ctx.strokeStyle = "green"
+//     ctx.lineWidth = 1
+//     ctx.stroke()
+//     ctx.closePath()
 
-    ctx.arc(
-      canvas.width / 2,
-      canvas.height / 2,
-      radius * 25,
-      0,
-      (degree * Math.PI) / 180
-    );
-    ctx.strokeStyle = "green";
-    ctx.lineWidth = 5;
-    ctx.stroke();
-    ctx.closePath();
-    // Draw the radius line
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2, canvas.height / 2);
-    const endX =
-      canvas.width / 2 + radius * 25 * Math.cos((degree * Math.PI) / 180);
-    const endY =
-      canvas.height / 2 + radius * 25 * Math.sin((degree * Math.PI) / 180);
-    ctx.lineTo(endX, endY);
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.closePath();
-  }
+//     // Draw the radius line
+//     ctx.beginPath()
+//     ctx.moveTo(canvas.width / 2, canvas.height / 2)
+//     const endX =
+//       canvas.width / 2 + radius * 25 * Math.cos((degree * Math.PI) / 180)
+//     const endY =
+//       canvas.height / 2 + radius * 25 * Math.sin((degree * Math.PI) / 180)
+//     ctx.lineTo(endX, endY)
+//     ctx.strokeStyle = "red"
+//     ctx.lineWidth = 2
+//     ctx.stroke()
+//     ctx.closePath()
+//   }
 
-  canvas.addEventListener("mousedown", (e) => {
-    const x = e.clientX - canvas.getBoundingClientRect().left;
-    const y = e.clientY - canvas.getBoundingClientRect().top;
+//   canvas.addEventListener("mousedown", e => {
+//     const x = e.clientX - canvas.getBoundingClientRect().left
+//     const y = e.clientY - canvas.getBoundingClientRect().top
 
-    const deltaX = x - canvas.width / 2;
-    const deltaY = y - canvas.height / 2;
-    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+//     const deltaX = x - canvas.width / 2
+//     const deltaY = y - canvas.height / 2
+//     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
 
-    // Check if the click is within the radius
-    if (distance <= radius * 50) {
-      isDragging = true;
-      prevX = x;
-    }
-  });
+//     // Check if the click is within the radius
+//     if (distance <= radius * 50) {
+//       isDragging = true
+//       prevX = x
+//     }
+//   })
 
-  canvas.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+//   canvas.addEventListener("mouseup", () => {
+//     isDragging = false
+//   })
 
-  canvas.addEventListener("mousemove", (e) => {
-    if (isDragging) {
-      const x = e.clientX - canvas.getBoundingClientRect().left;
-      const y = e.clientY - canvas.getBoundingClientRect().top;
-      const deltaX = x - canvas.width / 2;
-      const deltaY = y - canvas.height / 2;
+//   canvas.addEventListener("mousemove", e => {
+//     if (isDragging) {
+//       const x = e.clientX - canvas.getBoundingClientRect().left
+//       const y = e.clientY - canvas.getBoundingClientRect().top
+//       const deltaX = x - canvas.width / 2
+//       const deltaY = y - canvas.height / 2
 
-      // Calculate the angle from the x-axis to the current point
-      let newDegree = (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-      if (newDegree < 0) {
-        newDegree += 360;
-      }
+//       // Calculate the angle from the x-axis to the current point
+//       let newDegree = (Math.atan2(deltaY, deltaX) * 180) / Math.PI
+//       if (newDegree < 0) {
+//         newDegree += 360
+//       }
 
-      degree = newDegree;
-      degreeInput.value = Math.round(degree);
-      drawArc();
-    }
-  });
+//       degree = newDegree
+//       degreeInput.value = Math.round(degree)
+//       drawArc()
+//     }
+//   })
 
-  radiusInput.addEventListener("input", () => {
-    radius = parseFloat(radiusInput.value);
-    drawArc();
-  });
+//   radiusInput.addEventListener("input", () => {
+//     radius = parseFloat(radiusInput.value)
+//     drawArc()
+//   })
 
-  degreeInput.addEventListener("input", () => {
-    degree = parseInt(degreeInput.value);
-    drawArc();
-  });
+//   degreeInput.addEventListener("input", () => {
+//     degree = parseInt(degreeInput.value)
+//     drawArc()
+//   })
 
-  canvas.addEventListener("mouseover", () => {
-    if (!isDragging) {
-      canvas.style.cursor = "pointer"; // Set the custom cursor when hovering over the radius
-    }
-  });
+//   canvas.addEventListener("mouseover", () => {
+//     if (!isDragging) {
+//       canvas.style.cursor = "pointer" // Set the custom cursor when hovering over the radius
+//     }
+//   })
 
-  canvas.addEventListener("mouseout", () => {
-    if (!isDragging) {
-      canvas.style.cursor = "default"; // Reset to the default pointer when not hovering over the radius
-    }
-  });
+//   canvas.addEventListener("mouseout", () => {
+//     if (!isDragging) {
+//       canvas.style.cursor = "default" // Reset to the default pointer when not hovering over the radius
+//     }
+//   })
 
-  drawArc();
-};
+//   drawArc()
+// }
 
 // function makeDraggeble(parentRef) {
 //   let isDragging = false;
@@ -1418,6 +1425,280 @@ const roundCompassWidget = (e) => {
 // }
 
 // set the image background to view port width
+
+const roundCompassWidget = (e) => {
+  createDrag = new Draggable();
+
+  const roundCompassforeignObject = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "foreignObject"
+  );
+  const roundCompassWidgetElement = document.createElement("div");
+
+  roundCompassWidgetElement.id = "roundCompassWidget";
+  let uid = Tools.generateUID("doc");
+
+  const roundCompassWidgetHTML = `
+    <div class="roundCompass--container">
+    <canvas id="compassCanvas" height="400" width="400"></canvas>
+     <div class="controls">
+        <label for="radiusInput">Radius:</label>
+        <input type="number" id="radiusInput" value="100" max="196" min="0">
+        <label for="angleInput">Angle (0-360°):</label>
+        <input type="number" id="angleInput" value="0" min="0" max="360">
+      </div>
+      <button id="drawButton">Draw</button>
+    </div>
+      `;
+  roundCompassWidgetElement.innerHTML = roundCompassWidgetHTML;
+
+  roundCompassforeignObject.style.x = `${e.clientX + window.scrollX}px`;
+  roundCompassforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  // roundCompassforeignObject.style.x = e.clientX;
+  // roundCompassforeignObject.style.y = e.clientY;
+  roundCompassforeignObject.style.width = "1px";
+  roundCompassforeignObject.style.height = "1px";
+  roundCompassforeignObject.setAttribute("id", uid);
+  roundCompassforeignObject.setAttribute("overflow", "visible");
+
+  roundCompassforeignObject.appendChild(roundCompassWidgetElement);
+
+  const crossDiv = document.createElement("div");
+  crossDiv.innerHTML =
+    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>';
+
+  crossDiv.classList.add("cross-div");
+
+  roundCompassforeignObject.appendChild(crossDiv);
+
+  crossDiv.addEventListener("click", () => widgetRemove(uid));
+
+  Tools.group.appendChild(roundCompassforeignObject);
+
+  //makeDraggeble(roundCompassforeignObject);
+  const dragDiv = document.createElement("div");
+  dragDiv.innerHTML =
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
+  dragDiv.classList.add("drag-widget");
+
+  roundCompassWidgetElement.appendChild(dragDiv);
+
+  createDrag.addDrag(dragDiv, roundCompassforeignObject);
+
+  const canvas = document.getElementById("compassCanvas");
+  const ctx = canvas.getContext("2d");
+  const radiusInput = document.getElementById("radiusInput");
+  const angleInput = document.getElementById("angleInput");
+  const drawButton = document.getElementById("drawButton");
+
+  const canvasWidth = canvas.width;
+  const canvasHeight = canvas.height;
+  const A = { x: canvasWidth / 2, y: canvasHeight / 2 };
+  let B = { x: A.x + 100, y: A.y }; // Initial position of B
+  let isDraggingRedArm = false;
+  let isDraggingGreenArm = false;
+
+  const arcs = []; // Array to store arc properties
+
+  function wrapAngle(angle) {
+    if (angle < 0) return 359;
+    if (angle >= 360) return 0;
+    return angle;
+  }
+
+  function drawTriangle() {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    const radius = parseFloat(radiusInput.value);
+    let angle = parseFloat(angleInput.value);
+
+    angle = wrapAngle(angle);
+
+    B.x = A.x + radius * Math.cos(angle * (Math.PI / 180));
+    B.y = A.y + radius * Math.sin(angle * (Math.PI / 180));
+
+    // Calculate the position of point C
+    const C = {
+      x: A.x + radius,
+      y: A.y,
+    };
+
+    ctx.lineWidth = 5;
+
+    // Draw all the stored arcs
+    arcs.forEach((arc) => {
+      ctx.beginPath();
+      ctx.arc(
+        arc.center.x,
+        arc.center.y,
+        arc.radius,
+        arc.startAngle,
+        arc.endAngle
+      );
+      ctx.strokeStyle = arc.color;
+      ctx.stroke();
+    });
+
+    // Draw red arm (line AB)
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+    ctx.strokeStyle = "orange";
+    ctx.stroke();
+
+    // Draw green arm (line AC)
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(C.x, C.y);
+    ctx.strokeStyle = "green";
+    ctx.stroke();
+
+    // Draw the current arc
+    ctx.beginPath();
+    ctx.arc(A.x, A.y, radius, 0, angle * (Math.PI / 180));
+    ctx.strokeStyle = "gray";
+    ctx.stroke();
+  }
+
+  let initialAngle = 0; // Store the initial angle when dragging starts
+
+  function handleMouseDown(event) {
+    const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+    const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+
+    // Check if the user clicked near the red arm (point B) for red arm dragging
+    const distanceToB = Math.sqrt((mouseX - B.x) ** 2 + (mouseY - B.y) ** 2);
+    if (distanceToB <= 10) {
+      isDraggingRedArm = true;
+      canvas.style.cursor = "grabbing"; // Change cursor to "grabbing"
+
+      // Calculate the initial angle when dragging starts
+      initialAngle = Math.atan2(mouseY - A.y, mouseX - A.x);
+      initialAngle = (initialAngle * 180) / Math.PI;
+      initialAngle = wrapAngle(initialAngle);
+
+      angleInput.value = initialAngle;
+      drawTriangle();
+    }
+
+    // Check if the user clicked near the green arm (point C) for green arm dragging
+    const distanceToC = Math.sqrt((mouseX - C.x) ** 2 + (mouseY - C.y) ** 2);
+    if (distanceToC <= 10) {
+      isDraggingGreenArm = true;
+      canvas.style.cursor = "grab"; // Change cursor to "grab"
+    }
+  }
+
+  function handleMouseMove(event) {
+    if (isDraggingRedArm) {
+      const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+      const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+
+      // Calculate the angle based on the mouse position
+      let newAngle = Math.atan2(mouseY - A.y, mouseX - A.x);
+      newAngle = (newAngle * 180) / Math.PI;
+      newAngle = wrapAngle(newAngle);
+
+      // Calculate the angle change since the initial angle
+      let angleChange = newAngle - initialAngle;
+
+      // Handle wrapping when crossing the 0/359-degree boundary
+      if (Math.abs(angleChange) > 180) {
+        if (angleChange > 0) {
+          angleChange = -360 + angleChange;
+        } else {
+          angleChange = 360 + angleChange;
+        }
+      }
+
+      // Update the initial angle for the next iteration
+      initialAngle = newAngle;
+
+      // Calculate the new angle
+      let updatedAngle = parseFloat(angleInput.value) + angleChange;
+      updatedAngle = wrapAngle(updatedAngle);
+
+      // Update the angle input and redraw the compass
+      angleInput.value = updatedAngle;
+      drawTriangle();
+    }
+
+    if (isDraggingGreenArm) {
+      const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+
+      // Calculate the new radius based on the mouse position
+      let newRadius = Math.abs(mouseX - A.x);
+
+      // Ensure the radius stays within reasonable bounds
+      if (newRadius < 10) {
+        newRadius = 10; // Minimum radius
+      }
+
+      // Update the radius input with the new radius
+      radiusInput.value = newRadius;
+
+      // Update the position of point C
+      C.x = A.x + newRadius;
+
+      // Calculate the new angle based on the current radius
+      let newAngle = Math.atan2(B.y - A.y, B.x - A.x);
+      newAngle = (newAngle * 180) / Math.PI;
+      newAngle = wrapAngle(newAngle);
+
+      // Update the angle input with the new angle
+      angleInput.value = newAngle;
+
+      // Redraw the compass with the updated values
+      drawTriangle();
+    }
+  }
+
+  function handleMouseUp() {
+    isDraggingRedArm = false;
+    isDraggingGreenArm = false;
+    canvas.style.cursor = "default"; // Restore default cursor
+  }
+
+  canvas.addEventListener("mousedown", handleMouseDown);
+  canvas.addEventListener("mousemove", handleMouseMove);
+  canvas.addEventListener("mouseup", handleMouseUp);
+
+  radiusInput.addEventListener("input", drawTriangle);
+
+  angleInput.addEventListener("input", () => {
+    let angle = parseFloat(angleInput.value);
+
+    if (angle < 0) {
+      angle = 359;
+    } else if (angle >= 360) {
+      angle = 0;
+    }
+
+    angleInput.value = angle;
+
+    drawTriangle();
+  });
+
+  drawButton.addEventListener("click", () => {
+    // Store the current arc's properties and color
+    const currentRadius = parseFloat(radiusInput.value);
+    const currentAngle = parseFloat(angleInput.value);
+    const currentColor = "black"; // You can choose any color
+
+    arcs.push({
+      center: { x: A.x, y: A.y },
+      radius: currentRadius,
+      startAngle: 0,
+      endAngle: (currentAngle * Math.PI) / 180,
+      color: currentColor,
+    });
+
+    // Redraw the compass with the new arc
+    drawTriangle();
+  });
+
+  // drawTriangle()
+};
 
 function getVisibleViewport() {
   const viewportWidth = window.innerWidth;
