@@ -564,6 +564,6 @@
     showMarker: true,
   };
 
-//   Tools.add(handTool);
+  Tools.add(handTool);
 //   Tools.change("Hand"); // Use the hand tool by default 
 })(); //End of code isolation
