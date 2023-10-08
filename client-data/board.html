@@ -92,6 +92,7 @@
             document.getElementById("moreToolsClose").addEventListener("click",()=>{
                 document.getElementById("moreTools").style.display="none"
             })
+            
         });
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -719,8 +720,11 @@
                 <label id="tool-more-localization" class="label-more" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">More</label>
             </button>
         </div>
-
-          <button id="add-page" onclick="addNewPage()">Add New</button>
+        <div class="tool-name">
+            <button id="add-page" onclick="addNewPage()">  <img src="./assets/Add New.png" width="30"/></button>
+            <label  style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Add New Page</label>
+            </div>
+        
        
          
 

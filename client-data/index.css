@@ -56,6 +56,7 @@ main {
   gap: 20px;
   align-items:center;
   flex-grow: 1;
+  max-width: 50%;
 }
 
 .landing-right img {
@@ -67,14 +68,35 @@ main {
   list-style-type: disc;
   text-align: left; /* Align text to the left */
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
   margin: 20px 0; /* Add vertical margin for gap */
   color: #555555;
   font-size: 20px;
   display: inline-block; /* Make ul elements inline-block */
   max-width: 75%; /* Set max width */
+ 
 }
 
+.landing-right ul li {
+  color:"#666666";
 
+}
+
+.landing-right .li-item{
+  font-family: "Inter";
+
+margin-bottom:2rem;
+}
+
+.landing-right .li-item .li-item-bold{
+  font-family: "Inter";
+  font-weight: 800;
+  color:"#212121"
+}
 
 
 /* Navbar */
@@ -371,6 +393,8 @@ footer {
   text-decoration: none;
   cursor: pointer;
 }
+
+
 
 @keyframes vibration {
   0% {
