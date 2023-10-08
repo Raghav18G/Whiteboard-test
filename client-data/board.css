@@ -669,7 +669,7 @@ iframe {
 }
 .tool-name.slider.sizeSelector {
   position: absolute;
-  top: -100px;
+  top: -75px;
   transform: translateX(-50%) rotate(-90deg);
 }
 .tool-name.slider.sizeSelector #chooseSize {
@@ -687,7 +687,7 @@ iframe {
 }
 .tool-name.slider.opacitySelector {
   position: absolute;
-  top: -100px;
+  top: -120px;
   right: 123px;
   transform: translateX(-50%) rotate(-270deg);
 }
@@ -2030,8 +2030,19 @@ div#msr-pod-up {
   border: 1px solid #ccc;
   padding: 10px;
   margin: 20px auto;
+
 }
 
+
+.calc-box{
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+}
 #calculatorWidget input[type="text"] {
   width: 100%;
   font-size: 24px;
