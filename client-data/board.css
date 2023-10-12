@@ -462,7 +462,7 @@ iframe {
 }
 
 .localization {
-  position: absolute;
+  position: fixed;
   top: 10px;
   margin-left: 55px;
   /* margin-top: -45px; */
@@ -710,7 +710,7 @@ iframe {
   display: none !important;
 }
 .tool-name.slider.opacitySelector #chooseOpacity {
-  transform: rotate(90deg);
+  transform: rotate(270deg);
   position: absolute;
   bottom: -49px;
   /* width: 20px; */
@@ -889,7 +889,7 @@ button.close.window-button {
   height: 1rem;
   left: 9.5rem; */
   top: -65px;
-  right: 196px;
+  right: 215px;
   transform: translateX(-50%) rotate(-90deg);
   border: 0;
   position: absolute;
@@ -1207,6 +1207,7 @@ div#msr-pod-up {
 .video__recorder__screen {
   width: 200px;
   height: 150px;
+  display: none;
   position: fixed;
   top: 20px;
   right: 10px;
@@ -1368,11 +1369,7 @@ div#msr-pod-up {
     width: 26px;
   }
 
-  .localization {
-    margin-left: 56px;
-    margin-top: 14px;
-    top: 10px;
-  }
+
   /* .documentModal {
     display: block;
     top: 130px !important;
@@ -1547,6 +1544,10 @@ div#msr-pod-up {
     width: 150px;
     height: 100px;
   }
+.show-video{
+  display: block
+}
+  
   /* #board #canvas {
     width: 100%;
     height: 100%;
@@ -1769,6 +1770,9 @@ div#msr-pod-up {
 /* Tabs Styling */
 .tab-header {
   margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+
 }
 
 .tab {
@@ -2598,7 +2602,7 @@ div#msr-pod-up {
 
 canvas {
   border: 1px solid #000;
-  height: 400px; /* Set the canvas height in pixels */
+  /* height: 400px; Set the canvas height in pixels */
 }
 
 .controls {
@@ -2612,9 +2616,19 @@ label {
 
 button {
   display: block;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 #compassCanvas {
   cursor: move;
+}
+.cross-div {
+  left: -10px;
+  position: absolute;
+  top: 15px;
+}
+
+.shapes-spacing {
+  width: 30% !important;
+  height: 30% !important;
 }

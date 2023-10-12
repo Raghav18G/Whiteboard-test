@@ -899,58 +899,60 @@ const stopWatchWidget = (e) => {
   resetButton.addEventListener("click", () => reset());
 };
 
-const protractorWidget = (e) => {
-  console.log("protractor", e);
-  createDrag = new Draggable();
+const protractorWidget = e => {
+  createDrag = new Draggable()
 
   const protractorforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
     "foreignObject"
-  );
-  const protractorWidgetElement = document.createElement("div");
-  protractorWidgetElement.id = "protractorWidget";
-  let uid = Tools.generateUID("doc");
+  )
+  const protractorWidgetElement = document.createElement("div")
+  protractorWidgetElement.id = "protractorWidget"
+  let uid = Tools.generateUID("doc")
 
   const protractorWidgetHTML = `
     <div class="protractor-parent">
       <div class="rotational-container">
         <div class="rotational-division">
-          <input type="text" id="rotation-angle" value="0°"></input>
+         <input type="number" id="rotation-angle" value="0°" min="-360" max="360">
         </div>
       </div>
-    </div>`;
+    </div>`
 
-  protractorWidgetElement.innerHTML = protractorWidgetHTML;
+  protractorWidgetElement.innerHTML = protractorWidgetHTML
 
-  protractorforeignObject.style.x = `${e.clientX + window.scrollX}px`;
-  protractorforeignObject.style.y = `${e.clientY + window.scrollY}px`;
+  protractorforeignObject.style.x = `${e.clientX + window.scrollX}px`
+  protractorforeignObject.style.y = `${e.clientY + window.scrollY}px`
   // protractorforeignObject.style.x = e.clientX;
   // protractorforeignObject.style.y = e.clientY;
-  protractorforeignObject.style.width = "1px";
-  protractorforeignObject.style.height = "1px";
-  protractorforeignObject.setAttribute("id", uid);
-  protractorforeignObject.setAttribute("overflow", "visible");
+  protractorforeignObject.style.width = "1px"
+  protractorforeignObject.style.height = "1px"
+  protractorforeignObject.setAttribute("id", uid)
+  protractorforeignObject.setAttribute("overflow", "visible")
 
-  protractorforeignObject.appendChild(protractorWidgetElement);
+  protractorforeignObject.appendChild(protractorWidgetElement)
 
-  Tools.group.appendChild(protractorforeignObject);
-  const dragDiv = document.createElement("div");
+  Tools.group.appendChild(protractorforeignObject)
+  const dragDiv = document.createElement("div")
   dragDiv.innerHTML =
-    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>';
-  dragDiv.classList.add("drag-widget");
+    '<img src="./assets/DRAG.svg" class="dragLogo" height="30" draggable="false"></img>'
+  dragDiv.classList.add("drag-widget")
 
-  protractorforeignObject.appendChild(dragDiv);
-  createDrag.addDrag(dragDiv, protractorforeignObject);
+  protractorforeignObject.appendChild(dragDiv)
+  
+  createDrag.addDrag(dragDiv, protractorforeignObject)
 
-  const crossDiv = document.createElement("div");
+
+
+  const crossDiv = document.createElement("div")
   crossDiv.innerHTML =
-    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>';
+    '<img src="./assets/x-circle.svg" class="dragLogo" height="30" draggable="false" ></img>'
 
-  crossDiv.classList.add("cross-div");
+  crossDiv.classList.add("cross-div")
 
-  foreignObjectCompass.appendChild(crossDiv);
+  protractorforeignObject.appendChild(crossDiv)
 
-  crossDiv.addEventListener("click", () => widgetRemove(uid));
+  crossDiv.addEventListener("click", ()=>widgetRemove(uid))
   //makeDraggeble(protractorforeignObject);
 
   // Make the widget draggable
@@ -985,19 +987,19 @@ const protractorWidget = (e) => {
 
   // Prevent automatic changing of input field while dragging
   $(document).ready(function () {
-    const rotationalContainer = $(".rotational-container");
-    const rotationalDiv = $(".rotational-division");
-    const rotationAngleInput = $("#rotation-angle");
-    let initialAngle = 0;
-    let rotationAngle = 0;
+    const rotationalContainer = $(".rotational-container")
+    const rotationalDiv = $(".rotational-division")
+    const rotationAngleInput = $("#rotation-angle")
+    let initialAngle = 0
+    let rotationAngle = 0
 
     rotationalContainer.on("mousedown", function (e) {
-      isDragging = true;
+      isDragging = true
       initialAngle = Math.atan2(
         e.clientY - window.innerHeight / 2,
         e.clientX - window.innerWidth / 2
-      );
-    });
+      )
+    })
 
     // $(document).on("mousemove", function (e) {
     //   if (isDragging) {
@@ -1019,20 +1021,20 @@ const protractorWidget = (e) => {
     // });
 
     rotationAngleInput.on("input", function () {
-      const inputValue = parseInt(rotationAngleInput.val());
+      const inputValue = parseInt(rotationAngleInput.val())
       if (!isNaN(inputValue)) {
-        let newRotationAngle = inputValue % 360;
-        if (newRotationAngle < 0) newRotationAngle += 360;
-        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`);
-        rotationAngle = newRotationAngle;
+        let newRotationAngle = inputValue % 360
+        if (newRotationAngle < 0) newRotationAngle += 360
+        rotationalDiv.css("transform", `rotate(${newRotationAngle}deg)`)
+        rotationAngle = newRotationAngle
       }
-    });
+    })
 
     // $(document).on("mouseup", function () {
     //   isDragging = false;
     // });
-  });
-};
+  })
+}
 
 // ruler widget
 
