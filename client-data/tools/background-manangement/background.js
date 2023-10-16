@@ -29,21 +29,84 @@
   var toggle = 0;
   //Code isolation
   let colorsArray = [
-    "#FFF",
-    "#000",
-    "#FF9B9B",
-    "#DDFFBB",
-    "#B2A4FF",
-    "#606C5D",
-    "#F99B7D",
-    "#393E46",
-    "#BDE6F1",
-    "#3F0071",
-    "#C400FF",
-    "#161D6F",
-    "#5E454B",
+    {
+      label: "White",
+      color: "#FFFFFF",
+    },
+    {
+      label: "Ivory",
+      color: "#FFFFF0",
+    },
+    {
+      label: "Black",
+      color: "#000000 ",
+    },
+    {
+      label: "Gray",
+      color: "#808080",
+    },
+    {
+      label: "Silver",
+      color: "#C0C0C0",
+    },
+    {
+      label: "Red",
+      color: "#FF0000",
+    },
+    {
+      label: "Green",
+      color: "#008000",
+    },
+    {
+      label: "Blue",
+      color: "#0000FF",
+    },
+    {
+      label: "Yellow",
+      color: "#FFFF00",
+    },
+    {
+      label: "Purple",
+      color: "#800080",
+    },
+    {
+      label: "Orange",
+      color: "#FFA500",
+    },
+    {
+      label: "Maroon",
+      color: "#800000",
+    },
+    {
+      label: "Fuchsia",
+      color: "#FF00FF",
+    },
+    {
+      label: "Lime",
+      color: "#00FF00",
+    },
+    {
+      label: "Aqua",
+      color: "#00FFFF",
+    },
+    {
+      label: "Teal",
+      color: "#008080",
+    },
+    {
+      label: "Olive",
+      color: "#808000",
+    },
+    {
+      label: "Navy",
+      color: "#000080",
+    },
   ];
-  const bgImage = ["BG1.png", "BG2.png"];
+  const bgImage = [
+    { label: "Pattern 1", image: "BG1.png" },
+    { label: "Pattern 2", image: "BG2.png" },
+  ];
+
   let modalContent = document.getElementById("colorPickerModalContent");
   let bgContent = document.getElementById("backgorundPattern");
 
@@ -63,22 +126,38 @@
     backgroundChange(data);
   }
   // creating modal small color boxes to add in backgound tool
-  colorsArray.map((color) => {
+  colorsArray.map((obj) => {
     var div = document.createElement("div");
     div.className = "colorContainer";
-    div.style.backgroundColor = color;
+    div.style.backgroundColor = obj.color;
+
+    // Create a tooltip element
+    var tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.textContent = obj.label;
+
     div.onclick = function () {
-      setSelectedColor(color);
+      setSelectedColor(obj.color);
     };
+
+    div.appendChild(tooltip);
     modalContent?.appendChild(div);
   });
   bgImage.map((bg) => {
     var bgPattern = document.createElement("img");
-    bgPattern.setAttribute("src", `./assets/Background/${bg}`);
+    bgPattern.setAttribute("src", `./assets/Background/${bg.image}`);
     bgPattern.className = "patternContainer";
+
+    // Create a tooltip element
+    var tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.textContent = bg.label;
+
     bgPattern.onclick = function () {
-      setBg(bg);
+      setBg(bg.image);
     };
+
+    bgPattern.appendChild(tooltip);
     bgContent?.appendChild(bgPattern);
   });
 
@@ -93,7 +172,7 @@
     // if (evt) evt.preventDefault()
     if (toggle) {
       toggle = 0;
-      colorPickerModal.style.display = "none";
+      // colorPickerModal.style.display = "none";
     } else {
       toggle = 1;
     }
@@ -154,6 +233,26 @@ var closeModalBtn = document.getElementById("closeModalBtn");
 closeModalBtn.addEventListener("click", function () {
   colorPickerModal.style.display = "none";
 });
+
+// This function sets the default active tab and shows its content
+function setDefaultTab() {
+  // Get the first tab button
+  var firstTabButton = document.querySelector(".color-tab");
+
+  // If a tab button exists, set it as the default active tab
+  if (firstTabButton) {
+    firstTabButton.classList.add("active");
+    // Get the ID of the first tab button and show its content
+    var defaultTabId = firstTabButton
+      .getAttribute("onclick")
+      .match(/'[^']+'/)[0]
+      .replace(/'/g, "");
+    document.getElementById(defaultTabId).classList.add("show");
+  }
+}
+
+// Call the setDefaultTab function when the page loads
+window.onload = setDefaultTab;
 
 //to manage change in tabs components click
 function openTab(event, tabId) {

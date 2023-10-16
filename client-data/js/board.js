@@ -12,7 +12,7 @@
  * General Public License (GNU GPL) as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option)
  * any later version.  The code is distributed WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * without even the implied warranty of MERCHANTABILITY or FITNESS</body
  * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
  *
  * As additional permission under GNU GPL version 3 section 7, you
@@ -35,6 +35,7 @@ var svgWidth, svgHeight;
 var isTouchDevice = "ontouchstart" in document.documentElement;
 
 Tools.board = document.getElementById("board");
+
 Tools.svg = document.getElementById("canvas");
 console.log("CANAVS", Tools.svg);
 Tools.group = Tools.svg.getElementById("layer-1");
@@ -65,6 +66,7 @@ Tools.suppressPointerMsg = false;
 const MAX_CURSOR_UPDATES_PER_SECOND = 20;
 const DISPLAY_ACTIVITY_MONITOR = true;
 var loading = true;
+var isDataEmpty = false;
 
 (Tools.socket = null),
   (Tools.connect = function () {
@@ -95,6 +97,17 @@ var loading = true;
 
     this.socket.on("broadcast", function (msg) {
       console.log("Total live users " + msg?.userCount);
+
+      //Check if the board is empty
+      // if (msg?._children.length == 0) {
+      //   console.log("Bord Empty");
+      //   //Add Disable class to ndo button
+      //   document.getElementById("toolID-Undo").classList.add("disabled");
+      //   isDataEmpty = true;
+      // } else {
+      //   document.getElementById("toolID-Undo").classList.remove("disabled");
+      // }
+
       window.localStorage.removeItem("structure");
       window.localStorage.setItem("structure", msg?.structure);
       const selectedBoard = window.location.search
@@ -121,7 +134,7 @@ var loading = true;
       }
 
       if (loading) {
-        setTimeout(function() {
+        setTimeout(function () {
           var loadingEl = document.getElementById("loadingMessage");
           var loadingStrip = document.getElementById("toolbarLoadingStrip");
           loadingEl.classList.add("hidden");
@@ -130,7 +143,6 @@ var loading = true;
           loading = false;
         }, 500);
       }
-
     });
 
     this.socket.on("reconnect", function onReconnection() {
@@ -172,6 +184,9 @@ var directions = [
   document.getElementById("west"),
 ];
 
+if (isDataEmpty) {
+  console.log("Empty ho chuka hun");
+}
 var ptrMessage = {
   board: Tools.boardName,
   data: {
@@ -181,7 +196,9 @@ var ptrMessage = {
 
 function handleMarker(evt) {
   //evt.preventDefault();
+
   var cur_time = Date.now();
+  Tools.socket.emit("broadcast", "TEST");
   if (wb_comp.list["Measurement"] && !Tools.suppressPointerMsg) {
     wb_comp.list["Measurement"].update({
       type: "pointer",
@@ -573,12 +590,12 @@ Tools.list = {}; // An array of all known tools. {"toolName" : {toolObject}}
 Tools.add = function (newTool) {
   // console.log("TOOLs aDD CALLED", newTool.name);
   //    // Define an array of allowed tools
-    //  var notAllowedTools = ["Grid", "Zoom In", "Zoom Out", "Background", "Download"]; // Add the names of the allowed tools
+  //  var notAllowedTools = ["Grid", "Zoom In", "Zoom Out", "Background", "Download"]; // Add the names of the allowed tools
 
-    //  if (notAllowedTools.includes(newTool.name)) {
-    //    console.log("Tool '" + newTool.name + "' is not in the allowed list.");
-    //    return; // Exit the function if tool is not allowed
-    //  }
+  //  if (notAllowedTools.includes(newTool.name)) {
+  //    console.log("Tool '" + newTool.name + "' is not in the allowed list.");
+  //    return; // Exit the function if tool is not allowed
+  //  }
   if (newTool.name in Tools.list) {
     console.log(
       "Tools.add: The tool '" +
@@ -660,6 +677,7 @@ Tools.change = function (toolName) {
   var curToolName = Tools.curTool ? Tools.curTool.name : "";
   try {
     console.log("Current Tool", curToolName);
+
     Tools.HTML.changeTool(curToolName, toolName);
   } catch (e) {
     console.error("Unable to update the GUI with the new tool. " + e);
@@ -708,6 +726,7 @@ Tools.send = function (data, toolName) {
     board: Tools.boardName,
     data: d,
   };
+
   Tools.socket.emit("broadcast", message);
   // dont save cursor or echo messages
   if (message.data.type != "c" && message.data.type != "e") {
