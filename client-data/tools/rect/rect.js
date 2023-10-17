@@ -31,14 +31,13 @@
   //   '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"><g><path id="submenu-rect-path" fill="';
   var shapeSVG =
     '<div class="tool-selected"><svg xmlns="http://www.w3.org/2000/svg" class="shape-svg-icon" width="36" height:"36" style="margin-top: -7px; margin-left:-5px;" viewBox="0 0 44 50" fill="none"><path d="M27.5526 18.9786L27.5531 19.4568L21.6526 22.8703L15.7458 19.4667L15.7453 18.9958L13.8047 20.1182L21.6422 24.5901L29.5047 20.1036L27.5526 18.9786ZM25.2516 13.1193L21.6427 11.0391L18.05 13.1172L21.7 15.3458L25.2516 13.1193Z" fill="#FBCF26"/><path d="M31.8531 19.6557L27.5479 17.1755L27.5443 12.6395L21.638 9.23535L15.7365 12.6489L15.7411 17.1926L11.4531 19.6729L11.4625 31.4515L21.6682 37.3333L31.8641 31.4359L31.8531 19.6557ZM25.9885 18.5567L22.4302 20.6145V16.7301L25.9839 14.5025L25.9885 18.5567ZM20.8682 20.6176L17.3026 18.5635L17.299 14.4926L20.8682 16.6723V20.6176ZM21.6401 11.04L25.249 13.1202L21.6974 15.3468L18.0474 13.1182L21.6401 11.04ZM15.7432 19.4671L21.65 22.8708L22.0411 22.6452L27.5505 19.4572L27.55 18.9791L29.5021 20.1041L21.6396 24.5911L13.8021 20.1192L15.7427 18.9968L15.7432 19.4671ZM13.0156 21.4692L20.8682 25.9499V35.0687L13.0234 30.5494L13.0156 21.4692ZM22.4302 35.0864V25.9385L30.2927 21.4525L30.301 30.5343L22.4302 35.0864Z" fill="#424242"/><path d="M31.8568 27.6213V29.4114L35.3854 31.3796L21.6411 39.5114L7.89948 31.3796L11.4536 29.3973L11.4521 27.6104L4.76562 31.3385L21.6411 41.3275L38.5214 31.339L31.8568 27.6213Z" fill="#FBCF26"/></svg></div><label id="tool-shapes-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top:14px"><p>Shapes</p></label>';
-   // COnsider space between the icon elements as literals are used 
+  // COnsider space between the icon elements as literals are used
   var icons = {
     Rectangle: {
       icon: '▭ <br> <p id="tool-rectangles-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;">Rectangle</p>',
       isHTML: true,
       isSVG: false,
-    }
-   ,
+    },
     Circle: {
       icon: `◯ <br> <label id="tool-circle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Circle</p></label>`,
       isHTML: true,
@@ -60,7 +59,7 @@
       isSVG: false,
     },
     Rombus: {
-      icon: `◇ <br> <label id="tool-rombus-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Rhombus</p></label>`, 
+      icon: `◇ <br> <label id="tool-rombus-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Rhombus</p></label>`,
       isHTML: true,
       isSVG: false,
     },
@@ -105,8 +104,7 @@
       isSVG: false,
     },
     Ellipse: {
-      icon:
-        `⬭ <br> <label id="tool-ellipse-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Ellipse</p></label>`,
+      icon: `⬭ <br> <label id="tool-ellipse-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 7px;"><p>Ellipse</p></label>`,
       isHTML: true,
       isSVG: false,
     },
@@ -338,7 +336,7 @@
       Math.round(
         Math.sqrt(
           Math.pow(data["x2"] - data["x"], 2) +
-          Math.pow(data["y2"] - data["y"], 2)
+            Math.pow(data["y2"] - data["y"], 2)
         ) / 2
       )
     );
@@ -493,8 +491,9 @@
 
     var topWidth = width * 0.6; // Adjust the top width ratio as needed
 
-    var points = `${x1},${y1} ${x2},${y1} ${x2 - (width - topWidth) / 2
-      },${y2} ${x1 + (width - topWidth) / 2},${y2}`;
+    var points = `${x1},${y1} ${x2},${y1} ${
+      x2 - (width - topWidth) / 2
+    },${y2} ${x1 + (width - topWidth) / 2},${y2}`;
 
     shape.setAttribute("points", points);
     shape.setAttribute("fill", "none");
@@ -513,7 +512,7 @@
     var sideLength = Math.abs(data.x2 - data.x) / 2;
 
     // Calculate the coordinates of the pentagon vertices
-    var angleOffset = Math.PI * 3 / 2; // Offset to start from the bottom vertex
+    var angleOffset = (Math.PI * 3) / 2; // Offset to start from the bottom vertex
     var angle = (2 * Math.PI) / 5;
     var points = [];
     for (var i = 0; i < 5; i++) {
@@ -532,7 +531,6 @@
       shape.setAttribute("transform", data.transform);
     }
   }
-
 
   function updateHexagon(shape, data) {
     // Extract the required properties from the data object
@@ -584,19 +582,15 @@
 
     // Set image source based on the shape
     if (data.shape === "Cone") {
-      image.src =
-        "././assets/cone.png";
+      image.src = "././assets/cone.png";
     } else if (data.shape === "Cube") {
-      image.src =
-        "././assets/cube.png";
+      image.src = "././assets/cube.png";
     } else if (data.shape === "Cylinder") {
-      image.src =
-        "././assets/cylinder.png";
+      image.src = "././assets/cylinder.png";
     } else if (data.shape === "Sphere") {
       image.src = "././assets/sphere.png";
     } else if (data.shape === "Pyramid") {
-      image.src =
-        "././assets/pyramid.png";
+      image.src = "././assets/pyramid.png";
     }
 
     var uid = Tools.generateUID("doc");
@@ -619,44 +613,41 @@
     //   drawImage(msg);
     // };
     image.onload = function () {
-      var msgLibrary = {
-        id: uid,
-        type: "doc",
-        src: image.src,
-        w: this.width || 300,
-        h: this.height || 300,
-        x:
-          (100 + document.documentElement.scrollLeft) / Tools.scale +
-          10 * imgCount,
-        y:
-          (100 + document.documentElement.scrollTop) / Tools.scale +
-          10 * imgCount,
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", image.src, true);
+      xhr.responseType = "blob";
+      xhr.send();
+
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // Create a new FileReader instance
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            // The result attribute contains the data URL
+            var dataURL = reader.result;
+            var msgLibrary = {
+              id: uid,
+              type: "doc",
+              src: dataURL,
+              w: this.width || 300,
+              h: this.height || 300,
+              x:
+                (100 + document.documentElement.scrollLeft) / Tools.scale +
+                10 * imgCount,
+              y:
+                (100 + document.documentElement.scrollTop) / Tools.scale +
+                10 * imgCount,
+            };
+            drawImage(msgLibrary);
+            Tools.send(msgLibrary, "Document");
+            imgCount++;
+          };
+
+          // Read the file as a Data URL
+          reader.readAsDataURL(xhr.response);
+        }
       };
-      drawImage(msgLibrary);
-      Tools.send(msgLibrary, "Document");
-      imgCount++;
-
-      // var xhr = new XMLHttpRequest();
-      // xhr.open("GET", image.src, true);
-      // xhr.responseType = "blob";
-      // xhr.send();
-
-      // xhr.onload = function () {
-      //   if (xhr.status === 200) {
-      //     // Create a new FileReader instance
-      //     var reader = new FileReader();
-      //     reader.onloadend = function () {
-      //       // The result attribute contains the data URL
-      //       var dataURL = reader.result;
-
-          
-      //     };
-
-      //     // Read the file as a Data URL
-      //     reader.readAsDataURL(xhr.response);
-      //   }
-      // };
-    }
+    };
   }
 
   function drawImage(msg) {
@@ -714,19 +705,18 @@
       button.getElementsByClassName("tool-icon")[0].innerHTML =
         icons[curshape].icon;
 
-        // <APPLY localization while clickign the shape from modal>
+      // <APPLY localization while clickign the shape from modal>
 
-        var select = document.getElementById("languageSelect")
-        if(select.value ==='hi'){
-             const ele =  button.getElementsByClassName("tool-icon")[0].childNodes[3]
-             for(let item of localizedStringsHI){
-               if(item.id === ele?.id){
-                 ele.innerHTML = item.value
-               }
-             }
+      var select = document.getElementById("languageSelect");
+      if (select.value === "hi") {
+        const ele = button.getElementsByClassName("tool-icon")[0].childNodes[3];
+        for (let item of localizedStringsHI) {
+          if (item.id === ele?.id) {
+            ele.innerHTML = item.value;
+          }
         }
-    } 
-    else {
+      }
+    } else {
       button.getElementsByClassName("tool-icon")[0].textContent =
         icons[curshape].icon;
     }
@@ -797,8 +787,7 @@
     // },
     menu: {
       title: "Shapes",
-      content2d:
-        `<div class="tool-extra shapes-spacing submenu-rect" id="submenu-rect-Rectangle">
+      content2d: `<div class="tool-extra shapes-spacing submenu-rect" id="submenu-rect-Rectangle">
               <span title = "Rectangle" class="tool-icon" id="shape2d-rectangle">▭</span>
 						</div>
 

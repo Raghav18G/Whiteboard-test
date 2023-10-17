@@ -2578,8 +2578,8 @@ div#msr-pod-up {
 .roundCompass--container {
   display: flex;
   flex-direction: column;
-  height: 560px;
-  width:420px;
+  /* height: 560px; */
+  width:480px;
   overflow: hidden;
   align-items: center;
   justify-content: center;
@@ -2620,6 +2620,7 @@ button {
 }
 
 #compassCanvas {
+  border: transparent;
   cursor: move;
 }
 .cross-div {

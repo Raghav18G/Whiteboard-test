@@ -1447,7 +1447,7 @@ const roundCompassWidget = (e) => {
         <label for="radiusInput">Radius:</label>
         <input type="number" id="radiusInput" value="100" max="196" min="0">
         <label for="angleInput">Angle (0-360°):</label>
-        <input type="number" id="angleInput" value="0" min="0" max="360">
+        <input type="number" id="angleInput" value="45" min="0" max="360">
       </div>
       <button id="drawButton">Draw</button>
     </div>
@@ -1503,8 +1503,8 @@ const roundCompassWidget = (e) => {
   const arcs = []; // Array to store arc properties
 
   function wrapAngle(angle) {
-    if (angle < 0) return 359;
-    if (angle >= 360) return 0;
+    if (angle < 0) return 360;
+    if (angle >= 361) return 0;
     return angle;
   }
 
@@ -1541,24 +1541,26 @@ const roundCompassWidget = (e) => {
       ctx.stroke();
     });
 
-    // Draw red arm (line AB)
-    ctx.beginPath();
-    ctx.moveTo(A.x, A.y);
-    ctx.lineTo(B.x, B.y);
-    ctx.strokeStyle = "orange";
-    ctx.stroke();
-
-    // Draw green arm (line AC)
-    ctx.beginPath();
-    ctx.moveTo(A.x, A.y);
-    ctx.lineTo(C.x, C.y);
-    ctx.strokeStyle = "green";
-    ctx.stroke();
+    if (!drawButtonClicked) {
+      // Draw red arm (line AB)
+      ctx.beginPath();
+      ctx.moveTo(A.x, A.y);
+      ctx.lineTo(B.x, B.y);
+      ctx.strokeStyle = "orange";
+      ctx.stroke();
+  
+      // Draw green arm (line AC)
+      ctx.beginPath();
+      ctx.moveTo(A.x, A.y);
+      ctx.lineTo(C.x, C.y);
+      ctx.strokeStyle = "green";
+      ctx.stroke();
+    }
 
     // Draw the current arc
     ctx.beginPath();
     ctx.arc(A.x, A.y, radius, 0, angle * (Math.PI / 180));
-    ctx.strokeStyle = "gray";
+    ctx.strokeStyle = "black";
     ctx.stroke();
   }
 
@@ -1671,8 +1673,8 @@ const roundCompassWidget = (e) => {
     let angle = parseFloat(angleInput.value);
 
     if (angle < 0) {
-      angle = 359;
-    } else if (angle >= 360) {
+      angle = 360;
+    } else if (angle >= 361) {
       angle = 0;
     }
 
@@ -1681,12 +1683,23 @@ const roundCompassWidget = (e) => {
     drawTriangle();
   });
 
+  let drawButtonClicked = false;
+
   drawButton.addEventListener("click", () => {
     // Store the current arc's properties and color
     const currentRadius = parseFloat(radiusInput.value);
     const currentAngle = parseFloat(angleInput.value);
     const currentColor = "black"; // You can choose any color
-
+  
+    // Hide the controls and drawButton elements
+    const controlsDiv = document.querySelector('.controls');
+    const drawButtonDiv = document.querySelector('#drawButton');
+    controlsDiv.style.display = 'none';
+    drawButtonDiv.style.display = 'none';
+  
+    // Set the drawButtonClicked flag to true
+    drawButtonClicked = true;
+  
     arcs.push({
       center: { x: A.x, y: A.y },
       radius: currentRadius,
@@ -1694,7 +1707,7 @@ const roundCompassWidget = (e) => {
       endAngle: (currentAngle * Math.PI) / 180,
       color: currentColor,
     });
-
+  
     // Redraw the compass with the new arc
     drawTriangle();
   });

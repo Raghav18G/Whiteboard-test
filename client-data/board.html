@@ -598,8 +598,12 @@
     <!-- Draggable Toolbar  -->
     <div id="draggableToolbar">
         <!-- Tools -->
-        <!-- Color Picker -->
-        <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
+      
+        <ul id="tools" class="tools">
+            <li class="tool"><span class="tool-icon"></span></li>
+        </ul>
+          <!-- Color Picker -->
+          <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
             <div class="tool-selected">
                 <span class="tool-icon color-tool-pick" style="margin: -12px -7px 27px -10px;">
 
@@ -619,9 +623,6 @@
                 </span>
             </div>
         </div>
-        <ul id="tools" class="tools">
-            <li class="tool"><span class="tool-icon"></span></li>
-        </ul>
 
 
 
@@ -724,6 +725,11 @@
                     style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">More</label>
             </button>
         </div>
+        <!-- <div class="tool-name">
+            <button id="deselect-tool" onclick="">X</button>
+            <label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Deselect Tool</label>
+        </div> -->
+        
         <div class="tool-name">
             <button id="add-page" onclick="addNewPage()"> <img src="./assets/Add New.png" width="30" /></button>
             <label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Add New Page</label>
@@ -985,6 +991,7 @@
     <!-- HTML 2 Canvas CDN -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script> -->
+ 
     <script src="OfflineCDN/cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
     </script>
     <script type="application/json" id="translations">{}</script>
@@ -992,10 +999,11 @@
     <script src="js/minitpl.js"></script>
     <script src="js/board.js"></script>
     <script src="js/draggableToolbar.js"></script>
-
+    <script src="tools/DeselectTool.js"></script>
     <script src="tools/pencil/pencil.js"></script>
     <script src="tools/eraser/eraser.js"></script>
     <script src="tools/clear/clear.js"></script>
+   
     <!-- Download -->
     <script src="tools/download/download.js"></script>
     <script src="tools/undo/undo.js"></script>

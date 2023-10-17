@@ -101,6 +101,102 @@
       label: "Navy",
       color: "#000080",
     },
+    {
+      label: "Crimson",
+      color: "#B80F0A",
+    },
+    {
+      label: "Rose",
+      color: "#FC94AD",
+    },
+    {
+      label: "Watermelon",
+      color: "#FE7F9C",
+    },
+    {
+      label: "Magneta",
+      color: "#E11584",
+    },
+    {
+      label: "Salmon",
+      color: "#FCAB9E",
+    },
+    {
+      label: "Peach",
+      color: "#FB9483",
+    },
+    {
+      label: "oral",
+      color: "#FE7D68",
+    },
+    {
+      label: "Strawberry",
+      color: "#FC4C4E",
+    },
+    {
+      label: "Rosewood",
+      color: "#A04242",
+    },
+    {
+      label: "Tiger",
+      color: "#FC6B02",
+    },
+    {
+      label: "Pineapple",
+      color: "#FEE227",
+    },
+    {
+      label: "Dandelion",
+      color: "#FDCE2A",
+    },
+    {
+      label: "Tuscan sun",
+      color: "#FCD12A",
+    },
+    {
+      label: "Butterscotch",
+      color: "#FABD02",
+    },
+    {
+      label: "Canary",
+      color: "#F9C802",
+    },
+    {
+      label: "Honey",
+      color: "#FFC30B",
+    },
+    {
+      label: "Mustard",
+      color: "#E8B828",
+    },
+    {
+      label: "Lemon",
+      color: "#EFFD5F",
+    },
+    {
+      label: "Orchid",
+      color: "#AF69EE",
+    },
+    {
+      label: "Lilac",
+      color: "#B660CD",
+    },
+    {
+      label: "Lavender",
+      color: "#E29FF6",
+    },
+    {
+      label: "Periwinkle",
+      color: "#BD93D3",
+    },
+    {
+      label: "Magenta",
+      color: "#A10559",
+    },
+    {
+      label: "Grape",
+      color: "#663047",
+    },
   ];
   const bgImage = [
     { label: "Pattern 1", image: "BG1.png" },
