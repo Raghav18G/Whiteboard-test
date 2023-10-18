@@ -94,10 +94,11 @@ ul {
 
 #add-page{
   display: flex;
-padding: 9px;
+
   border: none;
   margin-right: 5px;
-  align-items: center
+  align-items: center;
+  margin-bottom:9px;
 }
 .stickyNotesModal-content {
   background-color: #fefefe;
@@ -267,7 +268,7 @@ iframe {
   /* padding: 20px 15px 6px; */
   padding: 10px 15px 0px; /* Adjusted padding */
   height: 11rem;
-  width: 75rem;
+  width: 92rem;
   border-radius: 20px;
   display: flex;
   /* width: max-content; */
@@ -458,7 +459,7 @@ iframe {
   /* align-items: center; */
   justify-content: space-between;
   margin-bottom: 0;
-  margin-top: -1rem;
+  margin-top: 1rem;
 }
 
 .localization {
@@ -468,6 +469,15 @@ iframe {
   /* margin-top: -45px; */
   /* margin-top: -11rem; */
   /* padding-top:.1rem; */
+}
+.pageNumberContainer{
+  position: fixed;
+  top: 10px;
+  right: 40px;
+}
+
+.pageNumber{
+
 }
 .localization-children{
   display: flex;
@@ -640,8 +650,7 @@ iframe {
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Opera and Firefox */
+  user-select: none; /* Non-prefixed version, currently                                supported by Chrome, Opera and Firefox */
   cursor: pointer;
   padding: 5px 5px 5px 5px;
 }
@@ -2027,7 +2036,7 @@ div#msr-pod-up {
   fill: #333;
 }
 
-#rollButton {
+.rollButton {
   background-color: #45a049;
   width: 12rem;
   padding: 10px 20px;
@@ -2274,6 +2283,7 @@ div#msr-pod-up {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap:90px;
 }
 
 /* body {
@@ -2600,12 +2610,31 @@ div#msr-pod-up {
   transition: background-color 0.2s ease;
 }
 
+.drawButton{
+  display: block;
+  padding: 12px 20px;
+  background-color: #007bff;
+  margin-top: 5px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
 canvas {
   border: 1px solid #000;
   /* height: 400px; Set the canvas height in pixels */
 }
 
 .controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#controls {
   margin-top: 20px;
   text-align: center;
 }
@@ -2619,7 +2648,7 @@ button {
   /* margin-top: 10px; */
 }
 
-#compassCanvas {
+.compassCanvas {
   border: transparent;
   cursor: move;
 }
@@ -2651,3 +2680,5 @@ button {
 .disabled{
   opacity: 0.4;
 }
+
+

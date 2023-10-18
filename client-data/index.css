@@ -365,6 +365,10 @@ footer {
   border: 1px solid rgba(222, 222, 222, 1);
   /* margin-left: 28%; */
 }
+.modalInput::placeholder {
+  color: #000; /* Set the color to dark, e.g., black */
+  opacity: 0.7;
+}
 
 .modalSubmitBtn {
   height: 3rem;

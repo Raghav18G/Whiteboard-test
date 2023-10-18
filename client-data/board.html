@@ -777,7 +777,6 @@
 
     <div id="board">
         <!-- <img id="destination" /> -->
-
         <div class="localization">
             <img src="Left-Logo.svg" width="200" style="margin-right: 4px" />
             <select id="languageSelect" onchange="changeLanguage()">
@@ -785,6 +784,9 @@
                 <option value="en">English</option>
                 <option value="hi">हिंदी</option>
             </select>
+        </div>
+        <div class="pageNumberContainer">
+           <p class="pageNumber" id="pageNumber"></p>
         </div>
 
         <svg id="canvas" width="500" height="500" viewBox="0 0 500 500" svgHeightversion="1.1"
@@ -837,74 +839,145 @@
 
     <!-- Text Editor -->
     <!-- Text Editor -->
-    <div class="window" id="wb-editor-container" style="display:none">
-        <div id="wb-editor-container-header">
-            <div>
-                <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
+  <!-- Text Editor new -->
 
-                <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
-                    id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
-                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Run" id="wb-editor-run"
-                    type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
-                <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Real-time Run"
-                    id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
-                        class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
-                <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
-                    title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
-                            class="fas fa-angle-double-down"></i></span></button>
+ 
 
-            </div>
+  <div class="window" id="wb-editor-container" style="display:none">
+
+    <div id="wb-editor-container-header">
+
+        <div>
+
+            <span id='wb-editor-curmode'>Text</span> Editor &nbsp;
 
 
-            <div class="close-max-btn" style="margin-right: 40px">
-                <button type="button" class="close window-button" id="close-editor" aria-label="Close"><span
-                        aria-hidden="true">×</span></button>
-                <button type="button" class="window-button window-icon-button" data-trigger="hover" title="Maximize"
-                    id="max-editor" aria-label="Max"><span aria-hidden="true"><i
-                            class="fa fa-window-maximize wb-editor-icon"></i></span></button>
-            </div>
 
-        </div>
-        <div id="wb-editor-container-modes">
-            <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
-                    class="fas fa-angle-double-up" aria-hidden="true"></i></button>
-            <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
-                type="button">text</button>
-            <button class="wb-editor-mode" id="wb-js" data-trigger="hover" title="Javascript compiler/editor"
-                type="button">js</button>
-            <button class="wb-editor-mode" id="wb-python" data-trigger="hover" title="Python compiler/editor"
-                type="button">py</button>
-            <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover" title="C++ compiler/Editor"
-                type="button">c++</button>
-        </div>
-        <div id="wb-editor-container-toolbar" style="display: none">
-            <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
-                    aria-hidden="true"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover" title="Check spelling"
-                type="button"><i id="wb-editor-spell-check-icon" class="fas fa-spell-check"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover" title="Code template"
-                type="button"><i class="fa fa-file-code-o"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover" title="Undo" type="button"><i
-                    class="fas fa-undo"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover" title="Redo" type="button"><i
-                    class="fas fa-redo"></i></button>
-            <button class="wb-button wb-edit-button" id="wb-ed-search" data-trigger="hover" title="Search"
-                type="button"><i class="fas fa-search"></i></button>
-            <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
+            <button class="wb-editor-button" data-trigger="hover" title="Modes" style="display: none"
+
+                id="wb-options" type="button"><i class="fas fa-bars wb-editor-icon"></i></button>
+
+            <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Run" id="wb-editor-run"
+
+                type="button"><i class="fas fa-play-circle wb-editor-icon"></i></button>
+
+            <button class="wb-editor-button wb-button-inactive" data-trigger="hover" title="Real-time Run"
+
+                id="wb-editor-live" type="button"><i id="wb-editor-live-icon"
+
+                    class="fas fa-circle-notch fa-spin wb-editor-icon"></i></button>
+
+            <button type="button" class="wb-button wb-textoptions-button" data-trigger="hover" style="display: none"
+
+                title="Text Options" id="wb-textoptions" aria-label="Down"><span aria-hidden="true"><i
+
+                        class="fas fa-angle-double-down"></i></span></button>
+
+
 
         </div>
-        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
-        data-trigger="hover">Search</button> -->
-        <input type="text" placeholder="Type Something...." id="searchBrowser"
-            class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></input>
-        <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
-        <div id="wb-editor">
-            <div class="row wb-editor">
-                <div class="col-sm-12" id="wb-editor-input">
-                </div>
-            </div>
+
+
+
+
+
+        <div class="close-max-btn" style="margin-right: 40px">
+
+            <button type="button" class="close window-button" id="close-editor-new" onclick="closeEditor()"
+
+                onaria-label="Close"><span aria-hidden="true">×</span></button>
+
+            <button type="button" class="window-button window-icon-button" data-trigger="hover" title="Maximize"
+
+                id="max-editor" aria-label="Max"><span aria-hidden="true"><i
+
+                        class="fa fa-window-maximize wb-editor-icon"></i></span></button>
+
         </div>
+
+
+
     </div>
+
+    <div id="wb-editor-container-modes">
+
+        <button class="wb-button wb-mode-button" id="wb-close-options" type="button"><i
+
+                class="fas fa-angle-double-up" aria-hidden="true"></i></button>
+
+        <button class="wb-editor-mode" id="wb-text" data-trigger="hover" title="Text editor"
+
+            type="button">text</button>
+
+        <button class="wb-editor-mode" id="wb-js" data-trigger="hover" title="Javascript compiler/editor"
+
+            type="button">js</button>
+
+        <button class="wb-editor-mode" id="wb-python" data-trigger="hover" title="Python compiler/editor"
+
+            type="button">py</button>
+
+        <button class="wb-editor-mode" id="wb-cpp" data-trigger="hover" title="C++ compiler/Editor"
+
+            type="button">c++</button>
+
+    </div>
+
+    <div id="wb-editor-container-toolbar" style="display: none">
+
+        <button class="wb-button wb-edit-button" id="wb-close-edit" type="button"><i class="fas fa-angle-double-up"
+
+                aria-hidden="true"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-spell-check" data-trigger="hover" title="Check spelling"
+
+            type="button"><i id="wb-editor-spell-check-icon" class="fas fa-spell-check"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-code-template" data-trigger="hover" title="Code template"
+
+            type="button"><i class="fa fa-file-code-o"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-ed-undo" data-trigger="hover" title="Undo" type="button"><i
+
+                class="fas fa-undo"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-ed-redo" data-trigger="hover" title="Redo" type="button"><i
+
+                class="fas fa-redo"></i></button>
+
+        <button class="wb-button wb-edit-button" id="wb-ed-search" data-trigger="hover" title="Search"
+
+            type="button"><i class="fas fa-search"></i></button>
+
+        <!-- <button id="createFolderButton" onclick="createFolderButton">New Tab</button> -->
+
+
+
+    </div>
+
+    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser" data-toggle="tooltip"
+
+    data-trigger="hover">Search</button> -->
+
+    <textarea type="text" placeholder="Type Something...." id="searchBrowser" rows="30" cols="40"
+
+        class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></textarea>
+
+    <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
+
+    <div id="wb-editor">
+
+        <div class="row wb-editor">
+
+            <div class="col-sm-12" id="wb-editor-input">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
@@ -1160,6 +1233,11 @@
         <script src="localization.js"></script>
 
     <script>
+        function closeEditor(e) {
+
+document.getElementById("wb-editor-container").style.display = "none"
+
+}
         var tooll = document.querySelectorAll('.tool-selected');
      console.log("TOOLS SELECTED",tooll)
         tooll.forEach(button => {
@@ -1172,6 +1250,7 @@
 
     <!-- Localization  -->
     <script>
+
         function changeLanguage() {
 
             var select = document.getElementById("languageSelect");

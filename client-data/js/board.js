@@ -37,7 +37,7 @@ var isTouchDevice = "ontouchstart" in document.documentElement;
 Tools.board = document.getElementById("board");
 
 Tools.svg = document.getElementById("canvas");
-console.log("CANAVS", Tools.svg);
+
 Tools.group = Tools.svg.getElementById("layer-1");
 Tools.compass = document.getElementById("compass");
 
@@ -96,18 +96,6 @@ var isDataEmpty = false;
     });
 
     this.socket.on("broadcast", function (msg) {
-      console.log("Total live users " + msg?.userCount);
-
-      //Check if the board is empty
-      // if (msg?._children.length == 0) {
-      //   console.log("Bord Empty");
-      //   //Add Disable class to ndo button
-      //   document.getElementById("toolID-Undo").classList.add("disabled");
-      //   isDataEmpty = true;
-      // } else {
-      //   document.getElementById("toolID-Undo").classList.remove("disabled");
-      // }
-
       window.localStorage.removeItem("structure");
       window.localStorage.setItem("structure", msg?.structure);
       const selectedBoard = window.location.search
@@ -128,7 +116,7 @@ var isDataEmpty = false;
       ) {
         if (Tools.msgs.length > msg.msgCount) {
           var msgs = Tools.msgs.slice(msg.msgCount);
-          console.log("out of sync: " + JSON.stringify(msgs));
+
           handleMessage({ _children: msgs });
         }
       }
@@ -159,7 +147,7 @@ Tools.boardName = (function () {
   const urlParams = new URLSearchParams(path);
   const fileName = urlParams.get("file").split("#")[0];
   const folderName = window.location.search.split("?board=")[1].split("&")[0];
-  console.log("FILENAME", fileName, "Folder NAme", folderName);
+
   return encodeURIComponent(folderName) + "/" + fileName;
 })();
 
@@ -172,7 +160,6 @@ Tools.svg.addEventListener("touchmove", handleMarker, { passive: false });
 //}
 
 //Adding Genrated Images For board
-
 var lastPointerUpdate = 0;
 var cursorLastUse = {};
 var cursors = {};
@@ -184,9 +171,6 @@ var directions = [
   document.getElementById("west"),
 ];
 
-if (isDataEmpty) {
-  console.log("Empty ho chuka hun");
-}
 var ptrMessage = {
   board: Tools.boardName,
   data: {
@@ -605,7 +589,6 @@ Tools.add = function (newTool) {
     );
   }
 
-  console.log("Tools List ", Tools.list);
   //Format the new tool correctly
   Tools.applyHooks(Tools.toolHooks, newTool);
 
@@ -676,8 +659,6 @@ Tools.change = function (toolName) {
   //Update the GUI
   var curToolName = Tools.curTool ? Tools.curTool.name : "";
   try {
-    console.log("Current Tool", curToolName);
-
     Tools.HTML.changeTool(curToolName, toolName);
   } catch (e) {
     console.error("Unable to update the GUI with the new tool. " + e);
