@@ -54,6 +54,47 @@ Tools.more = false;
 
 Tools.msgs = [];
 Tools.menus = {};
+Tools.boolObj = {
+  deselect: "",
+  select: "",
+};
+
+function setObjectValue(value, isToggle, param) {
+  console.log("TOOGLE: ", isToggle, " Param: ", param);
+  if (param !== "start") {
+    return;
+  }
+  if (Tools.boolObj["select"] == value) {
+    Tools.boolObj["deselect"] = value;
+    Tools.boolObj["select"] = "";
+  } else {
+    if (Tools.boolObj["select"]) {
+      Tools.boolObj["deselect"] = Tools.boolObj["select"];
+    } else {
+      if (Tools.boolObj["deselect"] == value) {
+        Tools.boolObj["deselect"] = "";
+      }
+    }
+    Tools.boolObj["select"] = value;
+  }
+}
+
+function selectTool(name) {
+  setObjectValue(name, true, "start");
+  console.log("Object Updated", Tools.boolObj);
+
+  if (Tools.boolObj.select != "") {
+    document
+      .getElementById("toolID-" + Tools.boolObj.select)
+      .classList.add("ToolSelected");
+  }
+
+  if (Tools.boolObj.deselect != "") {
+    document
+      .getElementById("toolID-" + Tools.boolObj.deselect)
+      .classList.remove("ToolSelected");
+  }
+}
 
 Tools.menu_width = 40;
 Tools.scaleDefaults = [0.4, 0.75, 1, 1.5, 2, 4, 8];
@@ -641,6 +682,33 @@ Tools.onClick = function (toolName, evt) {
 
 Tools.change = function (toolName) {
   document.getElementById("moreTools").style.display = "none";
+  console.log("Change Called", toolName);
+
+  switch (toolName) {
+    case "Hand":
+      selectTool("Hand");
+      break;
+    case "Hand":
+      selectTool("Zoom In");
+      break;
+    case "Zoom Out":
+      selectTool("Zoom Out");
+      break;
+    case "Table":
+      selectTool("Table");
+      break;
+    case "Background":
+      selectTool("Background");
+      break;
+    case "Mathematical Tools":
+      selectTool("Mathematical Tools");
+      break;
+    case "Transform":
+      selectTool("Transform");
+      break;
+    default:
+      break;
+  }
 
   if (toolName == "Rectangle") {
     if (document.getElementById("shapesArrow")) {

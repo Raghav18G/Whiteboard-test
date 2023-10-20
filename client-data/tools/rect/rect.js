@@ -668,8 +668,10 @@
     console.log("toggle", elem);
     if (Tools.menus["Rectangle"].menuOpen()) {
       Tools.menus["Rectangle"].show(false);
+      console.log("toggle", "if");
     } else {
       Tools.menus["Rectangle"].show(true);
+      console.log("toggle", "else");
     }
     if (!menuInitialized) initMenu(elem);
   }

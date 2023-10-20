@@ -95,6 +95,24 @@
         document.addEventListener('touchmove', function (event) {
             if (event.scale !== 1) { event.preventDefault(); }
         }, { passive: false });
+
+function handleStaticToolClickClick(name){
+    console.log("NAME",name)
+    setObjectValue(name, true, "start");
+    if (Tools.boolObj.select != "") {
+      document
+        .getElementById("toolID-" + Tools.boolObj.select)
+        .classList.add("ToolSelected");
+    }
+
+    if (Tools.boolObj.deselect != "") {
+      document
+        .getElementById("toolID-" + Tools.boolObj.deselect)
+        .classList.remove("ToolSelected");
+    }
+
+}
+
     </script>
 
 
@@ -603,14 +621,13 @@
             <li class="tool"><span class="tool-icon"></span></li>
         </ul>
           <!-- Color Picker -->
-          <div class="parent-color-picker" style="margin-top: -37px;margin-left:16px;margin-right: 16px;">
+       
+          <div class="parent-color-picker staticTool" id="toolID-color-pick"  onclick="handleStaticToolClickClick('color-pick')" style="margin-top: -32px;margin-left:16px;margin-right: 16px;">
             <div class="tool-selected">
-                <span class="tool-icon color-tool-pick" style="margin: -12px -7px 27px -10px;">
+                <span class="tool-icon color-tool-pick" style="margin: -8px -7px 27px -10px;">
 
-                    <!-- <div class="color-pick"  id="color-pick" title="Color Picker">
-                        <input type="color" value="#ff00ff" id="chooseColor" />
-                </div> -->
-                    <div class="input-container" id="color-pick" title="Color Picker">
+                  
+                    <div class="input-container"  title="Color Picker" >
                         <input type="color" class="icon-input" id="chooseColor">
                     </div>
 
@@ -627,7 +644,7 @@
 
 
         <!-- Tool Size Indicator -->
-        <div class="tool size_selector_container ">
+        <div class=" size_selector_container staticTool" id="toolID-tool-size-selector"  onclick="handleStaticToolClickClick('tool-size-selector') " style="margin-top: 7px;">
             <span class="tool-icon" id="tool-size-selector" title="Tool size selector">
                 <svg viewBox="-60 -70 120 120" class="tool-icon-sizeIndicator" style="display:none">
                     <circle id="sizeIndicator" cx=0 cy=0 r=10 />
@@ -640,7 +657,7 @@
                     <path d="M27.6893 26.0511L27.6893 26.0511C27.554 26.0028 27.4148 25.9229 27.3006 25.8045L9.13735 7.64123C7.54238 6.04627 7.54106 3.44904 9.13338 1.85241L27.6893 26.0511ZM27.6893 26.0511L27.6932 26.0524M27.6893 26.0511L27.6932 26.0524M27.6932 26.0524L34.313 28.33C34.3131 28.33 34.3133 28.3301 34.3134 28.3301C34.6853 28.4591 35.0952 28.3601 35.3704 28.0849C35.5635 27.8918 35.672 27.631 35.672 27.3616C35.672 27.2453 35.6509 27.1336 35.6169 27.0316L35.6169 27.0316M27.6932 26.0524L35.6169 27.0316M35.6169 27.0316L35.6158 27.0284M35.6169 27.0316L35.6158 27.0284M35.6158 27.0284L33.3379 20.4076L33.3379 20.4074M35.6158 27.0284L33.3379 20.4074M33.3379 20.4074C33.288 20.2627 33.2063 20.1271 33.09 20.015M33.3379 20.4074L33.09 20.015M33.09 20.015L14.9268 1.85182C14.1552 1.08023 13.1236 0.651232 12.0304 0.651232C10.9397 0.651232 9.90926 1.07493 9.13735 1.84844C9.13733 1.84846 9.13731 1.84848 9.1373 1.84849L33.09 20.015ZM31.9336 22.6264L32.9917 25.7062L29.912 24.648L30.9228 23.6372L31.9336 22.6264ZM28.0264 23.6304L14.0312 9.63523L14.7544 8.912L28.7496 22.9072L28.0264 23.6304ZM30.9227 20.7408L30.1995 21.4641L16.2043 7.46885L16.9275 6.74564L30.9227 20.7408ZM14.0311 6.74221L12.5846 8.1887L12.2703 7.87442L15.1633 4.98145L15.4776 5.29573L14.0311 6.74221ZM13.4836 3.30173L13.7134 3.53154L10.8204 6.42451L10.5906 6.1947C9.79411 5.39818 9.79411 4.09826 10.5906 3.30173C11.3872 2.50521 12.6871 2.50521 13.4836 3.30173Z" fill="black" stroke="#F6F6F6" stroke-width="0.69786"/>
                 </svg> -->
                 <div class="tool-selected">
-                    <svg class="tool-icon-svg" style="margin-left: -1px;margin-bottom:1px ;" width="31" height="31"
+                    <svg class="tool-icon-svg" style="margin-left: -1px;margin-bottom:1px ;  margin-top:10px" width="31" height="31"
                         viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M27.1198 3.875L15.9662 6.86359L19.3416 10.239L8.94209 20.6385L5.56671 17.2631L2.57812 28.4167L13.7317 25.4281L10.3563 22.0527L20.7558 11.6532L24.1312 15.0286L27.1198 3.875Z"
@@ -650,9 +667,9 @@
 
 
 
-                <label class="label-tool" style="font-size:10px; line-height:2px;font-weight:400; margin-top:14px">
-                    <p id="tool-size-localization">Tool-size</p>
-                    <p id="tool-selector-localization">selector</p>
+                <label class="label-tool" style="font-size:12px; line-height:px;font-weight:400; margin-top:14px">
+                    <p id="tool-size-localization">Tool Size</p>
+          
                 </label>
 
             </span>
@@ -665,7 +682,7 @@
 
 
         <!-- Opacity Picker -->
-        <div class="tool opacityPicker ">
+        <div class=" opacityPicker staticTool " id="toolID-opacity-picker"  onclick="handleStaticToolClickClick('opacity-picker')" style="margin-top: 15px;">
             <span class="tool-icon" id="opacity-picker" title="Opacity Picker">
                 <!-- <svg class="tool-icon-svg" viewBox="0 0 8 8">
                     <pattern id="opacityPattern" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
@@ -718,7 +735,7 @@
                     style="-webkit-appearance: slider-vertical" class="rangeChooser-opacity" />
             </label>
         </div>
-        <div class="tool-name">
+        <div class="tool-name staticTool">
             <button id="openMoreTools">
                 <img src="./assets/Add Circle.png" width="30" />
                 <label id="tool-more-localization" class="label-more"
@@ -730,7 +747,7 @@
             <label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Deselect Tool</label>
         </div> -->
         
-        <div class="tool-name">
+        <div class="tool-name"  id="toolID-add-page"  onclick="handleStaticToolClickClick('add-page')">
             <button id="add-page" onclick="addNewPage()"> <img src="./assets/Add New.png" width="30" /></button>
             <label style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 4px;">Add New Page</label>
         </div>
@@ -1238,14 +1255,14 @@
 document.getElementById("wb-editor-container").style.display = "none"
 
 }
-        var tooll = document.querySelectorAll('.tool-selected');
-     console.log("TOOLS SELECTED",tooll)
-        tooll.forEach(button => {
-            button.addEventListener('click', () => {
-                tooll.forEach(b => b.classList.remove('selected'));
-                button.classList.add('selected');
-            });
-        });
+    //     var tooll = document.querySelectorAll('.tool-selected');
+    //  console.log("TOOLS SELECTED",tooll)
+    //     tooll.forEach(button => {
+    //         button.addEventListener('click', () => {
+    //             tooll.forEach(b => b.classList.remove('selected'));
+    //             button.classList.add('selected');
+    //         });
+    //     });
     </script>
 
     <!-- Localization  -->

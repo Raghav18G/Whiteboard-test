@@ -32,6 +32,19 @@
   };
 
   function undo(evt) {
+    setObjectValue("Undo", true, "start");
+    console.log("Object Updated", Tools.boolObj);
+    if (Tools.boolObj.select != "") {
+      document
+        .getElementById("toolID-" + Tools.boolObj.select)
+        .classList.add("ToolSelected");
+    }
+
+    if (Tools.boolObj.deselect != "") {
+      document
+        .getElementById("toolID-" + Tools.boolObj.deselect)
+        .classList.remove("ToolSelected");
+    }
     if (evt) evt.preventDefault();
     draw(msg);
     Tools.send(msg, "Undo");

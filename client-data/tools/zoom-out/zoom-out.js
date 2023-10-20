@@ -76,6 +76,7 @@
     function press(x, y, evt, isTouchEvent) {
         // if($("#menu").width()>Tools.menu_width+3)return;
         evt.preventDefault();
+        
         setOrigin(x, y, evt, isTouchEvent);
         moved = false;
         pressed = true;

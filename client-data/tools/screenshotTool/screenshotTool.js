@@ -13,19 +13,17 @@ var screenshotSVG =
     y: (100 + document.documentElement.scrollTop) / Tools.scale + 10 * imgCount,
   };
 
-  console.log("SCREENSHOT TOOL");
-
   function onStart() {
+    selectTool("Screenshot");
     let canvas = document.getElementById("board");
-    console.log("CANVAS", canvas);
+
     domtoimage
       .toJpeg(canvas, {
         bgcolor: "#fff",
       })
       .then(function (res) {
-        console.log("AFTER CONVERTING RES", res);
         var dataURL = res;
-        console.log("DATA URL", dataURL);
+
         var aspect = msg.w / msg.h;
         var img = Tools.createSVGElement("image");
         // img.id = msg.id;

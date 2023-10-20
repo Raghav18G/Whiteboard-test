@@ -129,6 +129,7 @@ int main() {
   var eval_code = Tools.debounce(Tools.eval_editor, 250);
 
   function toggleEditor() {
+    selectTool("Editor");
     var btn = document.getElementById("toolID-Editor");
     // if(win.toggle){
     // container.style.display = "none";
