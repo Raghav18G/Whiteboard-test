@@ -80,6 +80,7 @@ function setObjectValue(value, isToggle, param) {
 }
 
 function selectTool(name) {
+  console.log("SelectingTool", name);
   setObjectValue(name, true, "start");
   console.log("Object Updated", Tools.boolObj);
 
