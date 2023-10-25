@@ -142,7 +142,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
-    selectTool("Recorder");
+
     if (isMobile) {
       MobileRecorder();
     } else {
@@ -152,7 +152,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
 
   Tools.add({
     name: "Recorder",
-    isExtra: true,
+    isExtra:true,
     // "icon": "🖼️",
     iconHTML: screenshotSVG,
     // shortcuts: {

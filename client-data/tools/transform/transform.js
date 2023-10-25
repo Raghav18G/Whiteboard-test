@@ -456,6 +456,7 @@
 		}
 		console.log("index",index);
 		elem.getElementsByClassName("tool-icon")[0].innerHTML = icons[index];
+		elem.getElementsByClassName("tool-icon")[0].childNodes[0].classList.add("selected")
 	};
 
 	Tools.add({ //The new tool

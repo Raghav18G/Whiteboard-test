@@ -33,7 +33,6 @@
   // var eraserSVG =
   //   '<svg class="tool-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,0,0,13l4,4h8l9-9Zm6.59,8L14.5,13.09,7.91,6.5,13,1.41Zm-8,8H4.42l-3-3,5.8-5.79,6.58,6.58Z"/></g></g></svg> <label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Eraser</label>';
 
-  var counter = 0;
   var curLineId = "",
     startX = 0,
     startY = 0,
@@ -55,20 +54,7 @@
   }
 
   function onStart() {
-    setObjectValue("Pencil", true, "start");
-
-    if (Tools.boolObj.select != "") {
-      document
-        .getElementById("toolID-" + Tools.boolObj.select)
-        .classList.add("ToolSelected");
-    }
-
-    if (Tools.boolObj.deselect != "") {
-      document
-        .getElementById("toolID-" + Tools.boolObj.deselect)
-        .classList.remove("ToolSelected");
-    }
-
+    console.log("on start");
     if (curPen.mode == "White out") {
       Tools.setSize(curPen.eraserSize);
       Tools.showMarker = true;
@@ -79,7 +65,6 @@
     if (curPen.mode == "White out") {
       Tools.setSize(curPen.penSize);
     }
-    // document.getElementById("toolID-Pencil").classList.remove("pencilSelected");
     Tools.showMarker = false;
     var cursor = Tools.svg.getElementById("mycursor");
     if (cursor) {
@@ -97,7 +82,7 @@
     Tools.drawAndSend({
       type: "line",
       id: curLineId,
-      color: curPen.mode == "Pencil" ? Tools.getColor() : "transparent",
+      color: curPen.mode == "Pencil" ? Tools.getColor() : "white",
       size: Tools.getSize(),
       opacity: Tools.getOpacity(),
     });
@@ -307,40 +292,20 @@
   // }
 
   function toggle(elem) {
-    var index = 0;
-
-    if (curPen.mode == "Pencil") {
-      console.log("Object upadted in Toogle", Tools.boolObj);
-      // document
-      //   .getElementById("toolID-" + Tools.boolObj.select)
-      //   .classList.add("pencilSelected");
-      // if (Tools.boolObj.deselect != "") {
-      //   document
-      //     .getElementById("toolID-" + Tools.boolObj.deselect)
-      //     .classList.remove("pencilSelected");
-      // }
-      document.getElementById("toolID-Deselect").click();
-      curPen.mode = "";
-      Tools.setSize(curPen.penSize);
-    } else {
-      curPen.mode = "Pencil";
-
-      curPen.erasurSize = Tools.getSize();
-
-      Tools.setSize(curPen.penSize);
-
-      Tools.showMarker = false;
-
-      var cursor = Tools.svg.getElementById("mycursor");
-
-      console.log("Cursor", cursor);
-
-      if (cursor) {
-        cursor.remove();
-      }
+    if (curPen.mode === "Pencil") {
+      // If the current mode is already pencil, do nothing
+      return;
     }
 
-    elem.getElementsByClassName("tool-icon")[0].innerHTML = penIcons[index];
+    curPen.mode = "Pencil"; // Set the mode to Pencil
+    curPen.penSize = Tools.getSize(); // Store the current pen size
+    Tools.setSize(curPen.penSize); // Set the pen size for drawing
+
+    // Update the pencil icon
+    elem.getElementsByClassName("tool-icon")[0].innerHTML = penIcons[0];
+
+    // Update the title attribute
+    elem.setAttribute("title", "Pencil");
   }
 
   Tools.add({

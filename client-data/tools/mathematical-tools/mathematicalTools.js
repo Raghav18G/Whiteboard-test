@@ -192,7 +192,7 @@
     listeners: {},
     //draw: draw,
     onstart: onstart,
-    //oneTouch: true,
+    oneTouch: true,
     "onquit":onQuit,
     mouseCursor: "auto",
   });

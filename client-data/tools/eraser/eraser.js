@@ -28,12 +28,7 @@
   //Code isolation
   var eraserSVG =
     '<div class="tool-selected"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 21 17"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M13,0,0,13l4,4h8l9-9Zm6.59,8L14.5,13.09,7.91,6.5,13,1.41Zm-8,8H4.42l-3-3,5.8-5.79,6.58,6.58Z"/></g></g></svg></div> <label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Eraser</label>';
-  var eraseSVG = `
-<div class="tool-selected">
-    <img class="tool-img" src="assets/eraser.svg" alt="Eraser Icon">
-	</div>
-	<label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Eraser</label>
-`;
+  var eraseSVG = `<div class="tool-selected"><img class="tool-img" src="assets/eraser.svg" alt="Eraser Icon"></div><label id="tool-eraser-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;">Eraser</label>`;
   //Indicates the id of the circle the user is currently drawing or an empty string while the user is not drawing
   var curPathId = "",
     lastTime = performance.now(), //The time at which the last point was drawn
@@ -53,20 +48,6 @@
   }
 
   function onStart() {
-    setObjectValue("Eraser", true, "start");
-    console.log("Object Updated", Tools.boolObj);
-    if (Tools.boolObj.select != "") {
-      document
-        .getElementById("toolID-" + Tools.boolObj.select)
-        .classList.add("ToolSelected");
-    }
-
-    if (Tools.boolObj.deselect != "") {
-      document
-        .getElementById("toolID-" + Tools.boolObj.deselect)
-        .classList.remove("ToolSelected");
-    }
-
     curPen.penSize = Tools.getSize();
     Tools.setSize(curPen.eraserSize);
     Tools.showMarker = true;
@@ -269,6 +250,9 @@
     draw: draw,
     onstart: onStart,
     onquit: onQuit,
+    // provided in order to go into if condition inside Tools.onClick in orderto remove listner
+
+    toggle: function () {},
     isExtra: false,
     mouseCursor: "crosshair",
     //"stylesheet": "tools/pencil/pencil.css"
