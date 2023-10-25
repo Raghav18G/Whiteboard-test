@@ -440,12 +440,9 @@ iframe {
   background-color: #d9d9d94d; /* Light gray color for the box */
   cursor: pointer;
   border-radius: 8px; /* Rounded corners */
-  transition: transform 0.2s ease;
+
 }
 
-.tool-extra :hover {
-  transform: scale(1.1); /* Adjust the scale factor as needed */
-}
 
 
 .shapes-spacing { 
@@ -523,7 +520,7 @@ iframe {
   width: max-content;
   /* box-shadow: 0 0 3px #7FB2CC; */
   /*box-shadow: inset 0 0 3px #8FA2BC;*/
-  transition: transform 0.2s ease;
+
 }
 
 .tool:focus-within,
@@ -531,9 +528,7 @@ iframe {
   max-width: 100%;
 }
 
-.tool:hover {
-  transform: scale(1.1); /* Adjust the scale factor as needed */
-}
+
 
 .tool-popout {
   -webkit-touch-callout: none; /* iOS Safari */
