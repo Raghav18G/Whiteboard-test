@@ -726,7 +726,7 @@
 
         <div class="tool-name" style="margin-top: 24px">
             <button id="add-page" onclick="addNewPage()"> <img src="./assets/Add New.png" width="30" /></button>
-            <label style="font-size:10px;line-height: 2px;font-weight:400;">Add New Page</label>
+            <label style="font-size:10px;line-height: 2px;font-weight:400; " id="AddNewPage">Add New Page</label>
         </div>
 
 
@@ -1329,8 +1329,8 @@
                     // document.getElementById("tool-toggle-localization").innerHTML = `वाइट बोर्ड`;
 
                     document.getElementById("img-library").innerHTML = `इमेज लाइब्रेरी`;
-                    document.getElementById("SelectFromDevice").innerHTML = `ऐड इमेज from डिवाइस `;
-                    document.getElementById("SelectFromLibrary").innerHTML = `ऐड इमेज from लाइब्रेरी`;
+                    document.getElementById("SelectFromDevice").innerHTML = `डिवाइस से इमेज ऐड करें`;
+                    document.getElementById("SelectFromLibrary").innerHTML = `लाइब्रेरी से इमेज ऐड करें`;
                     document.getElementById("SelectFromPDF").innerHTML = `अपलोड पीडीएफ `;
                     document.getElementById("SelectFromVideo").innerHTML = `अपलोड वीडियो`;
 
@@ -1540,7 +1540,7 @@
 
                     for (let item of localizedStringsEN) {
                         if (document.getElementById(item.id)) {
-                            console.log(document.getElementById(item.id));
+                      
                             document.getElementById(item.id).innerHTML = item.value
                         }
                     }

@@ -2,7 +2,7 @@ var flag = 1;
 
 (() => {
   const displayNumber = window.location.search.split("&file=")[1];
-  console.log("PAGE", document.getElementById("pageNumber"));
+
   document.getElementById("pageNumber").textContent = `Page ${displayNumber}`;
 })();
 
@@ -16,9 +16,8 @@ async function addNewPage() {
   const structure = await window.localStorage.getItem("structure").split(",");
   const boardName = await window.localStorage.getItem("selectedBoard");
 
-  console.log("structure", structure, "Board Name: ", boardName);
   let pageTiles = document.querySelectorAll(".page-tile");
-  console.log("Page Tiles", pageTiles);
+
 
   const modal = document.getElementById("addNewPageModal");
   const modalContent = document.querySelector(".addNewPageModal-content");
@@ -77,7 +76,7 @@ async function addNewPage() {
     }
 
     if (pageKey === pageNumber) {
-      console.log("KEY ALREADY EXUSTS");
+  
       let selectedBoard = window.localStorage.getItem("selectedBoard");
       if (!selectedBoard) {
         selectedBoard = window.location.search
@@ -101,12 +100,12 @@ async function addNewPage() {
         `${baseURL}?board=${selectedBoard}&file=${nextFile + 1}`
       );
     } else {
-      console.log("KEY ALREADY EXUSTS");
+
       domtoimage.toPng(canvas, { bgcolor: "#fff" }).then(function (dataURL) {
         let obj = {};
         obj[pageNumber] = dataURL;
         generatedImages.push(obj);
-        console.log("GENERATED IMAGES", generatedImages);
+    
         localStorage.setItem(
           "generatedImages",
           JSON.stringify(generatedImages)

@@ -712,6 +712,9 @@ const calculatorWidget = (e) => {
   document.getElementById(`number1 ${uid}`).addEventListener("click", () => {
     appendToResult("1");
   });
+  document.getElementById(`number0 ${uid}`).addEventListener("click", () => {
+    appendToResult("0");
+  });
 
   // Buttons Event Listeners
   document.getElementById(`calculate ${uid}`).addEventListener("click", () => {
@@ -838,6 +841,8 @@ const diceWidget = (e) => {
 
   // rollButton.id = "rollButton"
   rollButton.setAttribute("data-dice-id", uid);
+  rollButton.setAttribute("id", "RollDice");
+
   rollButton.textContent = "Roll Dice";
 
   // Append the dots to the dots container

@@ -640,6 +640,7 @@ Tools.onClick = function (toolName, evt) {
 
 Tools.change = function (toolName) {
   console.log("tool change called")
+
   document.getElementById("moreTools").style.display = "none"
 
   if (toolName == "Rectangle") {
@@ -655,7 +656,7 @@ Tools.change = function (toolName) {
   }
 
   var newtool = Tools.list[toolName]
- 
+
   //Update the GUI
   var curToolName = Tools.curTool ? Tools.curTool.name : ""
   try {
@@ -667,59 +668,81 @@ Tools.change = function (toolName) {
   Tools.svg.style.cursor = newtool.mouseCursor || "auto"
   Tools.board.title = Tools.i18n.t(newtool.helpText || "")
 
-   // check if elelmt is active or not
-   let getNewEle = document.getElementById("toolID-" + newtool.name)
-   let getEle = null
-   if (newtool === Tools.curTool) {
-     getEle = document.getElementById("toolID-" + Tools.curTool.name)
-     if(Tools.curTool.name !== "Line" && Tools.curTool.name !== "Rectangle" && Tools.curTool.name !== "Transform" )
-     getEle.childNodes[0].childNodes[0]?.classList?.toggle("selected")
-   } else {
-     getNewEle.childNodes[0]?.childNodes[0]?.classList.add("selected")
-     if (Tools.curTool !== null) {
-       document
-         .getElementById("toolID-" + Tools.curTool.name)
-         .childNodes[0]?.childNodes[0]?.classList?.remove("selected")
-     }
-     
-   }
+  // check if elelmt is active or not
+  let getNewEle = document.getElementById("toolID-" + newtool.name)
+  let getEle = null
+  if (newtool !== Tools.curTool) {
+    checkCurTool = true
+  }
+  if (newtool === Tools.curTool) {
+    getEle = document.getElementById("toolID-" + Tools.curTool.name)
+    if (getEle) {
+      const shouldToggle = !(
+        Tools.curTool.name === "Line" ||
+        Tools.curTool.name === "Rectangle" ||
+        Tools.curTool.name === "Transform"
+      )
+      if (shouldToggle) {
+        const childElement = getEle.childNodes[0]?.childNodes[0]
+        if (childElement) {
+          childElement.classList.toggle("selected")
+        }
+      }
+    }
+  } else if (checkCurTool) {
+    const newChildElement = getNewEle.childNodes[0]?.childNodes[0]
+    if (newChildElement) {
+      console.log(newChildElement, "newChildElement")
+      newChildElement.classList.add("selected")
+    }
+
+    if (Tools.curTool !== null) {
+      const curToolElement = document.getElementById(
+        "toolID-" + Tools.curTool.name
+      )
+      if (curToolElement) {
+        const curChildElement = curToolElement.childNodes[0]?.childNodes[0]
+        if (curChildElement) {
+          curChildElement.classList.remove("selected")
+        }
+      }
+    }
+  }
 
   //There is not necessarily already a curTool
   if (Tools.curTool !== null) {
     //It's useless to do anything if the new tool is already selected
-    
+
     if (newtool === Tools.curTool) {
       if (newtool.toggle) {
         var elem = document.getElementById("toolID-" + newtool.name)
 
         newtool.toggle(elem)
         // remove listner if already cur tool is there
-     
-        console.log(newtool === Tools.curTool,newtool.name,"check tool condition")
-        
+
         if (checkCurTool) {
           if (
             newtool.name !== "Rectangle" &&
             newtool.name !== "Line" &&
             newtool.name !== "Transform"
           ) {
-            console.log("newtool",newtool.name)
+            console.log("newtool", newtool.name)
             for (var event in Tools.curTool.compiledListeners) {
               var listener = Tools.curTool.compiledListeners[event]
               Tools.svg.removeEventListener(event, listener)
             }
             Tools.svg.style.cursor = "auto"
+            checkCurTool = false
           }
-          checkCurTool = false
         } else {
           checkCurTool = true
-
           for (var event in Tools.curTool.compiledListeners) {
             var listener = Tools.curTool.compiledListeners[event]
             Tools.svg.addEventListener(event, listener, { passive: false })
           }
         }
       }
+      console.log("check tool condition", "checkCurTool", checkCurTool)
       return
     }
     //Remove the old event listeners

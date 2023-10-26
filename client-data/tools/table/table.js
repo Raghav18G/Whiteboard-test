@@ -216,6 +216,7 @@ let TableObjects = []
     //"oneTouch":true,
     onstart: createTable, // start the fn while tool is selected
     mouseCursor: "auto",
+    oneTouch:true,
     onquit: onQuit,
     draw: draw,
   })
@@ -231,7 +232,6 @@ const addInputElement = row => {
   input.style.resize = "none"
   input.style.overflow = "hidden"
   input.classList.add("add-wrap")
-  input.style.padding = "4px 10px"
   td.appendChild(input)
   if (row) row.appendChild(td)
   input.type = "text"
@@ -267,49 +267,18 @@ const addInputElement = row => {
       event.preventDefault()
       const currentText = input.value
       input.value = currentText + "\n"
-
+     
       // Increase the height of all textarea elements in the current row
       const row = input.closest("tr")
       adjustTextareaHeights(row)
     } else if (event.key === "Backspace") {
       event.preventDefault()
       const row = input.closest("tr")
-      
+
       // Remove the last line from all textarea elements in the current row
       removeLastCharacterFromTextareas(row, input)
     }
   })
-
-  // Function to adjust the height of all textarea elements in a row
-  function adjustTextareaHeights(row) {
-    const textareas = row.querySelectorAll("textarea")
-
-    // Set the height of all textareas to "auto" before calculating scroll height
-    textareas.forEach(textarea => {
-      textarea.style.height = "auto"
-    })
-
-    // Find the maximum scroll height among all textareas
-    let maxHeight = 0
-    textareas.forEach(textarea => {
-      maxHeight = Math.max(maxHeight, textarea.scrollHeight)
-    })
-
-    // Set the height of all textareas to the maximum height
-    textareas.forEach(textarea => {
-      textarea.style.height = maxHeight + "px"
-    })
-  }
-
-  function removeLastCharacterFromTextareas(row, curInput) {
-    const textareas = row.querySelectorAll("textarea")
-    curInput.value = curInput.value.slice(0, -1)
-    textareas.forEach(textarea => {
-      if (textarea.value.length > 0) {
-        adjustTextareaHeights(row) // Adjust textarea heights after removing a character
-      }
-    })
-  }
   return td
 }
 
@@ -376,4 +345,53 @@ const addColumn = ref => {
     let lastColumn = addInputElement(null)
     obj.appendChild(lastColumn)
   })
+}
+
+ // Function to adjust the height of all textarea elements in a row
+ function adjustTextareaHeights(row) {
+  const textareas = row.querySelectorAll("textarea")
+
+  // Set the height of all textareas to "auto" before calculating scroll height
+  textareas.forEach(textarea => {
+    textarea.style.height = "auto"
+  })
+
+  // Find the maximum scroll height among all textareas
+  let maxHeight = 0
+  textareas.forEach(textarea => {
+    maxHeight = Math.max(maxHeight, textarea.scrollHeight)
+  })
+
+  // Set the height of all textareas to the maximum height
+  textareas.forEach(textarea => {
+    textarea.style.height = maxHeight + "px"
+  })
+}
+
+function removeLastCharacterFromTextareas(row, curInput) {
+  const textareas = row.querySelectorAll("textarea");
+  console.log(curInput.selectionStart,curInput.selectionEnd);
+  const cursorPosition = curInput.selectionStart;
+  if (curInput.selectionStart === curInput.selectionEnd) {
+      // No text is selected, remove the last character
+      const textBeforeCursor = curInput.value.substring(0, cursorPosition - 1);
+      const textAfterCursor = curInput.value.substring(cursorPosition);
+      curInput.value = textBeforeCursor + textAfterCursor;
+      curInput.selectionStart = cursorPosition - 1; // Move the cursor back one position
+      curInput.selectionEnd = cursorPosition - 1;
+  } else {
+      // Text is selected, remove the selected text
+      const start = curInput.selectionStart;
+      const end = curInput.selectionEnd;
+      const textBeforeSelection = curInput.value.substring(0, start);
+      const textAfterSelection = curInput.value.substring(end);
+      curInput.value = textBeforeSelection + textAfterSelection;
+      curInput.selectionEnd = start; // Place the cursor at the start of the removed text
+  }
+  
+  textareas.forEach(textarea => {
+    if (textarea.value.length > 0) {
+      adjustTextareaHeights(row); // Adjust textarea heights after removing a character
+    }
+  });
 }
