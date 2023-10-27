@@ -63,6 +63,7 @@ const localizedStringsEN = [
   { id: "tooltipMagenta", value: "Magenta" },
   { id: "tooltipGrape", value: "Grape" },
   { id: "AddNewPage", value: "Add New Page" },
+  { id: "moreToolsClose", value: "Close" },
 ];
 
 const localizedStringsHI = [
@@ -130,4 +131,5 @@ const localizedStringsHI = [
   { id: "tooltipMagenta", value: "मैजेंटा" },
   { id: "tooltipGrape", value: "अंगूर" },
   { id: "AddNewPage", value: "नई पेज जोड़ें" },
+  { id: "moreToolsClose", value: "बंद करें" },
 ];
