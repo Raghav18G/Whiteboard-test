@@ -235,7 +235,7 @@
         } else if (data.shape == "Ellipse") {
           updateEllipse(shape, data);
         } else {
-          updateRect(shape, data);
+          updateRect(shape, data);          
         }
         break;
       default:
@@ -871,6 +871,9 @@
            <span title = "pyramid" class="tool-icon" id="shape3d-pyramid">◮</span>
           </div>`,
       listener: menuListener,
+    },
+    onstart:function(){
+      Tools.menus["Rectangle"].show(true);
     },
     mouseCursor: "crosshair",
     stylesheet: "tools/rect/rect.css",

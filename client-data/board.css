@@ -814,6 +814,7 @@ iframe {
 
 #canvas input {
   font-size: 16px;
+  width:60px !important;
 }
 
 .window-focused {
@@ -1278,6 +1279,7 @@ div#msr-pod-up {
   height: 3.5rem;
 }
 
+
 @media screen and (min-width: 200px) and (max-width: 619px) {
   #menu {
     padding: 0;
@@ -1586,6 +1588,7 @@ div#msr-pod-up {
   }
 }
 
+
 .hideExtenders {
   display: none;
 }
@@ -1593,6 +1596,7 @@ div#msr-pod-up {
 #videoPlayer {
   display: none;
 }
+
 
 .downloadModal {
   position: fixed;
@@ -2309,10 +2313,11 @@ div#msr-pod-up {
 .triangle-two {
   width: 0;
   height: 0;
+  display: none;
   border-style: solid;
-  border-width: 0 200px 346.4px 0;
-  border-color: transparent #000000 transparent transparent;
-  border-image-source: url(Set-Square-30.png);
+  /* border-width: 0 200px 346.4px 0; */
+  /* border-color: transparent #000000 transparent transparent; */
+  /* border-image-source: url(Set-Square-30.png); */
   cursor: all-scroll;
 }
 
@@ -2324,9 +2329,9 @@ div#msr-pod-up {
 }
 
 .input-container-two input {
-  width: 52px;
+  width: 70px !important;
   text-align: left;
-  background-color: transparent;
+  background-color: beige;
   border: 2px solid greenyellow;
   opacity: 90%;
 }
@@ -2339,10 +2344,10 @@ div#msr-pod-up {
 .triangle {
   width: 0;
   height: 0;
-  border-style: solid;
+  /* border-style: solid;
   border-width: 0 400px 200px 0;
-  border-color: transparent #000000 transparent transparent;
-  border-image-source: url(geometry-icon.png);
+  border-color: transparent #000000 transparent transparent; */
+  /* border-image-source: url(geometry-icon.png); */
   cursor: grab;
 }
 
@@ -2351,10 +2356,24 @@ div#msr-pod-up {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  
 }
 
 .input-container input {
-  /* width: 40px; */
+  /* width: 70px !important; */
+  margin-bottom: 77px;
+  text-align: center;
+  background-color: beige;
+  border: 0.4px solid yellow;
+}
+
+.input-container-setSquare{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.input-container-setSquare input{
+  width: 70px !important;
   margin-bottom: 77px;
   text-align: center;
   background-color: beige;

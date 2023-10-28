@@ -13,8 +13,6 @@ var screenshotSVG =
     y: (100 + document.documentElement.scrollTop) / Tools.scale + 10 * imgCount,
   };
 
-  console.log("SCREENSHOT TOOL");
-
   function onStart() {
     let canvas = document.getElementById("board");
     console.log("CANVAS", canvas);
@@ -37,7 +35,7 @@ var screenshotSVG =
         img.setAttribute("width", 400);
         img.setAttribute("height", 400);
         if (msg.transform) img.setAttribute("transform", msg.transform);
-        Tools.group.appendChild(img);
+
         const createEl = document.createElement("a");
         createEl.href = dataURL;
 

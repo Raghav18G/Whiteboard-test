@@ -258,6 +258,8 @@ function handleMsg(board, message, socket) {
     if (message.type == "clear") {
       success = board.clear();
     } else if (message.type == "undo") {
+      console.log("BOARD DATA", BoardData);
+      console.log("BOard", board);
       success = board.undo();
     } else {
       success = board.redo();

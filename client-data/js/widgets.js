@@ -175,6 +175,7 @@ const ClockWidget = (e) => {
   crossDiv.addEventListener("click", () => widgetRemove(uid));
 
   Tools.group.appendChild(foreignObjectClock);
+  // Tools.svg.getElementById("maths-tool").appendChild(foreignObjectClock)
   createDrag.addDrag(dragDiv, foreignObjectClock);
   // const HOURHAND = document.querySelector("#hour");
   // const MINUTEHAND = document.querySelector("#minute");
@@ -1694,9 +1695,9 @@ const roundCompassWidget = (e) => {
     <canvas class="compassCanvas" id="compassCanvas" height="400" width="400"></canvas>
      <div class="controls" id="controls">
         <label for="radiusInput">Radius:</label>
-        <input type="number" class="radiusInput" id="radiusInput" value="100" max="196" min="0">
+        <input  class="radiusInput" id="radiusInput" value="100" max="196" min="0">
         <label for="angleInput">Angle (0-360°):</label>
-        <input type="number" class="angleInput" id="angleInput" value="45" min="0" max="360">
+        <input class="angleInput" id="angleInput" value="45" min="0" max="360">
       </div>
       <button class="drawButton" id="drawButton">Draw</button>
     </div>
@@ -1726,6 +1727,24 @@ const roundCompassWidget = (e) => {
   crossDiv.addEventListener("click", () => widgetRemove(uid));
 
   Tools.group.appendChild(roundCompassforeignObject);
+
+  const inputElement = document.getElementById("angleInput");
+
+  inputElement.addEventListener("focus", () => {
+    inputElement.type = "number";
+  });
+  inputElement.addEventListener("blur", function () {
+    inputElement.type = "text";
+  });
+
+  const inputElementFirst = document.getElementById("radiusInput");
+
+  inputElementFirst.addEventListener("focus", () => {
+    inputElementFirst.type = "number";
+  });
+  inputElementFirst.addEventListener("blur", function () {
+    inputElementFirst.type = "text";
+  });
 
   //makeDraggeble(roundCompassforeignObject);
   const dragDiv = document.createElement("div");
@@ -2059,22 +2078,27 @@ const setSquareWidget = (e) => {
   </div>
 
   <div class="triangle-container-two" id="rotatableContainerTwo">
-    <div class="triangle-two" id="rotatableTriangleTwo"></div>
+  <img src="" id="triangle-two-image" draggable="false"/>
+    <div class="triangle-two" id="rotatableTriangleTwo">
+   
+    </div>
     <div class="input-container-two">
-      <input type="number" id="rotationInputTwo" min="0" max="360" value="0" ></input>
+      <input  id="rotationInputTwo" min="0" max="360" value="0" ></input>
     </div>
   </div>
 
   <div class="triangle-container" id="rotatableContainer">
-    <div class="triangle" id="rotatableTriangle"></div>
-    <div class="input-container setSquare-input-two">
-      <input type="number" id="rotationInput" min="0" max="360" value="0" ></input>
+  <img src="" id="triangle-one-image" draggable="false"/>
+    <div class="triangle" id="rotatableTriangle">
+    
+    </div>
+    <div class="input-container-setSquare setSquare-input-two">
+      <input  id="rotationInput" min="0" max="360" value="0" ></input>
     </div>
   </div>
   </div>`;
 
   setSquareWidgetElement.innerHTML = setSquareWidgetHTML;
-  // set the image background to view port width
 
   setSquareforeignObject.style.x = `${e.clientX + window.scrollX}px`;
   setSquareforeignObject.style.y = `${e.clientY + window.scrollY}px`;
@@ -2090,7 +2114,7 @@ const setSquareWidget = (e) => {
   Tools.group.appendChild(setSquareforeignObject);
   //makeDraggeble(setSquareforeignObject);
   const dragDiv = document.createElement("div");
-  dragDiv.innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+  dragDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
 <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
 </svg>`;
   dragDiv.classList.add("drag-widget");
@@ -2114,6 +2138,50 @@ const setSquareWidget = (e) => {
   const containerTwo = document.getElementById("rotatableContainerTwo");
   const triangleTwo = document.getElementById("rotatableTriangleTwo");
   const inputTwo = document.getElementById("rotationInputTwo");
+
+  // 1st Triangle Image
+  const imageUrlPayload = "../Set-Square-30.png"; // Provide the correct relative path to your image file
+  const imageUrlPayloadTriangleNew = "../geometry-icon.png";
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", imageUrlPayload, true);
+  xhr.responseType = "blob";
+
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      const blob = xhr.response;
+
+      // Convert the blob to a blob URL
+      const imageUrl = URL.createObjectURL(blob);
+
+      // Get the img element by ID
+      const imageElement = document.getElementById("triangle-two-image");
+
+      // Set the src attribute of the image
+      imageElement.src = imageUrl;
+    }
+  };
+
+  xhr.send();
+
+  const XhrNew = new XMLHttpRequest();
+  XhrNew.open("GET", imageUrlPayloadTriangleNew, true);
+  XhrNew.responseType = "blob";
+
+  XhrNew.onload = function () {
+    if (XhrNew.status === 200) {
+      const blob = XhrNew.response;
+      // Convert the blob to a blob URL
+      const imageUrlNew = URL.createObjectURL(blob);
+      // Get the img element by ID
+      const imageElement = document.getElementById("triangle-one-image");
+
+      // Set the src attribute of the image
+      imageElement.src = imageUrlNew;
+    }
+  };
+
+  XhrNew.send();
 
   let isDraggingTwo = false;
   let startAngleTwo = 0;
@@ -2154,6 +2222,27 @@ const setSquareWidget = (e) => {
 
   document.addEventListener("mousemove", rotateContainerTwo);
 
+  const inputElement = document.getElementById("rotationInput");
+
+  inputElement.addEventListener("focus", () => {
+    inputElement.type = "number";
+    inputElement.width = "50px";
+  });
+  inputElement.addEventListener("blur", function () {
+    inputElement.type = "text";
+    inputElement.width = "50px";
+  });
+
+  const inputElementFirst = document.getElementById("rotationInputTwo");
+
+  inputElementFirst.addEventListener("focus", () => {
+    inputElementFirst.type = "number";
+    inputElementFirst.width = "50px";
+  });
+  inputElementFirst.addEventListener("blur", function () {
+    inputElementFirst.type = "text";
+    inputElementFirst.width = "50px";
+  });
   document.addEventListener("mouseup", () => {
     isDraggingTwo = false;
   });

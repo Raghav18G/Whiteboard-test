@@ -490,6 +490,9 @@
 						</div>`,
       listener: menuListener,
     },
+    onstart:function(){
+      Tools.menus["Line"].show(true)
+    },
     draw: draw,
     mouseCursor: "crosshair",
     stylesheet: "tools/line/line.css",
