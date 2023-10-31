@@ -14,6 +14,11 @@ var screenshotSVG =
   };
 
   function onStart() {
+
+    ("screen-shot",function(){
+      console.log("socket emitted")
+    })
+    
     let canvas = document.getElementById("board");
     console.log("CANVAS", canvas);
     domtoimage

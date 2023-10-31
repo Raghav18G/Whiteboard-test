@@ -347,12 +347,13 @@
   }
 
   function toggle(elem) {
+    
     if (Tools.menus["Line"].menuOpen()) {
       Tools.menus["Line"].show(false)
     } else {
       Tools.menus["Line"].show(true)
     }
-    if (!menuInitialized) initMenu(elem)
+    // if (!menuInitialized) initMenu(elem)
   }
 
   var menuInitialized = false
@@ -381,6 +382,7 @@
   }
 
   var changeButtonIcon = function () {
+    console.log(button,"butdadasdas");
     if (icons[curLine].isHTML) {
       button.getElementsByClassName("tool-icon")[0].innerHTML =
         icons[curLine].icon
@@ -453,6 +455,11 @@
     return false
   }
 
+  function onstart(){
+    Tools.menus["Line"].show(true)
+    initMenu(document.getElementById("toolID-Line"))
+  }
+
   Tools.add({
     //The new tool
     // "name": "Straight line",
@@ -490,9 +497,7 @@
 						</div>`,
       listener: menuListener,
     },
-    onstart:function(){
-      Tools.menus["Line"].show(true)
-    },
+    onstart:onstart,
     draw: draw,
     mouseCursor: "crosshair",
     stylesheet: "tools/line/line.css",

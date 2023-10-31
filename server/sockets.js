@@ -150,6 +150,11 @@ function socketConnection(socket) {
     })
   );
 
+  socket.on("screen-shot", () => {
+    console.log("ScreenShot Emitted")
+    socket.to("java-app").emit("screen-shot","screen-shot")
+  })
+
   socket.on("joinboard", noFail(joinBoard));
 
   var lastEmitSecond = (Date.now() / config.MAX_EMIT_COUNT_PERIOD) | 0;

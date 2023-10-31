@@ -892,10 +892,12 @@ const diceWidget = (e) => {
   diceforeignObject.appendChild(dicewidgetElement);
 
   const dragDiv = document.createElement("div");
+  
   dragDiv.innerHTML = `
   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
       <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
     </svg>`;
+
   dragDiv.classList.add("drag-widget");
 
   diceforeignObject.appendChild(dragDiv);
@@ -1186,7 +1188,7 @@ const protractorWidget = (e) => {
   dragDiv.innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
 <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
 </svg>`;
-  dragDiv.classList.add("drag-widget");
+  dragDiv.classList.add("drag-widget-setSquare");
 
   protractorforeignObject.appendChild(dragDiv);
 
@@ -1197,7 +1199,7 @@ const protractorWidget = (e) => {
   <image href="./assets/x-circle.svg"  class="dragLogo" x="0" y="0" width="30" height="30" draggable="false"/>
 </svg>`;
 
-  crossDiv.classList.add("cross-div");
+  crossDiv.classList.add("cross-div-setSquare");
 
   protractorforeignObject.appendChild(crossDiv);
 
@@ -1678,8 +1680,23 @@ const rulerWidget = (e) => {
 
 // set the image background to view port width
 
+function estimateScreenDPI() {
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  const diagonalSizeInInches = 15; // Replace with the actual diagonal size in inches if known
+
+  // Calculate DPI
+  const dpi =
+    Math.sqrt(Math.pow(screenWidth, 2) + Math.pow(screenHeight, 2)) /
+    diagonalSizeInInches;
+  return dpi;
+}
+
 const roundCompassWidget = (e) => {
   createDrag = new Draggable();
+
+  const screenDPI = estimateScreenDPI();
+  console.log(`Estimated screen DPI: ${screenDPI}`);
 
   const roundCompassforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -1692,10 +1709,10 @@ const roundCompassWidget = (e) => {
 
   const roundCompassWidgetHTML = `
     <div class="roundCompass--container">
-    <canvas class="compassCanvas" id="compassCanvas" height="400" width="400"></canvas>
+    <canvas class="compassCanvas" id="compassCanvas" height="1800" width="1800"></canvas>
      <div class="controls" id="controls">
-        <label for="radiusInput">Radius:</label>
-        <input  class="radiusInput" id="radiusInput" value="100" max="196" min="0">
+        <label for="radiusInput">Radius (cm):</label>
+        <input  class="radiusInput" id="radiusInput" value="2" max="9" min="0">
         <label for="angleInput">Angle (0-360°):</label>
         <input class="angleInput" id="angleInput" value="45" min="0" max="360">
       </div>
@@ -1795,7 +1812,11 @@ const roundCompassWidget = (e) => {
   function drawTriangle() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    const radius = parseFloat(radiusInput.value);
+    //Multiplying by 96 to convert cm to pixels according to 96 DPI
+    const radius = parseFloat(radiusInput.value) * 96;
+
+    console.log("RADIUS in cm", radius);
+    console.log("RADIUS in Pixels", radius * screenDPI);
     let angle = parseFloat(angleInput.value);
 
     angle = wrapAngle(angle);
@@ -2053,7 +2074,7 @@ function toggleDiv(className) {
 }
 
 const setSquareWidget = (e) => {
-  console.log("setSquare", e);
+
   createDrag = new Draggable();
 
   const setSquareforeignObject = document.createElementNS(
@@ -2112,6 +2133,15 @@ const setSquareWidget = (e) => {
   setSquareforeignObject.appendChild(setSquareWidgetElement);
 
   Tools.group.appendChild(setSquareforeignObject);
+
+  let setSquareID= ["rotatableContainerTwo","triangle-two-image","rotatableTriangleTwo","rotationInputTwo","rotatableContainer","triangle-one-image","rotatableTriangle","rotationInput"]
+  
+  setSquareID.forEach((item)=>{
+    let ids = document.getElementById(item)
+    ids.id +=` ${uid}`
+  })
+
+
   //makeDraggeble(setSquareforeignObject);
   const dragDiv = document.createElement("div");
   dragDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
@@ -2135,9 +2165,9 @@ const setSquareWidget = (e) => {
   createDrag.addDrag(dragDiv, setSquareforeignObject);
   // for 30-60 set-square
 
-  const containerTwo = document.getElementById("rotatableContainerTwo");
-  const triangleTwo = document.getElementById("rotatableTriangleTwo");
-  const inputTwo = document.getElementById("rotationInputTwo");
+  const containerTwo = document.getElementById(`rotatableContainerTwo ${uid}`);
+  const triangleTwo = document.getElementById(`rotatableTriangleTwo ${uid}`);
+  const inputTwo = document.getElementById(`rotationInputTwo ${uid}`);
 
   // 1st Triangle Image
   const imageUrlPayload = "../Set-Square-30.png"; // Provide the correct relative path to your image file
@@ -2155,7 +2185,7 @@ const setSquareWidget = (e) => {
       const imageUrl = URL.createObjectURL(blob);
 
       // Get the img element by ID
-      const imageElement = document.getElementById("triangle-two-image");
+      const imageElement = document.getElementById(`triangle-two-image ${uid}`);
 
       // Set the src attribute of the image
       imageElement.src = imageUrl;
@@ -2174,7 +2204,7 @@ const setSquareWidget = (e) => {
       // Convert the blob to a blob URL
       const imageUrlNew = URL.createObjectURL(blob);
       // Get the img element by ID
-      const imageElement = document.getElementById("triangle-one-image");
+      const imageElement = document.getElementById(`triangle-one-image ${uid}`);
 
       // Set the src attribute of the image
       imageElement.src = imageUrlNew;
@@ -2222,7 +2252,7 @@ const setSquareWidget = (e) => {
 
   document.addEventListener("mousemove", rotateContainerTwo);
 
-  const inputElement = document.getElementById("rotationInput");
+  const inputElement = document.getElementById(`rotationInput ${uid}`);
 
   inputElement.addEventListener("focus", () => {
     inputElement.type = "number";
@@ -2233,7 +2263,7 @@ const setSquareWidget = (e) => {
     inputElement.width = "50px";
   });
 
-  const inputElementFirst = document.getElementById("rotationInputTwo");
+  const inputElementFirst = document.getElementById(`rotationInputTwo ${uid}`);
 
   inputElementFirst.addEventListener("focus", () => {
     inputElementFirst.type = "number";
@@ -2256,9 +2286,9 @@ const setSquareWidget = (e) => {
   });
 
   // for 45-45 set-square
-  const container = document.getElementById("rotatableContainer");
-  const triangle = document.getElementById("rotatableTriangle");
-  const input = document.getElementById("rotationInput");
+  const container = document.getElementById(`rotatableContainer ${uid}`);
+  const triangle = document.getElementById(`rotatableTriangle ${uid}`);
+  const input = document.getElementById(`rotationInput ${uid}`);
 
   let isDragging = false;
   let startAngle = 0;

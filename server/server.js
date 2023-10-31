@@ -36,6 +36,8 @@ if (parseFloat(process.versions.node) < MIN_NODE_VERSION) {
 
 var io = sockets.start(app);
 
+app.g
+
 app.listen(config.PORT);
 log("server started", { port: config.PORT });
 log("You Can Acess The Whiteboard By Typing localhost:8090 On Any Browser");

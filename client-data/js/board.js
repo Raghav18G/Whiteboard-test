@@ -208,8 +208,8 @@ function handleMarker(evt) {
 }
 
 function moveMarker(message) {
-  var cursor = Tools.svg.getElementById("mycursor")
-  console.log("movemarkereererk",cursor);
+  var cursor = Tools.svg.getElementById("mycursor");
+  console.log("movemarkereererk", cursor);
 
   if (!cursor) {
     Tools.svg.getElementById("cursors").innerHTML =
@@ -237,7 +237,7 @@ setInterval(function () {
 
 function movePointer(message) {
   console.log("movePointer");
-  var cursor = cursors["cursor" + message.socket]
+  var cursor = cursors["cursor" + message.socket];
   //var cursor = document.getElementById("cursor"+message.socket);
   if (!cursor) {
     var cursorList = Tools.svg.getElementsByClassName("opcursor");
@@ -370,14 +370,14 @@ Tools.clearBoard = function (deleteMsgs) {
   var group = Tools.createSVGElement("g");
   group.id = "layer-" + Tools.layer;
   //group.style.mask = "url(#mask-layer-"+Tools.layer+")"
-  Tools.svg.appendChild(group)
-  Tools.group = group
+  Tools.svg.appendChild(group);
+  Tools.group = group;
   const newGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-  newGroup.setAttribute("id", "maths-tool")
+  newGroup.setAttribute("id", "maths-tool");
 
-  Tools.svg.appendChild(newGroup)
+  Tools.svg.appendChild(newGroup);
   // <end>
-}
+};
 
 Tools.HTML = {
   template: new Minitpl("#tools > .tool"),
@@ -635,6 +635,11 @@ Tools.onClick = function (toolName, evt) {
   if (!(toolName in Tools.list)) {
     throw new Error("Trying to select a tool that has never been added!");
   }
+  console.log(toolName);
+  if (toolName === "Screenshot") {
+    console.log("Emittig Socket");
+    Tools.socket.emit("screen-shot");
+  }
 
   var tool = Tools.list[toolName];
 
@@ -645,17 +650,7 @@ Tools.onClick = function (toolName, evt) {
 };
 
 Tools.change = function (toolName) {
-  console.log("tool change called");
-
   document.getElementById("moreTools").style.display = "none";
-
-  if (toolName == "Rectangle") {
-    if (document.getElementById("shapesArrow")) {
-      document.getElementById("shapesArrow").style.display = "block";
-      document.getElementById("shapesArrow").style.width = "10px";
-      document.getElementById("shapesArrow").childNodes[0].style.width = "10px";
-    }
-  }
 
   if (!(toolName in Tools.list)) {
     throw new Error("Trying to select a tool that has never been added!");
@@ -677,6 +672,7 @@ Tools.change = function (toolName) {
   // check if elelmt is active or not
   let getNewEle = document.getElementById("toolID-" + newtool.name);
   let getEle = null;
+  // create a new scope for newtool selection
   if (newtool !== Tools.curTool) {
     checkCurTool = true;
   }
@@ -718,7 +714,7 @@ Tools.change = function (toolName) {
   //There is not necessarily already a curTool
   if (Tools.curTool !== null) {
     //It's useless to do anything if the new tool is already selected
-    console.log(newtool === Tools.curTool,"checkeck");
+    console.log(newtool === Tools.curTool, "checkeck");
     if (newtool === Tools.curTool) {
       if (newtool.toggle) {
         var elem = document.getElementById("toolID-" + newtool.name);
@@ -840,7 +836,7 @@ function batchCall(fn, args) {
 
 // Call messageForTool recursively on the message and its children
 function handleMessage(message) {
-  console.log("handleMessage")
+  console.log("handleMessage");
   //Check if the message is in the expected format
   if (!message) return;
   //console.log(message);
