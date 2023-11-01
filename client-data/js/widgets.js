@@ -892,7 +892,7 @@ const diceWidget = (e) => {
   diceforeignObject.appendChild(dicewidgetElement);
 
   const dragDiv = document.createElement("div");
-  
+
   dragDiv.innerHTML = `
   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30">
       <image href="./assets/DRAG.svg" x="0" y="0" width="30" height="30" draggable="false"/>
@@ -2064,8 +2064,9 @@ function getVisibleViewport() {
   };
 }
 
-function toggleDiv(className) {
-  const div = document.querySelector(`.${className}`);
+function toggleDiv(id) {
+  console.log("In TOGGLE DIC");
+  const div = document.getElementById(`${id}`);
   if (div.style.display === "none") {
     div.style.display = "block";
   } else {
@@ -2074,8 +2075,8 @@ function toggleDiv(className) {
 }
 
 const setSquareWidget = (e) => {
-
   createDrag = new Draggable();
+  let uid = Tools.generateUID("doc");
 
   const setSquareforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -2084,16 +2085,16 @@ const setSquareWidget = (e) => {
   const setSquareWidgetElement = document.createElement("div");
 
   setSquareWidgetElement.id = "setSquareWidget";
-  let uid = Tools.generateUID("doc");
 
   const setSquareWidgetHTML = `
   <div class="setSqaure">
   <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
     <button
-      onclick="toggleDiv('triangle-container-two')"
+      onclick="toggleDiv('rotatableContainerTwo ${uid}')"
       style="background-color: yellowgreen; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer;">(30,
       60, 90)</button>
-    <button onclick="toggleDiv('triangle-container')"
+    <button 
+      onclick="toggleDiv('rotatableContainer ${uid}')"
       style="background-color: beige; border: none; border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer;">(45,
       45, 90)</button>
   </div>
@@ -2134,13 +2135,21 @@ const setSquareWidget = (e) => {
 
   Tools.group.appendChild(setSquareforeignObject);
 
-  let setSquareID= ["rotatableContainerTwo","triangle-two-image","rotatableTriangleTwo","rotationInputTwo","rotatableContainer","triangle-one-image","rotatableTriangle","rotationInput"]
-  
-  setSquareID.forEach((item)=>{
-    let ids = document.getElementById(item)
-    ids.id +=` ${uid}`
-  })
+  let setSquareID = [
+    "rotatableContainerTwo",
+    "triangle-two-image",
+    "rotatableTriangleTwo",
+    "rotationInputTwo",
+    "rotatableContainer",
+    "triangle-one-image",
+    "rotatableTriangle",
+    "rotationInput",
+  ];
 
+  setSquareID.forEach((item) => {
+    let ids = document.getElementById(item);
+    ids.id += ` ${uid}`;
+  });
 
   //makeDraggeble(setSquareforeignObject);
   const dragDiv = document.createElement("div");

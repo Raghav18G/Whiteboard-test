@@ -111,6 +111,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
     //Mobile Console Trigger
     launchScannerApp();
   }
+  
   function DesktopRecorder() {
     console.log("DESKTOP SCREEN RECORDING");
     captureScreen(function (screen) {
@@ -151,7 +152,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
   }
 
   Tools.add({
-    name: "Screen Recorder",
+    name: "ScreenRecorder",
     isExtra: true,
     // "icon": "🖼️",
     iconHTML: screenshotSVG,
