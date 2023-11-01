@@ -223,6 +223,11 @@ iframe {
   position: relative;
 }
 
+#videoModalClose{
+margin-top: 10px !important;
+margin-right: 4px !important;
+}
+
 #draggableToolbar {
   position: fixed;
   z-index: 1000;
@@ -1358,6 +1363,7 @@ div#msr-pod-up {
   #board #canvas {
     width: 100%;
     height: 100%;
+ 
   }
 
   /* toolbar */
@@ -2516,7 +2522,7 @@ div#msr-pod-up {
 .addNewPageModal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   left: 0;
   top: 0;
   width: 100%;

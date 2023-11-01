@@ -18,16 +18,6 @@ async function addNewPage() {
 
   let pageTiles = document.querySelectorAll(".page-tile");
 
-
-  const modal = document.getElementById("addNewPageModal");
-  const modalContent = document.querySelector(".addNewPageModal-content");
-
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal || event.target === modalContent) {
-      modal.style.display = "none";
-    }
-  });
-
   const files = [];
 
   structure.map((path) => {
@@ -55,6 +45,15 @@ async function addNewPage() {
     });
   }
 
+  const modal = document.getElementById("addNewPageModal");
+  const pageTile = document.querySelector(".page-tile");
+
+  pageTile.addEventListener("click", (event) => {
+    if (event.target === pageTile) {
+      modal.style.display = "none";
+    }
+  });
+
   document.getElementById("addPageBtn").addEventListener("click", function () {
     //Main Logic of Page Addition
     const structure = window.localStorage.getItem("structure").split(",");
@@ -76,7 +75,6 @@ async function addNewPage() {
     }
 
     if (pageKey === pageNumber) {
-  
       let selectedBoard = window.localStorage.getItem("selectedBoard");
       if (!selectedBoard) {
         selectedBoard = window.location.search
@@ -100,12 +98,11 @@ async function addNewPage() {
         `${baseURL}?board=${selectedBoard}&file=${nextFile + 1}`
       );
     } else {
-
       domtoimage.toPng(canvas, { bgcolor: "#fff" }).then(function (dataURL) {
         let obj = {};
         obj[pageNumber] = dataURL;
         generatedImages.push(obj);
-    
+
         localStorage.setItem(
           "generatedImages",
           JSON.stringify(generatedImages)
