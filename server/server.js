@@ -36,7 +36,7 @@ if (parseFloat(process.versions.node) < MIN_NODE_VERSION) {
 
 var io = sockets.start(app);
 
-app.g
+app.g;
 
 app.listen(config.PORT);
 log("server started", { port: config.PORT });
@@ -94,6 +94,7 @@ const indexTemplate = new templating.Template(
 function handleRequest(request, response) {
   var parsedUrl = url.parse(request.url, true);
   var parts = parsedUrl.pathname.split("/");
+
   if (parts[0] === "") parts.shift();
 
   if (parts[0] === "boards") {
@@ -159,6 +160,8 @@ function handleRequest(request, response) {
     // Index page
     logRequest(request);
     indexTemplate.serve(request, response);
+  } else if (parts[0] === "server-check") {
+    response.end("Here");
   } else {
     fileserver(request, response, serveError(request, response));
   }

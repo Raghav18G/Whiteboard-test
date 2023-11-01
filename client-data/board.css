@@ -1149,7 +1149,7 @@ footer div:nth-child(2) .footer-button__button-label {
   height: 89% !important;
 }
 #body-new {
-  overflow: unset !important;
+ 
 }
 body::-webkit-scrollbar {
   width: 10px;
@@ -2016,11 +2016,11 @@ div#msr-pod-up {
   text-align: center;
   margin-left: 2rem;
 }
-#controls {
+#controlsStopwatch {
   margin-top: 20px;
   display: flex;
 }
-#controls button {
+#controlsStopwatch button {
   font-size: 16px;
   padding: 10px 20px;
   margin: 5px;
@@ -2030,7 +2030,7 @@ div#msr-pod-up {
   border-radius: 4px;
   cursor: pointer;
 }
-#controls button:hover {
+#controlsStopwatch button:hover {
   background-color: #45a049;
 }
 
@@ -2757,6 +2757,7 @@ border: none;
   position: absolute;
   top: -151px;
 }
+
 
 .unselectable {
   user-select: none;

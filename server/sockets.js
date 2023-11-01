@@ -151,9 +151,9 @@ function socketConnection(socket) {
   );
 
   socket.on("screen-shot", () => {
-    console.log("ScreenShot Emitted")
-    socket.to("java-app").emit("screen-shot","screen-shot")
-  })
+    console.log("ScreenShot Emitted");
+    socket.emit("screen-shot", "screen-shot");
+  });
 
   socket.on("joinboard", noFail(joinBoard));
 
