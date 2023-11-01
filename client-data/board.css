@@ -2757,3 +2757,7 @@ border: none;
   position: absolute;
   top: -151px;
 }
+
+.unselectable {
+  user-select: none;
+}

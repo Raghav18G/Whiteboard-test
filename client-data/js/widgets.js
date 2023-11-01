@@ -2087,7 +2087,7 @@ const setSquareWidget = (e) => {
   setSquareWidgetElement.id = "setSquareWidget";
 
   const setSquareWidgetHTML = `
-  <div class="setSqaure">
+  <div class="setSqaure unselectable">
   <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
     <button
       onclick="toggleDiv('rotatableContainerTwo ${uid}')"
@@ -2099,7 +2099,7 @@ const setSquareWidget = (e) => {
       45, 90)</button>
   </div>
 
-  <div class="triangle-container-two" id="rotatableContainerTwo">
+  <div class="triangle-container-two " id="rotatableContainerTwo">
   <img src="" id="triangle-two-image" draggable="false"/>
     <div class="triangle-two" id="rotatableTriangleTwo">
    
