@@ -602,7 +602,7 @@ const calculatorWidget = (e) => {
   let uid = Tools.generateUID("doc");
 
   const calculatorHTML = ` 
-  <div id="calculatorWidget">
+  <div id="calculatorWidget" class="unselectable">
 <input type="text" id="result" disabled="true" ></input>
 <div class="calc-box">
 <button id="number7" class="calc-btn">7</button>
@@ -1019,6 +1019,7 @@ const stopWatchWidget = (e) => {
 
   const stopwatchWidgetElement = document.createElement("div");
   stopwatchWidgetElement.id = "stopwatchWidget";
+  stopwatchWidgetElement.classList.add("unselectable");
   let uid = Tools.generateUID("doc");
 
   // const stopwatchWidgetHTML = `
@@ -1708,7 +1709,7 @@ const roundCompassWidget = (e) => {
   let uid = Tools.generateUID("doc");
 
   const roundCompassWidgetHTML = `
-    <div class="roundCompass--container">
+    <div class="roundCompass--container unselectable">
     <canvas class="compassCanvas" id="compassCanvas" height="1800" width="1800"></canvas>
      <div class="controls" id="controls">
         <label for="radiusInput">Radius (cm):</label>
