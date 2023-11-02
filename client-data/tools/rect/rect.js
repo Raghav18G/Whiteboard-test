@@ -24,13 +24,13 @@
  * @licend
  */
 
-;(function () {
+(function () {
   //Code isolation
   //Indicates the id of the shape the user is currently drawing or an empty string while the user is not drawing
   // var ellipse =
   //   '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"><g><path id="submenu-rect-path" fill="';
   var shapeSVG =
-    '<div class="tool-selected"><svg xmlns="http://www.w3.org/2000/svg" class="shape-svg-icon" width="36" height:"36" style="margin-top: -4px; margin-left:-5px;" viewBox="0 0 44 50" fill="none"><path d="M27.5526 18.9786L27.5531 19.4568L21.6526 22.8703L15.7458 19.4667L15.7453 18.9958L13.8047 20.1182L21.6422 24.5901L29.5047 20.1036L27.5526 18.9786ZM25.2516 13.1193L21.6427 11.0391L18.05 13.1172L21.7 15.3458L25.2516 13.1193Z" fill="#FBCF26"/><path d="M31.8531 19.6557L27.5479 17.1755L27.5443 12.6395L21.638 9.23535L15.7365 12.6489L15.7411 17.1926L11.4531 19.6729L11.4625 31.4515L21.6682 37.3333L31.8641 31.4359L31.8531 19.6557ZM25.9885 18.5567L22.4302 20.6145V16.7301L25.9839 14.5025L25.9885 18.5567ZM20.8682 20.6176L17.3026 18.5635L17.299 14.4926L20.8682 16.6723V20.6176ZM21.6401 11.04L25.249 13.1202L21.6974 15.3468L18.0474 13.1182L21.6401 11.04ZM15.7432 19.4671L21.65 22.8708L22.0411 22.6452L27.5505 19.4572L27.55 18.9791L29.5021 20.1041L21.6396 24.5911L13.8021 20.1192L15.7427 18.9968L15.7432 19.4671ZM13.0156 21.4692L20.8682 25.9499V35.0687L13.0234 30.5494L13.0156 21.4692ZM22.4302 35.0864V25.9385L30.2927 21.4525L30.301 30.5343L22.4302 35.0864Z" fill="#424242"/><path d="M31.8568 27.6213V29.4114L35.3854 31.3796L21.6411 39.5114L7.89948 31.3796L11.4536 29.3973L11.4521 27.6104L4.76562 31.3385L21.6411 41.3275L38.5214 31.339L31.8568 27.6213Z" fill="#FBCF26"/></svg></div><label id="tool-shapes-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top:14px"><p>Shapes</p></label>'
+    '<div class="tool-selected"><svg xmlns="http://www.w3.org/2000/svg" class="shape-svg-icon" width="36" height:"36" style="margin-top: -4px; margin-left:-5px;" viewBox="0 0 44 50" fill="none"><path d="M27.5526 18.9786L27.5531 19.4568L21.6526 22.8703L15.7458 19.4667L15.7453 18.9958L13.8047 20.1182L21.6422 24.5901L29.5047 20.1036L27.5526 18.9786ZM25.2516 13.1193L21.6427 11.0391L18.05 13.1172L21.7 15.3458L25.2516 13.1193Z" fill="#FBCF26"/><path d="M31.8531 19.6557L27.5479 17.1755L27.5443 12.6395L21.638 9.23535L15.7365 12.6489L15.7411 17.1926L11.4531 19.6729L11.4625 31.4515L21.6682 37.3333L31.8641 31.4359L31.8531 19.6557ZM25.9885 18.5567L22.4302 20.6145V16.7301L25.9839 14.5025L25.9885 18.5567ZM20.8682 20.6176L17.3026 18.5635L17.299 14.4926L20.8682 16.6723V20.6176ZM21.6401 11.04L25.249 13.1202L21.6974 15.3468L18.0474 13.1182L21.6401 11.04ZM15.7432 19.4671L21.65 22.8708L22.0411 22.6452L27.5505 19.4572L27.55 18.9791L29.5021 20.1041L21.6396 24.5911L13.8021 20.1192L15.7427 18.9968L15.7432 19.4671ZM13.0156 21.4692L20.8682 25.9499V35.0687L13.0234 30.5494L13.0156 21.4692ZM22.4302 35.0864V25.9385L30.2927 21.4525L30.301 30.5343L22.4302 35.0864Z" fill="#424242"/><path d="M31.8568 27.6213V29.4114L35.3854 31.3796L21.6411 39.5114L7.89948 31.3796L11.4536 29.3973L11.4521 27.6104L4.76562 31.3385L21.6411 41.3275L38.5214 31.339L31.8568 27.6213Z" fill="#FBCF26"/></svg></div><label id="tool-shapes-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400;margin-top:14px"><p>Shapes</p></label>';
   // COnsider space between the icon elements as literals are used
   var icons = {
     Rectangle: {
@@ -44,7 +44,7 @@
       isSVG: false,
     },
     Triangle: {
-      icon: `<div class="tool-selected">◺</div><label id="tool-triangle-localization" class="label-tool" style="font-size:10px;line-height: 2px;font-weight:400; margin-top: 14px;"><p>Triangle</p></label>`,
+      icon: `<div class="tool-selected">◺</div><label id="tool-triangle-localization" class="label-tool" style="font-size:10px;line-height: 12px;font-weight:400; margin-top: 14px;"><p>Right <br/> Triangle</p></label>`,
       isHTML: true,
       isSVG: false,
     },
@@ -108,7 +108,7 @@
       isHTML: true,
       isSVG: false,
     },
-  }
+  };
 
   var curshape = "Rectangle",
     end = false,
@@ -116,13 +116,13 @@
     lastX = 0,
     lastY = 0,
     dashed = false,
-    lastTime = performance.now() //The time at which the last point was drawn
+    lastTime = performance.now(); //The time at which the last point was drawn
 
   function start(x, y, evt) {
     //Prevent the press from being interpreted by the browser
-    evt.preventDefault()
-    Tools.suppressPointerMsg = true
-    curId = Tools.generateUID("r") //"r" for rectangle
+    evt.preventDefault();
+    Tools.suppressPointerMsg = true;
+    curId = Tools.generateUID("r"); //"r" for rectangle
     Tools.drawAndSend({
       type: "rect",
       id: curId,
@@ -135,10 +135,10 @@
       y: y,
       x2: x,
       y2: y,
-    })
+    });
 
-    lastX = x
-    lastY = y
+    lastX = x;
+    lastY = y;
   }
 
   function move(x, y, evt) {
@@ -152,12 +152,12 @@
         shape: curshape,
         x: lastX,
         y: lastY,
-      }
-      curUpdate["x2"] = x
-      curUpdate["y2"] = y
+      };
+      curUpdate["x2"] = x;
+      curUpdate["y2"] = y;
       if (performance.now() - lastTime > 70 || end) {
-        Tools.drawAndSend(curUpdate)
-        lastTime = performance.now()
+        Tools.drawAndSend(curUpdate);
+        lastTime = performance.now();
 
         if (wb_comp.list["Measurement"]) {
           wb_comp.list["Measurement"].update({
@@ -166,33 +166,33 @@
             y: lastY,
             x2: x,
             y2: y,
-          })
+          });
         }
       }
     }
-    if (evt) evt.preventDefault()
+    if (evt) evt.preventDefault();
   }
 
   function stop(x, y, evt) {
-    evt.preventDefault()
+    evt.preventDefault();
     //Add a last point to the shape
-    end = true
-    move(x, y)
-    end = false
-    Tools.suppressPointerMsg = false
-    curId = ""
+    end = true;
+    move(x, y);
+    end = false;
+    Tools.suppressPointerMsg = false;
+    curId = "";
   }
 
   function draw(data) {
     // console.log("data", data);
     Tools.drawingEvent = true;
-  
+
     switch (data.type) {
       case "rect":
         console.log("inside rect");
         createShape(data);
         break;
-  
+
       case "update":
         console.log("updae onsisisisi");
         var shape = svg.getElementById(data["id"]);
@@ -239,7 +239,7 @@
         } else if (data.shape == "Ellipse") {
           updateEllipse(shape, data);
         } else {
-          updateRect(shape, data);          
+          updateRect(shape, data);
         }
         break;
       default:
@@ -250,89 +250,91 @@
         break;
     }
   }
-  
 
-  var svg = Tools.svg
+  var svg = Tools.svg;
   function createShape(data) {
     //Creates a new shape on the canvas, or update a shape that already exists with new information
-    var shape = svg.getElementById(data.id)
+    var shape = svg.getElementById(data.id);
     // console.log("In SHAPE", data)
     if (data.shape == "Circle") {
-      if (!shape) shape = Tools.createSVGElement("circle")
-      updateCircle(shape, data)
+      if (!shape) shape = Tools.createSVGElement("circle");
+      updateCircle(shape, data);
     } else if (data.shape == "Triangle") {
-      if (!shape) shape = Tools.createSVGElement("polygon")
-      updateTriangle(shape, data)
+      if (!shape) shape = Tools.createSVGElement("polygon");
+      updateTriangle(shape, data);
     } else if (data.shape == "EquiTriangle") {
-      if (!shape) shape = Tools.createSVGElement("polygon")
-      updateEquiTriangle(shape, data)
+      if (!shape) shape = Tools.createSVGElement("polygon");
+      updateEquiTriangle(shape, data);
     } else if (data.shape == "Parallelogram") {
-      if (!shape) shape = Tools.createSVGElement("polygon")
-      updateParallelogram(shape, data)
+      if (!shape) shape = Tools.createSVGElement("polygon");
+      updateParallelogram(shape, data);
     } else if (data.shape == "Rombus") {
-      if (!shape) shape = Tools.createSVGElement("polygon")
-      updateRombus(shape, data)
+      if (!shape) shape = Tools.createSVGElement("polygon");
+      updateRombus(shape, data);
     } else if (data.shape == "Trapezoid") {
-      if (!shape) shape = Tools.createSVGElement("polygon")
-      updateTrapezoid(shape, data)
+      if (!shape) shape = Tools.createSVGElement("polygon");
+      updateTrapezoid(shape, data);
     } else if (data.shape == "Pentagon") {
-      if (!shape) shape = Tools.createSVGElement("polygon")
-      updatePentagon(shape, data)
+      if (!shape) shape = Tools.createSVGElement("polygon");
+      updatePentagon(shape, data);
     } else if (data.shape == "Hexagon") {
-      if (!shape) shape = Tools.createSVGElement("polygon")
-      updateHexagon(shape, data)
+      if (!shape) shape = Tools.createSVGElement("polygon");
+      updateHexagon(shape, data);
     } else if (data.shape == "Ellipse") {
-      if (!shape) shape = Tools.createSVGElement("ellipse")
-      updateEllipse(shape, data)
+      if (!shape) shape = Tools.createSVGElement("ellipse");
+      updateEllipse(shape, data);
     } else if (data.shape == "Cube") {
-      if (!shape) shape = Tools.createSVGElement("cube")
-      update3D(shape, data)
+      if (!shape) shape = Tools.createSVGElement("cube");
+      update3D(shape, data);
     } else if (data.shape == "Cone") {
-      if (!shape) shape = Tools.createSVGElement("cone")
-      update3D(shape, data)
+      if (!shape) shape = Tools.createSVGElement("cone");
+      update3D(shape, data);
     } else if (data.shape == "Cylinder") {
-      if (!shape) shape = Tools.createSVGElement("cylinder")
-      update3D(shape, data)
+      if (!shape) shape = Tools.createSVGElement("cylinder");
+      update3D(shape, data);
     } else if (data.shape == "Sphere") {
-      if (!shape) shape = Tools.createSVGElement("sphere")
-      update3D(shape, data)
+      if (!shape) shape = Tools.createSVGElement("sphere");
+      update3D(shape, data);
     } else if (data.shape == "Pyramid") {
-      if (!shape) shape = Tools.createSVGElement("pyramid")
-      update3D(shape, data)
+      if (!shape) shape = Tools.createSVGElement("pyramid");
+      update3D(shape, data);
     } else {
-      if (!shape) shape = Tools.createSVGElement("rect")
-      updateRect(shape, data)
+      if (!shape) shape = Tools.createSVGElement("rect");
+      updateRect(shape, data);
     }
-    shape.id = data.id
+    shape.id = data.id;
     //If some data is not provided, choose default value. The shape may be updated later
-    if (Tools.useLayers) shape.setAttribute("class", "layer-" + Tools.layer)
-    shape.setAttribute("stroke", data.color || "black")
-    shape.setAttribute("stroke-width", data.size || 10)
+    if (Tools.useLayers) shape.setAttribute("class", "layer-" + Tools.layer);
+    shape.setAttribute("stroke", data.color || "black");
+    shape.setAttribute("stroke-width", data.size || 10);
     if (data.dashed == true) {
-      shape.setAttribute("stroke-dasharray", "10 10" || "10 10")
+      shape.setAttribute("stroke-dasharray", "10 10" || "10 10");
     }
-    shape.setAttribute("opacity", Math.max(0.1, Math.min(1, data.opacity)) || 1)
-    Tools.group.appendChild(shape)
-    return shape
+    shape.setAttribute(
+      "opacity",
+      Math.max(0.1, Math.min(1, data.opacity)) || 1
+    );
+    Tools.group.appendChild(shape);
+    return shape;
   }
 
   function updateRect(shape, data) {
-    console.log(shape, "shape")
-    shape.x.baseVal.value = Math.min(data["x2"], data["x"])
-    shape.y.baseVal.value = Math.min(data["y2"], data["y"])
-    shape.width.baseVal.value = Math.max(1, Math.abs(data["x2"] - data["x"]))
-    shape.height.baseVal.value = Math.max(1, Math.abs(data["y2"] - data["y"]))
-    shape.setAttribute("fill", "none")
+    console.log(shape, "shape");
+    shape.x.baseVal.value = Math.min(data["x2"], data["x"]);
+    shape.y.baseVal.value = Math.min(data["y2"], data["y"]);
+    shape.width.baseVal.value = Math.max(1, Math.abs(data["x2"] - data["x"]));
+    shape.height.baseVal.value = Math.max(1, Math.abs(data["y2"] - data["y"]));
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
-    if (data.transform) shape.setAttribute("transform", data.transform)
+    if (data.transform) shape.setAttribute("transform", data.transform);
   }
 
   function updateCircle(shape, data) {
-    console.log("shapeCircle", shape)
-    shape.cx.baseVal.value = Math.round((data["x2"] + data["x"]) / 2)
-    shape.cy.baseVal.value = Math.round((data["y2"] + data["y"]) / 2)
+    console.log("shapeCircle", shape);
+    shape.cx.baseVal.value = Math.round((data["x2"] + data["x"]) / 2);
+    shape.cy.baseVal.value = Math.round((data["y2"] + data["y"]) / 2);
     shape.r.baseVal.value = Math.max(
       1,
       Math.round(
@@ -341,91 +343,91 @@
             Math.pow(data["y2"] - data["y"], 2)
         ) / 2
       )
-    )
-    shape.setAttribute("fill", "none")
+    );
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
-    if (data.transform) shape.setAttribute("transform", data.transform)
+    if (data.transform) shape.setAttribute("transform", data.transform);
   }
 
   function updateTriangle(shape, data) {
-    console.log("shapeTriangle", shape)
-    var x1 = Math.min(data["x2"], data["x"])
-    var y1 = Math.max(data["y2"], data["y"])
-    var x2 = Math.max(data["x2"], data["x"])
-    var y2 = Math.min(data["y2"], data["y"])
+    console.log("shapeTriangle", shape);
+    var x1 = Math.min(data["x2"], data["x"]);
+    var y1 = Math.max(data["y2"], data["y"]);
+    var x2 = Math.max(data["x2"], data["x"]);
+    var y2 = Math.min(data["y2"], data["y"]);
 
-    var width = Math.abs(x2 - x1)
-    var height = Math.abs(y2 - y1)
+    var width = Math.abs(x2 - x1);
+    var height = Math.abs(y2 - y1);
 
-    var points
+    var points;
     if (width > height) {
       // Make the base the longer side
       if (x1 < x2) {
-        points = `${x1},${y1} ${x2},${y1} ${x1},${y2}`
+        points = `${x1},${y1} ${x2},${y1} ${x1},${y2}`;
       } else {
-        points = `${x1},${y1} ${x2},${y1} ${x2},${y2}`
+        points = `${x1},${y1} ${x2},${y1} ${x2},${y2}`;
       }
     } else {
       // Make the height the longer side
       if (y1 < y2) {
-        points = `${x1},${y1} ${x1},${y2} ${x2},${y1}`
+        points = `${x1},${y1} ${x1},${y2} ${x2},${y1}`;
       } else {
-        points = `${x1},${y1} ${x1},${y2} ${x2},${y2}`
+        points = `${x1},${y1} ${x1},${y2} ${x2},${y2}`;
       }
     }
 
-    shape.setAttribute("points", points)
-    shape.setAttribute("fill", "none")
+    shape.setAttribute("points", points);
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
     if (data.transform) {
-      shape.setAttribute("transform", data.transform)
+      shape.setAttribute("transform", data.transform);
     }
   }
 
   function updateEquiTriangle(shape, data) {
-    console.log("shapeEquilateralTriangle", shape)
-    var centerX = (data.x + data.x2) / 2
-    var centerY = (data.y + data.y2) / 2
-    var sideLength = Math.abs(data.x2 - data.x)
+    console.log("shapeEquilateralTriangle", shape);
+    var centerX = (data.x + data.x2) / 2;
+    var centerY = (data.y + data.y2) / 2;
+    var sideLength = Math.abs(data.x2 - data.x);
 
-    var height = (Math.sqrt(3) / 2) * sideLength
+    var height = (Math.sqrt(3) / 2) * sideLength;
 
-    var x1 = centerX
-    var y1 = centerY - height / 3
-    var x2 = centerX - sideLength / 2
-    var y2 = centerY + (2 * height) / 3
-    var x3 = centerX + sideLength / 2
-    var y3 = y2
+    var x1 = centerX;
+    var y1 = centerY - height / 3;
+    var x2 = centerX - sideLength / 2;
+    var y2 = centerY + (2 * height) / 3;
+    var x3 = centerX + sideLength / 2;
+    var y3 = y2;
 
-    var points = `${x1},${y1} ${x2},${y2} ${x3},${y3}`
+    var points = `${x1},${y1} ${x2},${y2} ${x3},${y3}`;
 
-    shape.setAttribute("points", points)
-    shape.setAttribute("fill", "none")
+    shape.setAttribute("points", points);
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
     if (data.transform) {
-      shape.setAttribute("transform", data.transform)
+      shape.setAttribute("transform", data.transform);
     }
   }
 
   function updateParallelogram(shape, data) {
     // Extract the required properties from the data object
-    console.log("Shape---Parallelogram", shape)
-    var centerX = Math.round((data.x2 + data.x) / 2)
-    var centerY = Math.round((data.y2 + data.y) / 2)
-    var width = Math.abs(data.x2 - data.x)
-    var height = Math.abs(data.y2 - data.y)
+    console.log("Shape---Parallelogram", shape);
+    var centerX = Math.round((data.x2 + data.x) / 2);
+    var centerY = Math.round((data.y2 + data.y) / 2);
+    var width = Math.abs(data.x2 - data.x);
+    var height = Math.abs(data.y2 - data.y);
 
     // Calculate the coordinates of the parallelogram vertices
-    var x1 = centerX - width / 2
-    var x2 = centerX + width / 2
-    var y1 = centerY - height / 2
-    var y2 = centerY + height / 2
+    var x1 = centerX - width / 2;
+    var x2 = centerX + width / 2;
+    var y1 = centerY - height / 2;
+    var y2 = centerY + height / 2;
 
     var points =
       x1 +
@@ -442,25 +444,25 @@
       " " +
       (x1 - width / 4) +
       "," +
-      y2
+      y2;
 
     // Update the attributes of the polygon shape
-    shape.setAttribute("points", points)
-    shape.setAttribute("fill", "none")
+    shape.setAttribute("points", points);
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
     if (data.transform) {
-      shape.setAttribute("transform", data.transform)
+      shape.setAttribute("transform", data.transform);
     }
   }
 
   function updateRombus(shape, data) {
     // Extract the required properties from the data object
-    var centerX = Math.round((data.x2 + data.x) / 2)
-    var centerY = Math.round((data.y2 + data.y) / 2)
-    var width = Math.abs(Math.round(data.x2 - data.x))
-    var height = Math.abs(Math.round(data.y2 - data.y))
+    var centerX = Math.round((data.x2 + data.x) / 2);
+    var centerY = Math.round((data.y2 + data.y) / 2);
+    var width = Math.abs(Math.round(data.x2 - data.x));
+    var height = Math.abs(Math.round(data.y2 - data.y));
 
     // Calculate the coordinates of the rhombus vertices
     var points = [
@@ -468,134 +470,134 @@
       centerX + width / 2 + "," + centerY,
       centerX + "," + (centerY + height / 2),
       centerX - width / 2 + "," + centerY,
-    ]
+    ];
 
     // Update the attributes of the polygon shape
-    shape.setAttribute("points", points.join(" "))
-    shape.setAttribute("fill", "none")
+    shape.setAttribute("points", points.join(" "));
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
     if (data.transform) {
-      shape.setAttribute("transform", data.transform)
+      shape.setAttribute("transform", data.transform);
     }
   }
 
   function updateTrapezoid(shape, data) {
-    console.log("shapeTrapezoid", shape)
-    var x1 = Math.min(data["x2"], data["x"])
-    var y1 = Math.max(data["y2"], data["y"])
-    var x2 = Math.max(data["x2"], data["x"])
-    var y2 = Math.min(data["y2"], data["y"])
+    console.log("shapeTrapezoid", shape);
+    var x1 = Math.min(data["x2"], data["x"]);
+    var y1 = Math.max(data["y2"], data["y"]);
+    var x2 = Math.max(data["x2"], data["x"]);
+    var y2 = Math.min(data["y2"], data["y"]);
 
-    var width = Math.abs(x2 - x1)
-    var height = Math.abs(y2 - y1)
+    var width = Math.abs(x2 - x1);
+    var height = Math.abs(y2 - y1);
 
-    var topWidth = width * 0.6 // Adjust the top width ratio as needed
+    var topWidth = width * 0.6; // Adjust the top width ratio as needed
 
     var points = `${x1},${y1} ${x2},${y1} ${
       x2 - (width - topWidth) / 2
-    },${y2} ${x1 + (width - topWidth) / 2},${y2}`
+    },${y2} ${x1 + (width - topWidth) / 2},${y2}`;
 
-    shape.setAttribute("points", points)
-    shape.setAttribute("fill", "none")
+    shape.setAttribute("points", points);
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
     if (data.transform) {
-      shape.setAttribute("transform", data.transform)
+      shape.setAttribute("transform", data.transform);
     }
   }
 
   function updatePentagon(shape, data) {
     // Extract the required properties from the data object
-    var centerX = (data.x2 + data.x) / 2
-    var centerY = (data.y2 + data.y) / 2
-    var sideLength = Math.abs(data.x2 - data.x) / 2
+    var centerX = (data.x2 + data.x) / 2;
+    var centerY = (data.y2 + data.y) / 2;
+    var sideLength = Math.abs(data.x2 - data.x) / 2;
 
     // Calculate the coordinates of the pentagon vertices
-    var angleOffset = (Math.PI * 3) / 2 // Offset to start from the bottom vertex
-    var angle = (2 * Math.PI) / 5
-    var points = []
+    var angleOffset = (Math.PI * 3) / 2; // Offset to start from the bottom vertex
+    var angle = (2 * Math.PI) / 5;
+    var points = [];
     for (var i = 0; i < 5; i++) {
-      var x = centerX + sideLength * Math.cos(angle * i + angleOffset)
-      var y = centerY + sideLength * Math.sin(angle * i + angleOffset)
-      points.push(x + "," + y)
+      var x = centerX + sideLength * Math.cos(angle * i + angleOffset);
+      var y = centerY + sideLength * Math.sin(angle * i + angleOffset);
+      points.push(x + "," + y);
     }
 
     // Update the attributes of the polygon shape
-    shape.setAttribute("points", points.join(" "))
-    shape.setAttribute("fill", "none")
+    shape.setAttribute("points", points.join(" "));
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
     if (data.transform) {
-      shape.setAttribute("transform", data.transform)
+      shape.setAttribute("transform", data.transform);
     }
   }
 
   function updateHexagon(shape, data) {
     // Extract the required properties from the data object
-    var centerX = Math.round((data.x2 + data.x) / 2)
-    var centerY = Math.round((data.y2 + data.y) / 2)
-    var sideLength = Math.abs(Math.round((data.x2 - data.x) / 2))
+    var centerX = Math.round((data.x2 + data.x) / 2);
+    var centerY = Math.round((data.y2 + data.y) / 2);
+    var sideLength = Math.abs(Math.round((data.x2 - data.x) / 2));
 
     // Calculate the coordinates of the hexavertices
-    var angle = Math.PI / 3
-    var points = []
+    var angle = Math.PI / 3;
+    var points = [];
     for (var i = 0; i < 6; i++) {
-      var x = centerX + sideLength * Math.cos(angle * i)
-      var y = centerY + sideLength * Math.sin(angle * i)
-      points.push(x + "," + y)
+      var x = centerX + sideLength * Math.cos(angle * i);
+      var y = centerY + sideLength * Math.sin(angle * i);
+      points.push(x + "," + y);
     }
 
     // Update the attributes of the polygon shape
-    shape.setAttribute("points", points.join(" "))
-    shape.setAttribute("fill", "none")
+    shape.setAttribute("points", points.join(" "));
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
     if (data.transform) {
-      shape.setAttribute("transform", data.transform)
+      shape.setAttribute("transform", data.transform);
     }
   }
 
   function updateEllipse(shape, data) {
-    shape.cx.baseVal.value = Math.round((data["x2"] + data["x"]) / 2)
-    shape.cy.baseVal.value = Math.round((data["y2"] + data["y"]) / 2)
+    shape.cx.baseVal.value = Math.round((data["x2"] + data["x"]) / 2);
+    shape.cy.baseVal.value = Math.round((data["y2"] + data["y"]) / 2);
     shape.rx.baseVal.value = Math.max(
       1,
       Math.abs(Math.round((data["x2"] - data["x"]) / 2))
-    )
+    );
     shape.ry.baseVal.value = Math.max(
       1,
       Math.abs(Math.round((data["y2"] - data["y"]) / 2))
-    )
-    shape.setAttribute("fill", "none")
+    );
+    shape.setAttribute("fill", "none");
     if (data.data) {
-      shape.setAttribute("data-lock", data.data)
+      shape.setAttribute("data-lock", data.data);
     }
-    if (data.transform) shape.setAttribute("transform", data.transform)
+    if (data.transform) shape.setAttribute("transform", data.transform);
   }
 
   function update3D(data) {
-    var imgCount = 1
-    var image = new Image()
+    var imgCount = 1;
+    var image = new Image();
 
     // Set image source based on the shape
     if (data.shape === "Cone") {
-      image.src = "././assets/cone.png"
+      image.src = "././assets/cone.png";
     } else if (data.shape === "Cube") {
-      image.src = "././assets/cube.png"
+      image.src = "././assets/cube.png";
     } else if (data.shape === "Cylinder") {
-      image.src = "././assets/cylinder.png"
+      image.src = "././assets/cylinder.png";
     } else if (data.shape === "Sphere") {
-      image.src = "././assets/sphere.png"
+      image.src = "././assets/sphere.png";
     } else if (data.shape === "Pyramid") {
-      image.src = "././assets/pyramid.png"
+      image.src = "././assets/pyramid.png";
     }
 
-    var uid = Tools.generateUID("doc")
+    var uid = Tools.generateUID("doc");
     // image.onload = function () {
 
     //   var msg = {
@@ -615,18 +617,18 @@
     //   drawImage(msg);
     // };
     image.onload = function () {
-      var xhr = new XMLHttpRequest()
-      xhr.open("GET", image.src, true)
-      xhr.responseType = "blob"
-      xhr.send()
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", image.src, true);
+      xhr.responseType = "blob";
+      xhr.send();
 
       xhr.onload = function () {
         if (xhr.status === 200) {
           // Create a new FileReader instance
-          var reader = new FileReader()
+          var reader = new FileReader();
           reader.onloadend = function () {
             // The result attribute contains the data URL
-            var dataURL = reader.result
+            var dataURL = reader.result;
             var msgLibrary = {
               id: uid,
               type: "doc",
@@ -639,143 +641,143 @@
               y:
                 (100 + document.documentElement.scrollTop) / Tools.scale +
                 10 * imgCount,
-            }
-            drawImage(msgLibrary)
-            Tools.send(msgLibrary, "Document")
-            imgCount++
-          }
+            };
+            drawImage(msgLibrary);
+            Tools.send(msgLibrary, "Document");
+            imgCount++;
+          };
 
           // Read the file as a Data URL
-          reader.readAsDataURL(xhr.response)
+          reader.readAsDataURL(xhr.response);
         }
-      }
-    }
+      };
+    };
   }
 
   function drawImage(msg) {
-    var aspect = msg.w / msg.h
-    var img = Tools.createSVGElement("image")
-    img.id = msg.id
-    img.setAttribute("class", "layer-" + Tools.layer)
-    img.setAttributeNS(xlinkNS, "href", msg.src)
-    img.x.baseVal.value = msg["x"]
-    img.y.baseVal.value = msg["y"]
-    img.setAttribute("width", 400 * aspect)
-    img.setAttribute("height", 400)
-    if (msg.transform) img.setAttribute("transform", msg.transform)
-    Tools.group.appendChild(img)
+    var aspect = msg.w / msg.h;
+    var img = Tools.createSVGElement("image");
+    img.id = msg.id;
+    img.setAttribute("class", "layer-" + Tools.layer);
+    img.setAttributeNS(xlinkNS, "href", msg.src);
+    img.x.baseVal.value = msg["x"];
+    img.y.baseVal.value = msg["y"];
+    img.setAttribute("width", 400 * aspect);
+    img.setAttribute("height", 400);
+    if (msg.transform) img.setAttribute("transform", msg.transform);
+    Tools.group.appendChild(img);
   }
 
   function toggle(elem) {
-    console.log("toggle", elem)
+    console.log("toggle", elem);
     if (Tools.menus["Rectangle"].menuOpen()) {
-      Tools.menus["Rectangle"].show(false)
+      Tools.menus["Rectangle"].show(false);
     } else {
-      Tools.menus["Rectangle"].show(true)
+      Tools.menus["Rectangle"].show(true);
     }
     // if (!menuInitialized) initMenu(elem);
   }
 
-  var menuInitialized = false
-  var menuShape = "Circle"
-  var button
+  var menuInitialized = false;
+  var menuShape = "Circle";
+  var button;
 
   function initMenu(elem) {
-    button = elem
-    var btns = document.getElementsByClassName("submenu-rect")
+    button = elem;
+    var btns = document.getElementsByClassName("submenu-rect");
     for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", menuButtonClicked)
+      btns[i].addEventListener("click", menuButtonClicked);
     }
-    var elem = document.getElementById("rect-dashed")
+    var elem = document.getElementById("rect-dashed");
     // elem.addEventListener("click", dashedClicked);
-    updateMenu("Rectangle")
-    menuInitialized = true
+    updateMenu("Rectangle");
+    menuInitialized = true;
   }
 
   var menuButtonClicked = function () {
-    menuShape = this.id.substr(13)
-    console.log(menuShape, "menuShape")
-    curshape = menuShape
+    menuShape = this.id.substr(13);
+    console.log(menuShape, "menuShape");
+    curshape = menuShape;
 
-    console.log("curshape", curshape)
-    updateMenu(menuShape)
-    changeButtonIcon()
-  }
+    console.log("curshape", curshape);
+    updateMenu(menuShape);
+    changeButtonIcon();
+  };
 
   var changeButtonIcon = function () {
     if (icons[curshape].isHTML) {
       button.getElementsByClassName("tool-icon")[0].innerHTML =
-        icons[curshape].icon
+        icons[curshape].icon;
 
       // <APPLY localization while clickign the shape from modal>
 
-      var select = document.getElementById("languageSelect")
+      var select = document.getElementById("languageSelect");
       button
         .getElementsByClassName("tool-icon")[0]
-        .childNodes[0].classList.add("selected")
+        .childNodes[0].classList.add("selected");
       if (select.value === "hi") {
-        const ele = button.getElementsByClassName("tool-icon")[0].childNodes[1]
-        
+        const ele = button.getElementsByClassName("tool-icon")[0].childNodes[1];
+
         for (let item of localizedStringsHI) {
           if (item.id === ele?.id) {
-            ele.innerHTML = item.value
+            ele.innerHTML = item.value;
           }
         }
       }
     } else {
       button.getElementsByClassName("tool-icon")[0].textContent =
-        icons[curshape].icon
+        icons[curshape].icon;
     }
-  }
+  };
 
   var updateMenu = function (shape) {
-    var btns = document.getElementsByClassName("submenu-rect")
+    var btns = document.getElementsByClassName("submenu-rect");
     for (var i = 0; i < btns.length; i++) {
       if (icons[btns[i].id.substr(13)].isSVG) {
         btns[i].getElementsByClassName("tool-icon")[0].innerHTML =
-          icons[btns[i].id.substr(13)].menuIcon
+          icons[btns[i].id.substr(13)].menuIcon;
       }
-      btns[i].style.backgroundColor = "#fff"
-      btns[i].style.color = "gray"
-      btns[i].style.borderRadius = "8px"
+      btns[i].style.backgroundColor = "#fff";
+      btns[i].style.color = "gray";
+      btns[i].style.borderRadius = "8px";
     }
     /*if(shape=="Ellipse"){
       var extender = document.getElementById("submenu-rect-extend")
       extender.style.display = 'block';
       $(extender).animate({width:250,height:200});
     }*/
-    var btn = document.getElementById("submenu-rect-" + shape)
+    var btn = document.getElementById("submenu-rect-" + shape);
     if (icons[btn.id.substr(13)].isSVG) {
       btn.getElementsByClassName("tool-icon")[0].innerHTML =
-        icons[btn.id.substr(13)].menuIconActive
+        icons[btn.id.substr(13)].menuIconActive;
     }
-    btn.style.backgroundColor = "#eeeeff"
-    btn.style.color = "green"
-    btn.style.borderRadius = "8px"
-  }
+    btn.style.backgroundColor = "#eeeeff";
+    btn.style.color = "green";
+    btn.style.borderRadius = "8px";
+  };
 
   function dashedClicked() {
-    var elem = document.getElementById("rect-dashed")
+    var elem = document.getElementById("rect-dashed");
     if (dashed) {
-      dashed = false
-      elem.setAttribute("class", "far fa-square")
+      dashed = false;
+      elem.setAttribute("class", "far fa-square");
     } else {
-      elem.setAttribute("class", "far fa-check-square")
-      dashed = true
+      elem.setAttribute("class", "far fa-check-square");
+      dashed = true;
     }
   }
 
   function menuListener(elem, onButton, onMenu, e) {
     if (!onMenu && !onButton) {
-      e.stopPropagation()
-      return true
+      e.stopPropagation();
+      return true;
     }
-    return false
+    return false;
   }
 
   function onStart() {
-    Tools.menus["Rectangle"].show(true)
-    initMenu(document.getElementById("toolID-Rectangle"))
+    Tools.menus["Rectangle"].show(true);
+    initMenu(document.getElementById("toolID-Rectangle"));
   }
 
   Tools.add({
@@ -883,5 +885,5 @@
     onstart: onStart,
     mouseCursor: "crosshair",
     stylesheet: "tools/rect/rect.css",
-  })
-})() //End of code isolation
+  });
+})(); //End of code isolation

@@ -11,10 +11,6 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
       audio: true,
     };
 
-    // above constraints are NOT supported YET
-    // that's why overriding them
-    // displaymediastreamconstraints = { audio: true, video: true };
-
     if (navigator.mediaDevices.getDisplayMedia) {
       navigator.mediaDevices
         .getDisplayMedia(displaymediastreamconstraints)
@@ -47,13 +43,20 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
 
   function stopRecordingCallback() {
     console.group("Stopped Recording");
-    getSeekableBlob(recorder.getBlob(), function (seekableBlob) {
-      recorder.screen.stop();
-      recorder.destroy();
-      recorder = null;
 
-      invokeSaveAsDialog(seekableBlob, "seekable-recordrtc.webm");
-    });
+    download(recorder.getBlob());
+    recorder.screen.stop();
+    recorder.destroy();
+    recorder = null;
+
+    // getSeekableBlob(recorder.getBlob(), function (seekableBlob) {
+    //   console.log("Seekable Blob", seekableBlob);
+    //   recorder.screen.stop();
+    //   recorder.destroy();
+    //   recorder = null;
+
+    //   invokeSaveAsDialog(seekableBlob, "seekable-recordrtc.webm");
+    // });
   }
 
   function addStreamStopListener(stream, callback) {
@@ -98,7 +101,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
     var a = document.createElement("a");
     a.style.display = "none";
     a.href = url;
-    a.download = "test.webm";
+    a.download = "Whiteboard-Recording.webm";
     document.body.appendChild(a);
     a.click();
     setTimeout(function () {
@@ -114,6 +117,7 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
   function DesktopRecorder() {
     console.log("DESKTOP SCREEN RECORDING");
     captureScreen(function (screen) {
+      console.log("Capturing the Screen");
       const audioTracks = screen.getAudioTracks();
       const audioConstraints = {};
 

@@ -1,7 +1,7 @@
 const localizedStringsEN = [
   { id: "tool-rectangles-localization", value: "Rectangle" },
   { id: "tool-circle-localization", value: "Circle" },
-  { id: "tool-triangle-localization", value: "Triangle" },
+  { id: "tool-triangle-localization", value: "Right Triangle" },
   { id: "tool-equitri-localization", value: "Equi Triangle" },
   { id: "tool-parallelogram-localization", value: "Parallelogram" },
   { id: "tool-trapezoid-localization", value: "Trapezoid" },
@@ -69,7 +69,7 @@ const localizedStringsEN = [
 const localizedStringsHI = [
   { id: "tool-rectangles-localization", value: "रेक्टेंगल" },
   { id: "tool-circle-localization", value: "सर्किल" },
-  { id: "tool-triangle-localization", value: "ट्राएंगल" },
+  { id: "tool-triangle-localization", value: "राइट ट्राएंगल" },
   { id: "tool-equitri-localization", value: "ट्राएंगल" },
   { id: "tool-parallelogram-localization", value: "पराल्लेलोग्राम" },
   { id: "tool-trapezoid-localization", value: "ट्रेपजॉयड" },
