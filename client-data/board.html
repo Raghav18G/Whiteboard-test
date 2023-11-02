@@ -142,7 +142,7 @@
     <!-- Add new Page modal -->
     <div id="addNewPageModal" class="addNewPageModal">
         <div class="addNewPageModal-content">
-            <span class="pagesModalClose" id="pagesModalClose">&times;</span>
+            <span class="pagesModalClose closeIcon" id="pagesModalClose">&times;</span>
             <h2>Page Navigation</h2>
             <div class="page-container" id="pageContainer">
                 <!-- Pages will be dynamically added here -->
@@ -223,7 +223,7 @@
     <!-- PDF Opener -->
     <div class="pdf-modal" id="pdfModal">
         <div class="pdf-modal-content">
-            <div id="closePDFBtn"> <span class="close">&times;</span></div>
+            <div id="closePDFBtn"> <span class="closeIcon">&times;</span></div>
 
             <h5 id="pdf-name"></h5>
 
@@ -940,12 +940,12 @@
 
     data-trigger="hover">Search</button> -->
 
-        <textarea type="text" placeholder="Type Something...." id="searchBrowser" rows="15" cols="30"
-            class="wb-button wb-edit-button searchBrowser" data-trigger="hover"></textarea>
+        <textarea type="text" placeholder="Type Something...." id="searchBrowser" rows="25" cols="30"
+            class="wb-button wb-edit-button searchBrowser" data-trigger="hover" style="min-width:600px "></textarea>
 
         <!-- <button id="searchBrowser" class="wb-button wb-edit-button searchBrowser">Search</button> -->
 
-        <div id="wb-editor">
+        <div id="wb-editor" style="display: none">
 
             <div class="row wb-editor">
 

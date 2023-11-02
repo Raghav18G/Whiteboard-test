@@ -120,7 +120,6 @@
         image.onload = function () {
           var uid = Tools.generateUID("doc"); // doc for document
           // console.log(image.src.toString().length);
-
           var msg = {
             id: uid,
             type: "doc",
@@ -135,9 +134,7 @@
               10 * imgCount,
             fileType: fileInput.files[0].type,
           };
-
           draw(msg);
-
           Tools.send(msg, "Document");
           imgCount++;
         };
@@ -192,10 +189,9 @@
     fileInput.accept = ".pdf"; // Accept only PDF files
     fileInput.click();
     fileInput.addEventListener("change", function () {
-      var file = fileInput.files;
-
-      console.log("File Uploaded", file);
-      drawPDF(e, file);
+    var file = fileInput.files;
+    console.log("File Uploaded", file);
+    drawPDF(e, file);
     });
   }
 

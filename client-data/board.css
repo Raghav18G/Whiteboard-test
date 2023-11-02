@@ -1909,7 +1909,6 @@ div#msr-pod-up {
   cursor: pointer;
   font-weight: 600;
   font-size: medium;
-  text-align: center;
   padding-left: 15px;
   padding-right: 15px;
   gap: 16px;
@@ -2543,7 +2542,7 @@ div#msr-pod-up {
 }
 
 .pagesModalClose {
-  color: #aaa;
+
   float: right;
   font-size: 28px;
   font-weight: bold;
