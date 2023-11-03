@@ -133,3 +133,80 @@ const localizedStringsHI = [
   { id: "AddNewPage", value: "नई पेज जोड़ें" },
   { id: "moreToolsClose", value: "बंद करें" },
 ];
+
+const localizationLandingEN = [
+  {
+    id: "Idream-heading",
+    text: "With IPrep you can",
+  },
+  {
+    id: "list-1-a",
+    text: "Seamless Annotation:",
+  },
+  {
+    id: "list-2-a",
+    text: "Live Collaboration:",
+  },
+  {
+    id: "list-3-a",
+    text: "Educational Versatility:",
+  },
+  {
+    id: "list-4-a",
+    text: "Teacher-Centric Design:",
+  },
+  {
+    id: "list-1-b",
+    text: "Effortlessly mark up lessons, diagrams, and presentations to engage your students.",
+  },
+  {
+    id: "list-2-b",
+    text: "Foster real-time interaction with your students, even in virtual classrooms.",
+  },
+  {
+    id: "list-3-b",
+    text: "Perfect for lectures, interactive exercises, and sharing knowledge visually.",
+  },
+  {
+    id: "list-4-b",
+    text: "We've tailored this tool to meet your needs, making teaching more effective and enjoyable.",
+  },
+];
+const localizationLandingHI = [
+  {
+    id: "Idream-heading",
+    text: "IPrep के साथ आप कर सकते हैं",
+  },
+  {
+    id: "list-1-a",
+    text: "निर्बाध एनोटेशन:",
+  },
+  {
+    id: "list-2-a",
+    text: "लाइव सहयोग:",
+  },
+  {
+    id: "list-3-a",
+    text: "शैक्षिक बहुमुखी प्रतिभा:",
+  },
+  {
+    id: "list-4-a",
+    text: "शिक्षक-केंद्रित डिज़ाइन:",
+  },
+  {
+    id: "list-1-b",
+    text: "सरलता से, अपने छात्रों को लुभाने के लिए पाठ, आरेख और प्रस्तुतियों को चिह्नित करें।",
+  },
+  {
+    id: "list-2-b",
+    text: "अपने छात्रों के साथ वास्तविक समय में इंटरएक्शन को बढ़ावा दें, यहां तक कि वर्चुअल कक्षाओं में भी।",
+  },
+  {
+    id: "list-3-b",
+    text: "व्याख्यान, इंटरैक्टिव अभ्यास, और ज्ञान को दृश्यगत रूप से साझा करने के लिए सही है।",
+  },
+  {
+    id: "list-4-b",
+    text: "हमने इस उपकरण को आपकी आवश्यकताओं को पूरा करने के लिए तैयार किया है, जिससे शिक्षण को और भी प्रभावी और आनंददायक बनाया जा सकता है।",
+  },
+];

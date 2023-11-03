@@ -82,6 +82,21 @@
             init();
             document.getElementById("openMoreTools").addEventListener("click", () => {
                 document.getElementById("moreTools").style.display = "block"
+                // scroll the modal in touch screen 
+                let container = document.getElementById("moreTools")
+                console.log(document.getElementById("moreTools"), "document");
+                container.addEventListener("touchstart", (e) => {
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                });
+
+                container.addEventListener("touchmove", (e) => {
+                    const deltaX = e.touches[0].clientX - startX;
+                    const deltaY = e.touches[0].clientY - startY;
+
+                    container.scrollLeft -= deltaX;
+                    container.scrollTop -= deltaY;
+                });
             })
 
             document.getElementById("moreToolsClose").addEventListener("click", () => {
@@ -101,6 +116,8 @@
         document.addEventListener('touchmove', function (event) {
             if (event.scale !== 1) { event.preventDefault(); }
         }, { passive: false });
+
+
     </script>
 
 
@@ -223,20 +240,29 @@
     <!-- PDF Opener -->
     <div class="pdf-modal" id="pdfModal">
         <div class="pdf-modal-content">
-            <div id="closePDFBtn"> <span class="closeIcon">&times;</span></div>
-
-            <h5 id="pdf-name"></h5>
+            <div style="display: flex; justify-content: space-between;">
+                <h5 id="pdf-name"></h5>
+                <div id="closePDFBtn"> <span class="closeIcon">&times;</span></div>
+            </div>
+           
+         
 
             <div id="addPDFPages">
+           
             </div>
-            <p style="display: flex;gap: 5px">
-                <button id="select-All" class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
-                <button id="remove-All" class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
-
-            </p>
-            <div style="align-self:end;">
+            <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex;gap: 10px">
+                
+                    <button id="select-All" class="pdfBtn" onclick="handleAddAllPDF()">Select All</button>
+                    <button id="remove-All" class="pdfBtn" onclick="deselectAllPDF()">Remove ALL</button>
+    
+                </div>
                 <button id="importPDF" class="pdfBtn" onclick="handleDrawPDF()">Import PDF</button>
             </div>
+           
+            
+               
+            
         </div>
     </div>
 
@@ -253,14 +279,14 @@
         <div class="documentModal-content">
             <span class="closeIcon" id="documentModalModalClose"><img src="./assets/closeCircle.png" /></span>
             <div>
-                <div class="documentModalOptions" id="SelectFromDeviceParent" >
+                <div class="documentModalOptions" id="SelectFromDeviceParent">
                     <img src="assets/AddImageFromLocal.svg" class="document-modal-icon1" />
                     <p id="SelectFromDevice" class="document-option">Add Image from Device </p>
 
                 </div>
 
                 <hr />
-                <div class="documentModalOptions" id="SelectFromLibraryParent" >
+                <div class="documentModalOptions" id="SelectFromLibraryParent">
                     <img src="assets/AddImageFromLibrary.svg" class="document-modal-icon2" />
                     <p id="SelectFromLibrary" class="document-option">Add Image From Library</p>
                 </div>
@@ -596,6 +622,7 @@
         </ul>
         <button id="moreToolsClose">Close</button>
     </div>
+
     <!-- Draggable Toolbar  -->
     <div id="draggableToolbar">
         <!-- Tools -->
@@ -816,7 +843,7 @@
                 </pattern>
             </defs>
             <!-- <rect onmousedown="mouser.unregisterShapes()" style="display:block" id="rect_1" width="100%" height="100%" fill="url(#grid)" /> -->
-            <rect onmousedown="mouser.unregisterShapes()" style="display:block;" id="rect_1" width="100%" height="100%"
+            <rect onmousedown="mouser.unregisterShapes()" style="display:block; overflow: scroll;" id="rect_1" width="100%" height="100%"
                 fill="transparent" />
             <g id="cursors"></g>
             <g id="layer-1"></g>
@@ -999,8 +1026,8 @@
             </div>
             <div class="bg-modal-tabs">
                 <div class="tab-container">
-                    <button class="color-tab" id="colorPickerTab" onclick="openTab(event, 'color-tab1')" ><svg
-                            width="25" height="25" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    <button class="color-tab" id="colorPickerTab" onclick="openTab(event, 'color-tab1')"><svg width="25"
+                            height="25" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink">
                             <path fill="#444"
                                 d="M13 14.5c0.468-2.207 0.985-4.050 1.604-5.846 0.411 1.796 0.928 3.638 1.337 5.521 0.059 1.153-0.612 1.825-1.441 1.825s-1.5-0.672-1.5-1.5z">
@@ -1010,7 +1037,8 @@
                             </path>
                         </svg>
                     </button>
-                    <button class="color-tab" id="patternPickerTab" onclick="openTab(event, 'color-tab2')" title="Pattern Picker">
+                    <button class="color-tab" id="patternPickerTab" onclick="openTab(event, 'color-tab2')"
+                        title="Pattern Picker">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none">
                             <g id="Media / Image_02">
                                 <path id="Vector"
@@ -1245,8 +1273,8 @@
                     document.getElementById("line1").title = `सोलिड लाइन`;
                     document.getElementById("line2").title = `सोलिड एरो`;
                     document.getElementById("line3").title = `डैश लाइन`;
-                    document.getElementById("colorPickerTab").title=`रंग चुनें`;
-                    document.getElementById("patternPickerTab").title=`पैटर्न चुनें`;
+                    document.getElementById("colorPickerTab").title = `रंग चुनें`;
+                    document.getElementById("patternPickerTab").title = `पैटर्न चुनें`;
                     document.getElementById("color-pick").title = `कलर पिकर`;
                     document.getElementById("opacity-picker").title = `ओपेसिटी पिकर`;
                     document.getElementById("tool-size-selector").title = `टूल साइज़ सलेक्टर`;
@@ -1404,8 +1432,8 @@
                     document.getElementById("line2").title = `Solid arrow`;
                     document.getElementById("line3").title = `Dashed line`;
 
-                    document.getElementById("colorPickerTab").title=`Color Picker`;
-                    document.getElementById("patternPickerTab").title=`Pattern Picker`;
+                    document.getElementById("colorPickerTab").title = `Color Picker`;
+                    document.getElementById("patternPickerTab").title = `Pattern Picker`;
 
                     document.getElementById("color-pick").title = `Color Picker`;
                     document.getElementById("opacity-picker").title = `Opacity Picker`;

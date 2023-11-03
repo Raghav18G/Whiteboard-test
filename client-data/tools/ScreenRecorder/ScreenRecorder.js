@@ -34,9 +34,6 @@ var screenshotSVG = `<div class="tool-selected"><svg width="20" height="20" styl
       },
       function (error) {
         console.error(error);
-        alert(
-          "Unable to capture your screen. Please check console logs.\n" + error
-        );
       }
     );
   }

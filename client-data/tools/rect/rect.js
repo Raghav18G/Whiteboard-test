@@ -361,24 +361,25 @@
     var width = Math.abs(x2 - x1);
     var height = Math.abs(y2 - y1);
 
-    var points;
-    if (width > height) {
-      // Make the base the longer side
+    // Determine which side is the base of the triangle
+    var isBaseHorizontal = width > height;
+
+    if (isBaseHorizontal) {
+      // Make the base the longer side (horizontal)
       if (x1 < x2) {
-        points = `${x1},${y1} ${x2},${y1} ${x1},${y2}`;
+        shape.setAttribute("points", `${x1},${y1} ${x2},${y1} ${x1},${y2}`);
       } else {
-        points = `${x1},${y1} ${x2},${y1} ${x2},${y2}`;
+        shape.setAttribute("points", `${x2},${y1} ${x1},${y1} ${x2},${y2}`);
       }
     } else {
-      // Make the height the longer side
+      // Make the base the longer side (vertical)
       if (y1 < y2) {
-        points = `${x1},${y1} ${x1},${y2} ${x2},${y1}`;
+        shape.setAttribute("points", `${x1},${y1} ${x1},${y2} ${x2},${y1}`);
       } else {
-        points = `${x1},${y1} ${x1},${y2} ${x2},${y2}`;
+        shape.setAttribute("points", `${x1},${y2} ${x1},${y1} ${x2},${y2}`);
       }
     }
 
-    shape.setAttribute("points", points);
     shape.setAttribute("fill", "none");
     if (data.data) {
       shape.setAttribute("data-lock", data.data);

@@ -15,13 +15,14 @@ ul {
   padding: 0px;
 }
 
-/* #rect_1{
-  fill: transparent !important; 
-}  */
+ /* #rect_1{
+height: 100%;
+overflow: scroll;
+}   */
 
-.toggle-white {
+/* .toggle-white {
   fill: transparent;
-}
+} */
 
 /* .tool-icon svg {
   height: 17px;
@@ -2767,3 +2768,5 @@ border: none;
 .unselectable {
   user-select: none;
 }
+
+
