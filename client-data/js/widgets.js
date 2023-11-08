@@ -455,7 +455,10 @@ const MagnifyingGlass = () => {
       const MagnifyingGlass = document.getElementsByClassName(
         "img-magnifier-glass"
       )
-      MagnifyingGlass.length >= 1 ?( parentGlass.remove(),document.getElementById("body-new").style.overflow="") : ""
+      MagnifyingGlass.length >= 1
+        ? (parentGlass.remove(),
+          (document.getElementById("body-new").style.overflow = ""))
+        : ""
     })
     maginifyingBtn.addEventListener("touchstart", e => {
       e.preventDefault()
@@ -510,7 +513,7 @@ const MagnifyingGlass = () => {
       glass.addEventListener("touchmove", moveMagnifier)
       img.addEventListener("touchmove", moveMagnifier)
 
-      document.getElementById("body-new").style.overflow="hidden"
+      document.getElementById("body-new").style.overflow = "hidden"
 
       function moveMagnifier(e) {
         /*prevent any other actions that may occur when moving over the image*/
@@ -1015,10 +1018,10 @@ const stopWatchWidget = e => {
     "foreignObject"
   )
 
-  const stopwatchWidgetElement = document.createElement("div");
-  stopwatchWidgetElement.id = "stopwatchWidget";
-  stopwatchWidgetElement.classList.add("unselectable");
-  let uid = Tools.generateUID("doc");
+  const stopwatchWidgetElement = document.createElement("div")
+  stopwatchWidgetElement.id = "stopwatchWidget"
+  stopwatchWidgetElement.classList.add("unselectable")
+  let uid = Tools.generateUID("doc")
 
   // const stopwatchWidgetHTML = `
   // <div id="display">00:00:00</div>
@@ -1206,10 +1209,12 @@ const protractorWidget = e => {
 
   // Prevent automatic changing of input field while dragging
   $(document).ready(function () {
-    const rotationalContainer = document.getElementById(`rotational-container ${uid}`)
+    const rotationalContainer = document.getElementById(
+      `rotational-container ${uid}`
+    )
     const rotationalDiv = document.getElementById(`rotational-division ${uid}`)
     const rotationAngleInput = document.getElementById(`rotation-angle ${uid}`)
-    console.log(rotationAngleInput,"rotationAngleInput");
+    console.log(rotationAngleInput, "rotationAngleInput")
     let initialAngle = 0
     let rotationAngle = 0
 
@@ -1218,8 +1223,8 @@ const protractorWidget = e => {
       initialAngle = Math.atan2(
         e.clientY - window.innerHeight / 2,
         e.clientX - window.innerWidth / 2
-      );
-    });
+      )
+    })
 
     // $(document).on("mousemove", function (e) {
     //   if (isDragging) {
@@ -1241,11 +1246,11 @@ const protractorWidget = e => {
     // });
 
     rotationAngleInput.addEventListener("input", function () {
-      const inputValue = parseInt(rotationAngleInput.value);
+      const inputValue = parseInt(rotationAngleInput.value)
       if (!isNaN(inputValue)) {
         let newRotationAngle = inputValue % 360
         if (newRotationAngle < 0) newRotationAngle += 360
-        rotationalDiv.style.transform=`rotate(${newRotationAngle}deg)`
+        rotationalDiv.style.transform = `rotate(${newRotationAngle}deg)`
         rotationAngle = newRotationAngle
       }
     })
@@ -2028,6 +2033,12 @@ function getVisibleViewport() {
   // Calculate the dimensions of the visible area
   const visibleAreaWidth = visibleRight - visibleLeft
   const visibleAreaHeight = visibleBottom - visibleTop
+  const minX = visibleLeft
+  const maxX = visibleLeft + viewportWidth
+  const minY = visibleTop
+  const maxY = visibleTop + viewportHeight
+  const randomX = Math.random() * (maxX - minX) + minX
+  const randomY = Math.random() * (maxY - minY) + minY
 
   return {
     width: visibleAreaWidth,
@@ -2036,22 +2047,24 @@ function getVisibleViewport() {
     left: visibleLeft,
     bottom: visibleBottom,
     right: visibleRight,
-  };
-}
-
-function toggleDiv(id) {
-  console.log("In TOGGLE DIC");
-  const div = document.getElementById(`${id}`);
-  if (div.style.display === "none") {
-    div.style.display = "block";
-  } else {
-    div.style.display = "none";
+    x: randomX,
+    y: randomY,
   }
 }
 
-const setSquareWidget = (e) => {
-  createDrag = new Draggable();
-  let uid = Tools.generateUID("doc");
+function toggleDiv(id) {
+  console.log("In TOGGLE DIC")
+  const div = document.getElementById(`${id}`)
+  if (div.style.display === "none") {
+    div.style.display = "block"
+  } else {
+    div.style.display = "none"
+  }
+}
+
+const setSquareWidget = e => {
+  createDrag = new Draggable()
+  let uid = Tools.generateUID("doc")
 
   const setSquareforeignObject = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -2059,7 +2072,7 @@ const setSquareWidget = (e) => {
   )
   const setSquareWidgetElement = document.createElement("div")
 
-  setSquareWidgetElement.id = "setSquareWidget";
+  setSquareWidgetElement.id = "setSquareWidget"
 
   const setSquareWidgetHTML = `
   <div class="setSqaure unselectable">
@@ -2119,12 +2132,12 @@ const setSquareWidget = (e) => {
     "triangle-one-image",
     "rotatableTriangle",
     "rotationInput",
-  ];
+  ]
 
-  setSquareID.forEach((item) => {
-    let ids = document.getElementById(item);
-    ids.id += ` ${uid}`;
-  });
+  setSquareID.forEach(item => {
+    let ids = document.getElementById(item)
+    ids.id += ` ${uid}`
+  })
 
   //makeDraggeble(setSquareforeignObject);
   const dragDiv = document.createElement("div")

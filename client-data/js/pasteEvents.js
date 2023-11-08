@@ -103,7 +103,7 @@ function drawImage(msg) {
   img.setAttribute("height", 400);
   if (msg.transform) img.setAttribute("transform", msg.transform);
   Tools.group.appendChild(img);
-}
+} 
 
 function drawText(text) {
   var elem = Tools.createSVGElement("text");
@@ -117,9 +117,12 @@ function drawText(text) {
     Math.max(0.1, Math.min(1, curText.opacity)) || 1
   );
   elem.textContent = text;
-
-  Tools.group.appendChild(elem);
+  let curEle= document.getElementById("toolID-Text").classList.contains("curTool")
+  if(!curEle){
+    Tools.group.appendChild(elem);
+  }
 }
+
 //Function For drawing Image
 async function pasteImage() {
   console.log("CALLED");

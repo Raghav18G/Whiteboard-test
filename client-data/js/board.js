@@ -372,9 +372,9 @@ Tools.clearBoard = function (deleteMsgs) {
   //group.style.mask = "url(#mask-layer-"+Tools.layer+")"
   Tools.svg.appendChild(group);
   Tools.group = group;
+  // append new maths tool after deleting
   const newGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
   newGroup.setAttribute("id", "maths-tool");
-
   Tools.svg.appendChild(newGroup);
   // <end>
 };

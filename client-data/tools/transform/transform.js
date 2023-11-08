@@ -197,9 +197,32 @@
 		return false;
 	}
 
+	let checkDelete=null
+
+	// tried a approach but need to remove it from backend data of lines 
+	// function removeSelected(item) {
+	// 	if (Array.isArray(item)) {
+	// 	  item.map((each)=>{
+	// 		  each.addEventListener("keydown",(evt)=>{
+	// 			  if(evt.key==="Delete"){
+	// 			   each.remove()	
+	// 			  }
+	// 		  })
+	// 	  })
+	// 	} else {
+	// 	  if (item.id !== "rect_1") {
+	// 		  if(item.id===checkDelete.id){
+	// 			  item.remove()
+	// 		  }
+	// 	  }
+	// 	}
+	//   }
+
 	function acquireShape(x, y, evt) {
 		// evt.target should be the element over which the mouse is...
 		var target = evt.target;
+		// checkDelete=evt.target;
+		// removeSelected(target)
 		if(evt.type.startsWith("touch"))D2isTouch=true;
 		if (evt.type === "touchmove") {
 			// ... the target of touchmove events is the element that was initially touched,

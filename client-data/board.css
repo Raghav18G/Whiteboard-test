@@ -909,6 +909,7 @@ button.close.window-button {
   /* margin: 5px; */
   overflow: hidden;
   border-radius: 100%;
+
 }
 
 .rangeChooser {
@@ -927,7 +928,7 @@ button.close.window-button {
   background: transparent;
 }
 .rangeChooser-opacity {
-  width: 8rem !important;
+  width: 8rem !important; 
   bottom: 2.5rem !important;
   height: 12rem;
   left: 1.7rem;
@@ -1526,12 +1527,21 @@ div#msr-pod-up {
     margin-top: -3px !important;
     margin-left: 0px !important;
     width: 27px !important;
+  
     height: 31px !important;
   }
   .parent-color-picker {
     margin-top: 10px !important;
     margin-left: 5px !important;
     margin-bottom: 17px !important;
+    display: flex !important;
+    flex-direction: column !important;
+
+  }
+  .color-demonstrator{
+    border-radius: 50%;
+    width: 4px;
+    background-color: red !important;
   }
   .line-background-icon {
     margin-top: -2px !important;
@@ -1921,7 +1931,7 @@ div#msr-pod-up {
 #downloadModalClose {
   position: absolute;
   top: 8px;
-  right: 0px;
+  opacity: 1 !important;
   cursor: pointer;
   font-size: 24px;
 }
@@ -2492,7 +2502,7 @@ div#msr-pod-up {
 
 .icon-input::before {
   content: "";
-  background-image: url(./assets/color-picker.svg);
+  background-image: url(./assets/color-picker.png);
   background-size: 16px;
   background-repeat: no-repeat;
   /* background-position: right 10px center; */
