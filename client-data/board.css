@@ -1538,11 +1538,7 @@ div#msr-pod-up {
     flex-direction: column !important;
 
   }
-  .color-demonstrator{
-    border-radius: 50%;
-    width: 4px;
-    background-color: red !important;
-  }
+
   .color-status{
     height: 12px !important;
     width:11px !important;

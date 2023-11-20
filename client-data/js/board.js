@@ -1296,6 +1296,7 @@ Tools.decomposeMatrix = function (mat) {
 Tools.getColor = (function color() {
   var chooser = document.getElementById("chooseColor");
   var status = document.getElementById("colorStatus");
+
   // Init with a random color
   var clrs = [
     "#001f3f",
@@ -1315,11 +1316,14 @@ Tools.getColor = (function color() {
     "#AAAAAA",
   ];
   var value = (chooser.value = clrs[(Math.random() * clrs.length) | 0]);
-  console.log("Chooser Value", chooser.value, "STATUS", status);
+  status.style.backgroundColor = chooser.value;
+  status.style.border = "1px solid black";
   return function () {
     return chooser.value;
   };
 })();
+
+
 
 Tools.setSize = (function size() {
   var chooser = document.getElementById("chooseSize");
