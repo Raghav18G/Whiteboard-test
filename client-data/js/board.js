@@ -27,6 +27,8 @@
 //TODO Isolate this code...Expose one object
 //TODO naming: clean up global vars
 //TODO config file
+
+
 let checkCurTool = true;
 var Tools = {};
 var wb_comp = {};
@@ -65,6 +67,7 @@ const MAX_CURSOR_UPDATES_PER_SECOND = 20;
 const DISPLAY_ACTIVITY_MONITOR = true;
 var loading = true;
 var isDataEmpty = false;
+
 
 (Tools.socket = null),
   (Tools.connect = function () {
@@ -137,7 +140,11 @@ var isDataEmpty = false;
     });
   });
 
+
 $("#pleaseWaitDialog").modal();
+
+
+
 Tools.connect();
 
 Tools.boardName = (function () {
@@ -554,6 +561,8 @@ Tools.HTML = {
 };
 
 wb_comp.list = {};
+
+
 
 wb_comp.add = function (newComp) {
   if (newComp.name in wb_comp.list) {
