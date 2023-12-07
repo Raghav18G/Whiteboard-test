@@ -45,7 +45,7 @@ module.exports = {
     MAX_BOARD_SIZE: parseInt(process.env['MAX_BOARD_SIZE']) || 65536,
 
     /** Maximum number of undos */
-    MAX_UNDO_HISTORY: parseInt(process.env['MAX_UNDO_HISTORY']) || 25,
+    MAX_UNDO_HISTORY: parseInt(process.env['MAX_UNDO_HISTORY']) || 500,
 
     /** Maximum size attribute of items (for validation) */
     MAX_ITEM_SIZE: parseInt(process.env['MAX_ITEM_SIZE']) || 50,
