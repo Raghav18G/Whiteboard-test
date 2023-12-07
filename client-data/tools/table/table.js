@@ -215,7 +215,8 @@ let TableObjects = [];
     //"oneTouch":true,
     onstart: createTable, // start the fn while tool is selected
     mouseCursor: "auto",
-    oneTouch: true,
+    oneTouch: false,
+    toggle: () => {},
     onquit: onQuit,
     draw: draw,
   });

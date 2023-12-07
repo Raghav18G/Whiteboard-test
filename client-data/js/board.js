@@ -28,7 +28,6 @@
 //TODO naming: clean up global vars
 //TODO config file
 
-
 let checkCurTool = true;
 var Tools = {};
 var wb_comp = {};
@@ -67,7 +66,6 @@ const MAX_CURSOR_UPDATES_PER_SECOND = 20;
 const DISPLAY_ACTIVITY_MONITOR = true;
 var loading = true;
 var isDataEmpty = false;
-
 
 (Tools.socket = null),
   (Tools.connect = function () {
@@ -140,10 +138,7 @@ var isDataEmpty = false;
     });
   });
 
-
 $("#pleaseWaitDialog").modal();
-
-
 
 Tools.connect();
 
@@ -562,8 +557,6 @@ Tools.HTML = {
 
 wb_comp.list = {};
 
-
-
 wb_comp.add = function (newComp) {
   if (newComp.name in wb_comp.list) {
     console.log(
@@ -754,6 +747,9 @@ Tools.change = function (toolName) {
         }
       }
       console.log("check tool condition", "checkCurTool", checkCurTool);
+      if (Tools.curTool.name === "Table") {
+        newtool.onstart(Tools.curTool);
+      }
       return;
     }
     //Remove the old event listeners
@@ -1331,8 +1327,6 @@ Tools.getColor = (function color() {
     return chooser.value;
   };
 })();
-
-
 
 Tools.setSize = (function size() {
   var chooser = document.getElementById("chooseSize");
